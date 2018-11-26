@@ -21,3 +21,14 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+tweetextractor-commons/.classpath
+tweetextractor-commons/.project
+.DS_Store
+*.prefs
+tweetextractor-fx/.project
+tweetextractor-fx/.classpath
+tweetextractor-fx/resources/tweetextractordb.out.xml
+tweetextractor-server/.settings/.jsdtscope
+tweetextractor-server/.project
+tweetextractor-server/.classpath
+*.container

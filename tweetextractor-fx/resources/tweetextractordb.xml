@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- Connection settings -->
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://db.preciapps.com/te_op00?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
+		<property name="hibernate.default_schema">te_op00</property>
+		<property name="hibernate.connection.username">te_op00_update</property>
+		<property name="hibernate.connection.password">te_op00_update</property>
+
+		<!-- SQL dialect -->
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+		<!-- Print executed SQL to stdout -->
+		<property name="show_sql">true</property>
+
+		<!-- Drop and re-create all database on startup -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+		<!-- Annotated entity classes -->
+		<mapping class="es.uam.eps.tweetextractor.model.User" />
+		<mapping class="es.uam.eps.tweetextractor.model.Credentials" />
+		<mapping class="es.uam.eps.tweetextractor.model.Extraction" />
+		<mapping class="es.uam.eps.tweetextractor.model.GeoLocation" />
+		<mapping class="es.uam.eps.tweetextractor.model.Tweet" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.Filter" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterContains" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterContainsExact" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterFrom" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterTo" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterHashtag" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterList" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterMention" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterNot" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterOr" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterSince" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterUntil" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.filter.impl.FilterUrl" />
+		<mapping
+			class="es.uam.eps.tweetextractor.model.servertask.ServerTask" />
+
+
+	</session-factory>
+
+</hibernate-configuration>
