@@ -122,6 +122,20 @@ public final class Constants {
 	 */
 	public static final int SUCCESS_EXPORT=0;
 	public static final int UNKNOWN_EXPORT_ERROR=-1;
+	/*
+	 * Server Task Status
+	 */
+	public static final int ST_NEW=0;
+	public static final int ST_READY=1;
+	public static final int ST_RUNNING=2;
+	public static final int ST_STOPPED=3;
+	public static final int ST_FINISHED=4;
+	public static final int ST_INTERRUPTED=2;
+
+
+
+
+
 
 
 	

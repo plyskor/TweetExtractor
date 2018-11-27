@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlTransient;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 
 /**
@@ -45,7 +46,7 @@ public abstract class ServerTask {
 	public ServerTask(int id, int status, User user) {
 		super();
 		this.id = id;
-		this.status = status;
+		this.status = Constants.ST_NEW;
 		this.user = user;
 	}
 	/**

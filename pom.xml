@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>tweetextractor</groupId>
@@ -21,10 +21,18 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.cxf.archetype/cxf-jaxws-javafirst -->
+<dependency>
+    <groupId>org.apache.cxf.archetype</groupId>
+    <artifactId>cxf-jaxws-javafirst</artifactId>
+    <version>3.2.7</version>
+</dependency>
+    
   </dependencies>
   <modules>
   	<module>tweetextractor-commons</module>
-  	<module>tweetextractor-fx</module>
-  	<module>tweetextractor-server</module>
+
+	<module>tweetextractor-fx</module>
+	<module>tweetextractor-server</module>
   </modules>
 </project>
