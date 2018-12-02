@@ -26,6 +26,14 @@ public class GetServerTaskStatusResponse {
 		this.error = error;
 		this.message = message;
 	}
+	
+	/**
+	 * 
+	 */
+	public GetServerTaskStatusResponse() {
+		super();
+	}
+
 	/**
 	 * @return the status
 	 */

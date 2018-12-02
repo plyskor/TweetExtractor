@@ -1,10 +1,9 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.server.service.sei;
+package es.uam.eps.tweetextractor.model.service.sei;
 
 import javax.jws.WebService;
-import javax.xml.bind.annotation.XmlType;
 
 import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
 
@@ -13,6 +12,6 @@ import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
  *
  */
 @WebService
-public interface GetServerTaskStatus {
+public interface GetServerTaskStatusSei {
 	public GetServerTaskStatusResponse getServerTaskStatus(int id);
 }

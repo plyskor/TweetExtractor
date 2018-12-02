@@ -93,6 +93,10 @@ public final class Constants {
 	 */
 	public static final String FILE_USERS = AUTH_PATH + "users.xml";
 	/*
+	 * Service endpoints
+	 */
+	public static final String GET_SERVER_TASK_STATUS_ENDPOINT="http://www.preciapps.com:8080/tweetextractor-server-1.0.0.0/getServerTaskStatus";
+	/*
 	 * Login Status
 	 */
 	public static final int SUCCESS_LOGIN=0;

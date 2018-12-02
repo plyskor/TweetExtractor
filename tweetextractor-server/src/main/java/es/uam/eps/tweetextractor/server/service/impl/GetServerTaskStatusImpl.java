@@ -7,13 +7,14 @@ import javax.jws.WebService;
 
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
+import es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei;
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
-@WebService(endpointInterface = "es.uam.eps.tweetextractor.server.service.sei.GetServerTaskStatus",serviceName = "GetServerTaskStatus")
-public class GetServerTaskStatusImpl {
+@WebService(endpointInterface = "es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei",serviceName = "GetServerTaskStatusSei")
+public class GetServerTaskStatusImpl implements GetServerTaskStatusSei {
 
 	public GetServerTaskStatusImpl() {}
 	public GetServerTaskStatusResponse getServerTaskStatus(int id) {

@@ -36,13 +36,33 @@
     <artifactId>hibernate-core</artifactId>
     <version>5.3.7.Final</version>
 </dependency>
-
-
-		<!-- https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core -->
+<!-- https://mvnrepository.com/artifact/javax.xml/webservices-api -->
+<dependency>
+    <groupId>javax.xml</groupId>
+    <artifactId>webservices-api</artifactId>
+    <version>@metro.version@</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core -->
 		<dependency>
 			<groupId>org.twitter4j</groupId>
 			<artifactId>twitter4j-core</artifactId>
 			<version>4.0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>3.2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>3.2.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http-jetty -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>3.2.7</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
 		<dependency>

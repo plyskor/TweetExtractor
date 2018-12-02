@@ -7,6 +7,8 @@ import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;
+import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
+import es.uam.eps.tweetextractor.service.GetServerTaskStatus;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
@@ -49,10 +51,7 @@ public class MainApplication extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("tweetextractor");
-		
 		initRootLayout();
-
-		// showPersonOverview();
 	}
 
 	/* Initialize the RootLayout */
@@ -62,11 +61,9 @@ public class MainApplication extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
-
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
-
 			// Give the controller access to the main app.
 			rootLayoutController = loader.getController();
 			rootLayoutController.setMainApplication(this);
@@ -84,10 +81,8 @@ public class MainApplication extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource("view/WelcomeScreen.fxml"));
 			AnchorPane welcomeScreen = (AnchorPane) loader.load();
-
 			// Set welcome screen into the center of root layout.
 			rootLayout.setCenter(welcomeScreen);
-
 			// Give the controller access to the main app.
 			WelcomeScreenControl controller = loader.getController();
 			controller.setMainApplication(this);
@@ -102,11 +97,9 @@ public class MainApplication extends Application {
 			// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource("view/extraction/QueryConstructor.fxml"));
-
 			AnchorPane queryConstructor = (AnchorPane) loader.load();
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(queryConstructor);
-
 			// Give the controller access to the main app.
 			QueryConstructorControl controller = loader.getController();
 			controller.setMainApplication(this);
@@ -307,7 +300,6 @@ public class MainApplication extends Application {
 			userList.addAll(readList);
 		}*/
 	}
-
 	public boolean existsUser(String nickName) {
 		updateUserList();
 		for (User user : this.getUserList()) {
@@ -316,7 +308,6 @@ public class MainApplication extends Application {
 		}
 		return false;
 	}
-
 	public User getUser(String nickName) {
 		if (nickName != null) {
 			for (User user : this.getUserList()) {
@@ -326,14 +317,12 @@ public class MainApplication extends Application {
 		}
 		return null;
 	}
-
 	/**
 	 * @return the rootLayoutController
 	 */
 	public RootLayoutControl getRootLayoutController() {
 		return rootLayoutController;
 	}
-
 	/**
 	 * @param rootLayoutController the rootLayoutController to set
 	 */
