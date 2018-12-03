@@ -13,5 +13,6 @@ import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
  */
 @WebService
 public interface GetServerTaskStatusSei {
+	
 	public GetServerTaskStatusResponse getServerTaskStatus(int id);
 }

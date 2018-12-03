@@ -14,6 +14,7 @@
 	<packaging>war</packaging>
 	<name>TweetExtractor Server</name>
 	<description>Server module for the TweetExtractorFX application</description>
+
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
@@ -67,29 +68,8 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.25</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.25</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-jdk14</artifactId>
-			<version>1.7.25</version>
-			<scope>compile</scope>
-		</dependency>
+		
+	
 	</dependencies>
 
 	<build>
@@ -147,6 +127,15 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<resources>
+	<resource>
+				<directory>resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>*.properties</include>
+				</includes>
+			</resource>
+	</resources>
 	</build>
 
 </project>

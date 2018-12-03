@@ -1,19 +1,14 @@
-/**
- * 
- */
 package es.uam.eps.tweetextractor.dao;
 
-/**
- * @author Jose Antonio García del Saz
- *
- */
 import java.util.List;
+
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,22 +16,23 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
-import es.uam.eps.tweetextractor.dao.inter.UserDAOInterface;
+import es.uam.eps.tweetextractor.dao.inter.ServerTaskDAOInterface;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 
-public class UserDAO implements UserDAOInterface<User, Integer> {
+public class ServerTaskDAO implements ServerTaskDAOInterface<ServerTask, Integer> {
 
 	private Session currentSession;
 	
 	private Transaction currentTransaction;
 
-	public UserDAO() {
+	public ServerTaskDAO() {
 	}
 
 	public Session openCurrentSession() {
 		SessionFactory sf=getSessionFactory();
 		if(sf!=null)
-			currentSession=sf.openSession();
+		this.setCurrentSession(sf.openSession());
 		return currentSession;
 	}
 
@@ -50,7 +46,7 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 	}
 	
 	public void closeCurrentSession() {
-		if(currentSession!=null)
+		if (currentSession!=null)
 		currentSession.close();
 	}
 	
@@ -64,7 +60,7 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 	private static SessionFactory getSessionFactory() {
 		SessionFactory sessionFactory=null;
 		Configuration configuration = new Configuration().configure("tweetextractordb.xml");
-		 sessionFactory = configuration.buildSessionFactory();
+			 sessionFactory = configuration.buildSessionFactory();		
 		return sessionFactory;
 	}
 
@@ -84,49 +80,55 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 		this.currentTransaction = currentTransaction;
 	}
 
-	public void persist(User entity) {
+	public void persist(ServerTask entity) {
 		getCurrentSession().persist(entity);
 	}
 
-	public void update(User entity) {
+	public void update(ServerTask entity) {
 		getCurrentSession().update(entity);
 	}
 
-	public User findById(Integer id) {
-		User User = (User) getCurrentSession().get(User.class, id);
-		return User; 
+	public ServerTask findById(Integer id) {
+		ServerTask serverTask = (ServerTask) getCurrentSession().get(ServerTask.class, id);
+		return serverTask; 
 	}
-	public User findByNickname(String nickname) {
+	public List<ServerTask> findByUser(User user) {
 		if(getCurrentSession()==null)return null;
 	    CriteriaBuilder criteriaBuilder = getCurrentSession().getCriteriaBuilder();
-	    CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-	    Root<User> root = criteriaQuery.from(User.class);
+	    CriteriaQuery<ServerTask> criteriaQuery = criteriaBuilder.createQuery(ServerTask.class);
+	    Root<ServerTask> root = criteriaQuery.from(ServerTask.class);
 	    criteriaQuery.select(root);
-	    ParameterExpression<String> params = criteriaBuilder.parameter(String.class);
-	    criteriaQuery.where(criteriaBuilder.equal(root.get("nickname"), params));
-	    TypedQuery<User> query = getCurrentSession().createQuery(criteriaQuery);
-	    query.setParameter(params, nickname);
-	    User ret= null;
-	    try {ret=query.getSingleResult();}catch(NoResultException e) {
-	    	System.out.println("No user found for nickname: "+nickname);	   
+	    ParameterExpression<Integer> params = criteriaBuilder.parameter(Integer.class);
+	    criteriaQuery.where(criteriaBuilder.equal(root.get("user_identifier"), params));
+	    TypedQuery<ServerTask> query = getCurrentSession().createQuery(criteriaQuery);
+	    query.setParameter(params, user.getIdDB() );
+	    List<ServerTask> ret= null;
+	    try {ret=query.getResultList();}catch(NoResultException e) {
+	    	System.out.println("No serverTask found for userID: "+user.getIdDB());	   
 	    	}
 	    return ret;
 	}
-	public void delete(User entity) {
+	public void delete(ServerTask entity) {
 		getCurrentSession().delete(entity);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<User> findAll() {
-		List<User> Users = (List<User>) getCurrentSession().createQuery("from User").list();
-		return Users;
+	public List<ServerTask> findAll() {
+		this.openCurrentSession();
+		List<ServerTask> serverTasks = (List<ServerTask>) getCurrentSession().createQuery("from ServerTask").list();
+		this.closeCurrentSession();
+		return serverTasks;
 	}
 
 	public void deleteAll() {
-		List<User> entityList = findAll();
-		for (User entity : entityList) {
+		List<ServerTask> entityList = findAll();
+		for (ServerTask entity : entityList) {
 			delete(entity);
 		}
+	}
+
+	public ServerTask merge(ServerTask entity) {
+		return (ServerTask) getCurrentSession().merge(entity);
 	}
 
 	

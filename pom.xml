@@ -31,7 +31,6 @@
   </dependencies>
   <modules>
   	<module>tweetextractor-commons</module>
-
 	<module>tweetextractor-fx</module>
 	<module>tweetextractor-server</module>
   </modules>

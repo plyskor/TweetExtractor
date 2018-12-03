@@ -60,11 +60,7 @@ public class ExtractionDAO implements ExtractionDAOInterface<Extraction, Integer
 	private static SessionFactory getSessionFactory() {
 		SessionFactory sessionFactory=null;
 		Configuration configuration = new Configuration().configure("tweetextractordb.xml");
-		try{
-			 sessionFactory = configuration.buildSessionFactory();
-		}catch(HibernateException e) {
-			ErrorDialog.showErrorDB(e.getMessage());
-		}
+		sessionFactory=configuration.buildSessionFactory();
 		return sessionFactory;
 	}
 

@@ -3,6 +3,8 @@
  */
 package es.uam.eps.tweetextractor.server.service.impl;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 
 import es.uam.eps.tweetextractor.model.Constants;
@@ -17,7 +19,8 @@ import es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei;
 public class GetServerTaskStatusImpl implements GetServerTaskStatusSei {
 
 	public GetServerTaskStatusImpl() {}
-	public GetServerTaskStatusResponse getServerTaskStatus(int id) {
+	@WebMethod(action="getServerTaskStatus")
+	public GetServerTaskStatusResponse getServerTaskStatus(@WebParam(name = "id")int id) {
 		if(id==1) {
 			GetServerTaskStatusResponse ret = new GetServerTaskStatusResponse(Constants.ST_NEW, false, "ST_NEW");
 			return ret;

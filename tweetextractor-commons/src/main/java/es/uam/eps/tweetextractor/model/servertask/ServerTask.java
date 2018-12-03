@@ -16,8 +16,11 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
+import es.uam.eps.tweetextractor.dao.service.ServerTaskService;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 
@@ -28,8 +31,8 @@ import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 @Entity
 @Table(name="perm_server_task")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "filter_type",length=6, discriminatorType = DiscriminatorType.STRING)
-public abstract class ServerTask {
+@DiscriminatorColumn(name = "task_type",length=6, discriminatorType = DiscriminatorType.STRING)
+public abstract class ServerTask implements Runnable {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "identifier")
 	private int id;
@@ -42,12 +45,17 @@ public abstract class ServerTask {
 	@XmlTransient
 	@ManyToOne
 	private User user;
-	
+	@XmlTransient
+	@Transient
+	private Thread thread = new Thread(this);
 	public ServerTask(int id, int status, User user) {
 		super();
 		this.id = id;
 		this.status = Constants.ST_NEW;
 		this.user = user;
+	}
+	public ServerTask() {
+		this.status = Constants.ST_NEW;
 	}
 	/**
 	 * @return the id
@@ -85,6 +93,38 @@ public abstract class ServerTask {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	public void goReady() {
+		if(this.status!=Constants.ST_RUNNING) {
+			this.status=Constants.ST_READY;
+			ServerTaskService stService = new ServerTaskService();
+			stService.update(this);
+		}
+	}
 	
+	/**
+	 * @return the taskType
+	 */
+	public TaskTypes getTaskType() {
+		return taskType;
+	}
+	/**
+	 * @param taskType the taskType to set
+	 */
+	public void setTaskType(TaskTypes taskType) {
+		this.taskType = taskType;
+	}
+	public abstract ServerTaskResponse call() throws Exception;
+	/**
+	 * @return the thread
+	 */
+	public Thread getThread() {
+		return thread;
+	}
+	/**
+	 * @param thread the thread to set
+	 */
+	public void setThread(Thread thread) {
+		this.thread = thread;
+	}
+	public abstract void initialize();
 }

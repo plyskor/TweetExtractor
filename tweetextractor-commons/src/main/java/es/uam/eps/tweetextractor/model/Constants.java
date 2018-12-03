@@ -39,14 +39,14 @@ public final class Constants {
 		}
 	}
 	public enum TaskTypes {
-		UET(Values.TYPE_UPDATE_EXTRACTION_TASK);
+		UEI(Values.TYPE_TASK_UPDATE_EXTRACTION_INDEF);
 		private TaskTypes(String type) {
 			// if (!this.name().equals(type))
 			// throw new IllegalArgumentException("Incorrect use of FilterTypes");
 		}
 		public static class Values {
 			// Available filters
-			public final static String TYPE_UPDATE_EXTRACTION_TASK = "UET";
+			public final static String TYPE_TASK_UPDATE_EXTRACTION_INDEF = "UEI";
 		}
 	}
 	/*
@@ -134,7 +134,7 @@ public final class Constants {
 	public static final int ST_RUNNING=2;
 	public static final int ST_STOPPED=3;
 	public static final int ST_FINISHED=4;
-	public static final int ST_INTERRUPTED=2;
+	public static final int ST_INTERRUPTED=5;
 
 
 
