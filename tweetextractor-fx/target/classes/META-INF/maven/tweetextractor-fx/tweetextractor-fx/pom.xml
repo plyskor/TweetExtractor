@@ -108,12 +108,7 @@
 			<artifactId>tweetextractor-commons</artifactId>
 			<version>1.0.0.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.axis/axis -->
-		<dependency>
-			<groupId>org.apache.axis</groupId>
-			<artifactId>axis</artifactId>
-			<version>1.4</version>
-		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/commons-discovery/commons-discovery -->
 		<dependency>
