@@ -69,19 +69,15 @@ public class ServerTaskUpdateExtractionIndef extends ServerTask implements Calla
 			ret.setMessage("Task is not ready to be called.");
 			return ret;
 		}
-		this.getThread().setName("tweetextractor-server:UpdateExtractionIndef?Id="+this.extraction.getId());
-		this.getThread().start();
-		this.setStatus(Constants.ST_RUNNING);
-		ServerTaskService stServce = new ServerTaskService();
-		stServce.update(this);
+		this.getThread().setName("tweetextractor-server:ServerTask-"+this.getId());
+		this.getThread().setDaemon(true);
 		ret.setError(false);
-		ret.setMessage("Task has started running.");
+		ret.setMessage("Task is ready to run.");
 		return ret;	
 	}
 	public void run() {
-		boolean localTrigger=false;
-		while(localTrigger==false) {
-			Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
+		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
+		while(this.trigger==false) {
 		    logger.info("I'm here with the id:"+this.getId()+"\n");
 		    try {
 				TimeUnit.SECONDS.sleep(5);
@@ -90,7 +86,7 @@ public class ServerTaskUpdateExtractionIndef extends ServerTask implements Calla
 				this.setStatus(Constants.ST_INTERRUPTED);
 				 ServerTaskService stServce = new ServerTaskService();
 				stServce.update(this);
-				break;
+				return;
 			}
 		}
 		return;

@@ -8,7 +8,9 @@ import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;
 import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
+import es.uam.eps.tweetextractor.model.service.InterruptServerTaskResponse;
 import es.uam.eps.tweetextractor.service.GetServerTaskStatus;
+import es.uam.eps.tweetextractor.service.InterruptServerTask;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
@@ -38,15 +40,7 @@ public class MainApplication extends Application {
 	private RootLayoutControl rootLayoutController;
 	public MainApplication() {
 		initAvailableFilters();
-		/*
-		 * Cargamos la lista de usuarios List<User> readList =XMLManager.loadUserList();
-		 * if(readList!=null)userList.addAll(readList);
-		 */
 	}
-	
-		
-
-
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;

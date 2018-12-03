@@ -29,9 +29,19 @@
 		</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<servlet>
+		<servlet-name>MainServlet</servlet-name>
+		<display-name>MainServlet</display-name>
+		<description></description>
+		<servlet-class>es.uam.eps.tweetextractor.context.MainServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>CXFServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MainServlet</servlet-name>
+		<url-pattern>/MainServlet</url-pattern>
 	</servlet-mapping>
 </web-app>

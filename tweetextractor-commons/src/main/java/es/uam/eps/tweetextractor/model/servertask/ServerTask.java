@@ -48,6 +48,7 @@ public abstract class ServerTask implements Runnable {
 	@XmlTransient
 	@Transient
 	private Thread thread = new Thread(this);
+	private boolean trigger=false;
 	public ServerTask(int id, int status, User user) {
 		super();
 		this.id = id;
@@ -125,6 +126,19 @@ public abstract class ServerTask implements Runnable {
 	 */
 	public void setThread(Thread thread) {
 		this.thread = thread;
+	}
+	
+	/**
+	 * @return the trigger
+	 */
+	public boolean isTrigger() {
+		return trigger;
+	}
+	/**
+	 * @param trigger the trigger to set
+	 */
+	public void setTrigger(boolean trigger) {
+		this.trigger = trigger;
 	}
 	public abstract void initialize();
 }

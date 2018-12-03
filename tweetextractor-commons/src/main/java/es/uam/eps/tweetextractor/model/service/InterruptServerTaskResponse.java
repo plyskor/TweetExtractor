@@ -12,40 +12,25 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlType(name="model")
-public class GetServerTaskStatusResponse {
-	@XmlElement(name="status")
-	private int status;
+public class InterruptServerTaskResponse {
 	@XmlElement(name="error")
 	private boolean error;
 	@XmlElement(name="message")
 	private String message;
-	public GetServerTaskStatusResponse(int status, boolean error, String message) {
+	public InterruptServerTaskResponse() {
+		// TODO Auto-generated constructor stub
+	}
+	/**
+	 
+	 * @param error
+	 * @param message
+	 */
+	public InterruptServerTaskResponse(boolean error, String message) {
 		super();
-		this.status = status;
 		this.error = error;
 		this.message = message;
 	}
-	
-	/**
-	 * 
-	 */
-	public GetServerTaskStatusResponse() {
-		super();
-	}
 
-	/**
-	 * @return the status
-	 */
-	@XmlTransient
-	public int getStatus() {
-		return status;
-	}
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(int status) {
-		this.status = status;
-	}
 	/**
 	 * @return the error
 	 */
@@ -72,7 +57,5 @@ public class GetServerTaskStatusResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-	
 
 }

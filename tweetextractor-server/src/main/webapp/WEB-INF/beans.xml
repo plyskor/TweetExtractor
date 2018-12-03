@@ -12,5 +12,9 @@
           id="GetServerTaskStatus" 
           implementor="es.uam.eps.tweetextractor.server.service.impl.GetServerTaskStatusImpl" 
           address="/getServerTaskStatus" />
-          
+          <jaxws:endpoint 
+          id="InterruptServerTask" 
+          implementor="es.uam.eps.tweetextractor.server.service.impl.InterruptServerTaskImpl" 
+          address="/interruptServerTask" />
+       
 </beans>

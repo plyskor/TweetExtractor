@@ -96,6 +96,8 @@ public final class Constants {
 	 * Service endpoints
 	 */
 	public static final String GET_SERVER_TASK_STATUS_ENDPOINT="http://www.preciapps.com:8080/tweetextractor-server-1.0.0.0/getServerTaskStatus";
+	public static final String INTERRUPT_SERVER_TASK_ENDPOINT="http://www.preciapps.com:8080/tweetextractor-server-1.0.0.0/interruptServerTask";
+
 	/*
 	 * Login Status
 	 */
