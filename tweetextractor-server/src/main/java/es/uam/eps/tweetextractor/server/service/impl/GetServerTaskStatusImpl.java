@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  * @author Jose Antonio García del Saz
  *
  */
-@WebService(endpointInterface = "es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei",serviceName = "GetServerTaskStatusSei")
+@WebService(endpointInterface = "es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei",serviceName = "GetServerTaskStatus")
 public class GetServerTaskStatusImpl implements GetServerTaskStatusSei {
 	@Resource
     private WebServiceContext svcCtx;
