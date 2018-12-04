@@ -104,7 +104,8 @@ public class ExtractionDAO implements ExtractionDAOInterface<Extraction, Integer
 	    query.setParameter(params, user.getIdDB() );
 	    List<Extraction> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {
-	    	System.out.println("No extraction found for userID: "+user.getIdDB());	   
+	    	System.out.println("No extraction found for userID: "+user.getIdDB());
+	    	return null;
 	    	}
 	    return ret;
 	}

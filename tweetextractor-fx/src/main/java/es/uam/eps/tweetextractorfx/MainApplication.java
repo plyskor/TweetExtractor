@@ -46,6 +46,7 @@ public class MainApplication extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("tweetextractor");
 		initRootLayout();
+		
 	}
 
 	/* Initialize the RootLayout */

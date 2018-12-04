@@ -5,9 +5,10 @@
         xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
-
         <import resource="classpath:META-INF/cxf/cxf.xml" />
-
+        
+		<!-- WebServices endpoints -->
+		
         <jaxws:endpoint 
           id="GetServerTaskStatus" 
           implementor="es.uam.eps.tweetextractor.server.service.impl.GetServerTaskStatusImpl" 
@@ -16,5 +17,17 @@
           id="InterruptServerTask" 
           implementor="es.uam.eps.tweetextractor.server.service.impl.InterruptServerTaskImpl" 
           address="/interruptServerTask" />
+           <jaxws:endpoint 
+          id="CreateServerTaskUpdateExtractionIndef" 
+          implementor="es.uam.eps.tweetextractor.server.service.impl.CreateServerTaskUpdateExtractionIndefImpl" 
+          address="/createServerTaskUpdateExtractionIndef" />
+          <jaxws:endpoint 
+          id="DeleteServerTask" 
+          implementor="es.uam.eps.tweetextractor.server.service.impl.DeleteServerTaskImpl" 
+          address="/deleteServerTask" />
+           <jaxws:endpoint 
+          id="LaunchServerTask" 
+          implementor="es.uam.eps.tweetextractor.server.service.impl.LaunchServerTaskImpl" 
+          address="/launchServerTask" />
        
 </beans>

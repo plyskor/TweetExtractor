@@ -55,28 +55,10 @@ public class Server {
 		/*Load all tasks from database*/
 		ServerTaskService stService =new ServerTaskService();
 		serverTaskList.addAll(stService.findAll());
-		/*Response object for calls*/
-		ServerTaskResponse response = null;
-		
 		/*Launch all ready tasks*/
 		for (ServerTask task : serverTaskList) {
 			task.initialize();
-			if (task.getStatus() == Constants.ST_READY) {
-				try {
-					response = task.call();
-					if (response!=null&&response.isError()==false) {
-						task.setStatus(Constants.ST_RUNNING);
-						stService.update(task);
-						task.getThread().start();
-					}
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					logger.error("Exception calling task with id:"+task.getId()+":\n"+e1.getStackTrace().toString());
-				}
-				if (response != null) {
-					logger.info("Calling server task with id:"+task.getId()+" returned message: "+response.getMessage());
-				}
-			}
+			launchServerTask(task);
 		}
 	}
 	public ServerTask findById(int id) {
@@ -86,22 +68,12 @@ public class Server {
 		}
 		return null;
 	}
+	
 	public void interruptTask(int id) {
 		ServerTask task= findById(id);
 		if(task!=null) {
 			if(task.getStatus()==Constants.ST_RUNNING) {
-				task.getThread().interrupt();
-				try {
-					task.getThread().join();
-				} catch (InterruptedException e) {
-					logger.error(e.getStackTrace().toString());
-				}
-			}
-		}
-	}
-	public void interruptTask(ServerTask task) {
-		if(task!=null) {
-			if(task.getStatus()==Constants.ST_RUNNING) {
+				logger.info("Trying to interrupt task with id "+task.getId()+" ...");
 				task.getThread().interrupt();
 				try {
 					task.getThread().join();
@@ -112,4 +84,64 @@ public class Server {
 		}
 	}
 	
+	public void interruptTask(ServerTask task) {
+		if(task!=null) {
+			if(task.getStatus()==Constants.ST_RUNNING) {
+				logger.info("Trying to interrupt task with id "+task.getId()+" ...");
+				task.getThread().interrupt();
+				try {
+					task.getThread().join();
+				} catch (InterruptedException e) {
+					logger.error(e.getStackTrace().toString());
+				}
+			}
+		}
+	}
+	
+	public void addTaskToServer(ServerTask task) {
+		if(task!=null||serverTaskList!=null) {
+			logger.info("Task with id "+task.getId()+" has been added to Server instance.");
+			serverTaskList.add(task);
+		}
+		return;
+	}
+	
+	public void deleteTaskFromServer(ServerTask task) {
+		if(task!=null&&serverTaskList!=null) {
+			logger.info("Task with id "+task.getId()+" has been deleted from Server instance.");
+			serverTaskList.remove(task);
+		}
+		
+	}
+	public boolean launchServerTask(ServerTask task) {
+		ServerTaskService stService =new ServerTaskService();
+		/*Response object for calls*/
+		ServerTaskResponse response = null;
+		if (task.getStatus() == Constants.ST_READY) {
+			try {
+				response = task.call();
+				if (response!=null&&response.isError()==false) {
+					task.setStatus(Constants.ST_RUNNING);
+					stService.update(task);
+					task.getThread().start();
+				}
+			} catch (Exception e1) {
+				logger.error("Exception calling task with id:"+task.getId()+":\n"+e1.getStackTrace().toString());
+				return false;
+			}
+			if (response != null) {
+				logger.info("Calling server task with id:"+task.getId()+" returned message: "+response.getMessage());
+			}
+		return true;
+		}
+		return false;
+	}
+	public void reinitializeTask(ServerTask task) {
+		if(task!=null) {
+			if(task.getStatus()==Constants.ST_INTERRUPTED||task.getStatus()==Constants.ST_FINISHED) {
+				
+			}
+		}
+		return;
+	}
 }
