@@ -161,14 +161,12 @@ public class HomeScreenControl {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(HomeScreenControl.class.getResource("dialog/auth/ChangePasswordDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
-
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(mainApplication.getPrimaryStage());
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
-
 			// Set the dialogStage to the controller.
 			ChangePasswordDialogControl controller = loader.getController();
 			controller.setDialogStage(dialogStage);
@@ -181,6 +179,18 @@ public class HomeScreenControl {
 			e.printStackTrace();
 			return;
 		}
+	}
+	@FXML
+	public void onCreateTask() {
+		return;
+	}
+	@FXML
+	public void onManageTasks() {
+		return;
+	}
+	@FXML
+	public void onManageServerPreferences() {
+		return;
 	}
 	
 }
