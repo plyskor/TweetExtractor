@@ -29,5 +29,9 @@
           id="LaunchServerTask" 
           implementor="es.uam.eps.tweetextractor.server.service.impl.LaunchServerTaskImpl" 
           address="/launchServerTask" />
+          <jaxws:endpoint 
+          id="GetServerStatus" 
+          implementor="es.uam.eps.tweetextractor.server.service.impl.GetServerStatusImpl" 
+          address="/getServerStatus" />
        
 </beans>

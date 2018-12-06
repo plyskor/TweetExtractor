@@ -8,6 +8,7 @@ import java.io.IOException;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.task.DeleteAccountTask;
+import es.uam.eps.tweetextractorfx.view.dialog.ServerPreferencesDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.auth.ChangePasswordDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
 import javafx.fxml.FXML;
@@ -180,6 +181,33 @@ public class HomeScreenControl {
 			return;
 		}
 	}
+	public void showManageServerPreferences() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(HomeScreenControl.class.getResource("dialog/ServerPreferencesDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(mainApplication.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the dialogStage to the controller.
+			ServerPreferencesDialogControl controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setMainApplication(mainApplication);
+			// Show the dialog and wait until the user closes it, then add filter
+			dialogStage.showAndWait();
+			
+			return;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+	}
 	@FXML
 	public void onCreateTask() {
 		return;
@@ -190,6 +218,7 @@ public class HomeScreenControl {
 	}
 	@FXML
 	public void onManageServerPreferences() {
+		showManageServerPreferences();
 		return;
 	}
 	

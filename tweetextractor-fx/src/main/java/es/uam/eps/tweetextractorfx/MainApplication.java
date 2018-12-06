@@ -7,10 +7,7 @@ import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;
-import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
-import es.uam.eps.tweetextractor.model.service.InterruptServerTaskResponse;
-import es.uam.eps.tweetextractor.service.GetServerTaskStatus;
-import es.uam.eps.tweetextractor.service.InterruptServerTask;
+import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
@@ -46,7 +43,7 @@ public class MainApplication extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("tweetextractor");
 		initRootLayout();
-		
+		TweetExtractorFXPreferences.initializePreferences();
 	}
 
 	/* Initialize the RootLayout */
@@ -324,7 +321,6 @@ public class MainApplication extends Application {
 	public void setRootLayoutController(RootLayoutControl rootLayoutController) {
 		this.rootLayoutController = rootLayoutController;
 	}
-
 	
 	
 }

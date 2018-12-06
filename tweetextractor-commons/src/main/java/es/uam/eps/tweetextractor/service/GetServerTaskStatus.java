@@ -3,8 +3,6 @@
  */
 package es.uam.eps.tweetextractor.service;
 
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
 import es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei;
@@ -13,15 +11,15 @@ import es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei;
  * @author Jose Antonio García del Saz
  *
  */
-public class GetServerTaskStatus implements GetServerTaskStatusSei{
-	private JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+public class GetServerTaskStatus extends TweetExtractorCXFService implements GetServerTaskStatusSei{
 	private GetServerTaskStatusSei client ;
 	/**
 	 * 
 	 */
-	public GetServerTaskStatus() {
+	public GetServerTaskStatus(String endpoint) {
+		super(endpoint);
 		factory.setServiceClass(GetServerTaskStatusSei.class); 
-		factory.setAddress(Constants.GET_SERVER_TASK_STATUS_ENDPOINT);
+		factory.setAddress(endpoint+Constants.GET_SERVER_TASK_STATUS_ENDPOINT);
 		client= (GetServerTaskStatusSei) factory.create(); 
 	}
 

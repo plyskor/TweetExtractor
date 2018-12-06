@@ -9,6 +9,16 @@ package es.uam.eps.tweetextractor.model;
  */
 
 public final class Constants {
+	/*
+	 * Preference key
+	 */
+	public final static String PREFERENCE_SERVER_HOST = "PREFERENCE_SERVER_HOST";
+	public final static String PREFERENCE_SERVER_PORT = "PREFERENCE_SERVER_PORT";
+	public final static String PREFERENCE_SERVER_NAMEAPP = "PREFERENCE_SERVER_NAMEAPP";
+	public final static String PREFERENCE_SERVER_ADDRESS = "PREFERENCE_SERVER_ADDRESS";
+
+
+	
 	public enum FilterTypes {
 		FC(Values.TYPE_FILTER_CONTAINS), FCE(Values.TYPE_FILTER_CONTAINS_EXACT), FOR(Values.TYPE_FILTER_OR),
 		FNOT(Values.TYPE_FILTER_NOT), FHASH(Values.TYPE_FILTER_HASHTAG), FFROM(Values.TYPE_FILTER_FROM),
@@ -95,11 +105,12 @@ public final class Constants {
 	/*
 	 * Service endpoints
 	 */
-	public static final String GET_SERVER_TASK_STATUS_ENDPOINT="http://www.preciapps.com:8080/tweetextractor-server-1.0.0.0/getServerTaskStatus";
-	public static final String INTERRUPT_SERVER_TASK_ENDPOINT="http://www.preciapps.com:8080/tweetextractor-server-1.0.0.0/interruptServerTask";
-	public static final String CREATE_UPDATE_EXTRACTION_INDEF_SERVER_TASK_ENDPOINT="http://www.preciapps.com:8080/tweetextractor-server-1.0.0.0/createServerTaskUpdateExtractionIndef";
-	public static final String DELETE_SERVER_TASK_ENDPOINT="http://www.preciapps.com:8080/tweetextractor-server-1.0.0.0/deleteServerTask";
-	public static final String LAUNCH_SERVER_TASK_ENDPOINT="http://www.preciapps.com:8080/tweetextractor-server-1.0.0.0/launchServerTask";
+	public static final String GET_SERVER_TASK_STATUS_ENDPOINT="getServerTaskStatus";
+	public static final String INTERRUPT_SERVER_TASK_ENDPOINT="interruptServerTask";
+	public static final String CREATE_UPDATE_EXTRACTION_INDEF_SERVER_TASK_ENDPOINT="createServerTaskUpdateExtractionIndef";
+	public static final String DELETE_SERVER_TASK_ENDPOINT="deleteServerTask";
+	public static final String LAUNCH_SERVER_TASK_ENDPOINT="launchServerTask";
+	public static final String GET_SERVER_STATUS_ENDPOINT="getServerStatus";
 
 
 	/*

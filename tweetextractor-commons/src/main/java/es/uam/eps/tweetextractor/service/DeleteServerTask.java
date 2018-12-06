@@ -3,7 +3,6 @@
  */
 package es.uam.eps.tweetextractor.service;
 
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.service.DeleteServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.sei.DeleteServerTaskSei;
@@ -13,17 +12,15 @@ import es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei;
  * @author jgarciadelsaz
  *
  */
-public class DeleteServerTask implements DeleteServerTaskSei {
-	private JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-	private DeleteServerTaskSei client ;
-	
+public class DeleteServerTask extends TweetExtractorCXFService implements DeleteServerTaskSei {
+	DeleteServerTaskSei client;
 	/**
 	 * 
 	 */
-	public DeleteServerTask() {
-		super();
+	public DeleteServerTask(String endpoint) {
+		super(endpoint);
 		factory.setServiceClass(GetServerTaskStatusSei.class); 
-		factory.setAddress(Constants.DELETE_SERVER_TASK_ENDPOINT);
+		factory.setAddress(endpoint+Constants.DELETE_SERVER_TASK_ENDPOINT);
 		client= (DeleteServerTaskSei) factory.create(); 
 	}
 

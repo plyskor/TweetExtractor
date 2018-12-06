@@ -368,4 +368,58 @@ public class ErrorDialog {
 		return alert;
 	}
 
+	public static void showSucessServerConnectionTest(String text) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Success");
+		alert.setHeaderText("Connection succesful");
+		alert.setContentText("The server "+text+" has a TweetExtractor server instance running.");
+		alert.showAndWait();
+	}
+
+	public static void showErrorServerConnectionTest() {		
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Connection error");
+		alert.setContentText("An error has occurred connecting to that server. Please, introduce a server with a TweetExtractor server instance running.");
+		alert.showAndWait();	
+	}
+
+	public static void showErrorServerPortNAN() {	
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("TCP Port");
+		alert.setHeaderText("Incorrect port value");
+		alert.setContentText("The port must be a number between 0 and 65535");
+		alert.showAndWait();
+	}
+
+	public static void showErrorEmptyServerHost() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Empty field");
+		alert.setHeaderText("Server host is empty");
+		alert.setContentText("Please, introduce the host or IP address of the server containing the TweetExtractor instance.\n\nExample: 'example.org'");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorEmptyServerPort() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Empty field");
+		alert.setHeaderText("Server TCP port is empty");
+		alert.setContentText("Please, introduce the port where the TweetExtractor server instance is listening.\n\nExample: '8080'");
+		alert.showAndWait();
+	}
+	public static void showErrorEmptyServerAppName() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Empty field");
+		alert.setHeaderText("Server application name is empty.");
+		alert.setContentText("Please, introduce the TweetExtractor server instance name.\n\nExample: 'tweetextractor-server-1.0.0.0'");
+		alert.showAndWait();
+		}
+
+	public static void showErrorServerHostMalformed() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Malformed server host");
+		alert.setContentText("Please, introduce a valid server host or IP address.\n\nExample: 'example.org'");		
+		alert.showAndWait();
+	}
 }
