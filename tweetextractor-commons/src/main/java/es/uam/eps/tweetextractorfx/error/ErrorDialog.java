@@ -422,4 +422,36 @@ public class ErrorDialog {
 		alert.setContentText("Please, introduce a valid server host or IP address.\n\nExample: 'example.org'");		
 		alert.showAndWait();
 	}
+
+	public static void showErrorSelectTaskType() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No type selected");
+		alert.setContentText("Please, select a type of asynchronous task to create in the server");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorUserHasNoExtraction() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("User has no extractions");
+		alert.setContentText("Please, create an extraction from the home screen first.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorCreateServerTask(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Error creating server task");
+		alert.setContentText("The server has thrown the following error attempting to create the server task:\n\n'"+message+"'");		
+		alert.showAndWait();
+	}
+
+	public static void showSuccessCreateServerTask(int id) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Server task created");
+		alert.setContentText("Server task has been created with id: "+id);		
+		alert.showAndWait();
+	}
 }

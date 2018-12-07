@@ -56,12 +56,10 @@ public class FilterTo extends Filter {
 
 	@Override
 	public String toQuery() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
 	public void loadXml() {
-		// TODO Auto-generated method stub
 		
 	}
 

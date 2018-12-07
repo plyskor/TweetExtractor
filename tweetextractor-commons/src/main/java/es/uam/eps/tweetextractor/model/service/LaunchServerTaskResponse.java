@@ -22,7 +22,6 @@ public class LaunchServerTaskResponse {
 	 */
 	public LaunchServerTaskResponse() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**

@@ -3,6 +3,10 @@
  */
 package es.uam.eps.tweetextractor.model;
 
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * @author Jose Antonio García del Saz
  *
@@ -48,17 +52,23 @@ public final class Constants {
 			public final static String TYPE_FILTER_QUESTION = "FQST";
 		}
 	}
+	@XmlType(name = "taskType")
+	@XmlEnum
 	public enum TaskTypes {
-		UEI(Values.TYPE_TASK_UPDATE_EXTRACTION_INDEF);
+		@XmlEnumValue("ET")
+		ET(Values.TYPE_EXTRACTION_TASK),
+		@XmlEnumValue("TUEI")
+		TUEI(Values.TYPE_TASK_UPDATE_EXTRACTION_INDEF);
 		private TaskTypes(String type) {
-			// if (!this.name().equals(type))
-			// throw new IllegalArgumentException("Incorrect use of FilterTypes");
+			
 		}
 		public static class Values {
 			// Available filters
-			public final static String TYPE_TASK_UPDATE_EXTRACTION_INDEF = "UEI";
+			public final static String TYPE_EXTRACTION_TASK = "ET";
+			public final static String TYPE_TASK_UPDATE_EXTRACTION_INDEF = "TUEI";
 		}
 	}
+
 	/*
 	 * Generic Strings
 	 */
@@ -152,7 +162,11 @@ public final class Constants {
 	public static final int ST_STOPPED=3;
 	public static final int ST_FINISHED=4;
 	public static final int ST_INTERRUPTED=5;
-
+	/*
+	*Types of task available
+	**/
+    public static final String EXTRACTION_SERVER_TASK_TYPE="Task for extraction";
+	public static final String UPDATE_EXTRACTION_INDEF_SERVER_TASK_TYPE = "Update an extraction indefinitely";
 
 
 

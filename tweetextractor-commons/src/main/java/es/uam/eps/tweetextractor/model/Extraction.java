@@ -269,4 +269,12 @@ public class Extraction {
 		}
 		return false;
 	}
+	@XmlTransient
+	public String getFiltersColumn() {
+		String ret = new String();
+		for(Filter filter:this.getFilterList()) {
+			ret=ret.concat("( "+filter.getSummary()+" ) AND ");
+		}
+		return ret;
+	}
 }

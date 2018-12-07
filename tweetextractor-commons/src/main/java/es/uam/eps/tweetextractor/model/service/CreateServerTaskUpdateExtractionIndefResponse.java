@@ -17,6 +17,8 @@ public class CreateServerTaskUpdateExtractionIndefResponse {
 	private boolean error;
 	@XmlElement(name="message")
 	private String message;
+	@XmlElement(name="id")
+	private int id;
 	public CreateServerTaskUpdateExtractionIndefResponse(boolean error, String message) {
 		super();
 		this.error = error;
@@ -38,6 +40,19 @@ public class CreateServerTaskUpdateExtractionIndefResponse {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	/**
+	 * @return the id
+	 */
+	@XmlTransient
+	public int getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

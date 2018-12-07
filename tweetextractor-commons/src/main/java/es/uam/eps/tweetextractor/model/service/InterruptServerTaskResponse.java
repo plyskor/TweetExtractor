@@ -18,7 +18,6 @@ public class InterruptServerTaskResponse {
 	@XmlElement(name="message")
 	private String message;
 	public InterruptServerTaskResponse() {
-		// TODO Auto-generated constructor stub
 	}
 	/**
 	 

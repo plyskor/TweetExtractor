@@ -64,7 +64,6 @@ public class FilterFrom extends Filter {
 	}
 	@Override
 	public void loadXml() {
-		// TODO Auto-generated method stub
 		
 	}
 

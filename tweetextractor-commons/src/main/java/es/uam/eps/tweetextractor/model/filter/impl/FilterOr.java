@@ -93,7 +93,6 @@ public class FilterOr extends Filter {
 
 	@Override
 	public void loadXml() {
-		// TODO Auto-generated method stub
 		
 	}
 

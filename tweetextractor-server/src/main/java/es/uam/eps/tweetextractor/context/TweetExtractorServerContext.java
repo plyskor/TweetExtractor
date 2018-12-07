@@ -22,7 +22,6 @@ public class TweetExtractorServerContext {
 	 */
 	
 	public TweetExtractorServerContext() {
-		// TODO Auto-generated constructor stub
 	}
 	 
 	@Bean("Server")

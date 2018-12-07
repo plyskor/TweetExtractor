@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.annotations.Polymorphism;
+import org.hibernate.annotations.PolymorphismType;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 import es.uam.eps.tweetextractor.dao.service.ServerTaskService;
@@ -31,6 +33,7 @@ import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 @Entity
 @Table(name="perm_server_task")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Polymorphism(type = PolymorphismType.IMPLICIT)
 @DiscriminatorColumn(name = "task_type",length=6, discriminatorType = DiscriminatorType.STRING)
 public abstract class ServerTask implements Runnable {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -114,7 +117,7 @@ public abstract class ServerTask implements Runnable {
 	public void setTaskType(TaskTypes taskType) {
 		this.taskType = taskType;
 	}
-	public abstract ServerTaskResponse call() throws Exception;
+	public abstract ServerTaskResponse call();
 	/**
 	 * @return the thread
 	 */

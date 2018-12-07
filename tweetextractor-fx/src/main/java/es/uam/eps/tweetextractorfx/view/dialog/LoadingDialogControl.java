@@ -16,7 +16,6 @@ private Stage dialogStage;
 	 * 
 	 */
 	public LoadingDialogControl() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

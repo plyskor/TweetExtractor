@@ -28,8 +28,7 @@
 		<mapping class="es.uam.eps.tweetextractor.model.Extraction" />
 		<mapping class="es.uam.eps.tweetextractor.model.GeoLocation" />
 		<mapping class="es.uam.eps.tweetextractor.model.Tweet" />
-		<mapping
-			class="es.uam.eps.tweetextractor.model.filter.Filter" />
+		<mapping class="es.uam.eps.tweetextractor.model.filter.Filter" />
 		<mapping
 			class="es.uam.eps.tweetextractor.model.filter.impl.FilterContains" />
 		<mapping
@@ -56,7 +55,9 @@
 			class="es.uam.eps.tweetextractor.model.filter.impl.FilterUrl" />
 		<mapping
 			class="es.uam.eps.tweetextractor.model.servertask.ServerTask" />
-<mapping
+		<mapping
+			class="es.uam.eps.tweetextractor.model.servertask.ExtractionServerTask" />
+		<mapping
 			class="es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskUpdateExtractionIndef" />
 
 	</session-factory>

@@ -14,7 +14,6 @@ public class ServerTaskResponse {
 	 * 
 	 */
 	public ServerTaskResponse() {
-		// TODO Auto-generated constructor stub
 	}
 	/**
 	 * @return the error
