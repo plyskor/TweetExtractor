@@ -16,6 +16,7 @@ import es.uam.eps.tweetextractorfx.view.dialog.LoadingDialogControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
 import es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl;
+import es.uam.eps.tweetextractorfx.view.server.ManageServerTasksControl;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -188,6 +189,21 @@ public class MainApplication extends Application {
 			AnchorPane homeScreen = (AnchorPane) loader.load();
 			// Give the controller access to the main app.
 			ShowUserExtractionsControl controller = loader.getController();
+			controller.setMainApplication(this);
+			// Set query constructor into the center of root layout.
+			rootLayout.setCenter(homeScreen);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void showManageServerTasks() {
+		try {
+			// Load query constructor
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource("view/server/ManageServerTasks.fxml"));
+			AnchorPane homeScreen = (AnchorPane) loader.load();
+			// Give the controller access to the main app.
+			ManageServerTasksControl controller = loader.getController();
 			controller.setMainApplication(this);
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(homeScreen);

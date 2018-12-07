@@ -355,6 +355,7 @@ public class HomeScreenControl {
 	}
 	@FXML
 	public void onManageTasks() {
+		this.getMainApplication().showManageServerTasks();
 		return;
 	}
 

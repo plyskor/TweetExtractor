@@ -5,8 +5,8 @@ package es.uam.eps.tweetextractor.model.servertask;
 
 
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 
 /**
@@ -15,9 +15,14 @@ import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
  */
 
 public class ServerTaskInfo {
+	@XmlElement(name="id")
 	private int id;
+	@XmlElement(name="status")
 	private int status;
+	@XmlElement(name="type")
 	public TaskTypes taskType;
+	@XmlElement(name="extraction")
+	private String extractionSummary;
 	/**
 	 * 
 	 */
@@ -29,11 +34,12 @@ public class ServerTaskInfo {
 	 * @param status
 	 * @param taskType
 	 */
-	public ServerTaskInfo(int id, int status, TaskTypes taskType) {
+	public ServerTaskInfo(int id, int status, TaskTypes taskType,String extractionSummary) {
 		super();
 		this.id = id;
 		this.status = status;
 		this.taskType = taskType;
+		this.extractionSummary=extractionSummary;
 	}
 	/**
 	 * @return the id
@@ -73,6 +79,19 @@ public class ServerTaskInfo {
 	 */
 	public void setTaskType(TaskTypes taskType) {
 		this.taskType = taskType;
+	}
+	/**
+	 * @return the extractionSummary
+	 */
+	@XmlTransient
+	public String getExtractionSummary() {
+		return extractionSummary;
+	}
+	/**
+	 * @param extractionSummary the extractionSummary to set
+	 */
+	public void setExtractionSummary(String extractionSummary) {
+		this.extractionSummary = extractionSummary;
 	}
 	
 }

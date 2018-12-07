@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 
 import es.uam.eps.tweetextractor.dao.service.ServerTaskService;
 import es.uam.eps.tweetextractor.model.Constants;
+import es.uam.eps.tweetextractor.model.servertask.ExtractionServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
+import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
 import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 
 /**
@@ -143,5 +145,19 @@ public class Server {
 			}
 		}
 		return;
+	}
+	public List<ServerTaskInfo> getUserServerTasksInfo(int userId){
+		List<ServerTaskInfo> ret = new ArrayList<ServerTaskInfo>();
+		if(serverTaskList==null||serverTaskList.isEmpty())return ret;
+		for(ServerTask task:serverTaskList) {
+			if(task.getUser().getIdDB()==userId) {
+				String extractionSummary="";
+				if(ExtractionServerTask.class.isAssignableFrom(task.getClass())) {
+					extractionSummary=((ExtractionServerTask)task).getExtraction().getFiltersColumn();
+				}
+				ret.add(new ServerTaskInfo(task.getId(), task.getStatus(), task.getTaskType(),extractionSummary));
+			}
+		}
+		return ret;
 	}
 }

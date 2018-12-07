@@ -22,7 +22,7 @@ public class GetServerTaskStatus extends TweetExtractorCXFService implements Get
 		factory.setAddress(endpoint+Constants.GET_SERVER_TASK_STATUS_ENDPOINT);
 		client= (GetServerTaskStatusSei) factory.create(); 
 	}
-
+	@Override
 	public GetServerTaskStatusResponse getServerTaskStatus(int id) {
 		if(client !=null) {
 			GetServerTaskStatusResponse reply = client.getServerTaskStatus(id); 

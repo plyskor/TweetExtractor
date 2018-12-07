@@ -121,6 +121,7 @@ public final class Constants {
 	public static final String DELETE_SERVER_TASK_ENDPOINT="deleteServerTask";
 	public static final String LAUNCH_SERVER_TASK_ENDPOINT="launchServerTask";
 	public static final String GET_SERVER_STATUS_ENDPOINT="getServerStatus";
+	public static final String GET_USER_SERVER_TASKS_ENDPOINT="getUserServerTasks";
 
 
 	/*

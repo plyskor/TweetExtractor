@@ -33,5 +33,9 @@
           id="GetServerStatus" 
           implementor="es.uam.eps.tweetextractor.server.service.impl.GetServerStatusImpl" 
           address="/getServerStatus" />
+          <jaxws:endpoint 
+          id="GetUserServerTasks" 
+          implementor="es.uam.eps.tweetextractor.server.service.impl.GetUserServerTasksImpl" 
+          address="/getUserServerTasks" />
        
 </beans>

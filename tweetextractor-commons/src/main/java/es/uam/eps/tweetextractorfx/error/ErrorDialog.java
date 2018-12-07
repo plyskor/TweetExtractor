@@ -454,4 +454,12 @@ public class ErrorDialog {
 		alert.setContentText("Server task has been created with id: "+id);		
 		alert.showAndWait();
 	}
+
+	public static void showErrorRefreshServerTasksList(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Error refreshing server tasks");
+		alert.setContentText("An error has been thrown by the server while refreshing the tasks list:\n\n'"+message+"'");		
+		alert.showAndWait();
+	}
 }
