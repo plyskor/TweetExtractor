@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
+
 /**
  * @author jgarciadelsaz
  *
@@ -17,6 +19,8 @@ public class LaunchServerTaskResponse {
 	private boolean error;
 	@XmlElement(name="message")
 	private String message;
+	@XmlElement(name="servertaskresponse")
+	private ServerTaskResponse response;
 	/**
 	 * 
 	 */
@@ -59,6 +63,21 @@ public class LaunchServerTaskResponse {
 	 */
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	/**
+	 * @return the response
+	 */
+	@XmlTransient
+	public ServerTaskResponse getResponse() {
+		return response;
+	}
+
+	/**
+	 * @param response the response to set
+	 */
+	public void setResponse(ServerTaskResponse response) {
+		this.response = response;
 	}
 	
 	

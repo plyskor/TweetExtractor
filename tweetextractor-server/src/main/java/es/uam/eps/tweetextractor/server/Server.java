@@ -115,7 +115,7 @@ public class Server {
 		}
 		
 	}
-	public boolean launchServerTask(ServerTask task) {
+	public ServerTaskResponse launchServerTask(ServerTask task) {
 		ServerTaskService stService =new ServerTaskService();
 		/*Response object for calls*/
 		ServerTaskResponse response = null;
@@ -129,14 +129,18 @@ public class Server {
 				}
 			} catch (Exception e1) {
 				logger.error("Exception calling task with id:"+task.getId()+":\n"+e1.getStackTrace().toString());
-				return false;
+				return response;
 			}
 			if (response != null) {
 				logger.info("Calling server task with id:"+task.getId()+" returned message: "+response.getMessage());
 			}
-		return true;
+		return response;
+		}else {
+			response=new ServerTaskResponse();
+			response.setError(true);
+			response.setMessage("Task "+task.getId()+" is not ready to run.");
 		}
-		return false;
+		return response;
 	}
 	public void reinitializeTask(ServerTask task) {
 		if(task!=null) {

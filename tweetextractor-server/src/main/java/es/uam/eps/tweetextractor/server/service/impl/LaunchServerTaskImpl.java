@@ -12,6 +12,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
+import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.LaunchServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.sei.LaunchServerTaskSei;
 import es.uam.eps.tweetextractor.server.Server;
@@ -49,9 +50,12 @@ public class LaunchServerTaskImpl implements LaunchServerTaskSei {
 	    	 reply.setMessage("TASK "+id+" DOESNT EXIST");
 	    	 return reply;
 	     }
-	     server.launchServerTask(task);
-	     
-		return null;
+	     ServerTaskResponse response = server.launchServerTask(task);
+	     if(response==null)return null;
+	     reply.setError(response.isError());
+	     reply.setMessage(response.getMessage());
+	     reply.setResponse(response);
+	     return reply;
 	}
 
 }
