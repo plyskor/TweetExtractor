@@ -5,7 +5,6 @@ package es.uam.eps.tweetextractor.service;
 
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.service.LaunchServerTaskResponse;
-import es.uam.eps.tweetextractor.model.service.sei.InterruptServerTaskSei;
 import es.uam.eps.tweetextractor.model.service.sei.LaunchServerTaskSei;
 
 /**
@@ -20,7 +19,7 @@ public class LaunchServerTask extends TweetExtractorCXFService implements Launch
 	 */
 	public LaunchServerTask(String endpoint) {
 		super(endpoint);
-		factory.setServiceClass(InterruptServerTaskSei.class); 
+		factory.setServiceClass(LaunchServerTaskSei.class); 
 		factory.setAddress(endpoint+Constants.LAUNCH_SERVER_TASK_ENDPOINT);
 		client= (LaunchServerTaskSei) factory.create(); 
 	}

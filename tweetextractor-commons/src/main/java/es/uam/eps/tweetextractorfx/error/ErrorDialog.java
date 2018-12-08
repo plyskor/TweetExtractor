@@ -456,10 +456,34 @@ public class ErrorDialog {
 	}
 
 	public static void showErrorRefreshServerTasksList(String message) {
-		Alert alert = new Alert(AlertType.INFORMATION);
+		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Warning");
 		alert.setHeaderText("Error refreshing server tasks");
 		alert.setContentText("An error has been thrown by the server while refreshing the tasks list:\n\n'"+message+"'");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorNoSelectedServerTask() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No server task selected");
+		alert.setContentText("Please, select a task first to perform this action.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorPerformServerAction(String message) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText("An error has ocurred on the server");
+		alert.setContentText("Server has thrown this error trying to perform this operation:\n\n'"+message+"'");		
+		alert.showAndWait();
+	}
+
+	public static void showTaskHasStarted(int id) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Task "+id+" has started running");
+		alert.setContentText("Your task is currently running on the server.");		
 		alert.showAndWait();
 	}
 }

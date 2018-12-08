@@ -54,9 +54,9 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 			ret.setMessage("There is no extraction to update.");
 			return ret;
 		}
-		if(this.getStatus()!=Constants.ST_READY) {
+		if(this.getStatus()==Constants.ST_RUNNING) {
 			ret.setError(true);
-			ret.setMessage("Task is not ready to be called.");
+			ret.setMessage("Task is currently running.");
 			return ret;
 		}
 		this.getThread().setName("tweetextractor-server:ServerTask-"+this.getId());
@@ -64,12 +64,17 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 		ret.setError(false);
 		ret.setMessage("Task is ready to run.");
 		this.goReady();
+		if(this.getStatus()!=Constants.ST_READY) {
+			ret.setError(true);
+			ret.setMessage("Task is not ready to be called.");
+			return ret;
+		}
 		return ret;	
 	}
 	public void run() {
 		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
 		while(this.trigger==false) {
-		    logger.info("I'm here with the id:"+this.getId()+"\n");
+		    logger.info("I'm here RUNNING with the id:"+this.getId()+"\n");
 		    try {
 				TimeUnit.SECONDS.sleep(5);
 			} catch (InterruptedException e) {

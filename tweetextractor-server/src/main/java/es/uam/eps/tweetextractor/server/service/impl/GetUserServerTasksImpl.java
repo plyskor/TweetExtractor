@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.servlet.ServletContext;
 import javax.xml.ws.WebServiceContext;
@@ -32,7 +33,7 @@ public class GetUserServerTasksImpl implements GetUserServerTasksSei{
 	}
 	@WebMethod(action="getUserServerTasks")
 	@Override
-	public GetUserServerTasksResponse getUserServerTasks(int id) {
+	public GetUserServerTasksResponse getUserServerTasks(@WebParam(name = "id")int id) {
 		GetUserServerTasksResponse ret = new GetUserServerTasksResponse();
 		if(id<=0) {
 			ret.setError(true);

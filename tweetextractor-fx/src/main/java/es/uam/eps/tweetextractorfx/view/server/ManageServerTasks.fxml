@@ -91,10 +91,10 @@
                                                          <children>
                                                             <TableView fx:id="serverTaskTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                               <columns>
-                                                                <TableColumn fx:id="serverTaskID" prefWidth="75.0" text="Task ID" />
-                                                                <TableColumn fx:id="serverTaskType" prefWidth="75.0" text="Task Type" />
-                                                <TableColumn fx:id="serverTaskExtraction" prefWidth="75.0" text="Extraction ID" />
-                                                <TableColumn fx:id="serverTaskStatus" prefWidth="75.0" text="Task Status" />
+                                                                <TableColumn fx:id="serverTaskID" prefWidth="75.0" text="ID" />
+                                                                <TableColumn fx:id="serverTaskType" prefWidth="75.0" text="Type" />
+                                                <TableColumn fx:id="serverTaskExtraction" prefWidth="75.0" text="Extraction" />
+                                                <TableColumn fx:id="serverTaskStatus" prefWidth="75.0" text="Status" />
                                                               </columns>
                                                                <columnResizePolicy>
                                                                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -147,7 +147,7 @@
                                                    <children>
                                                       <StackPane prefHeight="83.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" text="Refresh" />
+                                                            <Button mnemonicParsing="false" onAction="#onRefresh" text="Refresh" />
                                                          </children>
                                                       </StackPane>
                                                    </children>
@@ -156,7 +156,7 @@
                                                    <children>
                                                       <StackPane layoutX="67.0" layoutY="28.0" prefHeight="83.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" text="Run" />
+                                                            <Button mnemonicParsing="false" onAction="#onRun" text="Run" />
                                                          </children>
                                                       </StackPane>
                                                    </children>
@@ -165,7 +165,7 @@
                                                    <children>
                                                       <StackPane layoutX="52.0" layoutY="28.0" prefHeight="83.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" text="Interrupt" />
+                                                            <Button mnemonicParsing="false" onAction="#onInterrupt" text="Interrupt" />
                                                          </children>
                                                       </StackPane>
                                                    </children>
@@ -174,7 +174,7 @@
                                                    <children>
                                                       <StackPane prefHeight="83.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" text="Reset" />
+                                                            <Button mnemonicParsing="false" onAction="#onSetReady" text="Set Ready" />
                                                          </children>
                                                       </StackPane>
                                                    </children>

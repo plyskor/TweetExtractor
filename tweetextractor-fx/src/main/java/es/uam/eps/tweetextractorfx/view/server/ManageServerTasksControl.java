@@ -6,8 +6,18 @@ package es.uam.eps.tweetextractorfx.view.server;
 
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
+import es.uam.eps.tweetextractor.model.service.DeleteServerTaskResponse;
+import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
 import es.uam.eps.tweetextractor.model.service.GetUserServerTasksResponse;
+import es.uam.eps.tweetextractor.model.service.InterruptServerTaskResponse;
+import es.uam.eps.tweetextractor.model.service.LaunchServerTaskResponse;
+import es.uam.eps.tweetextractor.model.service.SetServerTaskReadyResponse;
+import es.uam.eps.tweetextractor.service.DeleteServerTask;
+import es.uam.eps.tweetextractor.service.GetServerTaskStatus;
 import es.uam.eps.tweetextractor.service.GetUserServerTasks;
+import es.uam.eps.tweetextractor.service.InterruptServerTask;
+import es.uam.eps.tweetextractor.service.LaunchServerTask;
+import es.uam.eps.tweetextractor.service.SetServerTaskReady;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
@@ -48,7 +58,7 @@ public class ManageServerTasksControl {
 		// Initialize the person table with the two columns.
 		serverTaskID.setCellValueFactory(cellData -> new SimpleStringProperty(""+cellData.getValue().getId()));
 		serverTaskExtraction.setCellValueFactory(cellData -> new SimpleStringProperty(""+cellData.getValue().getExtractionSummary()));
-		serverTaskStatus.setCellValueFactory(cellData -> new SimpleStringProperty(""+cellData.getValue().getStatus()));
+		serverTaskStatus.setCellValueFactory(cellData -> new SimpleStringProperty(""+Constants.TASK_STATUS_MAP.get(cellData.getValue().getStatus())));
 		serverTaskType.setCellValueFactory(cellData -> new SimpleStringProperty(""+cellData.getValue().getTaskType()));
 				
 		// Listen for selection changes and show the person details when changed.
@@ -164,5 +174,66 @@ public class ManageServerTasksControl {
 		}
 		serverTasksList.clear();
 		serverTasksList.addAll(reply.getServerTasksList());
+	}
+	@FXML
+	public void onRun() {
+		if(selectedServerTask==null) {
+			ErrorDialog.showErrorNoSelectedServerTask();
+			return;
+		}
+		LaunchServerTask service = new LaunchServerTask(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		LaunchServerTaskResponse reply = service.launchServerTask(selectedServerTask.getId());
+		if(!reply.isError()) {
+			ErrorDialog.showTaskHasStarted(selectedServerTask.getId());
+			onRefresh();
+		}else {
+			ErrorDialog.showErrorPerformServerAction(reply.getMessage());
+		}
+	}
+	@FXML
+	public void onInterrupt() {
+		if(selectedServerTask==null) {
+			ErrorDialog.showErrorNoSelectedServerTask();
+			return;
+		}
+		InterruptServerTask service = new InterruptServerTask(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		InterruptServerTaskResponse reply = service.interruptServerTask(selectedServerTask.getId());
+		if(!reply.isError()) {
+			onRefresh();
+		}else {
+			ErrorDialog.showErrorPerformServerAction(reply.getMessage());
+		}
+	}
+	@FXML
+	public void onSetReady() {
+		if(selectedServerTask==null) {
+			ErrorDialog.showErrorNoSelectedServerTask();
+			return;
+		}
+		SetServerTaskReady service = new SetServerTaskReady(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		SetServerTaskReadyResponse reply = service.setServerTaskReady(selectedServerTask.getId());
+		if(!reply.isError()) {
+			onRefresh();
+		}else {
+			ErrorDialog.showErrorPerformServerAction(reply.getMessage());
+		}
+	}
+	@FXML
+	public void onDeleteTask() {
+		if(selectedServerTask==null) {
+			ErrorDialog.showErrorNoSelectedServerTask();
+			return;
+		}
+		DeleteServerTask service = new DeleteServerTask(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		DeleteServerTaskResponse reply = service.deleteServerTask(selectedServerTask.getId());
+		if(!reply.isError()) {
+			onRefresh();
+		}else {
+			ErrorDialog.showErrorPerformServerAction(reply.getMessage());
+		}
+	}
+	@FXML
+	public void onRefresh() {
+		refreshTable();
 	}
 }

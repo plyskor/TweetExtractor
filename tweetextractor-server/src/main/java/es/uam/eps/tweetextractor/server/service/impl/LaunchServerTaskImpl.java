@@ -5,6 +5,7 @@ package es.uam.eps.tweetextractor.server.service.impl;
 
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.servlet.ServletContext;
 import javax.xml.ws.WebServiceContext;
@@ -26,7 +27,7 @@ public class LaunchServerTaskImpl implements LaunchServerTaskSei {
 	public LaunchServerTaskImpl() {}
 	@WebMethod(action="launchServerTask")
 	@Override
-	public LaunchServerTaskResponse launchServerTask(int id) {
+	public LaunchServerTaskResponse launchServerTask(@WebParam(name = "id")int id) {
 		LaunchServerTaskResponse reply = new LaunchServerTaskResponse();
 		if(id<=0) {
 			reply.setError(true);

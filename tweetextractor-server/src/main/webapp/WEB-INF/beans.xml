@@ -37,5 +37,8 @@
           id="GetUserServerTasks" 
           implementor="es.uam.eps.tweetextractor.server.service.impl.GetUserServerTasksImpl" 
           address="/getUserServerTasks" />
-       
+       <jaxws:endpoint 
+          id="SetServerTaskReady" 
+          implementor="es.uam.eps.tweetextractor.server.service.impl.SetServerTaskReadyImpl" 
+          address="/setServerTaskReady" />
 </beans>

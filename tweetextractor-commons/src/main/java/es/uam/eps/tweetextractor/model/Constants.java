@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
+import com.google.common.collect.ImmutableMap;
+
 /**
  * @author Jose Antonio García del Saz
  *
@@ -122,6 +124,7 @@ public final class Constants {
 	public static final String LAUNCH_SERVER_TASK_ENDPOINT="launchServerTask";
 	public static final String GET_SERVER_STATUS_ENDPOINT="getServerStatus";
 	public static final String GET_USER_SERVER_TASKS_ENDPOINT="getUserServerTasks";
+	public static final String SET_SERVER_TASK_READY_ENDPOINT="setServerTaskReady";
 
 
 	/*
@@ -163,6 +166,15 @@ public final class Constants {
 	public static final int ST_STOPPED=3;
 	public static final int ST_FINISHED=4;
 	public static final int ST_INTERRUPTED=5;
+	public static final ImmutableMap<Integer, String> TASK_STATUS_MAP =
+		       new ImmutableMap.Builder<Integer, String>()
+		           .put(ST_NEW,"NEW")
+		           .put(ST_READY,"READY")
+		           .put(ST_RUNNING,"RUNNING")
+		           .put(ST_STOPPED,"STOPPED")
+		           .put(ST_FINISHED,"FINISHED")
+		           .put(ST_INTERRUPTED,"INTERRUPTED")
+		           .build();
 	/*
 	*Types of task available
 	**/
