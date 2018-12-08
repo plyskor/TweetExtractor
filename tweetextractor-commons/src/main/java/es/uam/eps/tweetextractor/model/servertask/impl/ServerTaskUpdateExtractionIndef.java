@@ -18,6 +18,7 @@ import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.servertask.ExtractionServerTask;
 import es.uam.eps.tweetextractor.model.servertask.response.UpdateExtractionIndefResponse;
+import es.uam.eps.tweetextractor.server.twitterapi.ServerTwitterExtractor;
 
 /**
  * @author Jose Antonio García del Saz
@@ -74,15 +75,27 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 	}
 	public void run() {
 		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
+		logger.info("Starting execution of task with id: "+this.getId());
+		if(this.extraction==null) {
+			logger.error("The task with id:"+this.getId()+"has no extraction and has been interrupted.");
+			onInterrupt();
+			return;
+		}
+		if(this.extraction.getUser()==null||!this.getExtraction().getUser().hasAnyCredentials()) {
+			logger.error("The task with id:"+this.getId()+"has no user/credentials associated and has been interrupted.");
+			onInterrupt();
+			return;
+		}
+		logger.info("Initializing TwitterExtractor...");
+		ServerTwitterExtractor twitter = new ServerTwitterExtractor();
+		twitter.initialize(extraction);
+		logger.info("Starting infinite update of extraction with id: "+extraction.getIdDB());
 		while(this.trigger==false) {
-		    logger.info("I'm here RUNNING with the id:"+this.getId()+"\n");
-		    try {
+			try {
 				TimeUnit.SECONDS.sleep(5);
 			} catch (InterruptedException e) {
 				logger.info("The task with id:"+this.getId()+"has been interrupted.");
-				this.setStatus(Constants.ST_INTERRUPTED);
-				 ServerTaskService stServce = new ServerTaskService();
-				stServce.update(this);
+				onInterrupt();
 				return;
 			}
 		}
@@ -103,5 +116,4 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 		ExtractionService eService= new ExtractionService();
 		this.extraction=eService.findById(this.getExtractionId());
 	}
-
 }

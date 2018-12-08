@@ -104,7 +104,11 @@ public abstract class ServerTask implements Runnable {
 			stService.update(this);
 		}
 	}
-	
+	public void onInterrupt() {
+		this.setStatus(Constants.ST_INTERRUPTED);
+		 ServerTaskService stServce = new ServerTaskService();
+		stServce.update(this);
+	}
 	/**
 	 * @return the taskType
 	 */

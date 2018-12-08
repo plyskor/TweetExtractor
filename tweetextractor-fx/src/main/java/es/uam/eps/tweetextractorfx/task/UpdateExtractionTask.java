@@ -6,7 +6,7 @@ package es.uam.eps.tweetextractorfx.task;
 import java.util.Date;
 
 import es.uam.eps.tweetextractor.model.Extraction;
-import es.uam.eps.tweetextractorfx.task.status.UpdateStatus;
+import es.uam.eps.tweetextractor.model.task.status.UpdateStatus;
 import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
 import javafx.concurrent.Task;
 

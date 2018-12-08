@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractorfx.task.status;
+package es.uam.eps.tweetextractor.model.task.status;
 
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.User;

@@ -9,7 +9,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import es.uam.eps.tweetextractor.dao.service.UserService;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.User;
-import es.uam.eps.tweetextractorfx.task.status.RegisterStatus;
+import es.uam.eps.tweetextractor.model.task.status.RegisterStatus;
 import javafx.concurrent.Task;
 
 /**

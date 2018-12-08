@@ -1,0 +1,247 @@
+/**
+ * 
+ */
+package es.uam.eps.tweetextractor.server.twitterapi;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import es.uam.eps.tweetextractor.dao.service.TweetService;
+import es.uam.eps.tweetextractor.model.Constants;
+import es.uam.eps.tweetextractor.model.Credentials;
+import es.uam.eps.tweetextractor.model.Extraction;
+import es.uam.eps.tweetextractor.model.Tweet;
+import es.uam.eps.tweetextractor.model.task.status.UpdateStatus;
+import es.uam.eps.tweetextractor.util.FilterManager;
+import twitter4j.Query;
+import twitter4j.QueryResult;
+import twitter4j.RateLimitStatus;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
+
+/**
+ * @author Jose Antonio García del Saz
+ *
+ */
+public class ServerTwitterExtractor {
+	private ConfigurationBuilder cb;
+	private TwitterFactory tf;
+	private Twitter twitter;
+	private List<Credentials> credentialsList;
+	private Query query;
+	private Credentials currentCredentials;
+	private Credentials lastReadyCredentials;
+	/**
+	 * 
+	 */
+	public ServerTwitterExtractor() {
+	}
+
+	/**
+	 * @return the cb
+	 */
+	public ConfigurationBuilder getCb() {
+		return cb;
+	}
+
+	/**
+	 * @param cb the cb to set
+	 */
+	public void setCb(ConfigurationBuilder cb) {
+		this.cb = cb;
+	}
+
+	/**
+	 * @return the tf
+	 */
+	public TwitterFactory getTf() {
+		return tf;
+	}
+
+	/**
+	 * @param tf the tf to set
+	 */
+	public void setTf(TwitterFactory tf) {
+		this.tf = tf;
+	}
+
+	/**
+	 * @return the twitter
+	 */
+	public Twitter getTwitter() {
+		return twitter;
+	}
+
+	/**
+	 * @param twitter the twitter to set
+	 */
+	public void setTwitter(Twitter twitter) {
+		this.twitter = twitter;
+	}
+
+
+
+	/**
+	 * @return the credentialsList
+	 */
+	public List<Credentials> getCredentialsList() {
+		return credentialsList;
+	}
+
+	/**
+	 * @param credentialsList the credentialsList to set
+	 */
+	public void setCredentialsList(List<Credentials> credentialsList) {
+		this.credentialsList = credentialsList;
+	}
+
+	/**
+	 * @return the query
+	 */
+	public Query getQuery() {
+		return query;
+	}
+
+	/**
+	 * @return the currentCredentials
+	 */
+	public Credentials getCurrentCredentials() {
+		return currentCredentials;
+	}
+
+	/**
+	 * @param currentCredentials the currentCredentials to set
+	 */
+	public void setCurrentCredentials(Credentials currentCredentials) {
+		this.currentCredentials = currentCredentials;
+	}
+
+	/**
+	 * @return the lastReadyCredentials
+	 */
+	public Credentials getLastReadyCredentials() {
+		return lastReadyCredentials;
+	}
+
+	/**
+	 * @param lastReadyCredentials the lastReadyCredentials to set
+	 */
+	public void setLastReadyCredentials(Credentials lastReadyCredentials) {
+		this.lastReadyCredentials = lastReadyCredentials;
+	}
+
+	/**
+	 * @param query the query to set
+	 */
+	public void setQuery(Query query) {
+		this.query = query;
+	}
+	public void initialize(Extraction extraction) {
+		if(this.credentialsList==null||this.credentialsList.isEmpty()) {
+			return;
+		}else {
+			this.currentCredentials=this.getCredentialsList().get(0);
+			this.configure(currentCredentials);
+			this.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList())+"-filter:retweets");
+		}
+	}
+	public void configure(Credentials credentials) {
+		if(credentials==null)return;
+		/*Configuramos la API con nuestros datos provisionales*/
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(false).setOAuthConsumerKey(credentials.getConsumerKey())
+		.setOAuthConsumerSecret(credentials.getConsumerSecret())
+		.setOAuthAccessToken(credentials.getAccessToken()).setTweetModeExtended(true)
+		.setOAuthAccessTokenSecret(credentials.getAccessTokenSecret());
+		/*Instanciamos la conexión*/
+		 tf = new TwitterFactory(cb.build());
+		twitter = tf.getInstance();
+	}
+	public UpdateStatus getStatusListExecution() {
+		UpdateStatus ret= new UpdateStatus(0, null);
+		List<Status>resultList=new ArrayList<Status>();
+		try {
+            QueryResult result;
+            do {
+            	ret.setStatus(Constants.SUCCESS_UPDATE);
+            	ret.setError(false);
+                result = twitter.search(query);
+                List<Status> tweets = result.getTweets();
+                for (Status tweet : tweets) {
+                	resultList.add(tweet);
+                }
+            } while ((query = result.nextQuery()) != null);
+            ret.setStatusList(resultList);
+            return ret;
+        } catch (TwitterException te) {
+            //*CONNECTION ISSUE
+            if(te.getStatusCode()==-1&&te.getErrorCode()==-1) {
+            	ret.setStatus(Constants.CONNECTION_UPDATE_ERROR);
+            	ret.setErrorMessage(te.getErrorMessage());
+            	ret.setError(true);
+            }else 
+            //*RATELIMIT
+            if(te.getStatusCode()==429&&te.getErrorCode()==88) {
+            	ret.setStatus(Constants.RATE_LIMIT_UPDATE_ERROR);
+            	ret.setError(true);
+            	if(resultList!=null&&!resultList.isEmpty()) {
+                	ret.setStatus(Constants.SUCCESS_UPDATE);
+            		ret.setStatusList(resultList);
+                	ret.setErrorMessage(te.getErrorMessage());
+            		return ret;
+            	}
+            }else {
+            	ret.setStatus(Constants.UNKNOWN_UPDATE_ERROR);
+            	ret.setError(true);
+            	ret.setErrorMessage(te.getErrorMessage());
+            	return ret;
+            }
+        }
+		return ret;
+	}
+	public UpdateStatus execute(){
+		List<Tweet> tweetList = new ArrayList<Tweet>();
+		UpdateStatus ret;
+		ret=getStatusListExecution();
+		if(ret.isError())return ret;
+		for(Status status : ret.getStatusList()) {
+			tweetList.add(new Tweet(status));
+		}
+		ret.setTweetList(tweetList);
+		return ret;
+	}
+	public UpdateStatus updateExtraction(Extraction extraction){
+		if (extraction==null)return null;
+		UpdateStatus ret=null;
+		ret= execute();
+		if(ret.isError())return ret;
+		for(Tweet tweet:ret.getTweetList()) {
+			if(!extraction.contains(tweet)) {
+				extraction.addTweet(tweet);
+				ret.incrementNTweets();;
+			}
+		}
+		if(ret.getnTweets()>0) {
+			TweetService tweetService=new TweetService();
+			tweetService.persistList(ret.getTweetList());
+		}
+		return ret;
+	}
+	public void setQuery(String query) {
+		if(query==null)return;
+		this.query=new Query(query);
+		return;
+	}
+	public RateLimitStatus limit(String endpoint) {
+		  try {
+			  RateLimitStatus status = twitter.getRateLimitStatus().get(endpoint);
+			return status;
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
+		  return null;
+		}
+}
