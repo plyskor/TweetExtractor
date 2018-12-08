@@ -59,6 +59,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 			ret.setMessage("Task is currently running.");
 			return ret;
 		}
+		this.setThread(new Thread(this));
 		this.getThread().setName("tweetextractor-server:ServerTask-"+this.getId());
 		this.getThread().setDaemon(true);
 		ret.setError(false);
