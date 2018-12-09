@@ -28,6 +28,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import es.uam.eps.tweetextractor.dao.service.UserService;
 import es.uam.eps.tweetextractor.model.filter.Filter;
 import es.uam.eps.tweetextractor.util.DateAdapter;
 
@@ -276,5 +278,9 @@ public class Extraction {
 			ret=ret.concat("( "+filter.getSummary()+" ) AND ");
 		}
 		return ret;
+	}
+	public void refreshUserCredentials() {
+		UserService service = new UserService();
+		this.user=service.findById(user.getIdDB());
 	}
 }

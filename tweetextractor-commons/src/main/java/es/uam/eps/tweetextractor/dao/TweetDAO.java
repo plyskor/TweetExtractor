@@ -3,6 +3,7 @@
  */
 package es.uam.eps.tweetextractor.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -119,7 +120,7 @@ public class TweetDAO implements TweetDAOInterface<Tweet, Integer> {
 	    criteriaQuery.where(criteriaBuilder.equal(root.get("extraction"), params));
 	    TypedQuery<Tweet> query = getCurrentSession().createQuery(criteriaQuery);
 	    query.setParameter(params, extraction );
-	    List<Tweet> ret= null;
+	    List<Tweet> ret= new ArrayList<Tweet>();
 	    try {ret=query.getResultList();}catch(NoResultException e) {
 	    	System.out.println("No tweet found for extractionID: "+extraction.getIdDB());	   
 	    	}

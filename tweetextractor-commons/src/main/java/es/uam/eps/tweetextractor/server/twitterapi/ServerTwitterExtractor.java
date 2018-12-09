@@ -4,6 +4,7 @@
 package es.uam.eps.tweetextractor.server.twitterapi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import es.uam.eps.tweetextractor.dao.service.TweetService;
@@ -117,6 +118,7 @@ public class ServerTwitterExtractor {
 	 */
 	public void setCurrentCredentials(Credentials currentCredentials) {
 		this.currentCredentials = currentCredentials;
+		this.configure(currentCredentials);
 	}
 
 	/**
@@ -140,10 +142,12 @@ public class ServerTwitterExtractor {
 		this.query = query;
 	}
 	public void initialize(Extraction extraction) {
+		this.credentialsList=extraction.getUser().getCredentialList();
 		if(this.credentialsList==null||this.credentialsList.isEmpty()) {
 			return;
 		}else {
 			this.currentCredentials=this.getCredentialsList().get(0);
+			this.lastReadyCredentials=currentCredentials;
 			this.configure(currentCredentials);
 			this.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList())+"-filter:retweets");
 		}
@@ -216,17 +220,19 @@ public class ServerTwitterExtractor {
 	public UpdateStatus updateExtraction(Extraction extraction){
 		if (extraction==null)return null;
 		UpdateStatus ret=null;
+		List<Tweet> toPersist=new ArrayList<Tweet>();
 		ret= execute();
 		if(ret.isError())return ret;
 		for(Tweet tweet:ret.getTweetList()) {
 			if(!extraction.contains(tweet)) {
 				extraction.addTweet(tweet);
-				ret.incrementNTweets();;
+				ret.incrementNTweets();
+				toPersist.add(tweet);
 			}
 		}
 		if(ret.getnTweets()>0) {
 			TweetService tweetService=new TweetService();
-			tweetService.persistList(ret.getTweetList());
+			tweetService.persistList(toPersist);
 		}
 		return ret;
 	}
@@ -235,7 +241,7 @@ public class ServerTwitterExtractor {
 		this.query=new Query(query);
 		return;
 	}
-	public RateLimitStatus limit(String endpoint) {
+	public RateLimitStatus limit(String endpoint,Twitter twitter) {
 		  try {
 			  RateLimitStatus status = twitter.getRateLimitStatus().get(endpoint);
 			return status;
@@ -244,4 +250,35 @@ public class ServerTwitterExtractor {
 		}
 		  return null;
 		}
+	public void nextCredentials() {
+		if(credentialsList==null||currentCredentials==null)return;
+		int actualIndex =credentialsList.indexOf(currentCredentials);
+		if(actualIndex+1==credentialsList.size()) {
+			currentCredentials=credentialsList.get(0);
+		}else {
+			currentCredentials=credentialsList.get(actualIndex+1);
+		}
+	}
+	public int getMinSecondsBlocked() {
+		if(credentialsList==null||credentialsList.isEmpty()) {
+			return 0;
+		}
+		List<Integer> secondsList= new ArrayList<Integer>();
+		for(Credentials credentials:credentialsList){
+			/*Configuramos la API con nuestros datos provisionales*/
+			ConfigurationBuilder cb = new ConfigurationBuilder();
+			cb.setDebugEnabled(false).setOAuthConsumerKey(credentials.getConsumerKey())
+			.setOAuthConsumerSecret(credentials.getConsumerSecret())
+			.setOAuthAccessToken(credentials.getAccessToken()).setTweetModeExtended(true)
+			.setOAuthAccessTokenSecret(credentials.getAccessTokenSecret());
+			/*Instanciamos la conexión*/
+			TwitterFactory tf = new TwitterFactory(cb.build());
+			Twitter twitter = tf.getInstance();
+			secondsList.add(this.limit("/search/tweets",twitter).getSecondsUntilReset());
+		}
+		int newIndex=secondsList.indexOf(Collections.min(secondsList,null));
+		this.setCurrentCredentials(credentialsList.get(newIndex));
+		this.lastReadyCredentials=null;
+		return Collections.min(secondsList,null);
+	}
 }
