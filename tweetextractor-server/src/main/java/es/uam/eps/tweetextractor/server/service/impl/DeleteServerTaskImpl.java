@@ -33,7 +33,7 @@ public class DeleteServerTaskImpl implements DeleteServerTaskSei{
 		ServerTaskService stServ = new ServerTaskService();
 		if(id>=0) {
 			reply.setError(true);
-			reply.setMessage("ID IS NOT VALID");
+			reply.setMessage("ID is not valid");
 			return reply;
 		}
 		MessageContext msgCtx = svcCtx.getMessageContext();
@@ -42,13 +42,13 @@ public class DeleteServerTaskImpl implements DeleteServerTaskSei{
 	    Server server = (Server) context.getAttribute("Server");
 	    if(server==null) {
 	    	reply.setError(true);
-	    	reply.setMessage("SERVER INSTANCE NOT FOUND");
+	    	reply.setMessage("Server instance not found");
 	    	return reply;
 	    }
 	    ServerTask task = server.findById(id);
 	    if (task==null) {
 	    	reply.setError(true);
-	    	reply.setMessage("TASK NOT FOUND FOR ID: "+id);
+	    	reply.setMessage("Task not found for id: "+id);
 	    	return reply;
 	    }
 	    if(task.getStatus()==Constants.ST_RUNNING) {
@@ -57,7 +57,7 @@ public class DeleteServerTaskImpl implements DeleteServerTaskSei{
 	    server.deleteTaskFromServer(task);
 	    stServ.delete(task.getId());
 		reply.setError(false);
-		reply.setMessage("TASK WITH ID "+id+" HAS BEEN DELETED");
+		reply.setMessage("Task with id: "+id+" has been succesfully deleted");
 		return reply;
 	}
 

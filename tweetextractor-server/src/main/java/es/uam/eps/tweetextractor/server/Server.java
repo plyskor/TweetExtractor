@@ -10,6 +10,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.uam.eps.tweetextractor.dao.service.ExtractionService;
 import es.uam.eps.tweetextractor.dao.service.ServerTaskService;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.servertask.ExtractionServerTask;
@@ -120,6 +121,17 @@ public class Server {
 		/*Response object for calls*/
 		ServerTaskResponse response = null;
 		if (task.getStatus() == Constants.ST_READY) {
+			if(ExtractionServerTask.class.isAssignableFrom(task.getClass())) {
+				ExtractionService eServ = new ExtractionService();
+				eServ.refresh(((ExtractionServerTask)task).getExtraction());
+				if (((ExtractionServerTask)task).getExtraction().isExtracting()) {
+					response=new ServerTaskResponse();
+					response.setError(true);
+					response.setMessage("Another task is updating this extraction");
+					return response;
+				}
+			}
+			
 			try {
 				response = task.call();
 				if (response!=null&&response.isError()==false) {

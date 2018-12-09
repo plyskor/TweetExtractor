@@ -39,13 +39,13 @@ public class CreateServerTaskUpdateExtractionIndefImpl implements CreateServerTa
 		ServerTaskService stServ = new ServerTaskService();
 		if (id<=0) {
 			reply.setError(true);
-			reply.setMessage("ID NOT VALID");
+			reply.setMessage("ID is not valid");
 			return reply;
 		}
 		Extraction e = eServ.findById(id);
 		if(e==null) {
 			reply.setError(true);
-			reply.setMessage("EXTRACTION WITH ID "+id+" DOES NOT EXIST");
+			reply.setMessage("Extraction with id "+id+" does not exist");
 		}
 		MessageContext msgCtx = svcCtx.getMessageContext();
 		ServletContext context = (ServletContext) 
@@ -53,7 +53,7 @@ public class CreateServerTaskUpdateExtractionIndefImpl implements CreateServerTa
 	    Server server = (Server) context.getAttribute("Server");
 	    if(server==null) {
 	    	reply.setError(true);
-	    	reply.setMessage("SERVER INSTANCE NOT FOUND");
+	    	reply.setMessage("Server instance not found");
 	    }
 	    ServerTaskUpdateExtractionIndef task = new ServerTaskUpdateExtractionIndef(e);
 	    try{
@@ -68,12 +68,12 @@ public class CreateServerTaskUpdateExtractionIndefImpl implements CreateServerTa
 	    ServerTaskResponse res=task.call();
 	    if(res.isError()) {
 	    	reply.setError(false);
-		    reply.setMessage("TASK HAS BEEN ADDED TO SERVER INSTANCE WITH ID: "+task.getId()+"\nWARNING: TASK IS NOT READY TO RUN");
+		    reply.setMessage("Task has been added to the server with id: "+task.getId()+"\nWARNING: Task is not ready to run");
 		    reply.setId(task.getId());
 		    return reply;
 	    }
 	    reply.setError(false);
-	    reply.setMessage("TASK HAS BEEN ADDED TO SERVER INSTANCE WITH ID: "+task.getId());
+	    reply.setMessage("Task has been added to the server with id: "+task.getId());
 	    reply.setId(task.getId());
 		return reply;
 	}

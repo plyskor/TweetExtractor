@@ -31,7 +31,7 @@ public class InterruptServerTaskImpl implements InterruptServerTaskSei {
 		InterruptServerTaskResponse ret= new InterruptServerTaskResponse();
 		if(id<=0) {
 			ret.setError(true);
-			ret.setMessage("INVALID ID");
+			ret.setMessage("Invalid ID");
 			return ret;
 		}
 		MessageContext msgCtx = svcCtx.getMessageContext();
@@ -40,23 +40,23 @@ public class InterruptServerTaskImpl implements InterruptServerTaskSei {
 	     Server server = (Server) context.getAttribute("Server");
 	     if(server==null) {
 	    	 ret.setError(true);
-	    	 ret.setMessage("COULD NOT FIND SERVER INSTANCE");
+	    	 ret.setMessage("Could not find server instance");
 	    	 return ret;
 	     }
 	     ServerTask task=server.findById(id);
 	     if(task==null) {
 	    	 ret.setError(true);
-	    	 ret.setMessage("TASK DOESNT EXIST");
+	    	 ret.setMessage("Task does not exist");
 	    	 return ret;
 	     }else {
 	    	 if(task.getStatus()!=Constants.ST_RUNNING) {
 	    		 ret.setError(true);
-	    		 ret.setMessage("TASK IS NOT RUNNING");
+	    		 ret.setMessage("Task is not running");
 	    		 return ret;
 	    	 }
 	    	 server.interruptTask(task);
 	    	 ret.setError(false);
-	    	 ret.setMessage("TASK HAS BEEN INTERRUPTED");
+	    	 ret.setMessage("Task has been interrupted");
 	    	 return ret;
 	     }
 	     

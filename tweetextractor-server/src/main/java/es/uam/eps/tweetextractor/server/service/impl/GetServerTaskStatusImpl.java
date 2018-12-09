@@ -32,7 +32,7 @@ public class GetServerTaskStatusImpl implements GetServerTaskStatusSei {
 		GetServerTaskStatusResponse ret= new GetServerTaskStatusResponse();
 		if(id<=0) {
 			ret.setError(true);
-			ret.setMessage("INVALID ID");
+			ret.setMessage("Invalid ID");
 			return ret;
 		}
 		MessageContext msgCtx = svcCtx.getMessageContext();
@@ -41,13 +41,13 @@ public class GetServerTaskStatusImpl implements GetServerTaskStatusSei {
 	     Server server = (Server) context.getAttribute("Server");
 	     if(server==null) {
 	    	 ret.setError(true);
-	    	 ret.setMessage("COULD NOT FIND SERVER INSTANCE");
+	    	 ret.setMessage("Could not find server instance");
 	    	 return ret;
 	     }
 	     ServerTask task=server.findById(id);
 	     if(task==null) {
 	    	 ret.setError(true);
-	    	 ret.setMessage("TASK DOESNT EXIST");
+	    	 ret.setMessage("Task does not exist");
 	    	 return ret;
 	     }else {
 	    	 ret.setError(false);
