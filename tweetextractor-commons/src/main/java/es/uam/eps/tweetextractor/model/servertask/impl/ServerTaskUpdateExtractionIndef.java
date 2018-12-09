@@ -187,7 +187,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 					 */
 					try {
 						logger.info("No more tweets available at this moment for extraction with id: "
-								+ extraction.getId() + ". Waiting 15 minutes so the credentials don't get blocked.");
+								+ extraction.getIdDB() + ". Waiting 15 minutes so the credentials don't get blocked.");
 						TimeUnit.MINUTES.sleep(15);
 					} catch (InterruptedException e) {
 						logger.info("The task with id: " + this.getId() + " has been interrupted.");
