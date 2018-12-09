@@ -26,6 +26,8 @@ public void persist(T entity);
 	
 	public void deleteAll();
 	
+	public void refresh(Extraction entity);
+	
 	public Extraction merge (Extraction extraction);
 	
 	public List<Extraction> findByUser(User user);

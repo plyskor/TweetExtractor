@@ -14,6 +14,7 @@ import javax.xml.ws.handler.MessageContext;
 
 import es.uam.eps.tweetextractor.dao.service.ExtractionService;
 import es.uam.eps.tweetextractor.dao.service.ServerTaskService;
+import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskUpdateExtractionIndef;
 import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
@@ -57,6 +58,7 @@ public class CreateServerTaskUpdateExtractionIndefImpl implements CreateServerTa
 	    ServerTaskUpdateExtractionIndef task = new ServerTaskUpdateExtractionIndef(e);
 	    try{
 	    	stServ.persist(task);
+	    	task.setTaskType(TaskTypes.TUEI);
 	    }catch(PersistenceException ex ) {
 	    	reply.setError(true);
 	    	reply.setMessage(ex.getMessage());

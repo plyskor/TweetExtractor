@@ -234,6 +234,11 @@ public class ExtractionDetailsControl {
 
 	@FXML
 	public void handleUpdateExtraction() {
+		ExtractionService eServ= new ExtractionService();
+		eServ.refresh(extraction);
+		if(extraction.isExtracting()) {
+			ErrorDialog.showErrorExtractionIsCurrentlyUpdating();
+		}
 		twitterextractor = new TwitterExtractor(null,
 				this.getMainApplication().getCurrentUser().getCredentialList().get(0));
 		Task<UpdateStatus> updateTask = new UpdateExtractionTask(twitterextractor, extraction);

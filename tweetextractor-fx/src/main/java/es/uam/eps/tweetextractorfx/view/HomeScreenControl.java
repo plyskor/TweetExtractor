@@ -311,6 +311,10 @@ public class HomeScreenControl {
 	}
 	@FXML
 	public void onCreateTask() {
+		if(!this.getMainApplication().checkServer()){
+			ErrorDialog.showErrorConfigureServer();
+			return;
+		}
 		String selectedTaskType;
 		selectedTaskType = showCreateServerTaskSelectTypeDialog();
 		if (selectedTaskType != null) {
@@ -355,6 +359,10 @@ public class HomeScreenControl {
 	}
 	@FXML
 	public void onManageTasks() {
+		if(!this.getMainApplication().checkServer()){
+			ErrorDialog.showErrorConfigureServer();
+			return;
+		}
 		this.getMainApplication().showManageServerTasks();
 		return;
 	}

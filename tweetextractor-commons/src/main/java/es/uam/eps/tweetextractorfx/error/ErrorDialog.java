@@ -483,7 +483,23 @@ public class ErrorDialog {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("Task "+id+" has started running");
-		alert.setContentText("Your task is currently running on the server.");		
+		alert.setContentText("Your task has started running on the server.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorConfigureServer() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Couldn't connect to server");
+		alert.setContentText("Could not establish a connection with a TweetExtractor server instance.\n\nPlease, configure the server adress from the home screen.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorExtractionIsCurrentlyUpdating() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Couldn't update extraction");
+		alert.setContentText("This extraction is currently being updated by another process.");		
 		alert.showAndWait();
 	}
 }

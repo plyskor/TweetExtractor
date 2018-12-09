@@ -111,9 +111,9 @@ public class FilterMentionDialogControl {
 	public void handleAddWord() {
 		if (wordToAdd.getText().trim().isEmpty()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
-	    	alert.setTitle("Información");
-	    	alert.setHeaderText("Ningúna mención que añadir");
-	    	alert.setContentText("Por favor, escriba unao o varios nombres de usaurio para añadir al filtro.");
+	    	alert.setTitle("Information");
+	    	alert.setHeaderText("No mention to add");
+	    	alert.setContentText("Please, write one or more twitter usernames to add to the filter.");
 	    	alert.showAndWait();
 		}else {
 			String[] wordsToAdd =wordToAdd.getText().replaceAll("^[,\\s]+", "").split("[,\\s]+");

@@ -80,12 +80,15 @@ public class Extraction {
 	@XmlTransient
 	@ManyToOne
 	private User user;
+	@Column(name = "extracting")
+	private boolean extracting;
 	public Extraction() {
 		creationDate = new Date();
 		lastModificationDate = new Date();
 		tweetList = new ArrayList<Tweet>();
 		filterList =new ArrayList<Filter>();
 		id = UUID.randomUUID().toString();
+		extracting=false;
 	}
 
 	/**
@@ -123,6 +126,20 @@ public class Extraction {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	/**
+	 * @return the extracting
+	 */
+	public boolean isExtracting() {
+		return extracting;
+	}
+
+	/**
+	 * @param extracting the extracting to set
+	 */
+	public void setExtracting(boolean extracting) {
+		this.extracting = extracting;
 	}
 
 	/**
@@ -283,4 +300,5 @@ public class Extraction {
 		UserService service = new UserService();
 		this.user=service.findById(user.getIdDB());
 	}
+	
 }

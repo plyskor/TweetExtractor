@@ -108,7 +108,9 @@ public class ExtractionDAO implements ExtractionDAOInterface<Extraction, Integer
 	public void delete(Extraction entity) {
 		getCurrentSession().delete(entity);
 	}
-
+	public void refresh(Extraction entity) {
+		getCurrentSession().refresh(entity);
+	}
 	@SuppressWarnings("unchecked")
 	public List<Extraction> findAll() {
 		List<Extraction> extractions = (List<Extraction>) getCurrentSession().createQuery("from Extraction").list();

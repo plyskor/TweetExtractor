@@ -72,7 +72,11 @@ public class ExtractionService {
 		extractionDAO.deleteAll();
 		extractionDAO.closeCurrentSessionwithTransaction();
 	}
-
+	public void refresh(Extraction entity) {
+		extractionDAO.openCurrentSession();
+		extractionDAO.refresh(entity);
+		extractionDAO.closeCurrentSession();
+	}
 	public ExtractionDAO extractionDAO() {
 		return extractionDAO;
 	}

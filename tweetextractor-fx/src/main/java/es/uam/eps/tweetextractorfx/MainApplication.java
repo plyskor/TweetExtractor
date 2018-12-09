@@ -3,10 +3,13 @@ package es.uam.eps.tweetextractorfx;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;
+import es.uam.eps.tweetextractor.service.GetServerStatus;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
@@ -337,6 +340,9 @@ public class MainApplication extends Application {
 	public void setRootLayoutController(RootLayoutControl rootLayoutController) {
 		this.rootLayoutController = rootLayoutController;
 	}
-	
+	public boolean checkServer() {
+		GetServerStatus service = new GetServerStatus(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		return service.getServerStatus();
+	}
 	
 }

@@ -155,4 +155,5 @@ public abstract class ServerTask implements Runnable {
 		this.trigger = trigger;
 	}
 	public abstract void initialize();
+	public abstract void implementation() throws Exception;
 }

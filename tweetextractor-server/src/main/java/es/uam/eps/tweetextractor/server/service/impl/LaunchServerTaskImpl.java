@@ -32,7 +32,7 @@ public class LaunchServerTaskImpl implements LaunchServerTaskSei {
 		LaunchServerTaskResponse reply = new LaunchServerTaskResponse();
 		if(id<=0) {
 			reply.setError(true);
-			reply.setMessage(id+" IS NOT A VALID ID");
+			reply.setMessage(id+" is not a valid task id");
 			return reply;
 		}
 		MessageContext msgCtx = svcCtx.getMessageContext();
@@ -41,13 +41,13 @@ public class LaunchServerTaskImpl implements LaunchServerTaskSei {
 	     Server server = (Server) context.getAttribute("Server");
 	     if(server==null) {
 	    	 reply.setError(true);
-	    	 reply.setMessage("COULD NOT FIND SERVER INSTANCE");
+	    	 reply.setMessage("Could not find server instance. Please, restart the server.");
 	    	 return reply;
 	     }
 	     ServerTask task=server.findById(id);
 	     if(task==null) {
 	    	 reply.setError(true);
-	    	 reply.setMessage("TASK "+id+" DOESNT EXIST");
+	    	 reply.setMessage("Task "+id+" doesn't exist");
 	    	 return reply;
 	     }
 	     ServerTaskResponse response = server.launchServerTask(task);

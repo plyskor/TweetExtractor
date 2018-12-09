@@ -79,111 +79,6 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 		return ret;
 	}
 
-	public void run() {
-		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
-		logger.info("Starting execution of task with id: " + this.getId());
-		if (this.extraction == null) {
-			logger.error("The task with id: " + this.getId() + " has no extraction and has been interrupted.");
-			onInterrupt();
-			return;
-		}
-		if (this.extraction.getUser() == null || !this.getExtraction().getUser().hasAnyCredentials()) {
-			logger.error("The task with id: " + this.getId()
-					+ " has no user/credentials associated and has been interrupted.");
-			onInterrupt();
-			return;
-		}
-		logger.info("Loading existing tweets...");
-		TweetService tweetService= new TweetService();
-		List<Tweet>ret =tweetService.findByExtraction(this.getExtraction());
-		if (ret==null) {
-			logger.error("An error has ocurred loading tweets. Task "+getId()+" has been interrupted");
-			onInterrupt();
-			return;
-		}
-		this.getExtraction().setTweetList(ret);
-		logger.info("Successully loaded "+extraction.howManyTweets()+" tweets from database.");
-		logger.info("Initializing TwitterExtractor...");
-		ServerTwitterExtractor twitter = new ServerTwitterExtractor();
-		twitter.initialize(extraction);
-		logger.info("Starting infinite update of extraction with id: " + extraction.getIdDB());
-		while (this.trigger == false) {
-			/*Ckeck interruption*/
-			if(Thread.currentThread().isInterrupted()) {
-				logger.info("The task with id: " + this.getId() + " has been interrupted.");
-				onInterrupt();
-				return;
-			}
-			/* Iteration */
-			extraction.refreshUserCredentials();
-			twitter.setCredentialsList(extraction.getUser().getCredentialList());
-			logger.info("Extracting with credentials @" + twitter.getCurrentCredentials().getAccountScreenName());
-			twitter.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList())+"-filter:retweets");
-			UpdateStatus response = twitter.updateExtraction(extraction);
-			if (response.isError()) {
-				/* Error updating extraction */
-				switch (response.getStatus()) {
-				case Constants.SUCCESS_UPDATE:
-					/* Rate Limit with tweets extracted */
-					if(response.getnTweets()>0) {
-					logger.warn("Rate Limit of the account " + twitter.getCurrentCredentials().getAccountScreenName()
-							+ " has been reached, but " + response.getnTweets()
-							+ " tweets has been added to the extraction with id: " + extraction.getIdDB());
-					}else {
-						logger.warn("Rate Limit of the account " + twitter.getCurrentCredentials().getAccountScreenName()
-								+ " has been reached.");
-					}
-					twitter.setLastReadyCredentials(twitter.getCurrentCredentials());
-					twitter.nextCredentials();
-					break;
-				case Constants.CONNECTION_UPDATE_ERROR:
-					/* Connection error (network) */
-					logger.error("An error has occurred connecting to Twitter: \n" + response.getErrorMessage());
-					twitter.nextCredentials();
-					break;
-				case Constants.RATE_LIMIT_UPDATE_ERROR:
-					/* Rate Limit with no tweets extracted */
-					logger.warn("Rate Limit of the account " + twitter.getCurrentCredentials().getAccountScreenName()
-							+ " has been reached.");
-					twitter.nextCredentials();
-					if (twitter.getCurrentCredentials().equals(twitter.getLastReadyCredentials())) {
-						/* Sleep */
-						try {
-							int seconds=twitter.getMinSecondsBlocked();
-							if(seconds==0)break;
-							logger.info("All credentials are blocked. Waiting "+seconds+" seconds until next try...");
-							TimeUnit.SECONDS.sleep(seconds);
-						} catch (InterruptedException e) {
-							logger.info("The task with id: " + this.getId() + " has been interrupted.");
-							onInterrupt();
-							return;
-						}
-					}
-					break;
-				case Constants.UNKNOWN_UPDATE_ERROR:
-					/* Unknown Twitter error */
-					logger.error("An unkown error has occurred connecting to Twitter: \n" + response.getErrorMessage());
-					twitter.nextCredentials();
-					break;
-				default:
-					break;
-				}
-			} else {
-				/* Tweets extracted with no errors */
-				logger.info("Succesfully added " + response.getnTweets() + " tweets to the extraction with id: "
-						+ extraction.getIdDB());
-				twitter.setLastReadyCredentials(twitter.getCurrentCredentials());
-			}
-			/*
-			 * try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) {
-			 * logger.info("The task with id:"+this.getId()+"has been interrupted.");
-			 * onInterrupt(); return; }
-			 */
-		}
-		finish();
-		return;
-	}
-
 	@XmlTransient
 	public boolean isTrigger() {
 		return trigger;
@@ -202,4 +97,113 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 		this.extraction = eService.findById(this.getExtractionId());
 	}
 
+	public void implementation() throws Exception {
+		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
+		logger.info("Loading existing tweets...");
+		TweetService tweetService = new TweetService();
+		List<Tweet> ret = tweetService.findByExtraction(this.getExtraction());
+		if (ret == null) {
+			logger.error("An error has ocurred loading tweets. Task " + getId() + " has been interrupted");
+			onInterrupt();
+			return;
+		}
+		this.getExtraction().setTweetList(ret);
+		logger.info("Successully loaded " + extraction.howManyTweets() + " tweets from database.");
+		logger.info("Initializing TwitterExtractor...");
+		ServerTwitterExtractor twitter = new ServerTwitterExtractor();
+		twitter.initialize(extraction);
+		logger.info("Starting infinite update of extraction with id: " + extraction.getIdDB());
+		while (this.trigger == false) {
+			/* Ckeck interruption */
+			if (Thread.currentThread().isInterrupted()) {
+				logger.info("The task with id: " + this.getId() + " has been interrupted.");
+				onInterrupt();
+				return;
+			}
+			/* Iteration */
+			extraction.refreshUserCredentials();
+			twitter.setCredentialsList(extraction.getUser().getCredentialList());
+			blockExtraction();
+			logger.info("Extracting with credentials @" + twitter.getCurrentCredentials().getAccountScreenName());
+			twitter.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()) + "-filter:retweets");
+			UpdateStatus response = twitter.updateExtraction(extraction);
+			if (response.isError()) {
+				/* Error updating extraction */
+				switch (response.getStatus()) {
+				case Constants.SUCCESS_UPDATE:
+					/* Rate Limit with tweets extracted */
+					if (response.getnTweets() > 0) {
+						logger.warn(
+								"Rate Limit of the account " + twitter.getCurrentCredentials().getAccountScreenName()
+										+ " has been reached, but " + response.getnTweets()
+										+ " tweets has been added to the extraction with id: " + extraction.getIdDB());
+					} else {
+						logger.warn("Rate Limit of the account "
+								+ twitter.getCurrentCredentials().getAccountScreenName() + " has been reached.");
+					}
+					twitter.setLastReadyCredentials(twitter.getCurrentCredentials());
+					twitter.nextCredentials();
+					break;
+				case Constants.CONNECTION_UPDATE_ERROR:
+					/* Connection error (network) */
+					logger.error("An error has occurred connecting to Twitter: \n" + response.getErrorMessage());
+					twitter.nextCredentials();
+					break;
+				case Constants.RATE_LIMIT_UPDATE_ERROR:
+					/* Rate Limit with no tweets extracted */
+					logger.warn("Rate Limit of the account " + twitter.getCurrentCredentials().getAccountScreenName()
+							+ " has been reached.");
+					twitter.nextCredentials();
+					if (twitter.getCurrentCredentials().equals(twitter.getLastReadyCredentials())) {
+						/* Sleep */
+						try {
+							int seconds = twitter.getMinSecondsBlocked();
+							if (seconds == 0)
+								break;
+							logger.info(
+									"All credentials are blocked. Waiting " + seconds + " seconds until next try...");
+							releaseExtraction();
+							TimeUnit.SECONDS.sleep(seconds);
+						} catch (InterruptedException e) {
+							logger.info("The task with id: " + this.getId() + " has been interrupted.");
+							onInterrupt();
+							releaseExtraction();
+							return;
+						}
+					}
+					break;
+				case Constants.UNKNOWN_UPDATE_ERROR:
+					/* Unknown Twitter error */
+					logger.error("An unkown error has occurred connecting to Twitter: \n" + response.getErrorMessage());
+					twitter.nextCredentials();
+					break;
+				default:
+					break;
+				}
+			} else {
+				if (response.getnTweets() == 0) {
+					/*
+					 * No tweets available in the timeline, we wait so we dont block the credentials
+					 * for nothing
+					 */
+					try {
+						releaseExtraction();
+						logger.info("No more tweets available at this moment for extraction with id: "
+								+ extraction.getId() + ". Waiting 15 minutes so the credentials don't get blocked.");
+						TimeUnit.MINUTES.sleep(15);
+					} catch (InterruptedException e) {
+						logger.info("The task with id: " + this.getId() + " has been interrupted.");
+						onInterrupt();
+						releaseExtraction();
+						return;
+					}
+				} else {
+					/* Tweets extracted with no errors */
+					logger.info("Succesfully added " + response.getnTweets() + " tweets to the extraction with id: "
+							+ extraction.getIdDB());
+					twitter.setLastReadyCredentials(twitter.getCurrentCredentials());
+				}
+			}
+		}
+	}
 }
