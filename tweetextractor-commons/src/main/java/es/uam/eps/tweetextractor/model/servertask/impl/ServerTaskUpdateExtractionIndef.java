@@ -126,11 +126,11 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 				case Constants.SUCCESS_UPDATE:
 					/* Rate Limit with tweets extracted */
 					if(response.getnTweets()>0) {
-					logger.error("Rate Limit of the account " + twitter.getCurrentCredentials().getAccountScreenName()
+					logger.warn("Rate Limit of the account " + twitter.getCurrentCredentials().getAccountScreenName()
 							+ " has been reached, but " + response.getnTweets()
 							+ " tweets has been added to the extraction with id: " + extraction.getIdDB());
 					}else {
-						logger.error("Rate Limit of the account " + twitter.getCurrentCredentials().getAccountScreenName()
+						logger.warn("Rate Limit of the account " + twitter.getCurrentCredentials().getAccountScreenName()
 								+ " has been reached.");
 					}
 					twitter.setLastReadyCredentials(twitter.getCurrentCredentials());
@@ -143,7 +143,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 					break;
 				case Constants.RATE_LIMIT_UPDATE_ERROR:
 					/* Rate Limit with no tweets extracted */
-					logger.error("Rate Limit of the account " + twitter.getCurrentCredentials().getAccountScreenName()
+					logger.warn("Rate Limit of the account " + twitter.getCurrentCredentials().getAccountScreenName()
 							+ " has been reached.");
 					twitter.nextCredentials();
 					if (twitter.getCurrentCredentials().equals(twitter.getLastReadyCredentials())) {
