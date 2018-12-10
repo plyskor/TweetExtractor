@@ -90,16 +90,21 @@ public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Inte
 	}
 
 	public void persist(Credentials entity) {
-		getCurrentSession().persist(entity);
+		if(currentSession!=null)
+		currentSession.persist(entity);
 	}
 
 	public void update(Credentials entity) {
-		getCurrentSession().update(entity);
+		if(currentSession!=null)
+		currentSession.update(entity);
 	}
 
 	public Credentials findById(Integer id) {
-		Credentials credentials = (Credentials) getCurrentSession().get(Credentials.class, id);
-		return credentials; 
+		if(currentSession!=null) {
+			Credentials credentials = currentSession.get(Credentials.class, id);
+			return credentials; 
+		}
+		return null;
 	}
 	public List<Credentials> findByUser(User user) {
 		if(getCurrentSession()==null)return null;
