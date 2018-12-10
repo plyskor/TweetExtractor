@@ -82,26 +82,29 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 	}
 
 	public void persist(User entity) {
-		getCurrentSession().persist(entity);
+		if(currentSession!=null)
+		currentSession.persist(entity);
 	}
 
 	public void update(User entity) {
-		getCurrentSession().update(entity);
+		if(currentSession!=null)
+		currentSession.update(entity);
 	}
 
 	public User findById(Integer id) {
-		User User = (User) getCurrentSession().get(User.class, id);
+		if(currentSession==null) return null;
+		User User = (User) currentSession.get(User.class, id);
 		return User; 
 	}
 	public User findByNickname(String nickname) {
-		if(getCurrentSession()==null)return null;
-	    CriteriaBuilder criteriaBuilder = getCurrentSession().getCriteriaBuilder();
+		if(currentSession==null)return null;
+	    CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
 	    CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
 	    Root<User> root = criteriaQuery.from(User.class);
 	    criteriaQuery.select(root);
 	    ParameterExpression<String> params = criteriaBuilder.parameter(String.class);
 	    criteriaQuery.where(criteriaBuilder.equal(root.get("nickname"), params));
-	    TypedQuery<User> query = getCurrentSession().createQuery(criteriaQuery);
+	    TypedQuery<User> query = currentSession.createQuery(criteriaQuery);
 	    query.setParameter(params, nickname);
 	    User ret= null;
 	    try {ret=query.getSingleResult();}catch(NoResultException e) {
@@ -110,16 +113,19 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 	    return ret;
 	}
 	public void delete(User entity) {
-		getCurrentSession().delete(entity);
+		if(currentSession!=null)
+		currentSession.delete(entity);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<User> findAll() {
-		List<User> Users = (List<User>) getCurrentSession().createQuery("from User").list();
+		if(currentSession==null) return null;
+		List<User> Users = (List<User>) currentSession.createQuery("from User").list();
 		return Users;
 	}
 
 	public void deleteAll() {
+		if(currentSession==null) return ;
 		List<User> entityList = findAll();
 		for (User entity : entityList) {
 			delete(entity);

@@ -90,31 +90,35 @@ public class TweetDAO implements TweetDAOInterface<Tweet, Integer> {
 	}
 
 	public void persist(Tweet entity) {
-		getCurrentSession().persist(entity);
+		if(currentSession!=null)
+		currentSession.persist(entity);
 	}
 	public void persistList(List<Tweet> entityList) {
 		if(entityList==null)return;
+		if(currentSession==null)return;
 		for(Tweet entity : entityList) {
-			getCurrentSession().persist(entity);
+			currentSession.persist(entity);
 		}
 	}
 	public void update(Tweet entity) {
-		getCurrentSession().update(entity);
+		if(currentSession!=null)
+		currentSession.update(entity);
 	}
 
 	public Tweet findById(Integer id) {
-		Tweet tweet = (Tweet) getCurrentSession().get(Tweet.class, id);
+		if(currentSession==null) return null;
+		Tweet tweet = (Tweet) currentSession.get(Tweet.class, id);
 		return tweet; 
 	}
 	public List<Tweet> findByExtraction(Extraction extraction) {
-		if(getCurrentSession()==null)return null;
-	    CriteriaBuilder criteriaBuilder = getCurrentSession().getCriteriaBuilder();
+		if(currentSession==null)return null;
+	    CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
 	    CriteriaQuery<Tweet> criteriaQuery = criteriaBuilder.createQuery(Tweet.class);
 	    Root<Tweet> root = criteriaQuery.from(Tweet.class);
 	    criteriaQuery.select(root);
 	    ParameterExpression<Extraction> params = criteriaBuilder.parameter(Extraction.class);
 	    criteriaQuery.where(criteriaBuilder.equal(root.get("extraction"), params));
-	    TypedQuery<Tweet> query = getCurrentSession().createQuery(criteriaQuery);
+	    TypedQuery<Tweet> query = currentSession.createQuery(criteriaQuery);
 	    query.setParameter(params, extraction );
 	    List<Tweet> ret= new ArrayList<Tweet>();
 	    try {ret=query.getResultList();}catch(NoResultException e) {
@@ -123,16 +127,19 @@ public class TweetDAO implements TweetDAOInterface<Tweet, Integer> {
 	    return ret;
 	}
 	public void delete(Tweet entity) {
-		getCurrentSession().delete(entity);
+		if(currentSession!=null)
+		currentSession.delete(entity);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Tweet> findAll() {
-		List<Tweet> tweets = (List<Tweet>) getCurrentSession().createQuery("from Tweet").list();
+		if(currentSession==null) return null;
+		List<Tweet> tweets = (List<Tweet>) currentSession.createQuery("from Tweet").list();
 		return tweets;
 	}
 
 	public void deleteAll() {
+		if(currentSession==null)return;
 		List<Tweet> entityList = findAll();
 		for (Tweet entity : entityList) {
 			delete(entity);

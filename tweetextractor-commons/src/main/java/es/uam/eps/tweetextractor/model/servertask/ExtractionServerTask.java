@@ -30,6 +30,7 @@ import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 @DiscriminatorValue(value=TaskTypes.Values.TYPE_EXTRACTION_TASK)
 public abstract class ExtractionServerTask extends ServerTask{
 	protected int extractionId;
+	
 	@XmlTransient
 	@Transient
 	protected Extraction extraction;
@@ -106,7 +107,9 @@ public abstract class ExtractionServerTask extends ServerTask{
 		}catch (Exception e) {
 			/*In case of exception, try to recover*/
 			logger.warn("An exception has been thrown in task with id "+this.getId()+"\n"+e.getMessage()+".\nRetrying execution");
-			run();
+			onInterrupt();
+			releaseExtraction();
+			return;
 		}
 		/*If task finished without interruptions*/
 		if(this.getStatus()==Constants.ST_RUNNING) {

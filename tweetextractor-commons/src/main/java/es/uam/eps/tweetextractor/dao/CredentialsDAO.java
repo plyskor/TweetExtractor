@@ -68,7 +68,7 @@ public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Inte
 		try{
 			 sessionFactory = configuration.buildSessionFactory();
 		}catch(HibernateException e) {
-			ErrorDialog.showErrorDB(e.getMessage());
+			e.printStackTrace();
 		}
 		return sessionFactory;
 	}
@@ -107,14 +107,14 @@ public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Inte
 		return null;
 	}
 	public List<Credentials> findByUser(User user) {
-		if(getCurrentSession()==null)return null;
-	    CriteriaBuilder criteriaBuilder = getCurrentSession().getCriteriaBuilder();
+		if(currentSession==null)return null;
+	    CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
 	    CriteriaQuery<Credentials> criteriaQuery = criteriaBuilder.createQuery(Credentials.class);
 	    Root<Credentials> root = criteriaQuery.from(Credentials.class);
 	    criteriaQuery.select(root);
 	    ParameterExpression<Integer> params = criteriaBuilder.parameter(Integer.class);
 	    criteriaQuery.where(criteriaBuilder.equal(root.get("user_identifier"), params));
-	    TypedQuery<Credentials> query = getCurrentSession().createQuery(criteriaQuery);
+	    TypedQuery<Credentials> query = currentSession.createQuery(criteriaQuery);
 	    query.setParameter(params, user.getIdDB() );
 	    List<Credentials> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {
@@ -123,13 +123,16 @@ public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Inte
 	    return ret;
 	}
 	public void delete(Credentials entity) {
-		getCurrentSession().delete(entity);
+		if(currentSession!=null)currentSession.delete(entity);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Credentials> findAll() {
-		List<Credentials> credentials = (List<Credentials>) getCurrentSession().createQuery("from Credentials").list();
-		return credentials;
+		if(currentSession!=null) {
+			List<Credentials> credentials = (List<Credentials>) currentSession.createQuery("from Credentials").list();
+			return credentials;
+		}
+		return null;
 	}
 
 	public void deleteAll() {

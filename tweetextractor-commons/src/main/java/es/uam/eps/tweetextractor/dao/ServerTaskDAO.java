@@ -77,26 +77,30 @@ public class ServerTaskDAO implements ServerTaskDAOInterface<ServerTask, Integer
 	}
 
 	public void persist(ServerTask entity) {
-		getCurrentSession().persist(entity);
+		if(currentSession!=null)
+		currentSession.persist(entity);
 	}
 
 	public void update(ServerTask entity) {
-		getCurrentSession().update(entity);
+		if(currentSession!=null)
+		currentSession.update(entity);
 	}
 
 	public ServerTask findById(Integer id) {
-		ServerTask serverTask = (ServerTask) getCurrentSession().get(ServerTask.class, id);
-		return serverTask; 
+		if(currentSession!=null) {
+		ServerTask serverTask = (ServerTask) currentSession.get(ServerTask.class, id);
+		return serverTask; }
+		return null;
 	}
 	public List<ServerTask> findByUser(User user) {
-		if(getCurrentSession()==null)return null;
-	    CriteriaBuilder criteriaBuilder = getCurrentSession().getCriteriaBuilder();
+		if(currentSession==null)return null;
+	    CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
 	    CriteriaQuery<ServerTask> criteriaQuery = criteriaBuilder.createQuery(ServerTask.class);
 	    Root<ServerTask> root = criteriaQuery.from(ServerTask.class);
 	    criteriaQuery.select(root);
 	    ParameterExpression<Integer> params = criteriaBuilder.parameter(Integer.class);
 	    criteriaQuery.where(criteriaBuilder.equal(root.get("user_identifier"), params));
-	    TypedQuery<ServerTask> query = getCurrentSession().createQuery(criteriaQuery);
+	    TypedQuery<ServerTask> query = currentSession.createQuery(criteriaQuery);
 	    query.setParameter(params, user.getIdDB() );
 	    List<ServerTask> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {
@@ -105,18 +109,21 @@ public class ServerTaskDAO implements ServerTaskDAOInterface<ServerTask, Integer
 	    return ret;
 	}
 	public void delete(ServerTask entity) {
-		getCurrentSession().delete(entity);
+		if(currentSession!=null)
+		currentSession.delete(entity);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<ServerTask> findAll() {
 		this.openCurrentSession();
-		List<ServerTask> serverTasks = (List<ServerTask>) getCurrentSession().createQuery("from ServerTask").list();
+		List<ServerTask> serverTasks = (List<ServerTask>) currentSession.createQuery("from ServerTask").list();
 		this.closeCurrentSession();
 		return serverTasks;
 	}
 
 	public void deleteAll() {
+		if(currentSession!=null)
+			return;
 		List<ServerTask> entityList = findAll();
 		for (ServerTask entity : entityList) {
 			delete(entity);
@@ -124,7 +131,9 @@ public class ServerTaskDAO implements ServerTaskDAOInterface<ServerTask, Integer
 	}
 
 	public ServerTask merge(ServerTask entity) {
-		return (ServerTask) getCurrentSession().merge(entity);
+		if(currentSession!=null)
+		return (ServerTask) currentSession.merge(entity);
+		return null;
 	}
 
 	

@@ -77,26 +77,28 @@ public class ExtractionDAO implements ExtractionDAOInterface<Extraction, Integer
 	}
 
 	public void persist(Extraction entity) {
-		getCurrentSession().persist(entity);
+		if(currentSession!=null)
+		currentSession.persist(entity);
 	}
 
 	public void update(Extraction entity) {
-		getCurrentSession().update(entity);
+		if(currentSession!=null)
+		currentSession.update(entity);
 	}
 
 	public Extraction findById(Integer id) {
-		Extraction extraction = (Extraction) getCurrentSession().get(Extraction.class, id);
+		Extraction extraction = (Extraction) currentSession.get(Extraction.class, id);
 		return extraction; 
 	}
 	public List<Extraction> findByUser(User user) {
-		if(getCurrentSession()==null)return null;
-	    CriteriaBuilder criteriaBuilder = getCurrentSession().getCriteriaBuilder();
+		if(currentSession==null)return null;
+	    CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
 	    CriteriaQuery<Extraction> criteriaQuery = criteriaBuilder.createQuery(Extraction.class);
 	    Root<Extraction> root = criteriaQuery.from(Extraction.class);
 	    criteriaQuery.select(root);
 	    ParameterExpression<Integer> params = criteriaBuilder.parameter(Integer.class);
 	    criteriaQuery.where(criteriaBuilder.equal(root.get("user_identifier"), params));
-	    TypedQuery<Extraction> query = getCurrentSession().createQuery(criteriaQuery);
+	    TypedQuery<Extraction> query = currentSession.createQuery(criteriaQuery);
 	    query.setParameter(params, user.getIdDB() );
 	    List<Extraction> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {
@@ -106,18 +108,26 @@ public class ExtractionDAO implements ExtractionDAOInterface<Extraction, Integer
 	    return ret;
 	}
 	public void delete(Extraction entity) {
-		getCurrentSession().delete(entity);
+		if(currentSession!=null)
+		currentSession.delete(entity);
 	}
 	public void refresh(Extraction entity) {
-		getCurrentSession().refresh(entity);
+		if(currentSession!=null)
+		currentSession.refresh(entity);
 	}
 	@SuppressWarnings("unchecked")
 	public List<Extraction> findAll() {
-		List<Extraction> extractions = (List<Extraction>) getCurrentSession().createQuery("from Extraction").list();
-		return extractions;
+		if(currentSession!=null)
+		{
+			List<Extraction> extractions = (List<Extraction>) currentSession.createQuery("from Extraction").list();
+			return extractions;
+		}
+		return null;
 	}
 
 	public void deleteAll() {
+		if(currentSession!=null)
+			return;
 		List<Extraction> entityList = findAll();
 		for (Extraction entity : entityList) {
 			delete(entity);
@@ -125,7 +135,9 @@ public class ExtractionDAO implements ExtractionDAOInterface<Extraction, Integer
 	}
 
 	public Extraction merge(Extraction entity) {
-		return (Extraction) getCurrentSession().merge(entity);
+		if(currentSession!=null)
+		return (Extraction) currentSession.merge(entity);
+		return null;
 	}
 
 	

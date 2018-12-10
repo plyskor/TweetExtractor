@@ -49,11 +49,12 @@ public class CredentialsService {
 	}
 	public boolean hasAnyCredentials(User user) {
 		if(findByUser(user)==null)return false;
-		return true;	}
+		return true;	
+		}
 	public List<Credentials> findByUser(User user) {
-		credentialsDAO.openCurrentSessionwithTransaction();
+		credentialsDAO.openCurrentSession();
 		List<Credentials> ret=credentialsDAO.findByUser(user);
-		credentialsDAO.closeCurrentSessionwithTransaction();
+		credentialsDAO.closeCurrentSession();
 		return ret;
 	}
 
