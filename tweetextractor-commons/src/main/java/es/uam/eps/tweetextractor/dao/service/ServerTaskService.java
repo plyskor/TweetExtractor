@@ -54,9 +54,9 @@ public class ServerTaskService {
 		if(findByUser(user)==null)return false;
 		return true;	}
 	public List<ServerTask> findByUser(User user) {
-		serverTaskDAO.openCurrentSessionwithTransaction();
+		serverTaskDAO.openCurrentSession();
 		List<ServerTask> ret=serverTaskDAO.findByUser(user);
-		serverTaskDAO.closeCurrentSessionwithTransaction();
+		serverTaskDAO.closeCurrentSession();
 		return ret;
 	}
 

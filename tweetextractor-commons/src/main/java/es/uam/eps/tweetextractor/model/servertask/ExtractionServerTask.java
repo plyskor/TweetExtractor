@@ -79,6 +79,12 @@ public abstract class ExtractionServerTask extends ServerTask{
 	 */
 	public void run() {
 		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
+		if(Thread.currentThread().isInterrupted()) {
+			logger.info("The task with id: "+this.getId()+" has been interrupted.");
+			onInterrupt();
+			releaseExtraction();
+			return;
+		}
 		logger.info("Starting execution of task with id: " + this.getId());
 		/*Check data model integrity*/
 		if (this.extraction == null) {

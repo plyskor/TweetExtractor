@@ -51,9 +51,9 @@ public class TweetService {
 		tweetDAO.closeCurrentSessionwithTransaction();
 	}
 	public List<Tweet> findByExtraction(Extraction extraction) {
-		tweetDAO.openCurrentSessionwithTransaction();
+		tweetDAO.openCurrentSession();
 		List<Tweet> ret=tweetDAO.findByExtraction(extraction);
-		tweetDAO.closeCurrentSessionwithTransaction();
+		tweetDAO.closeCurrentSession();
 		return ret;
 	}
 
