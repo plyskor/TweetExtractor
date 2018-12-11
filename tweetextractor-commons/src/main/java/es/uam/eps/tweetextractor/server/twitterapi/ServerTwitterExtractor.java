@@ -6,7 +6,6 @@ package es.uam.eps.tweetextractor.server.twitterapi;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import es.uam.eps.tweetextractor.dao.service.TweetService;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Credentials;
@@ -232,7 +231,7 @@ public class ServerTwitterExtractor {
 		}
 		if(ret.getnTweets()>0) {
 			TweetService tweetService=new TweetService();
-			tweetService.persistList(toPersist);
+			tweetService.persistList(toPersist);			
 		}
 		return ret;
 	}

@@ -174,7 +174,7 @@ public class ServerPreferencesDialogControl {
 		Pattern pIP = Pattern.compile(patternIP);
 	    Matcher mDomain = pDomain.matcher(serverHost.getText().replace("\r", "").replace("\n", ""));
 	    Matcher mIP = pIP.matcher(serverHost.getText().replace("\r", "").replace("\n", ""));
-	    if(!mDomain.matches()&&!mIP.matches()) {
+	    if(!mDomain.matches()&&!mIP.matches()&&!"localhost".equals(serverHost.getText().replace("\r", "").replace("\n", ""))) {
 	    	ErrorDialog.showErrorServerHostMalformed();
 	    	return;
 	    }
