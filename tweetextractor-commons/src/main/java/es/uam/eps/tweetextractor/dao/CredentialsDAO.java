@@ -14,7 +14,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.c3p0.internal.C3P0ConnectionProvider;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
+import org.hibernate.internal.SessionFactoryImpl;
 
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.dao.inter.CredentialsDAOInterface;
@@ -39,6 +42,7 @@ public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Inte
 		if(sf!=null)
 			currentSession=sf.openSession();
 		return currentSession;
+		
 	}
 
 	public Session openCurrentSessionwithTransaction() {
@@ -72,7 +76,7 @@ public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Inte
 		}
 		return sessionFactory;
 	}
-
+	
 	public Session getCurrentSession() {
 		return currentSession;
 	}
