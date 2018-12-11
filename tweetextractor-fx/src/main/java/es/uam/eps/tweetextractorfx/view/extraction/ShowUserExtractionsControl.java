@@ -43,7 +43,7 @@ public class ShowUserExtractionsControl {
 			} else {
 				if(newValue!=null) {
 				selectedExtraction = this.getMainApplication().getCurrentUser()
-						.getExtraction(newValue.getValue().substring(11));
+						.getExtraction(Integer.parseInt(newValue.getValue().substring(11)));
 				}
 			}
 		});
@@ -72,7 +72,7 @@ public class ShowUserExtractionsControl {
 		extractionTableView.setRoot(root);
 		for (Extraction extraction : this.getMainApplication().getCurrentUser().getExtractionList()) {
 			if(extraction!=null) {
-			TreeItem<String> extractionNode = new TreeItem<String>("Extraction " + extraction.getId());
+			TreeItem<String> extractionNode = new TreeItem<String>("Extraction " + extraction.getIdDB());
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			TreeItem<String> createdAt = new TreeItem<String>("Created On: " + df.format(extraction.getCreationDate()));
 			TreeItem<String> lastModified = new TreeItem<String>(

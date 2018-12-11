@@ -291,8 +291,13 @@ public class Extraction {
 	@XmlTransient
 	public String getFiltersColumn() {
 		String ret = new String();
-		for(Filter filter:this.getFilterList()) {
-			ret=ret.concat("( "+filter.getSummary()+" ) AND ");
+		for(int i=0; i<getFilterList().size();i++) {
+			Filter filter = getFilterList().get(i);
+			if(i!=getFilterList().size()-1) {
+				ret=ret.concat("( "+filter.getSummary()+" ) AND ");
+			}else {
+				ret=ret.concat("( "+filter.getSummary()+" )");
+			}
 		}
 		return ret;
 	}

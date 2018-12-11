@@ -3,6 +3,7 @@
  */
 package es.uam.eps.tweetextractor.model.servertask.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -199,6 +200,9 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 					/* Tweets extracted with no errors */
 					logger.info("Succesfully added " + response.getnTweets() + " tweets to the extraction with id: "
 							+ extraction.getIdDB());
+					extraction.setLastModificationDate(new Date());
+					ExtractionService eServ = new ExtractionService();
+					eServ.update(extraction);
 					twitter.setLastReadyCredentials(twitter.getCurrentCredentials());
 				}
 			}

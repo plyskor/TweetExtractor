@@ -10,16 +10,13 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.dao.service.ExtractionService;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskUpdateExtractionIndef;
-import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 
 /**
  * @author joseantoniogarciadelsaz

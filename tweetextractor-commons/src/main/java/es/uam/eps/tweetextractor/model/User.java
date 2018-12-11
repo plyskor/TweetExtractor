@@ -17,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
@@ -244,10 +243,10 @@ public class User {
 		}
 		return ret;
 	}
-	public Extraction getExtraction(String id) {
+	public Extraction getExtraction(int id) {
 		Extraction ret=null;
 		for(Extraction extraction: extractionList) {
-			if(id.equals(extraction.getId())) {
+			if(id==(extraction.getIdDB())) {
 				ret=extraction;
 			}
 		}

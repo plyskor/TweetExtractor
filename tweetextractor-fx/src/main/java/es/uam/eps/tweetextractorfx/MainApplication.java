@@ -3,13 +3,21 @@ package es.uam.eps.tweetextractorfx;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;
+import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
+import es.uam.eps.tweetextractor.model.service.GetUserServerTasksResponse;
+import es.uam.eps.tweetextractor.model.service.LaunchServerTaskResponse;
+import es.uam.eps.tweetextractor.model.service.SetServerTaskReadyResponse;
 import es.uam.eps.tweetextractor.service.GetServerStatus;
+import es.uam.eps.tweetextractor.service.GetUserServerTasks;
+import es.uam.eps.tweetextractor.service.LaunchServerTask;
+import es.uam.eps.tweetextractor.service.SetServerTaskReady;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
@@ -48,8 +56,30 @@ public class MainApplication extends Application {
 		this.primaryStage.setTitle("tweetextractor");
 		initRootLayout();
 		TweetExtractorFXPreferences.initializePreferences();
+		//onBoot();
 	}
 
+	private void onBoot() {
+		LaunchServerTask service3 = new LaunchServerTask(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		SetServerTaskReady service2 = new SetServerTaskReady(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		GetUserServerTasks service = new GetUserServerTasks(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		GetUserServerTasksResponse reply = service.getUserServerTasks(1);
+		if(!reply.isError()) {
+			for(ServerTaskInfo task:reply.getServerTasksList()){
+				SetServerTaskReadyResponse reply2 = service2.setServerTaskReady(task.getId());
+				if(!reply2.isError()) {
+					LaunchServerTaskResponse reply3 = service3.launchServerTask(task.getId());
+					if(!reply3.isError()) {
+						try {
+							TimeUnit.SECONDS.sleep(15);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}
+	}
 	/* Initialize the RootLayout */
 	public void initRootLayout() {
 		try {

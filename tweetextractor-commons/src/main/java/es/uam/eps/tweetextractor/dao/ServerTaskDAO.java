@@ -8,82 +8,14 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+
 import es.uam.eps.tweetextractor.dao.inter.ServerTaskDAOInterface;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 
-public class ServerTaskDAO implements ServerTaskDAOInterface<ServerTask, Integer> {
-
-	private Session currentSession;
-	
-	private Transaction currentTransaction;
+public class ServerTaskDAO extends GenericDAO<ServerTask, Integer> implements ServerTaskDAOInterface<ServerTask, Integer> {
 
 	public ServerTaskDAO() {
-	}
-
-	public Session openCurrentSession() {
-		SessionFactory sf=getSessionFactory();
-		if(sf!=null)
-		this.setCurrentSession(sf.openSession());
-		return currentSession;
-	}
-
-	public Session openCurrentSessionwithTransaction() {
-		SessionFactory sf=getSessionFactory();
-		if(sf!=null)
-			currentSession =sf.openSession();
-		if(currentSession!=null)
-		currentTransaction = currentSession.beginTransaction();
-		return currentSession;
-	}
-	
-	public void closeCurrentSession() {
-		if (currentSession!=null)
-		currentSession.close();
-	}
-	
-	public void closeCurrentSessionwithTransaction() {
-		if(currentSession!=null&&currentTransaction!=null) {
-		currentTransaction.commit();
-		currentSession.close();
-		}
-	}
-	
-	private static SessionFactory getSessionFactory() {
-		SessionFactory sessionFactory=null;
-		Configuration configuration = new Configuration().configure("tweetextractordb.xml");
-			 sessionFactory = configuration.buildSessionFactory();		
-		return sessionFactory;
-	}
-
-	public Session getCurrentSession() {
-		return currentSession;
-	}
-
-	public void setCurrentSession(Session currentSession) {
-		this.currentSession = currentSession;
-	}
-
-	public Transaction getCurrentTransaction() {
-		return currentTransaction;
-	}
-
-	public void setCurrentTransaction(Transaction currentTransaction) {
-		this.currentTransaction = currentTransaction;
-	}
-
-	public void persist(ServerTask entity) {
-		if(currentSession!=null)
-		currentSession.persist(entity);
-	}
-
-	public void update(ServerTask entity) {
-		if(currentSession!=null)
-		currentSession.update(entity);
 	}
 
 	public ServerTask findById(Integer id) {
@@ -108,10 +40,6 @@ public class ServerTaskDAO implements ServerTaskDAOInterface<ServerTask, Integer
 	    	}
 	    return ret;
 	}
-	public void delete(ServerTask entity) {
-		if(currentSession!=null)
-		currentSession.delete(entity);
-	}
 
 	@SuppressWarnings("unchecked")
 	public List<ServerTask> findAll() {
@@ -130,11 +58,6 @@ public class ServerTaskDAO implements ServerTaskDAOInterface<ServerTask, Integer
 		}
 	}
 
-	public ServerTask merge(ServerTask entity) {
-		if(currentSession!=null)
-		return (ServerTask) currentSession.merge(entity);
-		return null;
-	}
 
 	
 }

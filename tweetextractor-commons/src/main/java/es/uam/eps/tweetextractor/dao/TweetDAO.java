@@ -13,13 +13,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-
-import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.dao.inter.TweetDAOInterface;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Tweet;
@@ -29,82 +22,18 @@ import es.uam.eps.tweetextractor.model.Tweet;
  *
  */
 
-public class TweetDAO implements TweetDAOInterface<Tweet, Integer> {
-
-	private Session currentSession;
-	
-	private Transaction currentTransaction;
+public class TweetDAO extends GenericDAO<Tweet,Integer> implements TweetDAOInterface<Tweet, Integer>{
 
 	public TweetDAO() {
 	}
 
-	public Session openCurrentSession() {
-		SessionFactory sf=getSessionFactory();
-		if(sf!=null)
-			currentSession=sf.openSession();
-		return currentSession;
-	}
-
-	public Session openCurrentSessionwithTransaction() {
-		SessionFactory sf=getSessionFactory();
-		if(sf!=null)
-			currentSession =sf.openSession();
-		if(currentSession!=null)
-		currentTransaction = currentSession.beginTransaction();
-		return currentSession;
-	}
-	
-	public void closeCurrentSession() {
-		if (currentSession!=null)
-		currentSession.close();
-	}
-	
-	public void closeCurrentSessionwithTransaction() {
-		if(currentSession!=null&&currentTransaction!=null) {
-		currentTransaction.commit();
-		currentSession.close();
-		}
-	}
-	
-	private static SessionFactory getSessionFactory() {
-		SessionFactory sessionFactory=null;
-		Configuration configuration = new Configuration().configure("tweetextractordb.xml");
-		sessionFactory = configuration.buildSessionFactory();
-		return sessionFactory;
-	}
-
-	public Session getCurrentSession() {
-		return currentSession;
-	}
-
-	public void setCurrentSession(Session currentSession) {
-		this.currentSession = currentSession;
-	}
-
-	public Transaction getCurrentTransaction() {
-		return currentTransaction;
-	}
-
-	public void setCurrentTransaction(Transaction currentTransaction) {
-		this.currentTransaction = currentTransaction;
-	}
-
-	public void persist(Tweet entity) {
-		if(currentSession!=null)
-		currentSession.persist(entity);
-	}
 	public void persistList(List<Tweet> entityList) {
 		if(entityList==null)return;
 		if(currentSession==null)return;
 		for(Tweet entity : entityList) {
-			currentSession.persist(entity);
+			persist(entity);
 		}
 	}
-	public void update(Tweet entity) {
-		if(currentSession!=null)
-		currentSession.update(entity);
-	}
-
 	public Tweet findById(Integer id) {
 		if(currentSession==null) return null;
 		Tweet tweet = (Tweet) currentSession.get(Tweet.class, id);
@@ -125,10 +54,6 @@ public class TweetDAO implements TweetDAOInterface<Tweet, Integer> {
 	    	System.out.println("No tweet found for extractionID: "+extraction.getIdDB());	   
 	    	}
 	    return ret;
-	}
-	public void delete(Tweet entity) {
-		if(currentSession!=null)
-		currentSession.delete(entity);
 	}
 
 	@SuppressWarnings("unchecked")

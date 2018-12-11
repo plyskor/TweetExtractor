@@ -10,16 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.c3p0.internal.C3P0ConnectionProvider;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
-import org.hibernate.internal.SessionFactoryImpl;
 
-import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.dao.inter.CredentialsDAOInterface;
 import es.uam.eps.tweetextractor.model.Credentials;
 import es.uam.eps.tweetextractor.model.User;
@@ -28,80 +19,13 @@ import es.uam.eps.tweetextractor.model.User;
  * @author Jose Antonio García del Saz
  *
  */
-public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Integer> {
+public class CredentialsDAO  extends GenericDAO<Credentials,Integer> implements CredentialsDAOInterface<Credentials, Integer> {
 
-	private Session currentSession;
-	
-	private Transaction currentTransaction;
 
 	public CredentialsDAO() {
 	}
 
-	public Session openCurrentSession() {
-		SessionFactory sf=getSessionFactory();
-		if(sf!=null)
-			currentSession=sf.openSession();
-		return currentSession;
-		
-	}
 
-	public Session openCurrentSessionwithTransaction() {
-		SessionFactory sf=getSessionFactory();
-		if(sf!=null)
-			currentSession =sf.openSession();
-		if(currentSession!=null)
-		currentTransaction = currentSession.beginTransaction();
-		return currentSession;
-	}
-	
-	public void closeCurrentSession() {
-		if (currentSession!=null)
-		currentSession.close();
-	}
-	
-	public void closeCurrentSessionwithTransaction() {
-		if(currentSession!=null&&currentTransaction!=null) {
-		currentTransaction.commit();
-		currentSession.close();
-		}
-	}
-	
-	private static SessionFactory getSessionFactory() {
-		SessionFactory sessionFactory=null;
-		Configuration configuration = new Configuration().configure("tweetextractordb.xml");
-		try{
-			 sessionFactory = configuration.buildSessionFactory();
-		}catch(HibernateException e) {
-			e.printStackTrace();
-		}
-		return sessionFactory;
-	}
-	
-	public Session getCurrentSession() {
-		return currentSession;
-	}
-
-	public void setCurrentSession(Session currentSession) {
-		this.currentSession = currentSession;
-	}
-
-	public Transaction getCurrentTransaction() {
-		return currentTransaction;
-	}
-
-	public void setCurrentTransaction(Transaction currentTransaction) {
-		this.currentTransaction = currentTransaction;
-	}
-
-	public void persist(Credentials entity) {
-		if(currentSession!=null)
-		currentSession.persist(entity);
-	}
-
-	public void update(Credentials entity) {
-		if(currentSession!=null)
-		currentSession.update(entity);
-	}
 
 	public Credentials findById(Integer id) {
 		if(currentSession!=null) {
@@ -126,9 +50,7 @@ public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Inte
 	    	}
 	    return ret;
 	}
-	public void delete(Credentials entity) {
-		if(currentSession!=null)currentSession.delete(entity);
-	}
+
 
 	@SuppressWarnings("unchecked")
 	public List<Credentials> findAll() {
