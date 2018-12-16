@@ -79,8 +79,7 @@ public abstract class ExtractionServerTask extends ServerTask{
 		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
 		if(Thread.currentThread().isInterrupted()) {
 			logger.info("The task with id: "+this.getId()+" has been interrupted.");
-			onInterrupt();
-			releaseExtraction();
+			onStop();
 			return;
 		}
 		logger.info("Starting execution of task with id: " + this.getId());
@@ -95,7 +94,6 @@ public abstract class ExtractionServerTask extends ServerTask{
 			logger.error("The task with id: " + this.getId()
 					+ " has no user/credentials associated and has been interrupted.");
 			onInterrupt();
-			releaseExtraction();
 			return;
 		}
 		try {

@@ -116,6 +116,11 @@ public abstract class ServerTask implements Runnable {
 		 ServerTaskService stServce = new ServerTaskService();
 		stServce.update(this);
 	}
+	public void onStop() {
+		this.setStatus(Constants.ST_STOPPED);
+		 ServerTaskService stServce = new ServerTaskService();
+		stServce.update(this);
+	}
 	/**
 	 * @return the taskType
 	 */

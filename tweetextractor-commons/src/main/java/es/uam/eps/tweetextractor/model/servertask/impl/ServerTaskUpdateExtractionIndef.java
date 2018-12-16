@@ -114,6 +114,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 		ServerTwitterExtractor twitter = new ServerTwitterExtractor();
 		twitter.initialize(extraction);
 		logger.info("Starting infinite update of extraction with id: " + extraction.getIdDB());
+		blockExtraction();
 		while (this.trigger == false) {
 			/* Ckeck interruption */
 			if (Thread.currentThread().isInterrupted()) {
@@ -124,7 +125,6 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 			/* Iteration */
 			extraction.refreshUserCredentials();
 			twitter.setCredentialsList(extraction.getUser().getCredentialList());
-			blockExtraction();
 			logger.info("Extracting with credentials @" + twitter.getCurrentCredentials().getAccountScreenName());
 			twitter.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()) + "-filter:retweets");
 			UpdateStatus response = twitter.updateExtraction(extraction);
@@ -166,7 +166,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 							TimeUnit.SECONDS.sleep(seconds);
 						} catch (InterruptedException e) {
 							logger.info("The task with id: " + this.getId() + " has been interrupted.");
-							onInterrupt();
+							onStop();
 							releaseExtraction();
 							return;
 						}
