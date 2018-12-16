@@ -119,7 +119,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 			/* Ckeck interruption */
 			if (Thread.currentThread().isInterrupted()) {
 				logger.info("The task with id: " + this.getId() + " has been interrupted.");
-				onInterrupt();
+				onStop();
 				return;
 			}
 			/* Iteration */
