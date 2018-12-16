@@ -101,7 +101,7 @@ public abstract class ExtractionServerTask extends ServerTask{
 			implementation();
 		}catch (Exception e) {
 			/*In case of exception, try to recover*/
-			logger.warn("An exception has been thrown in task with id "+this.getId()+"\n"+e.getMessage()+".\nRetrying execution");
+			logger.warn("An exception has been thrown in task with id "+this.getId()+"\n"+e.getMessage()+".\nInterrupting task...");
 			onInterrupt();
 			releaseExtraction();
 			return;

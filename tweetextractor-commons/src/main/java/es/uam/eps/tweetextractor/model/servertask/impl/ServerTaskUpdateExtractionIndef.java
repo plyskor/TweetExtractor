@@ -165,7 +165,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 									"All credentials are blocked. Waiting " + seconds + " seconds until next try...");
 							TimeUnit.SECONDS.sleep(seconds);
 						} catch (InterruptedException e) {
-							logger.info("The task with id: " + this.getId() + " has been interrupted.");
+							logger.info("The task with id: " + this.getId() + " has been stppoed.");
 							onStop();
 							releaseExtraction();
 							return;
@@ -191,8 +191,8 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 								+ extraction.getIdDB() + ". Waiting 15 minutes so the credentials don't get blocked.");
 						TimeUnit.MINUTES.sleep(15);
 					} catch (InterruptedException e) {
-						logger.info("The task with id: " + this.getId() + " has been interrupted.");
-						onInterrupt();
+						logger.info("The task with id: " + this.getId() + " has been stopped.");
+						onStop();
 						releaseExtraction();
 						return;
 					}
