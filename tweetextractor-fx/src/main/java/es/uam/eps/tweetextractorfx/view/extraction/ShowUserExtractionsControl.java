@@ -36,7 +36,7 @@ public class ShowUserExtractionsControl {
 	public void initialize() {
 		extractionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue()));
 		extractionTableView.getSelectionModel().selectedItemProperty().addListener((c, oldValue, newValue) -> {
-			if ((newValue != null && newValue.getValue()!=null&&!newValue.getValue().startsWith("Extraction"))||newValue == null || newValue.getValue()==null) {
+			if ((newValue != null && newValue.getValue()!=null&&!newValue.getValue().startsWith("Extraction"))||newValue == null || newValue.getValue()==null||newValue.getValue().contains("of the account")) {
 				Platform.runLater(() -> extractionTableView.getSelectionModel().clearSelection());
 				selectedExtraction=null;
 			} else {
@@ -145,6 +145,10 @@ public class ShowUserExtractionsControl {
 
 	@FXML
 	public void handleEditExtraction() {
+		if(selectedExtraction==null) {
+			ErrorDialog.showErrorNoSelectedExtraction();
+			return;
+		}
 		this.getMainApplication().showExtractionDetails(selectedExtraction,false);
 	}
 

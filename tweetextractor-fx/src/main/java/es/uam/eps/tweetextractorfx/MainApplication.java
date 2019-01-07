@@ -61,7 +61,7 @@ public class MainApplication extends Application {
 		initRootLayout();
 		TweetExtractorFXPreferences.initializePreferences();
 		springContext = new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
-		onBoot();
+		//onBoot();
 	}
 
 	private void onBoot() {
