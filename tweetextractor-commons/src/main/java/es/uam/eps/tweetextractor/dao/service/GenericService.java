@@ -75,5 +75,9 @@ public abstract class GenericService<V extends Serializable, K extends Serializa
     	V entity = findById(id);
         if(entity!=null)genericDao.delete(entity);
     }
-    
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteAll() {
+        genericDao.deleteAll();
+    }
 }

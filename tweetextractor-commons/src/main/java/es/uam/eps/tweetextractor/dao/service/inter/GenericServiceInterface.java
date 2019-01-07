@@ -19,4 +19,5 @@ public interface GenericServiceInterface<V extends Serializable, K extends Seria
 	    public void delete(V entity);
 	    public void deleteById(K id);
 	    public void refresh(V entity);
+	    public void deleteAll();
 }
