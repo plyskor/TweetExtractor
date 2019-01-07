@@ -29,7 +29,7 @@ public class FilterNot extends Filter {
 	 * 
 	 */
 	public FilterNot() {
-		this.summary=new String("");
+		this.summary="";
 		this.setLABEL("");
 	}
 	/**
@@ -54,7 +54,7 @@ public class FilterNot extends Filter {
 		if(filter==null) {
 			return null;
 		}else {
-			return new String("-"+filter.toQuery());
+			return "-"+filter.toQuery();
 		}
 	}
 

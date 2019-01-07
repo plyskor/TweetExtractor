@@ -11,6 +11,11 @@ import javafx.scene.control.Alert.AlertType;
  *
  */
 public class ErrorDialog {
+	
+	private ErrorDialog() {
+		super();
+	}
+
 	public static Alert showErrorLoadUsers(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");

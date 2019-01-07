@@ -15,15 +15,12 @@ import es.uam.eps.tweetextractor.dao.inter.ServerTaskDAOInterface;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 @Repository
-public class ServerTaskDAO extends AbstractGenericDAO<ServerTask, Integer> implements ServerTaskDAOInterface<ServerTask, Integer> {
+public class ServerTaskDAO extends AbstractGenericDAO<ServerTask, Integer> implements ServerTaskDAOInterface<ServerTask> {
 
 	public ServerTaskDAO() {
 		super();
 	}
 
-	public ServerTask findById(Integer id) {
-		return find(id);
-	}
 	public List<ServerTask> findByUser(User user) {
 	    CriteriaBuilder criteriaBuilder = currentSession().getCriteriaBuilder();
 	    CriteriaQuery<ServerTask> criteriaQuery = criteriaBuilder.createQuery(ServerTask.class);
@@ -39,18 +36,5 @@ public class ServerTaskDAO extends AbstractGenericDAO<ServerTask, Integer> imple
 	    	}
 	    return ret;
 	}
-	public List<ServerTask> findAll() {
-		List<ServerTask> serverTasks = (List<ServerTask>) currentSession().createQuery("from ServerTask").list();
-		return serverTasks;
-	}
-
-	public void deleteAll() {
-		List<ServerTask> entityList = findAll();
-		for (ServerTask entity : entityList) {
-			delete(entity);
-		}
-	}
-
-
 	
 }

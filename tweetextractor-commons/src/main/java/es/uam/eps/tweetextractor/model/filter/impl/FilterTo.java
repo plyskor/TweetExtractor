@@ -19,10 +19,10 @@ import es.uam.eps.tweetextractor.model.filter.Filter;
 @DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_TO)
 public class FilterTo extends Filter {
 	@Column(name="to_nickname")
-	private String nickName= new String("");
+	private String nickName= "";
 	
 	public FilterTo (FilterTo filter) {
-		this.summary=new String("Replying to: @");
+		this.summary="Replying to: @";
 		this.setLABEL(Constants.STRING_FILTER_TO);
 		if(filter!=null) {
 			summary=filter.getSummary();
@@ -35,7 +35,7 @@ public class FilterTo extends Filter {
 	 * 
 	 */
 	public FilterTo() {
-		this.summary=new String("Replying to: @");
+		this.summary="Replying to: @";
 		this.setLABEL(Constants.STRING_FILTER_TO);
 	}
 

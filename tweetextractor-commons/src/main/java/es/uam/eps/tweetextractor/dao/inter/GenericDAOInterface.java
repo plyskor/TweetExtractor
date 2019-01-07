@@ -19,4 +19,6 @@ public interface GenericDAOInterface <V extends Serializable,K extends Serializa
     public V find(K key);
     public List<V> getAll() ;
 	void refresh(V entity);
+	void deleteAll();
+	void persistList(List<V> entityList);
 }

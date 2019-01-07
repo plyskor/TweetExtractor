@@ -32,13 +32,13 @@ public class ServerTaskService extends GenericService<ServerTask, Integer> imple
         this.serverTaskDAO = (ServerTaskDAO) genericDao;
     }
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public boolean hasAnyServerTask(User user) {
 		if(findByUser(user)==null)return false;
 		return true;	}
     @Override
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<ServerTask> findByUser(User user) {
-		List<ServerTask> ret=serverTaskDAO.findByUser(user);
-		return ret;
+		return serverTaskDAO.findByUser(user);
 	}
 }

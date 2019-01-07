@@ -17,6 +17,7 @@ public class RegisterStatus {
 	 * 
 	 */
 	public RegisterStatus() {
+		super();
 	}
 	/**
 	 * @return the status

@@ -64,7 +64,7 @@ public abstract class AbstractGenericDAO<V extends Serializable, K extends Seria
      
     @Override
     public V find(K key) {
-        return (V) currentSession().get(daoType, key);
+        return currentSession().get(daoType, key);
     }
     @Override
     public List<V> getAll() {
@@ -73,11 +73,24 @@ public abstract class AbstractGenericDAO<V extends Serializable, K extends Seria
     @Override
 	public void refresh(V entity) {
 		currentSession().refresh(entity);
-		return;
 	}
     @Override
     public void deleteById(K idDB) {
 		V entity = find(idDB);
 		if(entity!=null)delete(entity);
+	}
+    @Override
+    public void deleteAll() {
+		List<V> entityList = getAll();
+		for (V entity : entityList) {
+			delete(entity);
+		}
+	}
+    @Override
+    public void persistList(List<V> entityList) {
+		if(entityList==null)return;
+		for(V entity : entityList) {
+			persist(entity);
+		}
 	}
 }

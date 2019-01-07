@@ -25,7 +25,7 @@ public class GetUserServerTasksResponse {
 	private boolean error;
 	@XmlElementWrapper(name = "serverTasksInfoList") 
 	@XmlElement(name = "serverTaskInfo")
-	private List<ServerTaskInfo> serverTasksList=new ArrayList<ServerTaskInfo>();
+	private List<ServerTaskInfo> serverTasksList=new ArrayList<>();
 	@XmlElement(name="message")
 	private String message;
 	
@@ -33,6 +33,7 @@ public class GetUserServerTasksResponse {
 	 * 
 	 */
 	public GetUserServerTasksResponse() {
+		super();
 	}
 
 	/**

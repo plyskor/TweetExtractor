@@ -25,8 +25,7 @@ public class GetServerTaskStatus extends TweetExtractorCXFService implements Get
 	@Override
 	public GetServerTaskStatusResponse getServerTaskStatus(int id) {
 		if(client !=null) {
-			GetServerTaskStatusResponse reply = client.getServerTaskStatus(id); 
-			return reply;
+			return client.getServerTaskStatus(id);
 		}
 		return null;	
 	}

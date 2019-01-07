@@ -20,17 +20,16 @@ import es.uam.eps.tweetextractor.model.filter.Filter;
 @DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_URL)
 public class FilterUrl extends Filter {
 	@Column(name="url")
-	private String url= new String();
-//new String("Con una URL que contiene: ");
+	private String url= "";
 	/**
 	 * 
 	 */
 	public FilterUrl() {
-		this.summary=new String("With an URL that contains: ");
+		this.summary="With an URL that contains: ";
 		this.setLABEL(Constants.STRING_FILTER_URL);
 	}
 	public FilterUrl(FilterUrl filter) {
-		this.summary=new String("With an URL that contains: ");
+		this.summary="With an URL that contains: ";
 		this.setLABEL(Constants.STRING_FILTER_URL);
 		if(filter!=null) {
 			summary=filter.getSummary();
@@ -59,7 +58,7 @@ public class FilterUrl extends Filter {
 		if(url==null) {
 			return null;
 		}else {
-			return new String("url:"+url+" ");
+			return "url:"+url+" ";
 		}
 	}
 	@Override

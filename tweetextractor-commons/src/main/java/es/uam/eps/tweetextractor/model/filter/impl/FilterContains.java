@@ -37,14 +37,14 @@ public class FilterContains extends Filter {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name="perm_filter_contains_word_list", joinColumns=@JoinColumn(name="filter"))
 	@Column(name="keyword_list", length=20)
-	private List<String> keywordsList=new ArrayList<String>();
+	private List<String> keywordsList=new ArrayList<>();
 	public FilterContains() {
-		this.summary=new String("Contains: ");
+		this.summary="Contains: ";
 		this.setLABEL(Constants.STRING_FILTER_CONTAINS);
 	}
 
 	public FilterContains(FilterContains filter) {
-		this.summary=new String("Contains: ");
+		this.summary="Contains: ";
 		if(filter!=null) {
 			for(String word:filter.getKeywordsList()){
 				keywordsList.add(word);
@@ -94,7 +94,7 @@ public class FilterContains extends Filter {
 	}
 	@Override
 	public String toQuery() {
-		String ret = new String("");
+		String ret = "";
 		if(keywordsList!=null) {
 			for(String keyWord:keywordsList) {
 				ret=ret.concat(keyWord+" ");

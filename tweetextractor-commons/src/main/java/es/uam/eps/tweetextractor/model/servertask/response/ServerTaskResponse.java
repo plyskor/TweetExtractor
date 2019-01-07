@@ -9,11 +9,12 @@ package es.uam.eps.tweetextractor.model.servertask.response;
  */
 public class ServerTaskResponse {
 	private boolean error=false;
-	private String message = new String("");
+	private String message = "";
 	/**
 	 * 
 	 */
 	public ServerTaskResponse() {
+		super();
 	}
 	/**
 	 * @return the error

@@ -170,18 +170,18 @@ public class ServerTwitterExtractor {
 	public void configure(Credentials credentials) {
 		if(credentials==null)return;
 		/*Configuramos la API con nuestros datos provisionales*/
-		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(false).setOAuthConsumerKey(credentials.getConsumerKey())
+		ConfigurationBuilder confBuilder = new ConfigurationBuilder();
+		confBuilder.setDebugEnabled(false).setOAuthConsumerKey(credentials.getConsumerKey())
 		.setOAuthConsumerSecret(credentials.getConsumerSecret())
 		.setOAuthAccessToken(credentials.getAccessToken()).setTweetModeExtended(true)
 		.setOAuthAccessTokenSecret(credentials.getAccessTokenSecret());
 		/*Instanciamos la conexión*/
-		 tf = new TwitterFactory(cb.build());
+		 tf = new TwitterFactory(confBuilder.build());
 		twitter = tf.getInstance();
 	}
 	public UpdateStatus getStatusListExecution() {
 		UpdateStatus ret= new UpdateStatus(0, null);
-		List<Status>resultList=new ArrayList<Status>();
+		List<Status>resultList=new ArrayList<>();
 		try {
             QueryResult result;
             do {
@@ -206,7 +206,7 @@ public class ServerTwitterExtractor {
             if(te.getStatusCode()==429&&te.getErrorCode()==88) {
             	ret.setStatus(Constants.RATE_LIMIT_UPDATE_ERROR);
             	ret.setError(true);
-            	if(resultList!=null&&!resultList.isEmpty()) {
+            	if(!resultList.isEmpty()) {
                 	ret.setStatus(Constants.SUCCESS_UPDATE);
             		ret.setStatusList(resultList);
                 	ret.setErrorMessage(te.getErrorMessage());
@@ -222,7 +222,7 @@ public class ServerTwitterExtractor {
 		return ret;
 	}
 	public UpdateStatus execute(){
-		List<Tweet> tweetList = new ArrayList<Tweet>();
+		List<Tweet> tweetList = new ArrayList<>();
 		UpdateStatus ret;
 		ret=getStatusListExecution();
 		if(ret.isError())return ret;
@@ -280,15 +280,15 @@ public class ServerTwitterExtractor {
 		List<Integer> secondsList= new ArrayList<Integer>();
 		for(Credentials credentials:credentialsList){
 			/*Configuramos la API con nuestros datos provisionales*/
-			ConfigurationBuilder cb = new ConfigurationBuilder();
-			cb.setDebugEnabled(false).setOAuthConsumerKey(credentials.getConsumerKey())
+			ConfigurationBuilder confBuild = new ConfigurationBuilder();
+			confBuild.setDebugEnabled(false).setOAuthConsumerKey(credentials.getConsumerKey())
 			.setOAuthConsumerSecret(credentials.getConsumerSecret())
 			.setOAuthAccessToken(credentials.getAccessToken()).setTweetModeExtended(true)
 			.setOAuthAccessTokenSecret(credentials.getAccessTokenSecret());
 			/*Instanciamos la conexión*/
-			TwitterFactory tf = new TwitterFactory(cb.build());
-			Twitter twitter = tf.getInstance();
-			secondsList.add(this.limit("/search/tweets",twitter).getSecondsUntilReset());
+			TwitterFactory twFact = new TwitterFactory(confBuild.build());
+			Twitter twttr = twFact.getInstance();
+			secondsList.add(this.limit("/search/tweets",twttr).getSecondsUntilReset());
 		}
 		int newIndex=secondsList.indexOf(Collections.min(secondsList,null));
 		this.setCurrentCredentials(credentialsList.get(newIndex));
@@ -301,13 +301,11 @@ public class ServerTwitterExtractor {
 		        if (status == null) { // 
 		            // don't know if needed - T4J docs are very bad
 		        } else {
-		        	Tweet ret = new Tweet(status);
-		        	return ret;
+		        	return new Tweet(status);
 		        }
 		    } catch (TwitterException e) {
 		        System.err.print("Failed to search tweets: " + e.getMessage());
-		        //e.printStackTrace();
-		        // DON'T KNOW IF THIS IS THROWN WHEN ID IS INVALID
+		        
 		    }
 		 return null;
 	}

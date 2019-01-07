@@ -27,6 +27,7 @@ public class CredentialsService extends GenericService<Credentials, Integer> imp
     }
     
 	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public boolean hasAnyCredentials(User user) {
 		if (findByUser(user) == null)
 			return false;

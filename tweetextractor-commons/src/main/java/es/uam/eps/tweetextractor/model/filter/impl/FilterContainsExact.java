@@ -23,15 +23,15 @@ public class FilterContainsExact extends Filter {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name="perm_filter_contains_exact_word_list", joinColumns=@JoinColumn(name="filter"))
 	@Column(name="keyword_list", length=20)
-	private List<String> keywordsList=new ArrayList<String>();
+	private List<String> keywordsList=new ArrayList<>();
 	
 	public FilterContainsExact() {
-		this.summary=new String("Contains exactly: ");
+		this.summary="Contains exactly: ";
 		this.setLABEL(Constants.STRING_FILTER_CONTAINS_EXACT);
 	}
 	
 	public FilterContainsExact(FilterContainsExact filter) {
-		this.summary=new String("Contains exactly: ");
+		this.summary="Contains exactly: ";
 		this.setLABEL(Constants.STRING_FILTER_CONTAINS_EXACT);
 		if(filter!=null) {
 			for(String word:filter.getKeywordsList()){
@@ -70,7 +70,7 @@ public class FilterContainsExact extends Filter {
 	}
 	@Override
 	public String toQuery() {
-		String ret =new String("");
+		String ret ="";
 		if(keywordsList!=null) {
 			for(String expression:keywordsList) {
 				ret=ret.concat("\""+expression+"\" ");

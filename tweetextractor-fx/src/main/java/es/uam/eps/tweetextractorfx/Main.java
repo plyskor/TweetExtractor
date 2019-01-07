@@ -1,6 +1,5 @@
-/**
- * 
- */
+
+
 package es.uam.eps.tweetextractorfx;
 
 

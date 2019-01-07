@@ -17,6 +17,7 @@ public class LoginStatus {
 	 * 
 	 */
 	public LoginStatus() {
+		super();
 	}
 	/**
 	 * @return the user

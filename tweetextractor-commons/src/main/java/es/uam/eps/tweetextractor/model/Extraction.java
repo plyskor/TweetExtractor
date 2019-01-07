@@ -29,7 +29,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
@@ -61,9 +60,9 @@ public class Extraction implements Serializable {
 	/**
 	 * 
 	 */
-	@Autowired(required = true)
+	@XmlTransient
 	@Transient
-	UserServiceInterface service;
+	transient UserServiceInterface service;
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = 5761562204007375522L;
@@ -85,7 +84,7 @@ public class Extraction implements Serializable {
 	@XmlTransient
 	private List<Filter> filterList;
 	@Transient
-	private List<Filter> filterXmlList = new ArrayList<Filter>();
+	private transient List<Filter> filterXmlList = new ArrayList<>();
 	@XmlTransient
 	@ManyToOne
 	private User user;
@@ -94,8 +93,8 @@ public class Extraction implements Serializable {
 	public Extraction() {
 		creationDate = new Date();
 		lastModificationDate = new Date();
-		tweetList = new ArrayList<Tweet>();
-		filterList =new ArrayList<Filter>();
+		tweetList = new ArrayList<>();
+		filterList =new ArrayList<>();
 		id = UUID.randomUUID().toString();
 		extracting=false;
 	}
@@ -291,15 +290,15 @@ public class Extraction implements Serializable {
 		if(toadd==null||tweetList==null||tweetList.isEmpty()) return false;
 		for(Tweet own : tweetList) {
 			if(own.getId()==toadd.getId())return true;
-			if(toadd.getRetweetedTweet()!=-1) {
-				if(toadd.getRetweetedTweet()==own.getId())return true;
+			if(toadd.getRetweetedTweet()!=-1&&toadd.getRetweetedTweet()==own.getId()) {
+				return true;
 			}
 		}
 		return false;
 	}
 	@XmlTransient
 	public String getFiltersColumn() {
-		String ret = new String();
+		String ret = "";
 		for(int i=0; i<getFilterList().size();i++) {
 			Filter filter = getFilterList().get(i);
 			if(i!=getFilterList().size()-1) {

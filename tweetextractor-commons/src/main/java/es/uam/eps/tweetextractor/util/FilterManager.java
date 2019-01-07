@@ -17,7 +17,7 @@ public class FilterManager {
 	/**
 	 * 
 	 */
-	public FilterManager() {
+	private FilterManager() {
 		
 	}
 	public static boolean isFilterListLogic(List<Filter> filterList) {
@@ -38,7 +38,7 @@ public class FilterManager {
 		if(filterList==null) {
 			return null;
 		}else {
-			String ret= new String("");
+			String ret= "";
 			for(Filter filter:filterList) {
 				ret=ret.concat(filter.toQuery());
 			}

@@ -36,6 +36,7 @@ public class Credentials implements Serializable {
 	@XmlTransient
 	private User user;
 	public Credentials() {
+		super();
 	}
 
 	/**

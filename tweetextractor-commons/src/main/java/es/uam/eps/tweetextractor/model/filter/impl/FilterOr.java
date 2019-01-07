@@ -30,7 +30,7 @@ public class FilterOr extends Filter {
 	@OneToMany(cascade=CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(nullable=true)
-	private List<Filter> filterList=new ArrayList<Filter>();
+	private List<Filter> filterList=new ArrayList<>();
 
 
 	/**
@@ -38,7 +38,7 @@ public class FilterOr extends Filter {
 	 */
 	public FilterOr() {
 		super();
-		this.summary=new String();
+		this.summary="";
 		this.setLABEL("");
 	}
 	
@@ -78,7 +78,7 @@ public class FilterOr extends Filter {
 		if(filterList==null) {
 			return null;
 		}else {
-			String ret = new String("(");
+			String ret = "(";
 			for(int i=0;i<filterList.size();i++) {
 				if(i==filterList.size()-1) {
 					ret=ret.concat(filterList.get(i).toQuery());

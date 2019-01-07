@@ -21,9 +21,9 @@ import es.uam.eps.tweetextractor.model.filter.Filter;
 @XmlRootElement(name="filterFrom")
 public class FilterFrom extends Filter {
 	@Column(name="nickname")
-	private String nickName = new String("");
+	private String nickName = "";
 	public FilterFrom(FilterFrom filter) {
-		this.summary=new String("Tweeted by: @");
+		this.summary="Tweeted by: @";
 		this.setLABEL(Constants.STRING_FILTER_FROM);
 		if(filter!=null) {
 			summary=filter.getSummary();
@@ -50,7 +50,7 @@ public class FilterFrom extends Filter {
 	 * 
 	 */
 	public FilterFrom() {
-		this.summary=new String("Tweeted by: @");
+		this.summary="Tweeted by: @";
 		this.setLABEL(Constants.STRING_FILTER_FROM);
 	}
 
@@ -59,7 +59,7 @@ public class FilterFrom extends Filter {
 		if(nickName==null) {
 			return null;
 		}else {
-			return new String("from:"+nickName+" ");
+			return "from:"+nickName+" ";
 		}
 	}
 	@Override

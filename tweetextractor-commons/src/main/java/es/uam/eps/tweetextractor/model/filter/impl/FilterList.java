@@ -21,19 +21,19 @@ import es.uam.eps.tweetextractor.model.filter.Filter;
 @XmlRootElement(name="filterList")
 public class FilterList extends Filter {
 	@Column(name="list_name", length=30)
-	private String listName= new String();
+	private String listName= "";
 	@Column(name="list_account", length=60)
-	private String account= new String();
+	private String account= "";
 
 	/**
 	 * 
 	 */
 	public FilterList() {
-		this.summary=new String("Tweeted by an account in the list ");
+		this.summary="Tweeted by an account in the list ";
 		this.setLABEL(Constants.STRING_FILTER_LIST);
 	}
 	public FilterList(FilterList filter) {
-		this.summary=new String("Tweeted by an account in the list ");
+		this.summary="Tweeted by an account in the list ";
 		this.setLABEL(Constants.STRING_FILTER_LIST);
 		if(filter!=null) {
 			this.setListName(filter.getListName());
@@ -77,7 +77,7 @@ public class FilterList extends Filter {
 		if(account==null||listName==null) {
 			return null;
 		}else {
-			return new String("list:"+account+"/"+listName+" ");
+			return "list:"+account+"/"+listName+" ";
 		}
 	}
 	@Override

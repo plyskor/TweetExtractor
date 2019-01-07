@@ -44,7 +44,7 @@ import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 public abstract class ServerTask implements Runnable,Serializable {
 	@Autowired(required = true)
 	@Transient
-	protected ServerTaskServiceInterface sServ;
+	protected transient ServerTaskServiceInterface sServ;
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = 4811595948604961284L;
@@ -62,12 +62,12 @@ public abstract class ServerTask implements Runnable,Serializable {
 	private User user;
 	@XmlTransient
 	@Transient
-	private Thread thread = new Thread(this);
+	private transient Thread thread = new Thread(this);
 	@Transient
 	@XmlTransient
-	protected AnnotationConfigApplicationContext springContext;
-	private boolean trigger=false;
-	public ServerTask(int id, int status, User user) {
+	protected transient AnnotationConfigApplicationContext springContext;
+	protected boolean trigger=false;
+	public ServerTask(int id, User user) {
 		super();
 		this.id = id;
 		this.status = Constants.ST_NEW;

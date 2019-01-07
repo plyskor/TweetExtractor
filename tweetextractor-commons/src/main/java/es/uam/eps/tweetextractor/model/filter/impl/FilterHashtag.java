@@ -33,9 +33,9 @@ public class FilterHashtag extends Filter {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name="perm_filter_hashtag_list", joinColumns=@JoinColumn(name="filter"))
 	@Column(name="hashtag_list", length=40)
-	private List<String> hashtagList = new ArrayList<String>();
+	private List<String> hashtagList = new ArrayList<>();
 	public FilterHashtag(FilterHashtag filter) {
-		this.summary=new String("Hashtags: ");
+		this.summary="Hashtags: ";
 		this.setLABEL(Constants.STRING_FILTER_HASHTAG);
 		if(filter!=null) {
 			for(String word:filter.getHashtagList()){
@@ -49,7 +49,7 @@ public class FilterHashtag extends Filter {
 	 * 
 	 */
 	public FilterHashtag() {
-		this.summary=new String("Hashtags: ");
+		this.summary="Hashtags: ";
 		this.setLABEL(Constants.STRING_FILTER_HASHTAG);
 	}
 
@@ -90,7 +90,7 @@ public void loadHashtag(String hashtag) {
 		if(hashtagList==null) {
 			return null;
 		}else {
-			String ret=new String("");
+			String ret="";
 			for(String hashtag:hashtagList) {
 				ret=ret.concat("#"+hashtag+" ");
 			}

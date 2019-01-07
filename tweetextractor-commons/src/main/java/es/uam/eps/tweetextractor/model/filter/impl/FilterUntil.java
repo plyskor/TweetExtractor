@@ -48,7 +48,7 @@ public class FilterUntil extends Filter {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		if(date!=null) {
 			summaryProperty.set("Until: "+(date).format(formatter));
-			summary= new String(summaryProperty.get());
+			summary= summaryProperty.get();
 		}	
 		return summaryProperty;
 	}
@@ -74,7 +74,7 @@ public class FilterUntil extends Filter {
 			return null;
 		}else {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			return new String("until:"+(date).format(formatter)+" ");
+			return "until:"+(date).format(formatter)+" ";
 		}
 	}
 	@Override

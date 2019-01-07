@@ -18,10 +18,10 @@ public final class Constants {
 	/*
 	 * Preference key
 	 */
-	public final static String PREFERENCE_SERVER_HOST = "PREFERENCE_SERVER_HOST";
-	public final static String PREFERENCE_SERVER_PORT = "PREFERENCE_SERVER_PORT";
-	public final static String PREFERENCE_SERVER_NAMEAPP = "PREFERENCE_SERVER_NAMEAPP";
-	public final static String PREFERENCE_SERVER_ADDRESS = "PREFERENCE_SERVER_ADDRESS";
+	public static final String PREFERENCE_SERVER_HOST = "PREFERENCE_SERVER_HOST";
+	public static final String PREFERENCE_SERVER_PORT = "PREFERENCE_SERVER_PORT";
+	public static final String PREFERENCE_SERVER_NAMEAPP = "PREFERENCE_SERVER_NAMEAPP";
+	public static final String PREFERENCE_SERVER_ADDRESS = "PREFERENCE_SERVER_ADDRESS";
 
 
 	
@@ -32,26 +32,25 @@ public final class Constants {
 		FURL(Values.TYPE_FILTER_URL), FSNC(Values.TYPE_FILTER_SINCE), FUNTL(Values.TYPE_FILTER_UNTIL),
 		FATT(Values.TYPE_FILTER_ATTITUDE), FQST(Values.TYPE_FILTER_QUESTION);
 		private FilterTypes(String type) {
-			// if (!this.name().equals(type))
-			// throw new IllegalArgumentException("Incorrect use of FilterTypes");
+			
 		}
 
 		public static class Values {
 			// Available filters
-			public final static String TYPE_FILTER_CONTAINS = "FC";
-			public final static String TYPE_FILTER_CONTAINS_EXACT = "FCE";
-			public final static String TYPE_FILTER_OR = "FOR";
-			public final static String TYPE_FILTER_NOT = "FNOT";
-			public final static String TYPE_FILTER_HASHTAG = "FHASH";
-			public final static String TYPE_FILTER_FROM = "FFROM";
-			public final static String TYPE_FILTER_TO = "FTO";
-			public final static String TYPE_FILTER_LIST = "FLST";
-			public final static String TYPE_FILTER_MENTION = "FMNT";
-			public final static String TYPE_FILTER_URL = "FURL";
-			public final static String TYPE_FILTER_SINCE = "FSNC";
-			public final static String TYPE_FILTER_UNTIL = "FUNTL";
-			public final static String TYPE_FILTER_ATTITUDE = "FATT";
-			public final static String TYPE_FILTER_QUESTION = "FQST";
+			public static final String TYPE_FILTER_CONTAINS = "FC";
+			public static final String TYPE_FILTER_CONTAINS_EXACT = "FCE";
+			public static final String TYPE_FILTER_OR = "FOR";
+			public static final String TYPE_FILTER_NOT = "FNOT";
+			public static final String TYPE_FILTER_HASHTAG = "FHASH";
+			public static final String TYPE_FILTER_FROM = "FFROM";
+			public static final String TYPE_FILTER_TO = "FTO";
+			public static final String TYPE_FILTER_LIST = "FLST";
+			public static final String TYPE_FILTER_MENTION = "FMNT";
+			public static final String TYPE_FILTER_URL = "FURL";
+			public static final String TYPE_FILTER_SINCE = "FSNC";
+			public static final String TYPE_FILTER_UNTIL = "FUNTL";
+			public static final String TYPE_FILTER_ATTITUDE = "FATT";
+			public static final String TYPE_FILTER_QUESTION = "FQST";
 		}
 	}
 	@XmlType(name = "taskType")
@@ -66,8 +65,8 @@ public final class Constants {
 		}
 		public static class Values {
 			// Available filters
-			public final static String TYPE_EXTRACTION_TASK = "ET";
-			public final static String TYPE_TASK_UPDATE_EXTRACTION_INDEF = "TUEI";
+			public static final String TYPE_EXTRACTION_TASK = "ET";
+			public static final String TYPE_TASK_UPDATE_EXTRACTION_INDEF = "TUEI";
 		}
 	}
 
@@ -75,35 +74,35 @@ public final class Constants {
 	 * Generic Strings
 	 */
 	// Available filters
-	public final static String STRING_FILTER_CONTAINS = "Contains";
-	public final static String STRING_FILTER_CONTAINS_EXACT = "Contains literally";
-	public final static String STRING_FILTER_HASHTAG = "Contains hashtags";
-	public final static String STRING_FILTER_FROM = "Tweeted by the account";
-	public final static String STRING_FILTER_TO = "In repply to";
-	public final static String STRING_FILTER_LIST = "Tweeted by an account from the list";
-	public final static String STRING_FILTER_MENTION = "Mentioning users";
-	public final static String STRING_FILTER_URL = "With an URL containing";
-	public final static String STRING_FILTER_SINCE = "Since date";
-	public final static String STRING_FILTER_UNTIL = "Up to date";
-	public final static String STRING_FILTER_ATTITUDE = "With an attitude";
-	public final static String STRING_FILTER_QUESTION = "Containing one or more questions";
+	public static final String STRING_FILTER_CONTAINS = "Contains";
+	public static final String STRING_FILTER_CONTAINS_EXACT = "Contains literally";
+	public static final String STRING_FILTER_HASHTAG = "Contains hashtags";
+	public static final String STRING_FILTER_FROM = "Tweeted by the account";
+	public static final String STRING_FILTER_TO = "In repply to";
+	public static final String STRING_FILTER_LIST = "Tweeted by an account from the list";
+	public static final String STRING_FILTER_MENTION = "Mentioning users";
+	public static final String STRING_FILTER_URL = "With an URL containing";
+	public static final String STRING_FILTER_SINCE = "Since date";
+	public static final String STRING_FILTER_UNTIL = "Up to date";
+	public static final String STRING_FILTER_ATTITUDE = "With an attitude";
+	public static final String STRING_FILTER_QUESTION = "Containing one or more questions";
 	/*
 	 * Classes
 	 */
-	public final static String CLASS_FILTER_CONTAINS = "es.uam.eps.tweetextractor.model.filter.impl.FilterContains";
-	public final static String CLASS_FILTER_CONTAINS_EXACT = "es.uam.eps.tweetextractor.model.filter.impl.FilterContainsExact";
-	public final static String CLASS_FILTER_OR = "es.uam.eps.tweetextractor.model.filter.impl.FilterOr";
-	public final static String CLASS_FILTER_NOT = "es.uam.eps.tweetextractor.model.filter.impl.FilterNot";
-	public final static String CLASS_FILTER_HASHTAG = "es.uam.eps.tweetextractor.model.filter.impl.FilterHashtag";
-	public final static String CLASS_FILTER_FROM = "es.uam.eps.tweetextractor.model.filter.impl.FilterFrom";
-	public final static String CLASS_FILTER_TO = "es.uam.eps.tweetextractor.model.filter.impl.FilterTo";
-	public final static String CLASS_FILTER_LIST = "es.uam.eps.tweetextractor.model.filter.impl.FilterList";
-	public final static String CLASS_FILTER_MENTION = "es.uam.eps.tweetextractor.model.filter.impl.FilterMention";
-	public final static String CLASS_FILTER_URL = "es.uam.eps.tweetextractor.model.filter.impl.FilterUrl";
-	public final static String CLASS_FILTER_SINCE = "es.uam.eps.tweetextractor.model.filter.impl.FilterSince";
-	public final static String CLASS_FILTER_UNTIL = "es.uam.eps.tweetextractor.model.filter.impl.FilterUntil";
-	public final static String CLASS_FILTER_ATTITUDE = "Con una actitud";
-	public final static String CLASS_FILTER_QUESTION = "Contiene una o más preguntas";
+	public static final String CLASS_FILTER_CONTAINS = "es.uam.eps.tweetextractor.model.filter.impl.FilterContains";
+	public static final String CLASS_FILTER_CONTAINS_EXACT = "es.uam.eps.tweetextractor.model.filter.impl.FilterContainsExact";
+	public static final String CLASS_FILTER_OR = "es.uam.eps.tweetextractor.model.filter.impl.FilterOr";
+	public static final String CLASS_FILTER_NOT = "es.uam.eps.tweetextractor.model.filter.impl.FilterNot";
+	public static final String CLASS_FILTER_HASHTAG = "es.uam.eps.tweetextractor.model.filter.impl.FilterHashtag";
+	public static final String CLASS_FILTER_FROM = "es.uam.eps.tweetextractor.model.filter.impl.FilterFrom";
+	public static final String CLASS_FILTER_TO = "es.uam.eps.tweetextractor.model.filter.impl.FilterTo";
+	public static final String CLASS_FILTER_LIST = "es.uam.eps.tweetextractor.model.filter.impl.FilterList";
+	public static final String CLASS_FILTER_MENTION = "es.uam.eps.tweetextractor.model.filter.impl.FilterMention";
+	public static final String CLASS_FILTER_URL = "es.uam.eps.tweetextractor.model.filter.impl.FilterUrl";
+	public static final String CLASS_FILTER_SINCE = "es.uam.eps.tweetextractor.model.filter.impl.FilterSince";
+	public static final String CLASS_FILTER_UNTIL = "es.uam.eps.tweetextractor.model.filter.impl.FilterUntil";
+	public static final String CLASS_FILTER_ATTITUDE = "Con una actitud";
+	public static final String CLASS_FILTER_QUESTION = "Contiene una o más preguntas";
 	/*
 	 * Paths
 	 */

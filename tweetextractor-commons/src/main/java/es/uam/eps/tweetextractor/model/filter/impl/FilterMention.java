@@ -36,10 +36,10 @@ public class FilterMention extends Filter {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name="perm_filter_mention_list", joinColumns=@JoinColumn(name="filter"))
 	@Column(name="mention_list", length=50)
-	private List<String> mentionList = new ArrayList<String>();
+	private List<String> mentionList = new ArrayList<>();
 	
 	public FilterMention(FilterMention filter) {
-		this.summary=new String("Mentioning: ");
+		this.summary="Mentioning: ";
 		this.setLABEL(Constants.STRING_FILTER_MENTION);
 		if (filter != null) {
 			for (String word : filter.getMentionList()) {
@@ -67,7 +67,7 @@ public class FilterMention extends Filter {
 
 
 	public FilterMention() {
-		this.summary=new String("Mentioning: ");
+		this.summary="Mentioning: ";
 		this.setLABEL(Constants.STRING_FILTER_MENTION);
 	}
 
@@ -93,7 +93,7 @@ public class FilterMention extends Filter {
 		if (mentionList == null) {
 			return null;
 		} else {
-			String ret = new String("");
+			String ret = "";
 			for (String mention : mentionList) {
 				ret = ret.concat("@" + mention + " ");
 			}

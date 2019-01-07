@@ -25,8 +25,7 @@ public class InterruptServerTask extends TweetExtractorCXFService implements Int
 	@Override
 	public InterruptServerTaskResponse interruptServerTask(int id) {
 		if(client!=null) {
-			InterruptServerTaskResponse reply = client.interruptServerTask(id);
-			return reply;
+			return client.interruptServerTask(id);
 		}
 		return null;
 	}

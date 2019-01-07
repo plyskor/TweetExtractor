@@ -16,7 +16,7 @@ public class FilterQuestion extends Filter {
 	 * 
 	 */
 	public FilterQuestion() {
-		this.summary=new String();
+		this.summary="";
 		this.setLABEL(Constants.STRING_FILTER_QUESTION);	
 		}
 

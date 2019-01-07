@@ -48,7 +48,7 @@ public abstract class Filter {
 	protected StringProperty summaryProperty=new SimpleStringProperty();
 	@Column(name="summary")
 	@XmlTransient
-	protected String summary=new String("");
+	protected String summary="";
 	@ManyToOne
 	@XmlTransient
 	private Extraction extraction;

@@ -13,13 +13,11 @@ import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
 
 @Repository
-public class ExtractionDAO extends AbstractGenericDAO<Extraction,Integer> implements ExtractionDAOInterface<Extraction, Integer> {
+public class ExtractionDAO extends AbstractGenericDAO<Extraction,Integer> implements ExtractionDAOInterface<Extraction> {
 	public ExtractionDAO() {
 		super();
 	}
-	public Extraction findById(Integer id) {
-		return find(id);
-	}
+
 	public List<Extraction> findByUser(User user) {
 	    CriteriaBuilder criteriaBuilder = currentSession().getCriteriaBuilder();
 	    CriteriaQuery<Extraction> criteriaQuery = criteriaBuilder.createQuery(Extraction.class);
@@ -36,17 +34,5 @@ public class ExtractionDAO extends AbstractGenericDAO<Extraction,Integer> implem
 	    	}
 	    return ret;
 	}
-	public List<Extraction> findAll() {
-		List<Extraction> extractions = (List<Extraction>) currentSession().createQuery("from Extraction").list();
-		return extractions;
-	}
-	public void deleteAll() {
-		List<Extraction> entityList = findAll();
-		for (Extraction entity : entityList) {
-			delete(entity);
-		}
-	}
 
-
-	
 }

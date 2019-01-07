@@ -27,8 +27,7 @@ public class GetServerStatus extends TweetExtractorCXFService implements GetServ
 		
 		if(client!=null) {
 			try {
-				boolean ret=client.getServerStatus();
-				return ret;
+				return client.getServerStatus();
 			}catch (WebServiceException e) {
 				return false;
 			}

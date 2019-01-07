@@ -20,12 +20,9 @@ import es.uam.eps.tweetextractor.model.User;
  *
  */
 @Repository
-public class CredentialsDAO  extends AbstractGenericDAO<Credentials,Integer> implements CredentialsDAOInterface<Credentials, Integer> {
+public class CredentialsDAO  extends AbstractGenericDAO<Credentials,Integer> implements CredentialsDAOInterface<Credentials> {
 	public CredentialsDAO() {
 		super();
-	}
-	public Credentials findById(Integer id) {
-		return find(id); 
 	}
 	public List<Credentials> findByUser(User user) {
 	    CriteriaBuilder criteriaBuilder = currentSession().getCriteriaBuilder();
@@ -42,18 +39,5 @@ public class CredentialsDAO  extends AbstractGenericDAO<Credentials,Integer> imp
 	    	return null;
 	    	}
 	    return ret;
-	}
-	public List<Credentials> findAll() {
-		List<Credentials> credentials = (List<Credentials>) currentSession().createQuery("from Credentials").list();
-		return credentials;
-	}
-	public void deleteAll() {
-		List<Credentials> entityList = findAll();
-		for (Credentials entity : entityList) {
-			delete(entity);
-		}
-	}
-	
-
-	
+	}	
 }

@@ -40,10 +40,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 	@XmlTransient
 	private static final long serialVersionUID = 5407409153873636491L;
 	@Transient
-	ExtractionServiceInterface eServ;
-	@Transient
-	TweetServiceInterface tServ;
-	private boolean trigger = false;
+	transient TweetServiceInterface tServ;
 	
 	/**
 	 * 
@@ -88,18 +85,6 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 		return ret;
 	}
 
-	@XmlTransient
-	public boolean isTrigger() {
-		return trigger;
-	}
-
-	/**
-	 * @param trigger the trigger to set
-	 */
-	public void setTrigger(boolean trigger) {
-		this.trigger = trigger;
-	}
-
 	@Override
 	public void initialize(AnnotationConfigApplicationContext context) {
 		this.springContext=context;
@@ -124,7 +109,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 		twitter.initialize(extraction);
 		logger.info("Starting infinite update of extraction with id: " + extraction.getIdDB());
 		blockExtraction();
-		while (this.trigger == false) {
+		while (!this.trigger) {
 			/* Ckeck interruption */
 			if (Thread.currentThread().isInterrupted()) {
 				logger.info("The task with id: " + this.getId() + " has been interrupted.");
