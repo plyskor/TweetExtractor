@@ -10,13 +10,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
-
 import org.springframework.stereotype.Repository;
-
 import es.uam.eps.tweetextractor.dao.inter.CredentialsDAOInterface;
 import es.uam.eps.tweetextractor.model.Credentials;
 import es.uam.eps.tweetextractor.model.User;
-import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 
 /**
  * @author Jose Antonio García del Saz

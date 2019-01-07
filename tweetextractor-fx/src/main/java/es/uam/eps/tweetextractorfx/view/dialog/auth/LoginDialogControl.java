@@ -6,7 +6,6 @@ package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.task.status.LoginStatus;
-import es.uam.eps.tweetextractorfx.Main;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.task.LogInTask;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;

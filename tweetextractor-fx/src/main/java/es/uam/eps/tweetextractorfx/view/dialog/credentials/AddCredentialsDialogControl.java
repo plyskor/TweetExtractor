@@ -1,7 +1,6 @@
 package es.uam.eps.tweetextractorfx.view.dialog.credentials;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
-import es.uam.eps.tweetextractor.dao.service.CredentialsService;
 import es.uam.eps.tweetextractor.dao.service.inter.CredentialsServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.Credentials;
@@ -24,7 +23,7 @@ public class AddCredentialsDialogControl {
 	private MainApplication mainApplication;
 	
 	public AddCredentialsDialogControl() {
-		
+		super();
 	}
 	/**
 	 * @return the consumerKeyField
@@ -34,7 +33,7 @@ public class AddCredentialsDialogControl {
 	}
 	/**
 	 * @param consumerKeyField the consumerKeyField to set
-	 */
+	 *
 	public void setConsumerKeyField(TextField consumerKeyField) {
 		this.consumerKeyField = consumerKeyField;
 	}

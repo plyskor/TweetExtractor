@@ -4,11 +4,8 @@
 package es.uam.eps.tweetextractorfx.task;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import es.uam.eps.tweetextractor.dao.service.UserService;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.User;
-import javafx.concurrent.Task;
 
 /**
  * @author Jose Antonio García del Saz

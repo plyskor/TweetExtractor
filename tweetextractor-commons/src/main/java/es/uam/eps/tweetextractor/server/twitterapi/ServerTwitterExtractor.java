@@ -6,7 +6,6 @@ package es.uam.eps.tweetextractor.server.twitterapi;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;

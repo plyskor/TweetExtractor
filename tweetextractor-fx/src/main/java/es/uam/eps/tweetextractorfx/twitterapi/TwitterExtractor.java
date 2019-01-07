@@ -3,11 +3,7 @@ package es.uam.eps.tweetextractorfx.twitterapi;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.checkerframework.checker.units.qual.s;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import es.uam.eps.tweetextractor.dao.service.TweetService;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.Constants;

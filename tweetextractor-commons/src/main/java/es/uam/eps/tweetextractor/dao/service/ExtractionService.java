@@ -6,11 +6,9 @@ package es.uam.eps.tweetextractor.dao.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import es.uam.eps.tweetextractor.dao.AbstractGenericDAO;
 import es.uam.eps.tweetextractor.dao.ExtractionDAO;
 import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.model.Extraction;

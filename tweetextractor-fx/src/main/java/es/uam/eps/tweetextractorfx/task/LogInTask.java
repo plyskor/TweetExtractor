@@ -7,13 +7,10 @@ import java.util.Date;
 import org.hibernate.HibernateException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import es.uam.eps.tweetextractor.dao.service.UserService;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.task.status.LoginStatus;
-import javafx.concurrent.Task;
 
 /**
  * @author Jose Antonio García del Saz
