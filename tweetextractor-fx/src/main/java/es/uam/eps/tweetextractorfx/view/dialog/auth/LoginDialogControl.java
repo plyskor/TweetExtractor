@@ -6,6 +6,7 @@ package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.task.status.LoginStatus;
+import es.uam.eps.tweetextractorfx.Main;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.task.LogInTask;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
@@ -107,7 +108,7 @@ public class LoginDialogControl {
 	@FXML
 	public void handleLogin() {
 		alertLogin=null;
-		LogInTask loginTask = new LogInTask(userField.getText().trim(), passField.getText());
+		LogInTask loginTask = new LogInTask(userField.getText().trim(), passField.getText(),getWelcomeScreenControl().getMainApplication().getSpringContext());
 		loginTask.setOnSucceeded(e -> {
 			LoginStatus loginResult = loginTask.getValue();
 			if (loginResult == null) {

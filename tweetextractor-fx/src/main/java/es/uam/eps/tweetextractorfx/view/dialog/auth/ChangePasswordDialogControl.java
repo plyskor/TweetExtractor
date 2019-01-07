@@ -6,7 +6,7 @@ package es.uam.eps.tweetextractorfx.view.dialog.auth;
 import org.mindrot.jbcrypt.BCrypt;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
-import es.uam.eps.tweetextractor.dao.service.UserService;
+import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractorfx.task.RegisterAccountTask;
@@ -93,7 +93,7 @@ public class ChangePasswordDialogControl {
 			return;
 		}
 		userLogged.setPassword(BCrypt.hashpw(password1, BCrypt.gensalt(12)));
-		UserService userService = new UserService();
+		UserServiceInterface userService = mainApplication.getSpringContext().getBean(UserServiceInterface.class);
 		userService.update(userLogged);
 		ErrorDialog.showSuccessUpdatePassword();
 		this.dialogStage.close();

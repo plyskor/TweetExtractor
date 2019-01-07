@@ -2,9 +2,8 @@ package es.uam.eps.tweetextractorfx.view.extraction;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import es.uam.eps.tweetextractorfx.MainApplication;
-import es.uam.eps.tweetextractor.dao.service.ExtractionService;
+import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.filter.Filter;
@@ -157,8 +156,8 @@ public class ShowUserExtractionsControl {
 		}else {
 			this.getMainApplication().getCurrentUser().removeExtractionFromList(selectedExtraction);
 			XMLManager.deleteExtraction(selectedExtraction);
-			ExtractionService extractionService = new ExtractionService();
-			extractionService.delete(selectedExtraction.getIdDB());
+			ExtractionServiceInterface extractionService = mainApplication.getSpringContext().getBean(ExtractionServiceInterface.class);
+			extractionService.deleteById(selectedExtraction.getIdDB());
 			selectedExtraction=null;
 			this.updateTreeTableView();
 		}

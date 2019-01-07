@@ -52,11 +52,6 @@
 			<version>3.2.7</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>4.3.20.RELEASE</version>
-		</dependency>
-		<dependency>
 			<groupId>tweetextractor-commons</groupId>
 			<artifactId>tweetextractor-commons</artifactId>
 			<version>1.0.0.0</version>

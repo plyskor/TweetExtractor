@@ -6,7 +6,10 @@ package es.uam.eps.tweetextractorfx.task;
 import java.util.Date;
 import org.hibernate.HibernateException;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import es.uam.eps.tweetextractor.dao.service.UserService;
+import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.task.status.LoginStatus;
@@ -16,13 +19,14 @@ import javafx.concurrent.Task;
  * @author Jose Antonio García del Saz
  *
  */
-public class LogInTask extends Task<LoginStatus>{
+public class LogInTask extends TwitterExtractorFXTask<LoginStatus>{
 	String username;
 	String password;
 	/**
 	 * 
 	 */
-	public LogInTask(String username,String password) {
+	public LogInTask(String username,String password,AnnotationConfigApplicationContext context) {
+		super(context);
 		this.username=username;
 		this.password=password;
 	}
@@ -30,7 +34,7 @@ public class LogInTask extends Task<LoginStatus>{
 	@Override
 	protected LoginStatus call() throws Exception {
 		if(username==null||password==null)return null;
-		UserService userService=new UserService();
+		UserServiceInterface userService=springContext.getBean(UserServiceInterface.class);
 		LoginStatus ret= new LoginStatus();
 		User userLogged = null;
 		if(username.isEmpty()) {

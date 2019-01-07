@@ -1,5 +1,7 @@
 package es.uam.eps.tweetextractor.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,12 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "perm_credentials")
-public class Credentials {
+public class Credentials implements Serializable {
+	@Transient
+	@XmlTransient
+	private static final long serialVersionUID = 1806316148883421538L;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "identifier")
 	private int idDB;

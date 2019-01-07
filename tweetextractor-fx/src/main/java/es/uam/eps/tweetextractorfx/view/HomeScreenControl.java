@@ -118,7 +118,7 @@ public class HomeScreenControl {
 				ButtonType.YES, ButtonType.NO);
 		alert.showAndWait();
 		if (alert.getResult() == ButtonType.YES) {
-			DeleteAccountTask deleteTask = new DeleteAccountTask(this.getMainApplication().getCurrentUser());
+			DeleteAccountTask deleteTask = new DeleteAccountTask(this.getMainApplication().getCurrentUser(),mainApplication.getSpringContext());
 			deleteTask.setOnSucceeded(e -> {
 				this.handleLogOut();
 				if (loadingDialog != null)

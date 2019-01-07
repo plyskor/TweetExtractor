@@ -13,6 +13,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
+import org.springframework.stereotype.Repository;
+
 import es.uam.eps.tweetextractor.dao.inter.TweetDAOInterface;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Tweet;
@@ -21,33 +23,30 @@ import es.uam.eps.tweetextractor.model.Tweet;
  * @author Jose Antonio García del Saz
  *
  */
-
-public class TweetDAO extends GenericDAO<Tweet,Integer> implements TweetDAOInterface<Tweet, Integer>{
+@Repository
+public class TweetDAO extends AbstractGenericDAO<Tweet,Integer> implements TweetDAOInterface<Tweet, Integer>{
 
 	public TweetDAO() {
+		super();
 	}
 
 	public void persistList(List<Tweet> entityList) {
 		if(entityList==null)return;
-		if(currentSession==null)return;
 		for(Tweet entity : entityList) {
 			persist(entity);
 		}
 	}
 	public Tweet findById(Integer id) {
-		if(currentSession==null) return null;
-		Tweet tweet = (Tweet) currentSession.get(Tweet.class, id);
-		return tweet; 
+		return find(id);
 	}
 	public List<Tweet> findByExtraction(Extraction extraction) {
-		if(currentSession==null)return null;
-	    CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
+	    CriteriaBuilder criteriaBuilder = currentSession().getCriteriaBuilder();
 	    CriteriaQuery<Tweet> criteriaQuery = criteriaBuilder.createQuery(Tweet.class);
 	    Root<Tweet> root = criteriaQuery.from(Tweet.class);
 	    criteriaQuery.select(root);
 	    ParameterExpression<Extraction> params = criteriaBuilder.parameter(Extraction.class);
 	    criteriaQuery.where(criteriaBuilder.equal(root.get("extraction"), params));
-	    TypedQuery<Tweet> query = currentSession.createQuery(criteriaQuery);
+	    TypedQuery<Tweet> query = currentSession().createQuery(criteriaQuery);
 	    query.setParameter(params, extraction );
 	    List<Tweet> ret= new ArrayList<Tweet>();
 	    try {ret=query.getResultList();}catch(NoResultException e) {
@@ -55,16 +54,12 @@ public class TweetDAO extends GenericDAO<Tweet,Integer> implements TweetDAOInter
 	    	}
 	    return ret;
 	}
-
-	@SuppressWarnings("unchecked")
 	public List<Tweet> findAll() {
-		if(currentSession==null) return null;
-		List<Tweet> tweets = (List<Tweet>) currentSession.createQuery("from Tweet").list();
+		List<Tweet> tweets = (List<Tweet>) currentSession().createQuery("from Tweet").list();
 		return tweets;
 	}
 
 	public void deleteAll() {
-		if(currentSession==null)return;
 		List<Tweet> entityList = findAll();
 		for (Tweet entity : entityList) {
 			delete(entity);

@@ -3,6 +3,7 @@
  */
 package es.uam.eps.tweetextractor.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
@@ -37,7 +39,10 @@ import es.uam.eps.tweetextractor.util.DateAdapter;
 @Entity
 @Table(name = "perm_user")
 @XmlType(propOrder={"id","idDB","nickname", "password", "creationDate","lastConnectionDate","credentialList","extractionIDList"})
-public class User {
+public class User implements Serializable {
+	@Transient
+	@XmlTransient
+	private static final long serialVersionUID = -6157504166809170405L;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "identifier")
 	private int idDB;

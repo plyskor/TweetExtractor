@@ -12,8 +12,10 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.model.Extraction;
-import es.uam.eps.tweetextractor.dao.service.ExtractionService;
+import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskUpdateExtractionIndef;
@@ -22,12 +24,19 @@ import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskUpdateExtractio
  * @author joseantoniogarciadelsaz
  *
  */
+@Controller
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue(value=TaskTypes.Values.TYPE_EXTRACTION_TASK)
 public abstract class ExtractionServerTask extends ServerTask{
+	@Transient
+	@XmlTransient
+	private static final long serialVersionUID = 9030030968940220019L;
+
 	protected int extractionId;
-	
+	@Autowired(required = true)
+	@Transient
+	ExtractionServiceInterface eServ;
 	@XmlTransient
 	@Transient
 	protected Extraction extraction;
@@ -114,16 +123,16 @@ public abstract class ExtractionServerTask extends ServerTask{
 		return;
 	}
 	public void releaseExtraction() {
+		eServ=springContext.getBean(ExtractionServiceInterface.class);
 		if(extraction.isExtracting()){
 			extraction.setExtracting(false);
-			ExtractionService eServ= new ExtractionService();
 			eServ.update(extraction);
 		}
 	}
 	public void blockExtraction() {
+		eServ=springContext.getBean(ExtractionServiceInterface.class);
 		if(!extraction.isExtracting()) {
 			extraction.setExtracting(true);
-			ExtractionService eServ= new ExtractionService();
 			eServ.update(extraction);
 		}
 	}

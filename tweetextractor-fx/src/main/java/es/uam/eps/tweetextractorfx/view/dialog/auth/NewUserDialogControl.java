@@ -98,7 +98,7 @@ public class NewUserDialogControl {
 	}
 	@FXML
 	public void handleCreateUser() {
-		RegisterAccountTask registerTask = new RegisterAccountTask(userNameField.getText().trim(), passwordField1.getText(), passwordField2.getText());
+		RegisterAccountTask registerTask = new RegisterAccountTask(userNameField.getText().trim(), passwordField1.getText(), passwordField2.getText(),getMainApplication().getSpringContext());
 		registerTask.setOnSucceeded(e->{
 			RegisterStatus registerResult = registerTask.getValue();
 			if (registerResult==null) {

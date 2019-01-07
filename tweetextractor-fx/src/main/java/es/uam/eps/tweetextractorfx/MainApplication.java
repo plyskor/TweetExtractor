@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
@@ -18,6 +20,7 @@ import es.uam.eps.tweetextractor.service.GetServerStatus;
 import es.uam.eps.tweetextractor.service.GetUserServerTasks;
 import es.uam.eps.tweetextractor.service.LaunchServerTask;
 import es.uam.eps.tweetextractor.service.SetServerTaskReady;
+import es.uam.eps.tweetextractor.spring.config.TweetExtractorSpringConfig;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
@@ -47,6 +50,7 @@ public class MainApplication extends Application {
 	private List<User> userList = new ArrayList<User>();
 	private User currentUser = null;
 	private RootLayoutControl rootLayoutController;
+	private AnnotationConfigApplicationContext springContext;
 	public MainApplication() {
 		initAvailableFilters();
 	}
@@ -56,7 +60,8 @@ public class MainApplication extends Application {
 		this.primaryStage.setTitle("tweetextractor");
 		initRootLayout();
 		TweetExtractorFXPreferences.initializePreferences();
-		//onBoot();
+		springContext = new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
+		onBoot();
 	}
 
 	private void onBoot() {
@@ -373,6 +378,12 @@ public class MainApplication extends Application {
 	public boolean checkServer() {
 		GetServerStatus service = new GetServerStatus(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
 		return service.getServerStatus();
+	}
+	public AnnotationConfigApplicationContext getSpringContext() {
+		return springContext;
+	}
+	public void setSpringContext(AnnotationConfigApplicationContext springContext) {
+		this.springContext = springContext;
 	}
 	
 }

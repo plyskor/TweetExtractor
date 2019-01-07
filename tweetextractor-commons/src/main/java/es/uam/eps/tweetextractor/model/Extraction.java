@@ -3,6 +3,7 @@
  */
 package es.uam.eps.tweetextractor.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,8 +29,10 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import es.uam.eps.tweetextractor.dao.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Controller;
+import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.filter.Filter;
 import es.uam.eps.tweetextractor.util.DateAdapter;
 
@@ -52,12 +55,18 @@ import es.uam.eps.tweetextractor.util.DateAdapter;
 		es.uam.eps.tweetextractor.model.filter.impl.FilterFrom.class })
 @XmlType(propOrder={"id","idDB","creationDate","lastModificationDate","filterXmlList"})
 @Entity
+@Controller
 @Table(name = "perm_extraction")
-public class Extraction {
-
+public class Extraction implements Serializable {
 	/**
 	 * 
 	 */
+	@Autowired(required = true)
+	@Transient
+	UserServiceInterface service;
+	@Transient
+	@XmlTransient
+	private static final long serialVersionUID = 5761562204007375522L;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "identifier")
 	private int idDB;
@@ -301,8 +310,8 @@ public class Extraction {
 		}
 		return ret;
 	}
-	public void refreshUserCredentials() {
-		UserService service = new UserService();
+	public void refreshUserCredentials(AnnotationConfigApplicationContext springContext) {
+		service= springContext.getBean(UserServiceInterface.class);
 		this.user=service.findById(user.getIdDB());
 	}
 	

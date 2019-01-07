@@ -3,6 +3,8 @@
  */
 package es.uam.eps.tweetextractor.model.servertask;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -20,9 +22,12 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Polymorphism;
 import org.hibernate.annotations.PolymorphismType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
-import es.uam.eps.tweetextractor.dao.service.ServerTaskService;
+import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 
@@ -30,12 +35,19 @@ import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
  * @author jose
  *
  */
+@Controller
 @Entity
 @Table(name="perm_server_task")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Polymorphism(type = PolymorphismType.IMPLICIT)
 @DiscriminatorColumn(name = "task_type",length=6, discriminatorType = DiscriminatorType.STRING)
-public abstract class ServerTask implements Runnable {
+public abstract class ServerTask implements Runnable,Serializable {
+	@Autowired(required = true)
+	@Transient
+	protected ServerTaskServiceInterface sServ;
+	@Transient
+	@XmlTransient
+	private static final long serialVersionUID = 4811595948604961284L;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "identifier")
 	private int id;
@@ -51,6 +63,9 @@ public abstract class ServerTask implements Runnable {
 	@XmlTransient
 	@Transient
 	private Thread thread = new Thread(this);
+	@Transient
+	@XmlTransient
+	protected AnnotationConfigApplicationContext springContext;
 	private boolean trigger=false;
 	public ServerTask(int id, int status, User user) {
 		super();
@@ -98,28 +113,28 @@ public abstract class ServerTask implements Runnable {
 		this.user = user;
 	}
 	public void goReady() {
+		sServ=springContext.getBean(ServerTaskServiceInterface.class);
 		if(this.status!=Constants.ST_RUNNING) {
 			this.status=Constants.ST_READY;
-			ServerTaskService stService = new ServerTaskService();
-			stService.update(this);
+			sServ.update(this);
 		}
 	}
 	public void finish() {
+		sServ=springContext.getBean(ServerTaskServiceInterface.class);
 		if(this.status==Constants.ST_RUNNING) {
 			this.status=Constants.ST_FINISHED;
-			ServerTaskService stService = new ServerTaskService();
-			stService.update(this);
+			sServ.update(this);
 		}
 	}
 	public void onInterrupt() {
+		sServ=springContext.getBean(ServerTaskServiceInterface.class);
 		this.setStatus(Constants.ST_INTERRUPTED);
-		 ServerTaskService stServce = new ServerTaskService();
-		stServce.update(this);
+		 sServ.update(this);
 	}
 	public void onStop() {
+		sServ=springContext.getBean(ServerTaskServiceInterface.class);
 		this.setStatus(Constants.ST_STOPPED);
-		 ServerTaskService stServce = new ServerTaskService();
-		stServce.update(this);
+		sServ.update(this);
 	}
 	/**
 	 * @return the taskType
@@ -159,6 +174,6 @@ public abstract class ServerTask implements Runnable {
 	public void setTrigger(boolean trigger) {
 		this.trigger = trigger;
 	}
-	public abstract void initialize();
+	public abstract void initialize(AnnotationConfigApplicationContext context);
 	public abstract void implementation() throws Exception;
 }

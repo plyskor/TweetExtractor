@@ -6,7 +6,10 @@ package es.uam.eps.tweetextractor.server.twitterapi;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import es.uam.eps.tweetextractor.dao.service.TweetService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Controller;
+import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Credentials;
 import es.uam.eps.tweetextractor.model.Extraction;
@@ -26,7 +29,9 @@ import twitter4j.conf.ConfigurationBuilder;
  * @author Jose Antonio García del Saz
  *
  */
+@Controller
 public class ServerTwitterExtractor {
+	TweetServiceInterface tweetService;
 	private ConfigurationBuilder cb;
 	private TwitterFactory tf;
 	private Twitter twitter;
@@ -34,10 +39,13 @@ public class ServerTwitterExtractor {
 	private Query query;
 	private Credentials currentCredentials;
 	private Credentials lastReadyCredentials;
+	private AnnotationConfigApplicationContext springContext;
 	/**
 	 * 
 	 */
-	public ServerTwitterExtractor() {
+	public ServerTwitterExtractor(AnnotationConfigApplicationContext springContext) {
+		this.springContext=springContext;
+		tweetService = this.springContext.getBean(TweetServiceInterface.class);
 	}
 
 	/**
@@ -140,6 +148,15 @@ public class ServerTwitterExtractor {
 	public void setQuery(Query query) {
 		this.query = query;
 	}
+	
+	public AnnotationConfigApplicationContext getSpringContext() {
+		return springContext;
+	}
+
+	public void setSpringContext(AnnotationConfigApplicationContext springContext) {
+		this.springContext = springContext;
+	}
+
 	public void initialize(Extraction extraction) {
 		this.credentialsList=extraction.getUser().getCredentialList();
 		if(this.credentialsList==null||this.credentialsList.isEmpty()) {
@@ -230,7 +247,6 @@ public class ServerTwitterExtractor {
 			}
 		}
 		if(ret.getnTweets()>0) {
-			TweetService tweetService=new TweetService();
 			tweetService.persistList(toPersist);			
 		}
 		return ret;
@@ -279,5 +295,21 @@ public class ServerTwitterExtractor {
 		this.setCurrentCredentials(credentialsList.get(newIndex));
 		this.lastReadyCredentials=null;
 		return Collections.min(secondsList,null);
+	}
+	public Tweet getTweetByID(Long tweetID) {
+		 try {
+		        Status status = twitter.showStatus(tweetID);
+		        if (status == null) { // 
+		            // don't know if needed - T4J docs are very bad
+		        } else {
+		        	Tweet ret = new Tweet(status);
+		        	return ret;
+		        }
+		    } catch (TwitterException e) {
+		        System.err.print("Failed to search tweets: " + e.getMessage());
+		        //e.printStackTrace();
+		        // DON'T KNOW IF THIS IS THROWN WHEN ID IS INVALID
+		    }
+		 return null;
 	}
 }

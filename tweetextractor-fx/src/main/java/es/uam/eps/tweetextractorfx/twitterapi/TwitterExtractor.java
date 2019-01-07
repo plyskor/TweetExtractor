@@ -4,7 +4,11 @@ package es.uam.eps.tweetextractorfx.twitterapi;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.checkerframework.checker.units.qual.s;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import es.uam.eps.tweetextractor.dao.service.TweetService;
+import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Credentials;
@@ -31,7 +35,9 @@ public class TwitterExtractor {
 	private Query query;
 	private Integer updateStatus=null;
 	private String errorMessage=null;
-	public TwitterExtractor(String consulta,Credentials credentials) {
+	private TweetServiceInterface tweetService;
+	private AnnotationConfigApplicationContext springContext;
+	public TwitterExtractor(String consulta,Credentials credentials,AnnotationConfigApplicationContext context) {
 		super();
 		if(credentials==null)return;
 		/*Configuramos la API con nuestros datos provisionales*/
@@ -44,6 +50,8 @@ public class TwitterExtractor {
 		/*Instanciamos la conexión*/
 		 tf = new TwitterFactory(cb.build());
 		twitter = tf.getInstance();
+		springContext = context;
+		tweetService=springContext.getBean(TweetServiceInterface.class);
 	}
 	public Twitter getTwitter() {
 		return twitter;
@@ -163,7 +171,6 @@ public class TwitterExtractor {
 			}
 		}
 		if(ret.getnTweets()>0) {
-			TweetService tweetService=new TweetService();
 			tweetService.persistList(toPersist);
 		}
 		return ret;

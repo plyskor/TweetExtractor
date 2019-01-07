@@ -6,7 +6,10 @@ package es.uam.eps.tweetextractorfx.task;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import es.uam.eps.tweetextractor.dao.service.UserService;
+import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.task.status.RegisterStatus;
@@ -16,14 +19,15 @@ import javafx.concurrent.Task;
  * @author Jose Antonio García del Saz
  *
  */
-public class RegisterAccountTask extends Task<RegisterStatus>{
+public class RegisterAccountTask extends TwitterExtractorFXTask<RegisterStatus>{
 	private String username;
 	private String password1;
 	private String password2;
 	/**
 	 * 
 	 */
-	public RegisterAccountTask(String username,String password1,String password2) {
+	public RegisterAccountTask(String username,String password1,String password2,AnnotationConfigApplicationContext context) {
+		super(context);
 		this.username=username;
 		this.password1=password1;
 		this.password2=password2;
@@ -37,7 +41,7 @@ public class RegisterAccountTask extends Task<RegisterStatus>{
 			ret.setUser(null);
 			return ret;
 		}
-		UserService userService = new UserService();
+		UserServiceInterface userService = springContext.getBean(UserServiceInterface.class);
 		if(username.isEmpty()||username.length()<3) {			
 			ret.setStatus(Constants.EMPTY_USER_REGISTER_ERROR);
 			ret.setUser(null);
@@ -48,19 +52,19 @@ public class RegisterAccountTask extends Task<RegisterStatus>{
 			ret.setUser(null);
 			return ret;
 		}
-		String password1=this.password1.replace("\r", "").replace("\n", "");
-		if(password1.trim().isEmpty()||!checkPassword(password1)) {
+		String password11=this.password1.replace("\r", "").replace("\n", "");
+		if(password11.trim().isEmpty()||!checkPassword(password11)) {
 			ret.setStatus(Constants.UNSAFE_PASSWORD_REGISTER_ERROR);
 			ret.setUser(null);
 			return ret;
 		}
-		String password2=this.password2;
-		if(!password1.equals(password2)) {
+		String password22=this.password2;
+		if(!password11.equals(password22)) {
 			ret.setStatus(Constants.PASSWORD_MISMATCH_REGISTER_ERROR);
 			ret.setUser(null);
 			return ret;
 		}
-		User newUser = new User(username,BCrypt.hashpw(password1, BCrypt.gensalt(12)));
+		User newUser = new User(username,BCrypt.hashpw(password11, BCrypt.gensalt(12)));
 		userService.persist(newUser);
 		ret.setStatus(Constants.SUCCESS_REGISTER);
 		ret.setUser(newUser);

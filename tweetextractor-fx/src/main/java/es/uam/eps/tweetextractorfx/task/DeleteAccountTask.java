@@ -3,7 +3,10 @@
  */
 package es.uam.eps.tweetextractorfx.task;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import es.uam.eps.tweetextractor.dao.service.UserService;
+import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.User;
 import javafx.concurrent.Task;
 
@@ -11,20 +14,21 @@ import javafx.concurrent.Task;
  * @author Jose Antonio García del Saz
  *
  */
-public class DeleteAccountTask extends Task<Integer>{
+public class DeleteAccountTask extends TwitterExtractorFXTask<Integer>{
 	private User user;
 	/**
 	 * 
 	 */
-	public DeleteAccountTask(User user)  {
+	public DeleteAccountTask(User user, AnnotationConfigApplicationContext context)  {
+		super(context);
 		this.setUser(user);
 	}
 
 	@Override
 	protected Integer call() throws Exception {
 		if (user==null)return -1;
-		UserService userService = new UserService();
-		userService.delete(user.getIdDB());
+		UserServiceInterface userService = springContext.getBean(UserServiceInterface.class);
+		userService.deleteById(user.getIdDB());
 		return 0;
 	}
 

@@ -1,44 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:jaxws="http://cxf.apache.org/jaxws"
-        xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
-        <import resource="classpath:META-INF/cxf/cxf.xml" />
-        
-		<!-- WebServices endpoints -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<bean id="dataSource"
+		class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
+		<property name="driverClassName"
+			value="${hibernate.connection.driver_class}" />
+		<property name="url" value="${hibernate.connection.url}" />
+		<property name="username" value="${hibernate.connection.username}" />
+		<property name="password" value="${hibernate.connection.password}" />
 		
-        <jaxws:endpoint 
-          id="GetServerTaskStatus" 
-          implementor="es.uam.eps.tweetextractor.server.service.impl.GetServerTaskStatusImpl" 
-          address="/getServerTaskStatus" />
-          <jaxws:endpoint 
-          id="InterruptServerTask" 
-          implementor="es.uam.eps.tweetextractor.server.service.impl.InterruptServerTaskImpl" 
-          address="/interruptServerTask" />
-           <jaxws:endpoint 
-          id="CreateServerTaskUpdateExtractionIndef" 
-          implementor="es.uam.eps.tweetextractor.server.service.impl.CreateServerTaskUpdateExtractionIndefImpl" 
-          address="/createServerTaskUpdateExtractionIndef" />
-          <jaxws:endpoint 
-          id="DeleteServerTask" 
-          implementor="es.uam.eps.tweetextractor.server.service.impl.DeleteServerTaskImpl" 
-          address="/deleteServerTask" />
-           <jaxws:endpoint 
-          id="LaunchServerTask" 
-          implementor="es.uam.eps.tweetextractor.server.service.impl.LaunchServerTaskImpl" 
-          address="/launchServerTask" />
-          <jaxws:endpoint 
-          id="GetServerStatus" 
-          implementor="es.uam.eps.tweetextractor.server.service.impl.GetServerStatusImpl" 
-          address="/getServerStatus" />
-          <jaxws:endpoint 
-          id="GetUserServerTasks" 
-          implementor="es.uam.eps.tweetextractor.server.service.impl.GetUserServerTasksImpl" 
-          address="/getUserServerTasks" />
-       <jaxws:endpoint 
-          id="SetServerTaskReady" 
-          implementor="es.uam.eps.tweetextractor.server.service.impl.SetServerTaskReadyImpl" 
-          address="/setServerTaskReady" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation">
+			<value>classpath:tweetextractordb.xml</value>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- WebServices endpoints -->
+
+	<jaxws:endpoint id="GetServerTaskStatus"
+		implementor="es.uam.eps.tweetextractor.server.service.impl.GetServerTaskStatusImpl"
+		address="/getServerTaskStatus" />
+	<jaxws:endpoint id="InterruptServerTask"
+		implementor="es.uam.eps.tweetextractor.server.service.impl.InterruptServerTaskImpl"
+		address="/interruptServerTask" />
+	<jaxws:endpoint
+		id="CreateServerTaskUpdateExtractionIndef"
+		implementor="es.uam.eps.tweetextractor.server.service.impl.CreateServerTaskUpdateExtractionIndefImpl"
+		address="/createServerTaskUpdateExtractionIndef" />
+	<jaxws:endpoint id="DeleteServerTask"
+		implementor="es.uam.eps.tweetextractor.server.service.impl.DeleteServerTaskImpl"
+		address="/deleteServerTask" />
+	<jaxws:endpoint id="LaunchServerTask"
+		implementor="es.uam.eps.tweetextractor.server.service.impl.LaunchServerTaskImpl"
+		address="/launchServerTask" />
+	<jaxws:endpoint id="GetServerStatus"
+		implementor="es.uam.eps.tweetextractor.server.service.impl.GetServerStatusImpl"
+		address="/getServerStatus" />
+	<jaxws:endpoint id="GetUserServerTasks"
+		implementor="es.uam.eps.tweetextractor.server.service.impl.GetUserServerTasksImpl"
+		address="/getUserServerTasks" />
+	<jaxws:endpoint id="SetServerTaskReady"
+		implementor="es.uam.eps.tweetextractor.server.service.impl.SetServerTaskReadyImpl"
+		address="/setServerTaskReady" />
 </beans>

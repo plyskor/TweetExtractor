@@ -3,6 +3,7 @@
  */
 package es.uam.eps.tweetextractor.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +30,10 @@ import twitter4j.UserMentionEntity;
  */
 @Entity
 @Table(name="perm_tweet")
-public class Tweet {
+public class Tweet implements Serializable {
+	@Transient
+	@XmlTransient
+	private static final long serialVersionUID = -1862882367824622388L;
 	@Id@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "identifier")
 	private int idDB;

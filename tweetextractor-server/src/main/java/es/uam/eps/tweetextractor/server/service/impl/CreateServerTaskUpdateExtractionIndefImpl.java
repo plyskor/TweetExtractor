@@ -8,12 +8,14 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.persistence.PersistenceException;
+import javax.persistence.Transient;
 import javax.servlet.ServletContext;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-
-import es.uam.eps.tweetextractor.dao.service.ExtractionService;
-import es.uam.eps.tweetextractor.dao.service.ServerTaskService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
+import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskUpdateExtractionIndef;
@@ -26,17 +28,33 @@ import es.uam.eps.tweetextractor.server.Server;
  * @author jgarciadelsaz
  *
  */
+@Controller
 @WebService(endpointInterface = "es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskUpdateExtractionIndefSei",serviceName = "CreateServerTaskUpdateExtractionIndef")
 public class CreateServerTaskUpdateExtractionIndefImpl implements CreateServerTaskUpdateExtractionIndefSei {
 	@Resource
     private WebServiceContext svcCtx;
-	public CreateServerTaskUpdateExtractionIndefImpl() {}
+	@Transient
+	ExtractionServiceInterface eServ;
+	@Transient
+	ServerTaskServiceInterface stServ;
+	public CreateServerTaskUpdateExtractionIndefImpl() {
+		super();
+	}
 	@WebMethod(action="createServerTaskUpdateExtractionIndef")
 	@Override
 	public CreateServerTaskUpdateExtractionIndefResponse createServerTaskUpdateExtractionIndef(@WebParam(name = "id")int id) {
 		CreateServerTaskUpdateExtractionIndefResponse reply = new CreateServerTaskUpdateExtractionIndefResponse();
-		ExtractionService eServ = new ExtractionService();
-		ServerTaskService stServ = new ServerTaskService();
+		MessageContext msgCtx = svcCtx.getMessageContext();
+		ServletContext context = (ServletContext) 
+                msgCtx.get(MessageContext.SERVLET_CONTEXT);
+	    Server server = (Server) context.getAttribute("Server");
+	    if(server==null) {
+	    	reply.setError(true);
+	    	reply.setMessage("Server instance not found");
+	    	return reply;
+	    }
+	    eServ=server.getSpringContext().getBean(ExtractionServiceInterface.class);
+	    stServ=server.getSpringContext().getBean(ServerTaskServiceInterface.class);
 		if (id<=0) {
 			reply.setError(true);
 			reply.setMessage("ID is not valid");
@@ -47,14 +65,6 @@ public class CreateServerTaskUpdateExtractionIndefImpl implements CreateServerTa
 			reply.setError(true);
 			reply.setMessage("Extraction with id "+id+" does not exist");
 		}
-		MessageContext msgCtx = svcCtx.getMessageContext();
-		ServletContext context = (ServletContext) 
-                msgCtx.get(MessageContext.SERVLET_CONTEXT);
-	    Server server = (Server) context.getAttribute("Server");
-	    if(server==null) {
-	    	reply.setError(true);
-	    	reply.setMessage("Server instance not found");
-	    }
 	    ServerTaskUpdateExtractionIndef task = new ServerTaskUpdateExtractionIndef(e);
 	    try{
 	    	stServ.persist(task);
@@ -64,6 +74,7 @@ public class CreateServerTaskUpdateExtractionIndefImpl implements CreateServerTa
 	    	reply.setMessage(ex.getMessage());
 	    	return reply;
 	    }
+	    if(server!=null)
 	    server.addTaskToServer(task);
 	    ServerTaskResponse res=task.call();
 	    if(res.isError()) {

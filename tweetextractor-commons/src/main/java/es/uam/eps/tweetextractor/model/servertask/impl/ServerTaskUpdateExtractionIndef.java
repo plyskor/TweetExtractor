@@ -6,7 +6,6 @@ package es.uam.eps.tweetextractor.model.servertask.impl;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -14,8 +13,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import es.uam.eps.tweetextractor.dao.service.ExtractionService;
-import es.uam.eps.tweetextractor.dao.service.TweetService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Controller;
+import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
+import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
@@ -30,13 +32,20 @@ import es.uam.eps.tweetextractor.util.FilterManager;
  * @author Jose Antonio García del Saz
  *
  */
+@Controller
 @Entity
 @DiscriminatorValue(value = TaskTypes.Values.TYPE_TASK_UPDATE_EXTRACTION_INDEF)
 @XmlRootElement(name = "serverTaskUpdateExtractionIndef")
 public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
-
+	@Transient
+	@XmlTransient
+	private static final long serialVersionUID = 5407409153873636491L;
+	@Transient
+	ExtractionServiceInterface eServ;
+	@Transient
+	TweetServiceInterface tServ;
 	private boolean trigger = false;
-
+	
 	/**
 	 * 
 	 */
@@ -93,16 +102,17 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 	}
 
 	@Override
-	public void initialize() {
-		ExtractionService eService = new ExtractionService();
-		this.extraction = eService.findById(this.getExtractionId());
+	public void initialize(AnnotationConfigApplicationContext context) {
+		this.springContext=context;
+		eServ=springContext.getBean(ExtractionServiceInterface.class);
+		tServ=springContext.getBean(TweetServiceInterface.class);
+		this.extraction = eServ.findById(this.getExtractionId());
 	}
 
 	public void implementation() throws Exception {
 		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
 		logger.info("Loading existing tweets...");
-		TweetService tweetService = new TweetService();
-		List<Tweet> ret = tweetService.findByExtraction(this.getExtraction());
+		List<Tweet> ret = tServ.findByExtraction(this.getExtraction());
 		if (ret == null) {
 			logger.error("An error has ocurred loading tweets. Task " + getId() + " has been interrupted");
 			onInterrupt();
@@ -111,7 +121,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 		this.getExtraction().setTweetList(ret);
 		logger.info("Successully loaded " + extraction.howManyTweets() + " tweets from database.");
 		logger.info("Initializing TwitterExtractor...");
-		ServerTwitterExtractor twitter = new ServerTwitterExtractor();
+		ServerTwitterExtractor twitter = new ServerTwitterExtractor(springContext);
 		twitter.initialize(extraction);
 		logger.info("Starting infinite update of extraction with id: " + extraction.getIdDB());
 		blockExtraction();
@@ -123,7 +133,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 				return;
 			}
 			/* Iteration */
-			extraction.refreshUserCredentials();
+			extraction.refreshUserCredentials(springContext);
 			twitter.setCredentialsList(extraction.getUser().getCredentialList());
 			logger.info("Extracting with credentials @" + twitter.getCurrentCredentials().getAccountScreenName());
 			twitter.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()) + "-filter:retweets");
@@ -201,7 +211,6 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 					logger.info("Succesfully added " + response.getnTweets() + " tweets to the extraction with id: "
 							+ extraction.getIdDB());
 					extraction.setLastModificationDate(new Date());
-					ExtractionService eServ = new ExtractionService();
 					eServ.update(extraction);
 					twitter.setLastReadyCredentials(twitter.getCurrentCredentials());
 				}

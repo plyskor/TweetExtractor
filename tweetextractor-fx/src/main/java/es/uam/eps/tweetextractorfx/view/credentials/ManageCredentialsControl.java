@@ -3,7 +3,7 @@ package es.uam.eps.tweetextractorfx.view.credentials;
 import java.io.IOException;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
-import es.uam.eps.tweetextractor.dao.service.CredentialsService;
+import es.uam.eps.tweetextractor.dao.service.inter.CredentialsServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.Credentials;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
@@ -184,8 +184,8 @@ public class ManageCredentialsControl {
 				return;
 		}else {
 			this.getMainApplication().getCurrentUser().getCredentialList().remove(selectedCredentials);
-			CredentialsService credentialsService = new CredentialsService();
-			credentialsService.delete(selectedCredentials.getIdDB());
+			CredentialsServiceInterface credentialsService = mainApplication.getSpringContext().getBean(CredentialsServiceInterface.class);
+			credentialsService.deleteById(selectedCredentials.getIdDB());
 			selectedCredentials=null;
 			this.updateTreeTableView();
 		}

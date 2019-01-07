@@ -5,13 +5,13 @@ package es.uam.eps.tweetextractor.server;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import es.uam.eps.tweetextractor.dao.service.ExtractionService;
-import es.uam.eps.tweetextractor.dao.service.ServerTaskService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Controller;
+import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
+import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.servertask.ExtractionServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
@@ -22,15 +22,23 @@ import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
  * @author Jose Antonio García del Saz
  *
  */
+@Controller
 public class Server {
+	ExtractionServiceInterface eServ;
+	ServerTaskServiceInterface stServ;
 	private List<ServerTask> serverTaskList = new ArrayList<ServerTask>();
 	/*Initialize logger*/
 	private Logger logger = LoggerFactory.getLogger(Server.class);
+	private AnnotationConfigApplicationContext springContext;
 	/**
+	 * @param tEServerSpringContext 
 	 * 
 	 */
 	
-	public Server() {
+	public Server(AnnotationConfigApplicationContext tEServerSpringContext) {
+		springContext=tEServerSpringContext;
+		eServ=springContext.getBean(ExtractionServiceInterface.class);
+		stServ=springContext.getBean(ServerTaskServiceInterface.class);
 	}
 
 	/**
@@ -56,11 +64,10 @@ public class Server {
 	}
 	public void initialize() {
 		/*Load all tasks from database*/
-		ServerTaskService stService =new ServerTaskService();
-		serverTaskList.addAll(stService.findAll());
+		serverTaskList.addAll(stServ.findAll());
 		/*Launch all ready tasks*/
 		for (ServerTask task : serverTaskList) {
-			task.initialize();
+			task.initialize(springContext);
 			launchServerTask(task);
 		}
 	}
@@ -117,12 +124,10 @@ public class Server {
 		
 	}
 	public ServerTaskResponse launchServerTask(ServerTask task) {
-		ServerTaskService stService =new ServerTaskService();
 		/*Response object for calls*/
 		ServerTaskResponse response = null;
 		if (task.getStatus() == Constants.ST_READY) {
 			if(ExtractionServerTask.class.isAssignableFrom(task.getClass())) {
-				ExtractionService eServ = new ExtractionService();
 				eServ.refresh(((ExtractionServerTask)task).getExtraction());
 				if (((ExtractionServerTask)task).getExtraction().isExtracting()) {
 					response=new ServerTaskResponse();
@@ -136,7 +141,7 @@ public class Server {
 				response = task.call();
 				if (response!=null&&response.isError()==false) {
 					task.setStatus(Constants.ST_RUNNING);
-					stService.update(task);
+					stServ.update(task);
 					task.getThread().start();
 				}
 			} catch (Exception e1) {
@@ -176,4 +181,13 @@ public class Server {
 		}
 		return ret;
 	}
+
+	public AnnotationConfigApplicationContext getSpringContext() {
+		return springContext;
+	}
+
+	public void setSpringContext(AnnotationConfigApplicationContext springContext) {
+		this.springContext = springContext;
+	}
+	
 }

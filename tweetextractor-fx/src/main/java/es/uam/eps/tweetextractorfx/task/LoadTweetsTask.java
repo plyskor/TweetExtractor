@@ -4,29 +4,29 @@
 package es.uam.eps.tweetextractorfx.task;
 
 import java.util.List;
-
-import es.uam.eps.tweetextractor.dao.service.TweetService;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Tweet;
-import javafx.concurrent.Task;
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
-public class LoadTweetsTask extends Task<Integer>{
+public class LoadTweetsTask extends TwitterExtractorFXTask<Integer>{
 	private Extraction extraction;
 	/**
 	 * 
 	 */
-	public LoadTweetsTask(Extraction extraction) {
+	public LoadTweetsTask(Extraction extraction,AnnotationConfigApplicationContext context) {
+		super(context);
 		this.setExtraction(extraction);
 	}
 
 	@Override
 	protected Integer call() throws Exception {
 		if(extraction==null)return 0;
-		TweetService tweetService= new TweetService();
+		TweetServiceInterface tweetService= springContext.getBean(TweetServiceInterface.class);
 		List<Tweet>ret =tweetService.findByExtraction(this.getExtraction());
 		if (ret==null)return 0;
 		this.getExtraction().setTweetList(ret);

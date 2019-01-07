@@ -12,8 +12,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import es.uam.eps.tweetextractorfx.MainApplication;
-import es.uam.eps.tweetextractor.dao.service.ExtractionService;
-import es.uam.eps.tweetextractor.dao.service.TweetService;
+import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
+import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
@@ -22,12 +22,12 @@ import es.uam.eps.tweetextractor.model.filter.Filter;
 import es.uam.eps.tweetextractor.model.task.status.UpdateStatus;
 import es.uam.eps.tweetextractorfx.task.ExportExtractionTask;
 import es.uam.eps.tweetextractorfx.task.LoadTweetsTask;
+import es.uam.eps.tweetextractorfx.task.TwitterExtractorFXTask;
 import es.uam.eps.tweetextractorfx.task.UpdateExtractionTask;
 import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Control;
@@ -197,8 +197,8 @@ public class ExtractionDetailsControl {
 
 	public void executeQuery() throws TwitterException {
 		twitterextractor = new TwitterExtractor(null,
-				this.getMainApplication().getCurrentUser().getCredentialList().get(0));
-		UpdateExtractionTask updateTask = new UpdateExtractionTask(twitterextractor, extraction);
+				this.getMainApplication().getCurrentUser().getCredentialList().get(0),mainApplication.getSpringContext());
+		UpdateExtractionTask updateTask = new UpdateExtractionTask(twitterextractor, extraction,mainApplication.getSpringContext());
 		updateTask.setOnSucceeded(e -> {
 			if (loadingDialog != null)
 				loadingDialog.close();
@@ -226,22 +226,22 @@ public class ExtractionDetailsControl {
 			return;
 		}
 		this.getExtraction().getTweetList().remove(selectedQueryResult);
-		TweetService tweetService = new TweetService();
-		tweetService.delete(selectedQueryResult.getIdDB());
+		TweetServiceInterface tweetService = mainApplication.getSpringContext().getBean(TweetServiceInterface.class);
+		tweetService.deleteById(selectedQueryResult.getIdDB());
 		;
 		tweetObservableList.remove(selectedQueryResult);
 	}
 
 	@FXML
 	public void handleUpdateExtraction() {
-		ExtractionService eServ= new ExtractionService();
+		ExtractionServiceInterface eServ= mainApplication.getSpringContext().getBean(ExtractionServiceInterface.class);
 		eServ.refresh(extraction);
 		if(extraction.isExtracting()) {
 			ErrorDialog.showErrorExtractionIsCurrentlyUpdating();
 		}
 		twitterextractor = new TwitterExtractor(null,
-				this.getMainApplication().getCurrentUser().getCredentialList().get(0));
-		Task<UpdateStatus> updateTask = new UpdateExtractionTask(twitterextractor, extraction);
+				this.getMainApplication().getCurrentUser().getCredentialList().get(0),mainApplication.getSpringContext());
+		TwitterExtractorFXTask<UpdateStatus> updateTask = new UpdateExtractionTask(twitterextractor, extraction,mainApplication.getSpringContext());
 		updateTask.setOnSucceeded(e -> {
 			UpdateStatus result = updateTask.getValue();
 			if (result == null)
@@ -249,7 +249,7 @@ public class ExtractionDetailsControl {
 			if (result.getnTweets() > 0) {
 				this.tweetObservableList.addAll(result.getTweetList());
 				try {
-					ExtractionService extractionService = new ExtractionService();
+					ExtractionServiceInterface extractionService = mainApplication.getSpringContext().getBean(ExtractionServiceInterface.class);
 					extractionService.update(this.getExtraction());
 				} catch (Exception ex) {
 					if (loadingDialog != null)
@@ -285,7 +285,7 @@ public class ExtractionDetailsControl {
 
 	public void refreshTweetObservableList() {
 		if (extraction != null && extraction.getFilterList() != null) {
-			LoadTweetsTask loadTask = new LoadTweetsTask(extraction);
+			LoadTweetsTask loadTask = new LoadTweetsTask(extraction,mainApplication.getSpringContext());
 			loadTask.setOnSucceeded(e -> {
 				this.tweetObservableList.clear();
 				this.tweetObservableList.setAll(extraction.getTweetList());
@@ -322,7 +322,7 @@ public class ExtractionDetailsControl {
         // Show save file dialog
         File file = fileChooser.showSaveDialog(this.mainApplication.getPrimaryStage());
         if(file!=null) {
-        ExportExtractionTask exportTask = new ExportExtractionTask(extraction, file);
+        ExportExtractionTask exportTask = new ExportExtractionTask(extraction, file,mainApplication.getSpringContext());
         exportTask.setOnSucceeded(e->{
         	Integer status = exportTask.getValue();
         	if (loadingDialog != null)

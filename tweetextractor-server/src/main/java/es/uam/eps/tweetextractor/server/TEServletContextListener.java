@@ -8,6 +8,9 @@ import javax.servlet.ServletContextListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import es.uam.eps.tweetextractor.spring.config.TweetExtractorSpringConfig;
 
 
 /**
@@ -17,12 +20,12 @@ import org.slf4j.LoggerFactory;
 public class TEServletContextListener implements ServletContextListener {
 	private Server server =null;
 	private Logger logger = LoggerFactory.getLogger(TEServletContextListener.class);
-	/*@Autowired
-	private ApplicationContext context;*/
+
 	/**
 	 * 
 	 */
 	public TEServletContextListener() {
+		super();
 	}
 
 	  @Override
@@ -38,8 +41,10 @@ public class TEServletContextListener implements ServletContextListener {
 
 	  @Override
 	  public void contextInitialized(ServletContextEvent arg0) {
+		  AnnotationConfigApplicationContext TEServerSpringContext = 
+	                new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
 		  ServletContext context = arg0.getServletContext();
-		  server = new Server();
+		  server = new Server(TEServerSpringContext);
 		  if(this.server!=null) {
 			  this.server.initialize();
 		  }else {

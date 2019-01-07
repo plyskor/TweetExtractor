@@ -4,24 +4,24 @@
 package es.uam.eps.tweetextractorfx.task;
 
 import java.io.File;
-
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
-import javafx.concurrent.Task;
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
-public class ExportExtractionTask extends Task<Integer>{
+public class ExportExtractionTask extends TwitterExtractorFXTask<Integer>{
 	private Extraction extraction;
 	private File file;
 	private String message=null;
 	/**
 	 * 
 	 */
-	public ExportExtractionTask(Extraction extraction,File file) {
+	public ExportExtractionTask(Extraction extraction,File file,AnnotationConfigApplicationContext context) {
+		super(context);
 		this.extraction=extraction;
 		this.file=file;
 	}
@@ -32,7 +32,7 @@ public class ExportExtractionTask extends Task<Integer>{
         	try {
 				XMLManager.saveTweetListToFile(extraction, file);
 			} catch (Exception e) {
-				this.message=new String(e.getMessage());
+				this.message=e.getMessage();
 				return Constants.UNKNOWN_EXPORT_ERROR;
 			}
         }
