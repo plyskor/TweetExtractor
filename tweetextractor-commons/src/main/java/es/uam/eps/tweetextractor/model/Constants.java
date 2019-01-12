@@ -174,7 +174,7 @@ public final class Constants {
 		           .put(ST_STOPPED,"STOPPED")
 		           .put(ST_FINISHED,"FINISHED")
 		           .put(ST_INTERRUPTED,"INTERRUPTED")
-		           .put(ST_INTERRUPTED,"HALT")
+		           .put(ST_HALT,"HALT")
 		           .build();
 	/*
 	*Types of task available
