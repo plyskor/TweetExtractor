@@ -47,7 +47,7 @@ public class MainApplication extends Application {
 	private BorderPane rootLayout;
 	/* Available filters for Queries */
 	private ObservableList<Filter> availableFilters = FXCollections.observableArrayList();
-	private List<User> userList = new ArrayList<User>();
+	private List<User> userList = new ArrayList<>();
 	private User currentUser = null;
 	private RootLayoutControl rootLayoutController;
 	private AnnotationConfigApplicationContext springContext;
@@ -76,7 +76,7 @@ public class MainApplication extends Application {
 					LaunchServerTaskResponse reply3 = service3.launchServerTask(task.getId());
 					if(!reply3.isError()) {
 						try {
-							TimeUnit.SECONDS.sleep(15);
+							TimeUnit.MICROSECONDS.sleep(15);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}

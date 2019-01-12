@@ -165,6 +165,7 @@ public final class Constants {
 	public static final int ST_STOPPED=3;
 	public static final int ST_FINISHED=4;
 	public static final int ST_INTERRUPTED=5;
+	public static final int ST_HALT = 6;
 	public static final ImmutableMap<Integer, String> TASK_STATUS_MAP =
 		       new ImmutableMap.Builder<Integer, String>()
 		           .put(ST_NEW,"NEW")
@@ -173,12 +174,14 @@ public final class Constants {
 		           .put(ST_STOPPED,"STOPPED")
 		           .put(ST_FINISHED,"FINISHED")
 		           .put(ST_INTERRUPTED,"INTERRUPTED")
+		           .put(ST_INTERRUPTED,"HALT")
 		           .build();
 	/*
 	*Types of task available
 	**/
     public static final String EXTRACTION_SERVER_TASK_TYPE="Task for extraction";
 	public static final String UPDATE_EXTRACTION_INDEF_SERVER_TASK_TYPE = "Update an extraction indefinitely";
+	
 
 
 

@@ -57,7 +57,7 @@ public class Server {
 	public void destroy() {
 		if(serverTaskList!=null) {
 			for(ServerTask task : serverTaskList) {
-				interruptTask(task);
+				haltTask(task);
 			}
 		}
 	}
@@ -106,7 +106,21 @@ public class Server {
 			}
 		}
 	}
-	
+	public void haltTask(ServerTask task) {
+		if(task!=null) {
+			if(task.getStatus()==Constants.ST_RUNNING) {
+				task.getThread().interrupt();
+				try {
+					task.getThread().join();
+					task.setStatus(Constants.ST_HALT);
+					stServ.update(task);
+					
+				} catch (InterruptedException e) {
+					logger.error(e.getStackTrace().toString());
+				}
+			}
+		}
+	}
 	public void addTaskToServer(ServerTask task) {
 		if(task!=null||serverTaskList!=null) {
 			logger.info("Task with id "+task.getId()+" has been added to Server instance.");
@@ -125,7 +139,7 @@ public class Server {
 	public ServerTaskResponse launchServerTask(ServerTask task) {
 		/*Response object for calls*/
 		ServerTaskResponse response = null;
-		if (task.getStatus() == Constants.ST_READY) {
+		if (task.getStatus() == Constants.ST_READY||task.getStatus() ==Constants.ST_HALT) {
 			if(ExtractionServerTask.class.isAssignableFrom(task.getClass())) {
 				eServ.refresh(((ExtractionServerTask)task).getExtraction());
 				if (((ExtractionServerTask)task).getExtraction().isExtracting()) {
@@ -138,7 +152,7 @@ public class Server {
 			
 			try {
 				response = task.call();
-				if (response!=null&&response.isError()==false) {
+				if (response!=null&&!response.isError()) {
 					task.setStatus(Constants.ST_RUNNING);
 					stServ.update(task);
 					task.getThread().start();
@@ -158,16 +172,10 @@ public class Server {
 		}
 		return response;
 	}
-	public void reinitializeTask(ServerTask task) {
-		if(task!=null) {
-			if(task.getStatus()==Constants.ST_INTERRUPTED||task.getStatus()==Constants.ST_FINISHED) {
-				
-			}
-		}
-		return;
-	}
+
+	
 	public List<ServerTaskInfo> getUserServerTasksInfo(int userId){
-		List<ServerTaskInfo> ret = new ArrayList<ServerTaskInfo>();
+		List<ServerTaskInfo> ret = new ArrayList<>();
 		if(serverTaskList==null||serverTaskList.isEmpty())return ret;
 		for(ServerTask task:serverTaskList) {
 			if(task.getUser().getIdDB()==userId) {

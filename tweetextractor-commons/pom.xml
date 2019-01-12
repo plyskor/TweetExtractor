@@ -26,6 +26,7 @@
 				<directory>resources</directory>
 				<filtering>true</filtering>
 				<includes>
+					<include>*.properties</include>
 					<include>*.xml</include>
 				</includes>
 			</resource>
@@ -87,12 +88,11 @@
 			<version>3.2.7</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.25</version>
-			<scope>compile</scope>
-		</dependency>
+ <dependency>
+<groupId>ch.qos.logback</groupId>
+<artifactId>logback-classic</artifactId>
+<version>1.0.13</version>
+</dependency>
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
