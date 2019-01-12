@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>tweetextractor-server</groupId>
 	<artifactId>tweetextractor-server</artifactId>
-	<version>1.0.0.0</version>
+	<version>1.0.1.0</version>
 	<packaging>war</packaging>
 	<name>TweetExtractor Server</name>
 	<description>Server module for the TweetExtractorFX application</description>
@@ -54,7 +54,7 @@
 		<dependency>
 			<groupId>tweetextractor-commons</groupId>
 			<artifactId>tweetextractor-commons</artifactId>
-			<version>1.0.0.0</version>
+			<version>1.0.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
