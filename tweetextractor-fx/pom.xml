@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>tweetextractor-fx</groupId>
 	<artifactId>tweetextractor-fx</artifactId>
-	<version>1.0.0.0</version>
+	<version>1.0.1.0</version>
 	<name>TweetExtractorFX</name>
 	<url>http://maven.apache.org</url>
 	<build>
@@ -276,16 +276,6 @@
 			<artifactId>javafx-fxml</artifactId>
 			<version>11</version>
 			<classifier>mac</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.6.4</version>
 		</dependency>
 	</dependencies>
 </project>

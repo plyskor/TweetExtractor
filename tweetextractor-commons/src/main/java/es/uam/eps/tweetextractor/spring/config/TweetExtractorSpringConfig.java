@@ -47,9 +47,9 @@ public class TweetExtractorSpringConfig {
    public DataSource getDataSource() {
       BasicDataSource dataSource = new BasicDataSource();
       dataSource.setDriverClassName("org.postgresql.Driver");
-      dataSource.setUrl("jdbc:postgresql://db.preciapps.com/te_op00?currentSchema=te_op00&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
-      dataSource.setUsername("te_op00_update");
-      dataSource.setPassword("te_op00_update");
+      dataSource.setUrl("jdbc:postgresql://db.preciapps.com/te_dev01?currentSchema=te_dev01&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
+      dataSource.setUsername("te_dev01_update");
+      dataSource.setPassword("te_dev01_update");
       return dataSource;
    }
 
