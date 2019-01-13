@@ -25,7 +25,9 @@ import es.uam.eps.tweetextractor.server.Server;
 public class InterruptServerTaskImpl implements InterruptServerTaskSei {
 	@Resource
     private WebServiceContext svcCtx;
-	public InterruptServerTaskImpl() {}
+	public InterruptServerTaskImpl() {
+		super();
+	}
 	@WebMethod(action="interruptServerTask")
 	public InterruptServerTaskResponse interruptServerTask(@WebParam(name = "id")int id) {
 		InterruptServerTaskResponse ret= new InterruptServerTaskResponse();

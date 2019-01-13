@@ -87,21 +87,20 @@ public abstract class ExtractionServerTask extends ServerTask{
 		if(Thread.currentThread().isInterrupted()) {
 			logger.info("The task with id: "+this.getId()+" has been interrupted.");
 			onStop();
-			return;
 		}
 		logger.info("Starting execution of task with id: " + this.getId());
 		/*Check data model integrity*/
 		if (this.extraction == null) {
 			logger.error("The task with id: " + this.getId() + " has no extraction and has been interrupted.");
 			onInterrupt();
-			return;
+			
 		}
 		/*Check data model integrity*/
 		if (this.extraction.getUser() == null || !this.getExtraction().getUser().hasAnyCredentials()) {
 			logger.error("The task with id: " + this.getId()
 					+ " has no user/credentials associated and has been interrupted.");
 			onInterrupt();
-			return;
+			
 		}
 		try {
 			/*Try execution catching any exception*/
@@ -111,14 +110,14 @@ public abstract class ExtractionServerTask extends ServerTask{
 			logger.warn("An exception has been thrown in task with id "+this.getId()+"\n"+e.getMessage()+".\nInterrupting task...");
 			onInterrupt();
 			releaseExtraction();
-			return;
+			
 		}
 		/*If task finished without interruptions*/
 		if(this.getStatus()==Constants.ST_RUNNING) {
 			finish();
 			releaseExtraction();
 		}
-		return;
+		
 	}
 	public void releaseExtraction() {
 		eServ=springContext.getBean(ExtractionServiceInterface.class);

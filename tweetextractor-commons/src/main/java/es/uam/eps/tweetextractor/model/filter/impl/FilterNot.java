@@ -60,7 +60,7 @@ public class FilterNot extends Filter {
 
 	@Override
 	public void loadXml() {
-		
+		throw(new UnsupportedOperationException());
 	}
 
 }

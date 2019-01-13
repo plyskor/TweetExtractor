@@ -28,7 +28,7 @@ public class FilterQuestion extends Filter {
 	}
 	@Override
 	public void loadXml() {
-		
+		throw(new UnsupportedOperationException());
 	}
 
 }

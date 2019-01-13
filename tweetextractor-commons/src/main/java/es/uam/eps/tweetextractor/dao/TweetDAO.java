@@ -13,6 +13,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import es.uam.eps.tweetextractor.dao.inter.TweetDAOInterface;
@@ -41,7 +43,8 @@ public class TweetDAO extends AbstractGenericDAO<Tweet,Integer> implements Tweet
 	    query.setParameter(params, extraction );
 	    List<Tweet> ret= new ArrayList<>();
 	    try {ret=query.getResultList();}catch(NoResultException e) {
-	    	System.out.println("No tweet found for extractionID: "+extraction.getIdDB());	   
+	    	Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.info("No tweet found for extractionID: "+extraction.getIdDB());	   
 	    	}
 	    return ret;
 	}

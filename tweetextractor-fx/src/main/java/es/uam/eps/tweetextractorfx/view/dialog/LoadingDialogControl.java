@@ -16,6 +16,7 @@ private Stage dialogStage;
 	 * 
 	 */
 	public LoadingDialogControl() {
+		super();
 	}
 
 	/**

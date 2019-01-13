@@ -31,13 +31,12 @@ public class UserService extends GenericService<User, Integer> implements UserSe
     @Override
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public boolean existsUser(String nickname) {
-		if(findByNickname(nickname)==null)return false;
-		return true;	}
+    	return findByNickname(nickname)!=null;
+    }
     @Override
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public User findByNickname(String nickname) {
-		User ret=userDAO.findByNickname(nickname);
-		return ret;
+		return userDAO.findByNickname(nickname);
 	}
 
 }

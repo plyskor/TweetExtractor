@@ -99,6 +99,6 @@ public void loadHashtag(String hashtag) {
 	}
 	@Override
 	public void loadXml() {
-			
+		throw(new UnsupportedOperationException());
 	}
 }
