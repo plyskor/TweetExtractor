@@ -39,7 +39,8 @@ public class TweetService extends GenericService<Tweet, Integer> implements Twee
     @Override
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<Tweet> findByExtraction(Extraction extraction) {
-		return tweetDAO.findByExtraction(extraction);
+		List<Tweet> ret=tweetDAO.findByExtraction(extraction);
+		return ret;
 	}
 
 }

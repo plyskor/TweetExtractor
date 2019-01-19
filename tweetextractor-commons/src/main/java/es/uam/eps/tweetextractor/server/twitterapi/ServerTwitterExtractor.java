@@ -6,9 +6,6 @@ package es.uam.eps.tweetextractor.server.twitterapi;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
@@ -42,7 +39,6 @@ public class ServerTwitterExtractor {
 	private Credentials currentCredentials;
 	private Credentials lastReadyCredentials;
 	private AnnotationConfigApplicationContext springContext;
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	/**
 	 * 
 	 */
@@ -162,7 +158,9 @@ public class ServerTwitterExtractor {
 
 	public void initialize(Extraction extraction) {
 		this.credentialsList=extraction.getUser().getCredentialList();
-		if(this.credentialsList!=null&&!this.credentialsList.isEmpty()) {
+		if(this.credentialsList==null||this.credentialsList.isEmpty()) {
+			return;
+		}else {
 			this.currentCredentials=this.getCredentialsList().get(0);
 			this.lastReadyCredentials=currentCredentials;
 			this.configure(currentCredentials);
@@ -182,7 +180,7 @@ public class ServerTwitterExtractor {
 		twitter = tf.getInstance();
 	}
 	public UpdateStatus getStatusListExecution() {
-		UpdateStatus ret= new UpdateStatus(0);
+		UpdateStatus ret= new UpdateStatus(0, null);
 		List<Status>resultList=new ArrayList<>();
 		try {
             QueryResult result;
@@ -237,7 +235,7 @@ public class ServerTwitterExtractor {
 	public UpdateStatus updateExtraction(Extraction extraction){
 		if (extraction==null)return null;
 		UpdateStatus ret=null;
-		List<Tweet> toPersist=new ArrayList<>();
+		List<Tweet> toPersist=new ArrayList<Tweet>();
 		ret= execute();
 		if(ret.isError())return ret;
 		for(Tweet tweet:ret.getTweetList()) {
@@ -255,12 +253,14 @@ public class ServerTwitterExtractor {
 	public void setQuery(String query) {
 		if(query==null)return;
 		this.query=new Query(query);
+		return;
 	}
 	public RateLimitStatus limit(String endpoint,Twitter twitter) {
 		  try {
-			return twitter.getRateLimitStatus().get(endpoint);
+			  RateLimitStatus status = twitter.getRateLimitStatus().get(endpoint);
+			return status;
 		} catch (TwitterException e) {
-			logger.error(e.getMessage());
+			e.printStackTrace();
 		}
 		  return null;
 		}
@@ -277,7 +277,7 @@ public class ServerTwitterExtractor {
 		if(credentialsList==null||credentialsList.isEmpty()) {
 			return 0;
 		}
-		List<Integer> secondsList= new ArrayList<>();
+		List<Integer> secondsList= new ArrayList<Integer>();
 		for(Credentials credentials:credentialsList){
 			/*Configuramos la API con nuestros datos provisionales*/
 			ConfigurationBuilder confBuild = new ConfigurationBuilder();
@@ -304,8 +304,7 @@ public class ServerTwitterExtractor {
 		        	return new Tweet(status);
 		        }
 		    } catch (TwitterException e) {
-		    	Logger logger = LoggerFactory.getLogger(this.getClass());
-		        logger.warn("Failed to search tweets: " + e.getMessage());
+		        System.err.print("Failed to search tweets: " + e.getMessage());
 		        
 		    }
 		 return null;

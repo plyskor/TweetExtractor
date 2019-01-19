@@ -93,7 +93,7 @@ public class FilterOr extends Filter {
 
 	@Override
 	public void loadXml() {
-		throw(new UnsupportedOperationException());
+		
 	}
 
 }

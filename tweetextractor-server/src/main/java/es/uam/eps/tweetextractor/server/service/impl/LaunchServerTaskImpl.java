@@ -25,9 +25,7 @@ import es.uam.eps.tweetextractor.server.Server;
 public class LaunchServerTaskImpl implements LaunchServerTaskSei {
 	@Resource
     private WebServiceContext svcCtx;
-	public LaunchServerTaskImpl() {
-		super();
-	}
+	public LaunchServerTaskImpl() {}
 	@WebMethod(action="launchServerTask")
 	@Override
 	public LaunchServerTaskResponse launchServerTask(@WebParam(name = "id")int id) {

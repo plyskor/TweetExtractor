@@ -2,11 +2,9 @@ package es.uam.eps.tweetextractorfx.view;
 
 import java.io.IOException;
 import java.util.Properties;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import es.uam.eps.tweetextractorfx.MainApplication;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -33,10 +31,12 @@ public class RootLayoutControl {
 	public void setMainApplication(MainApplication mainApplication) {
 		this.mainApplication = mainApplication;
 		logoutmenuitem = new MenuItem("Log out");
-    	logoutmenuitem.setOnAction(event -> {
+    	logoutmenuitem.setOnAction(new EventHandler<ActionEvent>() {
+    	    @Override public void handle(ActionEvent e) {
     	        mainApplication.setCurrentUser(null);
     	        mainApplication.getRootLayoutController().getArchivoMenu().getItems().remove(mainApplication.getRootLayoutController().getLogoutmenuitem());
     	        mainApplication.showWelcomeScreen();
+    	    }
     	});
 	}
 
@@ -73,14 +73,13 @@ public class RootLayoutControl {
      */
     @FXML
     private void handleAbout() {
-        String message="Twitter data extractor with JavaFX\nAuthor: Jose Antonio García del Saz\nVersion: ";
+        String message= new String("Twitter data extractor with JavaFX\nAuthor: Jose Antonio García del Saz\nVersion: ");
 		try {
 			final Properties properties = new Properties();
 			properties.load(this.getClass().getClassLoader().getResourceAsStream("tweetextractorfx.properties"));
 			message=message.concat(properties.getProperty("tweetextractorfx.version"));
 		} catch (IOException  e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
+			e.printStackTrace();
 		}
         Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("TweetExtractorFX");

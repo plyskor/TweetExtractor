@@ -4,9 +4,6 @@
 package es.uam.eps.tweetextractorfx.task;
 
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Extraction;
@@ -33,8 +30,7 @@ public class LoadTweetsTask extends TwitterExtractorFXTask<Integer>{
 		List<Tweet>ret =tweetService.findByExtraction(this.getExtraction());
 		if (ret==null)return 0;
 		this.getExtraction().setTweetList(ret);
-		Logger logger = LoggerFactory.getLogger(this.getClass());
-		logger.info("Loaded "+ret.size() +"tweets from database");
+		System.out.println("Loaded "+ret.size() +"tweets from database");
 		return ret.size();
 	}
 

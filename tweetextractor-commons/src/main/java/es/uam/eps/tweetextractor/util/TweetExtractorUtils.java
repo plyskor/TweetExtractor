@@ -13,11 +13,10 @@ public class TweetExtractorUtils {
 	/**
 	 * 
 	 */
-	private TweetExtractorUtils() {
-		super();
+	public TweetExtractorUtils() {
 	}
 	
 	public static String buildServerAdress(String serverHost,String serverAppName, int port) {
-		return "https://"+serverHost+":"+port+"/"+serverAppName+"/";
+		return new String("https://"+serverHost+":"+port+"/"+serverAppName+"/");
 	}
 }

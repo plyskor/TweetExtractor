@@ -78,13 +78,13 @@ public class User implements Serializable {
 			this.setNickname(nickname);
 			this.setPassword(password);
 			creationDate=new Date();
-			extractionList=  new ArrayList<>();
-			credentialList = new ArrayList<>();
+			extractionList=  new ArrayList<Extraction>();
+			credentialList = new ArrayList<Credentials>();
 			id= UUID.randomUUID().toString();
 	}
 	public User() {
-		extractionList=  new ArrayList<>();
-		credentialList = new ArrayList<>();
+		extractionList=  new ArrayList<Extraction>();
+		credentialList = new ArrayList<Credentials>();
 	}
 
 	/**
@@ -237,7 +237,7 @@ public class User implements Serializable {
 		return false;
 	}
 	public boolean hasAnyCredentials() {
-		return (credentialList!=null&&!credentialList.isEmpty());
+		return (credentialList!=null&&credentialList.size()>0);
 	}
 	public Credentials getCredentials(String accountscreenName) {
 		Credentials ret=null;

@@ -63,7 +63,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Error writing users");
 		alert.setContentText("An error has ocurred while saving the new user:\n" + message);
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static Alert showSuccessCreateUser() {
@@ -114,7 +114,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Error saving credentials");
 		alert.setContentText("An error has occured while saving your credentials.\nError:\n" + message);
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorExistingCredentials() {
@@ -124,7 +124,7 @@ public class ErrorDialog {
 		alert.setContentText(
 				"These credentials already belong to this account. Please, choose any other credentials to add.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorEmptyCredentials() {
@@ -133,7 +133,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Empty fields");
 		alert.setContentText("Please, introduce the tokens for the new credentials.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorEmptyNickname() {
@@ -142,7 +142,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Empty Nickname");
 		alert.setContentText("Please, select the user's nickname that you want to use as the origin of the tweets.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorEmptyUrl() {
@@ -151,7 +151,7 @@ public class ErrorDialog {
 		alert.setHeaderText("No URL selected");
 		alert.setContentText("Please, select the URL parameter for the extraction.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorWrongValues() {
@@ -160,7 +160,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Somoe of the fields are not correct");
 		alert.setContentText("Remember that Twitter accounts and list names are single words with no spaces.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorEmptyFields() {
@@ -169,7 +169,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Empty fields");
 		alert.setContentText("Please, select a Twitter account and a list available on that account.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorSelectDateSince() {
@@ -178,7 +178,7 @@ public class ErrorDialog {
 		alert.setHeaderText("No date selected");
 		alert.setContentText("Please, select a date from which you would like to extract tweets");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorEmptyNicknameTo() {
@@ -187,7 +187,7 @@ public class ErrorDialog {
 		alert.setHeaderText("No username selected");
 		alert.setContentText("Please, select the user's nickname that you want to use as the destiny of the tweets");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorSelectDateTo() {
@@ -196,7 +196,7 @@ public class ErrorDialog {
 		alert.setHeaderText("No date selected");
 		alert.setContentText("Please, select the date until which you would like to extract tweets");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorEmptyNicknameFrom() {
@@ -205,7 +205,7 @@ public class ErrorDialog {
 		alert.setHeaderText("No username selected");
 		alert.setContentText("Please, select the user's nickname that you want to use as the origin of the tweets.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorSelectFilterRemove() {
@@ -214,7 +214,7 @@ public class ErrorDialog {
 		alert.setHeaderText("No filter selected");
 		alert.setContentText("Please, select a filter from the list on the right in order to delete it.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorNotEnoughFilters() {
@@ -223,7 +223,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Logic operations");
 		alert.setContentText("Please, select at least two filters from the right to apply the OR application to them.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorNotEnoughFiltersNot() {
@@ -232,7 +232,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Logic opeartions");
 		alert.setContentText("Please, select at least one filter from the right to apply the NOT operation.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorUndoLogic() {
@@ -241,7 +241,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Logic operations");
 		alert.setContentText("Please, select a logic filter (OR or NOT) in order to undo the logic operation.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorSelectFilterAdd() {
@@ -250,7 +250,7 @@ public class ErrorDialog {
 		alert.setHeaderText("No filter selected");
 		alert.setContentText("Please, select a filter type from the list on the left to add it to the extraction.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showSuccessUpdatePassword() {
@@ -259,7 +259,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Password updated");
 		alert.setContentText("Your password has been succesfully updated");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorNoCredentials() {
@@ -269,7 +269,7 @@ public class ErrorDialog {
 		alert.setContentText(
 				"This user account has no registered credentials for the Twitter API.\nPlease, add some credentials from the home screen.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorNoSelectedCredentials() {
@@ -278,7 +278,7 @@ public class ErrorDialog {
 		alert.setHeaderText("No selected credentials");
 		alert.setContentText("Select some credentials to perform this action.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorLoadExtraction(String message) {
@@ -287,7 +287,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Reading error");
 		alert.setContentText("An error has ocurred loading an extraction:\n" + message);
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorNoSelectedExtraction() {
@@ -296,7 +296,7 @@ public class ErrorDialog {
 		alert.setHeaderText("No extraction selected");
 		alert.setContentText("Select an extraction to perform this action.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static Alert showErrorTwitterExecution(String message) {
@@ -313,7 +313,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Error connecting to database");
 		alert.setContentText("An error has ocurred contacting the database:\n\n" + message + "\n\nPlease try again.");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static Alert showUpdateQueryResults(int added) {
@@ -330,7 +330,7 @@ public class ErrorDialog {
 		alert.setHeaderText("Empty extraction");
 		alert.setContentText("Add at least one filter to the extraction");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static void showErrorNoTweetSelected() {
@@ -339,7 +339,7 @@ public class ErrorDialog {
 		alert.setHeaderText("No tweet selected");
 		alert.setContentText("Select a tweet from the list above to delete it from the extraction");
 		alert.showAndWait();
-		
+		return;
 	}
 
 	public static Alert showErrorUnknownLogin() {

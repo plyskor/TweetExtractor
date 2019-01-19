@@ -7,11 +7,11 @@
 	<parent>
 		<groupId>tweetextractor</groupId>
 		<artifactId>tweetextractor</artifactId>
-		<version>1.0.1.0</version>
+		<version>1.0.0.0</version>
 	</parent>
 	<groupId>tweetextractor-fx</groupId>
 	<artifactId>tweetextractor-fx</artifactId>
-	<version>1.0.1.0</version>
+	<version>1.0.0.0</version>
 	<name>TweetExtractorFX</name>
 	<url>http://maven.apache.org</url>
 	<build>
@@ -163,7 +163,7 @@
 		<dependency>
 			<groupId>tweetextractor-commons</groupId>
 			<artifactId>tweetextractor-commons</artifactId>
-			<version>1.0.1.0</version>
+			<version>1.0.0.0</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-bindings-soap -->

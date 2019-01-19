@@ -11,10 +11,6 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
@@ -22,6 +18,7 @@ import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Tweet;
+import es.uam.eps.tweetextractor.model.filter.Filter;
 import es.uam.eps.tweetextractor.model.task.status.UpdateStatus;
 import es.uam.eps.tweetextractorfx.task.ExportExtractionTask;
 import es.uam.eps.tweetextractorfx.task.LoadTweetsTask;
@@ -41,6 +38,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import twitter4j.TwitterException;
 
 /**
  * @author Jose Antonio García del Saz
@@ -88,8 +86,7 @@ public class ExtractionDetailsControl {
 			try {
 				openSansEmoji = Font.createFont(Font.TRUETYPE_FONT, stream);
 			} catch (FontFormatException | IOException e) {
-				Logger logger = LoggerFactory.getLogger(this.getClass());
-				logger.warn(e.getMessage());
+				e.printStackTrace();
 			}
 			/* Ponemos la fuente en cada celda */
 			if (openSansEmoji != null)
@@ -148,7 +145,7 @@ public class ExtractionDetailsControl {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			authorLabel.setText(selectedQueryResult.getUserScreenName());
 			dateLabel.setText(df.format(selectedQueryResult.getCreatedAt()));
-			idLabel.setText("" + selectedQueryResult.getId());
+			idLabel.setText(new String("" + selectedQueryResult.getId()));
 			Locale loc = new Locale(selectedQueryResult.getLang());
 			langLabel.setText(loc.getDisplayLanguage(loc));
 		} else {
@@ -192,10 +189,15 @@ public class ExtractionDetailsControl {
 		langLabel.setText("");
 	}
 
+	/**
+	 * @param filterList the filterList to set
+	 */
+	public void setFilterList(ObservableList<Filter> filterList) {
+	}
 
-
-	public void executeQuery() {
-		twitterextractor = new TwitterExtractor(this.getMainApplication().getCurrentUser().getCredentialList().get(0),mainApplication.getSpringContext());
+	public void executeQuery() throws TwitterException {
+		twitterextractor = new TwitterExtractor(null,
+				this.getMainApplication().getCurrentUser().getCredentialList().get(0),mainApplication.getSpringContext());
 		UpdateExtractionTask updateTask = new UpdateExtractionTask(twitterextractor, extraction,mainApplication.getSpringContext());
 		updateTask.setOnSucceeded(e -> {
 			if (loadingDialog != null)
@@ -226,6 +228,7 @@ public class ExtractionDetailsControl {
 		this.getExtraction().getTweetList().remove(selectedQueryResult);
 		TweetServiceInterface tweetService = mainApplication.getSpringContext().getBean(TweetServiceInterface.class);
 		tweetService.deleteById(selectedQueryResult.getIdDB());
+		;
 		tweetObservableList.remove(selectedQueryResult);
 	}
 
@@ -236,7 +239,8 @@ public class ExtractionDetailsControl {
 		if(extraction.isExtracting()) {
 			ErrorDialog.showErrorExtractionIsCurrentlyUpdating();
 		}
-		twitterextractor = new TwitterExtractor(this.getMainApplication().getCurrentUser().getCredentialList().get(0),mainApplication.getSpringContext());
+		twitterextractor = new TwitterExtractor(null,
+				this.getMainApplication().getCurrentUser().getCredentialList().get(0),mainApplication.getSpringContext());
 		TwitterExtractorFXTask<UpdateStatus> updateTask = new UpdateExtractionTask(twitterextractor, extraction,mainApplication.getSpringContext());
 		updateTask.setOnSucceeded(e -> {
 			UpdateStatus result = updateTask.getValue();
@@ -250,8 +254,7 @@ public class ExtractionDetailsControl {
 				} catch (Exception ex) {
 					if (loadingDialog != null)
 						loadingDialog.close();
-					Logger logger = LoggerFactory.getLogger(this.getClass());
-					logger.warn(ex.getMessage());
+					ex.printStackTrace();
 				}
 			}
 			if (loadingDialog != null)
@@ -322,9 +325,8 @@ public class ExtractionDetailsControl {
         ExportExtractionTask exportTask = new ExportExtractionTask(extraction, file,mainApplication.getSpringContext());
         exportTask.setOnSucceeded(e->{
         	Integer status = exportTask.getValue();
-        	if (loadingDialog != null) {
+        	if (loadingDialog != null)
 				loadingDialog.close();
-        	}
         	switch(status) {
         	case(Constants.SUCCESS_EXPORT):
         		alertExport=ErrorDialog.showSuccessExport();
@@ -337,9 +339,8 @@ public class ExtractionDetailsControl {
         	}
         });
         exportTask.setOnFailed(e->{
-        	if (loadingDialog != null) {
+        	if (loadingDialog != null)
 				loadingDialog.close();
-        	}
         });
         Thread thread = new Thread(exportTask);
 		thread.setName(exportTask.getClass().getCanonicalName());

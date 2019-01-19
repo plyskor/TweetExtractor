@@ -102,6 +102,6 @@ public class FilterMention extends Filter {
 	}
 	@Override
 	public void loadXml() {
-		throw(new UnsupportedOperationException());
+
 	}
 }

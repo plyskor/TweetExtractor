@@ -103,30 +103,29 @@ public class ServerPreferencesDialogControl {
 	}
 	@FXML
 	public void onCancel() {
-		if(getDialogStage()!=null) {
-			this.getDialogStage().close();
-		}
+		if(getDialogStage()!=null)
+		this.getDialogStage().close();
 	}
 	@FXML
 	public void onDefault() {
 		getServerHost().setText("app.preciapps.com");
 		getServerPort().setText("8080");
 		getServerAppName().setText("tweetextractor-server-1.0.0.0");
-		
+		return;
 	}
 	@FXML
 	public void onSave() {
 		if(serverHost.getText().isEmpty()||serverHost.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerHost();
-			
+			return;
 		}
 		if(serverPort.getText().isEmpty()||serverPort.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerPort();
-			
+			return;
 		}
 		if(serverAppName.getText().isEmpty()||serverAppName.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerAppName();
-			
+			return;
 		}
 		String patternDomain = "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$";
 		String patternIP= "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
@@ -136,14 +135,14 @@ public class ServerPreferencesDialogControl {
 	    Matcher mIP = pIP.matcher(serverHost.getText().replace("\r", "").replace("\n", ""));
 	    if(!mDomain.matches()&&!mIP.matches()) {
 	    	ErrorDialog.showErrorServerHostMalformed();
-	    	
+	    	return;
 	    }
 		int port=-1;
 		try {
 			port= Integer.parseInt(serverPort.getText());
 			if(port<0||port>65535) {
 				ErrorDialog.showErrorServerPortNAN();
-				
+				return;
 			}
 			TweetExtractorFXPreferences.setStringPreference(Constants.PREFERENCE_SERVER_HOST, serverHost.getText());
 			TweetExtractorFXPreferences.setStringPreference(Constants.PREFERENCE_SERVER_PORT, ""+port);
@@ -151,7 +150,7 @@ public class ServerPreferencesDialogControl {
 			TweetExtractorFXPreferences.setStringPreference(Constants.PREFERENCE_SERVER_ADDRESS, TweetExtractorUtils.buildServerAdress(serverHost.getText(), serverAppName.getText(), port));
 		}catch(NumberFormatException e) {
 			ErrorDialog.showErrorServerPortNAN();
-			
+			return;
 		}
 		this.getDialogStage().close();
 	}
@@ -159,15 +158,15 @@ public class ServerPreferencesDialogControl {
 	public void onTest() {
 		if(serverHost.getText().isEmpty()||serverHost.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerHost();
-			
+			return;
 		}
 		if(serverPort.getText().isEmpty()||serverPort.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerPort();
-			
+			return;
 		}
 		if(serverAppName.getText().isEmpty()||serverAppName.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerAppName();
-			
+			return;
 		}
 		String patternDomain = "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$";
 		String patternIP= "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
@@ -177,26 +176,26 @@ public class ServerPreferencesDialogControl {
 	    Matcher mIP = pIP.matcher(serverHost.getText().replace("\r", "").replace("\n", ""));
 	    if(!mDomain.matches()&&!mIP.matches()&&!"localhost".equals(serverHost.getText().replace("\r", "").replace("\n", ""))) {
 	    	ErrorDialog.showErrorServerHostMalformed();
-	    	
+	    	return;
 	    }
 		int port=-1;
 		try {
 			port= Integer.parseInt(serverPort.getText());
 			if(port<0||port>65535) {
 				ErrorDialog.showErrorServerPortNAN();
-				
+				return;
 			}
 			GetServerStatus service = new GetServerStatus(TweetExtractorUtils.buildServerAdress(serverHost.getText().trim(), serverAppName.getText().trim(), port));
 			if(service.getServerStatus()) {
 				ErrorDialog.showSucessServerConnectionTest(serverHost.getText());
-				
+				return;
 			}else {
 				ErrorDialog.showErrorServerConnectionTest();
-				
+				return;
 			}
 		}catch(NumberFormatException e) {
 			ErrorDialog.showErrorServerPortNAN();
-			
+			return;
 		}
 		
 	}

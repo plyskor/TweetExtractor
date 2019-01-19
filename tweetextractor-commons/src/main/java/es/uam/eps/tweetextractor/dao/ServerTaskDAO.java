@@ -1,6 +1,5 @@
 package es.uam.eps.tweetextractor.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -10,8 +9,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import es.uam.eps.tweetextractor.dao.inter.ServerTaskDAOInterface;
@@ -35,9 +32,7 @@ public class ServerTaskDAO extends AbstractGenericDAO<ServerTask, Integer> imple
 	    query.setParameter(params, user.getIdDB() );
 	    List<ServerTask> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {
-	    	Logger logger = LoggerFactory.getLogger(this.getClass());
-	    	logger.info("No serverTask found for userID: "+user.getIdDB());
-	    	return new ArrayList<>();
+	    	System.out.println("No serverTask found for userID: "+user.getIdDB());	   
 	    	}
 	    return ret;
 	}

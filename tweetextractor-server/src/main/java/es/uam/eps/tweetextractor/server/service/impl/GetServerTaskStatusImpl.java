@@ -26,9 +26,7 @@ import javax.annotation.Resource;
 public class GetServerTaskStatusImpl implements GetServerTaskStatusSei {
 	@Resource
     private WebServiceContext svcCtx;
-	public GetServerTaskStatusImpl() {
-		super();
-	}
+	public GetServerTaskStatusImpl() {}
 	@WebMethod(action="getServerTaskStatus")
 	public GetServerTaskStatusResponse getServerTaskStatus(@WebParam(name = "id")int id) {
 		GetServerTaskStatusResponse ret= new GetServerTaskStatusResponse();

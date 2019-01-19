@@ -82,7 +82,7 @@ public class FilterList extends Filter {
 	}
 	@Override
 	public void loadXml() {
-		throw(new UnsupportedOperationException());
+		
 	}
 
 }

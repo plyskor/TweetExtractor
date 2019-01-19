@@ -16,8 +16,7 @@ public class TweetExtractorFXPreferences {
 	/**
 	 * 
 	 */
-	private TweetExtractorFXPreferences() {
-		super();
+	public TweetExtractorFXPreferences() {
 	}
 	public static void initializePreferences() {
 		Preferences prefs = Preferences.userNodeForPackage(es.uam.eps.tweetextractorfx.Main.class);
@@ -60,6 +59,7 @@ public class TweetExtractorFXPreferences {
 	public static void setIntPreference(String key,int value){
 		Preferences prefs = Preferences.userNodeForPackage(es.uam.eps.tweetextractorfx.Main.class);
 		prefs.putInt(key, value);
+		return;
 	}
 	/**
 	 * @param key the preference key
@@ -68,6 +68,7 @@ public class TweetExtractorFXPreferences {
 	public static void setStringPreference(String key,String value){
 		Preferences prefs = Preferences.userNodeForPackage(es.uam.eps.tweetextractorfx.Main.class);
 		prefs.put(key, value);
+		return;
 	}
 
 	

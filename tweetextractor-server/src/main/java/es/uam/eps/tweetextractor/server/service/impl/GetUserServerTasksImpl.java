@@ -29,7 +29,7 @@ public class GetUserServerTasksImpl implements GetUserServerTasksSei{
 	 * 
 	 */
 	public GetUserServerTasksImpl() {
-		super();
+
 	}
 	@WebMethod(action="getUserServerTasks")
 	@Override

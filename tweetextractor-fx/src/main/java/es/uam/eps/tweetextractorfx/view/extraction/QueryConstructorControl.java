@@ -1,10 +1,6 @@
 package es.uam.eps.tweetextractorfx.view.extraction;
 
 import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.Constants;
@@ -250,7 +246,7 @@ public class QueryConstructorControl {
 	}
 	@FXML
 	public void handleDeleteFilter() {
-		if (addedFilterTable.getSelectionModel().getSelectedItems().isEmpty()) {
+		if (addedFilterTable.getSelectionModel().getSelectedItems().size() == 0) {
 			ErrorDialog.showErrorSelectFilterRemove();
 		} else {
 			addedFiltersList.removeAll(addedFilterTable.getSelectionModel().getSelectedItems());
@@ -294,7 +290,7 @@ public class QueryConstructorControl {
 
 	@FXML
 	public void handleNot() {
-		if (addedFilterTable.getSelectionModel().getSelectedItems().isEmpty()) {
+		if (addedFilterTable.getSelectionModel().getSelectedItems().size() == 0) {
 			ErrorDialog.showErrorNotEnoughFiltersNot();
 		} else {
 			for (Filter filter : addedFilterTable.getSelectionModel().getSelectedItems()) {
@@ -312,7 +308,7 @@ public class QueryConstructorControl {
 
 	@FXML
 	public void handleUndoLogic() {
-		if (addedFilterTable.getSelectionModel().getSelectedItems().isEmpty()) {
+		if (addedFilterTable.getSelectionModel().getSelectedItems().size() < 1) {
 			ErrorDialog.showErrorUndoLogic();
 		} else if(FilterManager.isFilterListLogic(addedFilterTable.getSelectionModel().getSelectedItems())){
 			for (Filter filter : addedFilterTable.getSelectionModel().getSelectedItems()) {
@@ -348,7 +344,7 @@ public class QueryConstructorControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterContainsDialog.fxml"));
-			AnchorPane page = loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -366,10 +362,10 @@ public class QueryConstructorControl {
 			if (controller.getFilter() != null&&controller.getFilter().getKeywordsList()!=null&&!controller.getFilter().getKeywordsList().isEmpty()) {
 				addedFiltersList.add(new FilterContains(controller.getFilter()));
 			}
-			
+			return;
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
+			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -379,7 +375,7 @@ public class QueryConstructorControl {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(
 					RootLayoutControl.class.getResource("dialog/filter/FilterContainsExactDialog.fxml"));
-			AnchorPane page = loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -394,10 +390,10 @@ public class QueryConstructorControl {
 			if (controller.getFilter() != null&&controller.getFilter().getKeywordsList()!=null&&!controller.getFilter().getKeywordsList().isEmpty()) {
 				addedFiltersList.add(new FilterContainsExact(controller.getFilter()));
 			}
-			
+			return;
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
+			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -406,7 +402,7 @@ public class QueryConstructorControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterSinceDialog.fxml"));
-			AnchorPane page = loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -421,10 +417,10 @@ public class QueryConstructorControl {
 			if (controller.getFilter() != null&&controller.getFilter().getDate()!=null) {
 				addedFiltersList.add(new FilterSince(controller.getFilter()));
 			}
-			
+			return;
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
+			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -433,7 +429,7 @@ public class QueryConstructorControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterUntilDialog.fxml"));
-			AnchorPane page = loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -448,10 +444,10 @@ public class QueryConstructorControl {
 			if (controller.getFilter() != null&&controller.getFilter().getDate()!=null) {
 				addedFiltersList.add(new FilterUntil(controller.getFilter()));
 			}
-			
+			return;
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
+			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -460,7 +456,7 @@ public class QueryConstructorControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterMentionDialog.fxml"));
-			AnchorPane page = loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -475,13 +471,13 @@ public class QueryConstructorControl {
 
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null&&controller.getFilter().getMentionList()!=null&&!controller.getFilter().getMentionList().isEmpty()) {
+			if (controller.getFilter() != null&&controller.getFilter().getMentionList()!=null&&controller.getFilter().getMentionList().size()>0) {
 				addedFiltersList.add(new FilterMention(controller.getFilter()));
 			}
-			
+			return;
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
+			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -490,7 +486,7 @@ public class QueryConstructorControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterFromDialog.fxml"));
-			AnchorPane page = loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -505,10 +501,10 @@ public class QueryConstructorControl {
 			if (controller.getFilter() != null&&controller.getFilter().getNickName()!=null&&!controller.getFilter().getNickName().isEmpty()) {
 				addedFiltersList.add(new FilterFrom(controller.getFilter()));
 			}
-			
+			return;
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
+			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -517,7 +513,7 @@ public class QueryConstructorControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterToDialog.fxml"));
-			AnchorPane page = loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -532,10 +528,10 @@ public class QueryConstructorControl {
 			if (controller.getFilter() != null&&controller.getFilter().getNickName()!=null&&!controller.getFilter().getNickName().isEmpty()) {
 				addedFiltersList.add(new FilterTo(controller.getFilter()));
 			}
-			
+			return;
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
+			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -544,7 +540,7 @@ public class QueryConstructorControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterHashtagDialog.fxml"));
-			AnchorPane page = loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -556,13 +552,13 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null&&controller.getFilter().getHashtagList()!=null&&!controller.getFilter().getHashtagList().isEmpty()) {
+			if (controller.getFilter() != null&&controller.getFilter().getHashtagList()!=null&&controller.getFilter().getHashtagList().size()>0) {
 				addedFiltersList.add(new FilterHashtag(controller.getFilter()));
 			}
-			
+			return;
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
+			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -571,7 +567,7 @@ public class QueryConstructorControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterUrlDialog.fxml"));
-			AnchorPane page = loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -586,10 +582,10 @@ public class QueryConstructorControl {
 			if (controller.getFilter() != null&&controller.getFilter().getUrl()!=null&&!controller.getFilter().getUrl().isEmpty()) {
 				addedFiltersList.add(new FilterUrl(controller.getFilter()));
 			}
-			
+			return;
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
+			e.printStackTrace();
+			return;
 		}
 	}
 	public void showFilterListDialog() {
@@ -597,7 +593,7 @@ public class QueryConstructorControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterListDialog.fxml"));
-			AnchorPane page = loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -612,10 +608,10 @@ public class QueryConstructorControl {
 			if (controller.getFilter() != null&& controller.getFilter().getAccount() !=null && !controller.getFilter().getAccount().isEmpty()&&controller.getFilter().getListName()!=null&&!controller.getFilter().getListName().isEmpty()) {
 				addedFiltersList.add(new FilterList(controller.getFilter()));
 			}
-			
+			return;
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
+			e.printStackTrace();
+			return;
 		}
 	}
 	

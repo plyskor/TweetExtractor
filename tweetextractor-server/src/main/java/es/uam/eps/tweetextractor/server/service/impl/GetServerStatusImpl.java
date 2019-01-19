@@ -24,7 +24,6 @@ public class GetServerStatusImpl implements GetServerStatusSei{
 	 * 
 	 */
 	public GetServerStatusImpl() {
-		super();
 	}
 	@Override
 	@WebMethod(action="getServerStatus")
@@ -33,7 +32,10 @@ public class GetServerStatusImpl implements GetServerStatusSei{
 		ServletContext context = (ServletContext) 
                 msgCtx.get(MessageContext.SERVLET_CONTEXT);
 	    Server server = (Server) context.getAttribute("Server");
-	    return (server!=null);
+	    if(server==null) {
+	    	return false;
+	    }
+	    return true;
 	}
 
 }

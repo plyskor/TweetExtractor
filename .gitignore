@@ -32,7 +32,3 @@ tweetextractor-server/.settings/.jsdtscope
 tweetextractor-server/.project
 tweetextractor-server/.classpath
 *.container
-tweetextractor-commons/target/classes/META-INF/maven/tweetextractor-commons/tweetextractor-commons/pom.properties
-tweetextractor-commons/target/classes/META-INF/maven/tweetextractor-commons/tweetextractor-commons/pom.xml
-tweetextractor-fx/target/classes/META-INF/maven/tweetextractor-fx/tweetextractor-fx/pom.properties
-tweetextractor-server/target/m2e-wtp/web-resources/META-INF/maven/tweetextractor-server/tweetextractor-server/pom.properties

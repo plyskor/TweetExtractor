@@ -73,6 +73,7 @@ public class CreateServerTaskUpdateExtractionIndefImpl implements CreateServerTa
 	    	reply.setMessage(ex.getMessage());
 	    	return reply;
 	    }
+	    if(server!=null)
 	    server.addTaskToServer(task);
 	    ServerTaskResponse res=task.call();
 	    if(res.isError()) {
