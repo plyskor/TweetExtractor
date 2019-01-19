@@ -30,6 +30,7 @@ public class SetServerTaskReadyImpl implements SetServerTaskReadySei {
 	 * 
 	 */
 	public SetServerTaskReadyImpl() {
+		super();
 	}
 
 	@WebMethod(action = "setServerTaskReady")

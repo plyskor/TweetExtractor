@@ -185,7 +185,6 @@ public class CreateExtractionServerTaskSelectExtractionDialogControl {
     	}else {
     		this.toReturn=selectedExtraction;
     		this.dialogStage.close();
-    		return;
     	}
     }
 }

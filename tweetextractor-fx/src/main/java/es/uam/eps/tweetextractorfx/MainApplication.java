@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import es.uam.eps.tweetextractor.model.Constants;
@@ -40,7 +42,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import twitter4j.TwitterException;
 
 public class MainApplication extends Application {
 	private Stage primaryStage;
@@ -51,9 +52,11 @@ public class MainApplication extends Application {
 	private User currentUser = null;
 	private RootLayoutControl rootLayoutController;
 	private AnnotationConfigApplicationContext springContext;
+
 	public MainApplication() {
 		initAvailableFilters();
 	}
+
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -61,37 +64,43 @@ public class MainApplication extends Application {
 		initRootLayout();
 		TweetExtractorFXPreferences.initializePreferences();
 		springContext = new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
-		//onBoot();
+		// onBoot();
 	}
 
 	private void onBoot() {
-		LaunchServerTask service3 = new LaunchServerTask(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
-		SetServerTaskReady service2 = new SetServerTaskReady(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
-		GetUserServerTasks service = new GetUserServerTasks(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		LaunchServerTask service3 = new LaunchServerTask(
+				TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		SetServerTaskReady service2 = new SetServerTaskReady(
+				TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		GetUserServerTasks service = new GetUserServerTasks(
+				TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
 		GetUserServerTasksResponse reply = service.getUserServerTasks(1);
-		if(!reply.isError()) {
-			for(ServerTaskInfo task:reply.getServerTasksList()){
+		if (!reply.isError()) {
+			for (ServerTaskInfo task : reply.getServerTasksList()) {
 				SetServerTaskReadyResponse reply2 = service2.setServerTaskReady(task.getId());
-				if(!reply2.isError()) {
+				if (!reply2.isError()) {
 					LaunchServerTaskResponse reply3 = service3.launchServerTask(task.getId());
-					if(!reply3.isError()) {
+					if (!reply3.isError()) {
 						try {
 							TimeUnit.MICROSECONDS.sleep(15);
 						} catch (InterruptedException e) {
-							e.printStackTrace();
+							Logger logger = LoggerFactory.getLogger(this.getClass());
+							logger.error(e.getMessage());
+							Thread.currentThread().interrupt();
 						}
 					}
 				}
 			}
 		}
 	}
+
 	/* Initialize the RootLayout */
 	public void initRootLayout() {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource("view/RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
+			rootLayout = loader.load();
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
@@ -101,7 +110,8 @@ public class MainApplication extends Application {
 			showWelcomeScreen();
 			primaryStage.show();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 		}
 	}
 	/* Mostrando la pantalla de bienvenida */
@@ -111,15 +121,15 @@ public class MainApplication extends Application {
 			// Load elcome screen.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource("view/WelcomeScreen.fxml"));
-			AnchorPane welcomeScreen = (AnchorPane) loader.load();
+			AnchorPane welcomeScreen = loader.load();
 			// Set welcome screen into the center of root layout.
 			rootLayout.setCenter(welcomeScreen);
 			// Give the controller access to the main app.
 			WelcomeScreenControl controller = loader.getController();
 			controller.setMainApplication(this);
-
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -128,50 +138,50 @@ public class MainApplication extends Application {
 			// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource("view/extraction/QueryConstructor.fxml"));
-			AnchorPane queryConstructor = (AnchorPane) loader.load();
+			AnchorPane queryConstructor = loader.load();
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(queryConstructor);
 			// Give the controller access to the main app.
 			QueryConstructorControl controller = loader.getController();
 			controller.setMainApplication(this);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 		}
 	}
 
-	public void showExtractionDetails(Extraction extraction,boolean executeQuery) {
+	public void showExtractionDetails(Extraction extraction, boolean executeQuery) {
 		try {
 			// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource("view/extraction/ExtractionDetails.fxml"));
-			AnchorPane queryDetails = (AnchorPane) loader.load();
+			AnchorPane queryDetails = loader.load();
 			// Give the controller access to the main app.
 			ExtractionDetailsControl controller = loader.getController();
 			controller.setExtraction(extraction);
 			controller.setMainApplication(this);
-			try {
-				if(executeQuery) {
-					controller.executeQuery();
-					controller.getTweetObservableList().addAll(controller.getExtraction().getTweetList());
-				}else {
-					controller.refreshTweetObservableList();
-				}
-				// Set query constructor into the center of root layout.
-				rootLayout.setCenter(queryDetails);
-			} catch (TwitterException e) {
-				e.printStackTrace();
+			if (executeQuery) {
+				controller.executeQuery();
+				controller.getTweetObservableList().addAll(controller.getExtraction().getTweetList());
+			} else {
+				controller.refreshTweetObservableList();
 			}
+			// Set query constructor into the center of root layout.
+			rootLayout.setCenter(queryDetails);
+
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 		}
 	}
+
 	public Stage showLoadingDialog(String title) {
 		try {
 
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayoutControl.class.getResource("dialog/LoadingDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			AnchorPane page = loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.APPLICATION_MODAL);
@@ -183,70 +193,79 @@ public class MainApplication extends Application {
 			LoadingDialogControl controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
-			return	dialogStage;		
+			return dialogStage;
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 			return null;
 		}
 	}
+
 	public void showHomeScreen() {
 		try {
 			// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource("view/HomeScreen.fxml"));
-			AnchorPane homeScreen = (AnchorPane) loader.load();
+			AnchorPane homeScreen = loader.load();
 			// Give the controller access to the main app.
 			HomeScreenControl controller = loader.getController();
 			controller.setMainApplication(this);
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(homeScreen);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 		}
 	}
+
 	public void showManageCredentials() {
 		try {
 			// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource("view/credentials/ManageCredentials.fxml"));
-			AnchorPane homeScreen = (AnchorPane) loader.load();
+			AnchorPane homeScreen = loader.load();
 			// Give the controller access to the main app.
 			ManageCredentialsControl controller = loader.getController();
 			controller.setMainApplication(this);
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(homeScreen);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 		}
 	}
+
 	public void showUserExtractions() {
 		try {
 			// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource("view/extraction/ShowUserExtractions.fxml"));
-			AnchorPane homeScreen = (AnchorPane) loader.load();
+			AnchorPane homeScreen = loader.load();
 			// Give the controller access to the main app.
 			ShowUserExtractionsControl controller = loader.getController();
 			controller.setMainApplication(this);
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(homeScreen);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 		}
 	}
+
 	public void showManageServerTasks() {
 		try {
 			// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource("view/server/ManageServerTasks.fxml"));
-			AnchorPane homeScreen = (AnchorPane) loader.load();
+			AnchorPane homeScreen = loader.load();
 			// Give the controller access to the main app.
 			ManageServerTasksControl controller = loader.getController();
 			controller.setMainApplication(this);
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(homeScreen);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -339,21 +358,16 @@ public class MainApplication extends Application {
 		this.currentUser = currentUser;
 	}
 
-	public void updateUserList() {
-		/*List<User> readList = XMLManager.loadUserList();
-		if (readList != null) {
-			this.userList.clear();
-			userList.addAll(readList);
-		}*/
-	}
+	
+
 	public boolean existsUser(String nickName) {
-		updateUserList();
 		for (User user : this.getUserList()) {
 			if (user.getNickname().equals(nickName))
 				return true;
 		}
 		return false;
 	}
+
 	public User getUser(String nickName) {
 		if (nickName != null) {
 			for (User user : this.getUserList()) {
@@ -363,27 +377,33 @@ public class MainApplication extends Application {
 		}
 		return null;
 	}
+
 	/**
 	 * @return the rootLayoutController
 	 */
 	public RootLayoutControl getRootLayoutController() {
 		return rootLayoutController;
 	}
+
 	/**
 	 * @param rootLayoutController the rootLayoutController to set
 	 */
 	public void setRootLayoutController(RootLayoutControl rootLayoutController) {
 		this.rootLayoutController = rootLayoutController;
 	}
+
 	public boolean checkServer() {
-		GetServerStatus service = new GetServerStatus(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		GetServerStatus service = new GetServerStatus(
+				TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
 		return service.getServerStatus();
 	}
+
 	public AnnotationConfigApplicationContext getSpringContext() {
 		return springContext;
 	}
+
 	public void setSpringContext(AnnotationConfigApplicationContext springContext) {
 		this.springContext = springContext;
 	}
-	
+
 }

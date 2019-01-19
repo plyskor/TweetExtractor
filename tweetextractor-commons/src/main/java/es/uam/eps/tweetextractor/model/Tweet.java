@@ -18,6 +18,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.uam.eps.tweetextractor.util.DateAdapter;
 import twitter4j.HashtagEntity;
 import twitter4j.Status;
@@ -101,34 +104,40 @@ public class Tweet implements Serializable {
 			try {
 				createdAt=df.parse(df.format(tweet.getCreatedAt()));
 			} catch (ParseException e) {
-				e.printStackTrace();
+		    	Logger logger = LoggerFactory.getLogger(this.getClass());
+				logger.warn(e.getMessage());
 			}
 		}
 		this.favouriteCount=tweet.getFavoriteCount();
 		if(tweet.getGeoLocation()!=null)this.geoLocation=new GeoLocation(tweet.getGeoLocation().getLatitude(), tweet.getGeoLocation().getLongitude());
 		if(this.getGeoLocation()!=null)this.geoLocation.setTweet(this);
-		this.hashtagList= new ArrayList<String>();
+		this.hashtagList= new ArrayList<>();
 		for(HashtagEntity entity : tweet.getHashtagEntities()) {
 			hashtagList.add(entity.getText());
 		}
 		this.id=tweet.getId();
-		if((tweet.getInReplyToScreenName())!=null)
-		this.inReplyToScreenName= new String (tweet.getInReplyToScreenName());
+		if((tweet.getInReplyToScreenName())!=null) {
+			this.inReplyToScreenName=tweet.getInReplyToScreenName();
+		}
 		this.inReplyToStatusId=tweet.getInReplyToStatusId();
-		if(tweet.getLang()!=null)
-		this.lang=new String(tweet.getLang());
+		if(tweet.getLang()!=null) {
+			this.lang=tweet.getLang();
+		}
 		if(tweet.getQuotedStatus()!=null) {
 			this.quotedTweet= new Tweet (tweet.getQuotedStatus());
 			this.quotedTweet.setExtraction(extraction);
 		}
 		this.retweetCount=tweet.getRetweetCount();
-		if (tweet.getSource()!=null)
-		this.source=new String (tweet.getSource());
-		if((tweet.getText())!=null)
-		this.text = new String (tweet.getText());
-		if(tweet.getUser().getScreenName()!=null)
-		this.userScreenName = new String (tweet.getUser().getScreenName());
-		this.userMentions= new ArrayList<String>();
+		if (tweet.getSource()!=null) {
+			this.source=tweet.getSource();
+		}
+		if((tweet.getText())!=null) {
+			this.text = tweet.getText();
+		}
+		if(tweet.getUser().getScreenName()!=null) {
+			this.userScreenName = tweet.getUser().getScreenName();
+		}
+		this.userMentions= new ArrayList<>();
 		for(UserMentionEntity entity : tweet.getUserMentionEntities()) {
 			this.userMentions.add(entity.getScreenName());
 		}

@@ -32,7 +32,7 @@ public class FilterAttitude extends Filter {
 	}
 	@Override
 	public void loadXml() {
-		
+		throw (new UnsupportedOperationException());
 	}
 
 }

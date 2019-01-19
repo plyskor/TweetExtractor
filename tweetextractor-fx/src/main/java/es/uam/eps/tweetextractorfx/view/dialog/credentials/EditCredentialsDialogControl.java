@@ -32,7 +32,7 @@ public class EditCredentialsDialogControl {
 	private MainApplication mainApplication;
 	
 	public EditCredentialsDialogControl() {
-		
+		super();
 	}
 	/**
 	 * @return the consumerKeyField
@@ -128,7 +128,7 @@ public class EditCredentialsDialogControl {
 	}
 	@FXML
 	public void handleDone() {
-		if(accessTokenField.getText().trim().isEmpty()||consumerKeyField.getText().trim().isEmpty()||consumerSecretField.getText().trim().isEmpty()||accessTokenField.getText().trim().isEmpty()||accessTokenSecretField.getText().trim().isEmpty()) {
+		if(accessTokenField.getText().trim().isEmpty()||consumerKeyField.getText().trim().isEmpty()||consumerSecretField.getText().trim().isEmpty()||accessTokenSecretField.getText().trim().isEmpty()) {
 			ErrorDialog.showErrorEmptyCredentials();
 			return;
 		}
@@ -162,7 +162,7 @@ public class EditCredentialsDialogControl {
 			accessTokenField.setText(credentials.getAccessToken());
 			accessTokenSecretField.setText(credentials.getAccessTokenSecret());
 			accountScreenNameField.setText(credentials.getAccountScreenName());
-			consumerKeyField.setText(credentials.getConsumerKey());;
+			consumerKeyField.setText(credentials.getConsumerKey());
 			consumerSecretField.setText(credentials.getConsumerSecret());
 		}
 	}

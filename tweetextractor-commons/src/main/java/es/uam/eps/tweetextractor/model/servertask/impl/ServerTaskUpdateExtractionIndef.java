@@ -93,7 +93,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 		this.extraction = eServ.findById(this.getExtractionId());
 	}
 
-	public void implementation() throws Exception {
+	public void implementation() {
 		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
 		logger.info("Loading existing tweets...");
 		List<Tweet> ret = tServ.findByExtraction(this.getExtraction());
@@ -162,6 +162,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 							logger.info("The task with id: " + this.getId() + " has been stppoed.");
 							onStop();
 							releaseExtraction();
+							Thread.currentThread().interrupt();
 							return;
 						}
 					}
@@ -188,6 +189,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 						logger.info("The task with id: " + this.getId() + " has been stopped.");
 						onStop();
 						releaseExtraction();
+						Thread.currentThread().interrupt();
 						return;
 					}
 				} else {

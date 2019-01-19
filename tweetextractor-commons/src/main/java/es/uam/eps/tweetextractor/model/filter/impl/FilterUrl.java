@@ -63,7 +63,7 @@ public class FilterUrl extends Filter {
 	}
 	@Override
 	public void loadXml() {
-		
+		throw(new UnsupportedOperationException());
 	}
 
 }

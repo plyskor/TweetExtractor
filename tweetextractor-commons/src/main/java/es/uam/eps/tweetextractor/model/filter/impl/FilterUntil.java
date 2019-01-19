@@ -79,6 +79,7 @@ public class FilterUntil extends Filter {
 	}
 	@Override
 	public void loadXml() {		
+		throw(new UnsupportedOperationException());
 	}
 
 }

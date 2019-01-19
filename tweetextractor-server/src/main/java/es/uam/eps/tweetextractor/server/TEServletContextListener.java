@@ -41,10 +41,10 @@ public class TEServletContextListener implements ServletContextListener {
 
 	  @Override
 	  public void contextInitialized(ServletContextEvent arg0) {
-		  AnnotationConfigApplicationContext TEServerSpringContext = 
+		  AnnotationConfigApplicationContext tEServerSpringContext = 
 	                new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
 		  ServletContext context = arg0.getServletContext();
-		  server = new Server(TEServerSpringContext);
+		  server = new Server(tEServerSpringContext);
 		  if(this.server!=null) {
 			  this.server.initialize();
 		  }else {

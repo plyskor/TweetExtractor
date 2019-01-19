@@ -34,12 +34,9 @@ public class LoginDialogControl {
 	 * 
 	 */
 	public LoginDialogControl() {
-		initialize();
+		super();
 	}
 
-	private void initialize() {
-
-	}
 
 	/**
 	 * @return the userField
@@ -95,8 +92,6 @@ public class LoginDialogControl {
 	 */
 	public void setWelcomeScreenControl(WelcomeScreenControl welcomeScreenControl) {
 		this.welcomeScreenControl = welcomeScreenControl;
-		this.getWelcomeScreenControl().getMainApplication().updateUserList();
-
 	}
 
 	@FXML

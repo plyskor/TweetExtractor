@@ -66,19 +66,19 @@ public class ShowUserExtractionsControl {
 
 	@SuppressWarnings("unchecked")
 	private void updateTreeTableView() {
-		TreeItem<String> root = new TreeItem<String>(
+		TreeItem<String> root = new TreeItem<>(
 				"Extractions of the account " + this.getMainApplication().getCurrentUser().getNickname());
 		extractionTableView.setRoot(root);
 		for (Extraction extraction : this.getMainApplication().getCurrentUser().getExtractionList()) {
 			if(extraction!=null) {
-			TreeItem<String> extractionNode = new TreeItem<String>("Extraction " + extraction.getIdDB());
+			TreeItem<String> extractionNode = new TreeItem<>("Extraction " + extraction.getIdDB());
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			TreeItem<String> createdAt = new TreeItem<String>("Created On: " + df.format(extraction.getCreationDate()));
-			TreeItem<String> lastModified = new TreeItem<String>(
+			TreeItem<String> createdAt = new TreeItem<>("Created On: " + df.format(extraction.getCreationDate()));
+			TreeItem<String> lastModified = new TreeItem<>(
 					"Last updated: " + df.format(extraction.getLastModificationDate()));
-			TreeItem<String> filtersNode = new TreeItem<String>("Filters");
+			TreeItem<String> filtersNode = new TreeItem<>("Filters");
 			for(Filter filter:extraction.getFilterList()) {
-				TreeItem<String> filterItem = new TreeItem<String>(filter.getSummary());
+				TreeItem<String> filterItem = new TreeItem<>(filter.getSummary());
 				filtersNode.getChildren().add(filterItem);
 			}
 			extractionNode.getChildren().addAll(createdAt,lastModified,filtersNode);
@@ -156,7 +156,6 @@ public class ShowUserExtractionsControl {
 	public void handleRemoveExtraction() {
 		if(selectedExtraction==null) {
 			ErrorDialog.showErrorNoSelectedExtraction();
-				return;
 		}else {
 			this.getMainApplication().getCurrentUser().removeExtractionFromList(selectedExtraction);
 			XMLManager.deleteExtraction(selectedExtraction);

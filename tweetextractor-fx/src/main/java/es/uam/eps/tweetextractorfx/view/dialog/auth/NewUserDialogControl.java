@@ -25,12 +25,9 @@ public class NewUserDialogControl {
 	private Stage loadingDialog = null;
 	private Alert alertRegister=null; 
 	public NewUserDialogControl() {
+		super();
+	}
 
-	}
-	@FXML 
-	private void initialize() {
-		
-	}
 	/**
 	 * @return the dialogStage
 	 */

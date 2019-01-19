@@ -6,7 +6,6 @@ package es.uam.eps.tweetextractor.model.task.status;
 import java.util.List;
 
 import es.uam.eps.tweetextractor.model.Tweet;
-import javafx.scene.control.Alert;
 import twitter4j.Status;
 
 /**
@@ -23,7 +22,7 @@ public class UpdateStatus {
 	/**
 	 * 
 	 */
-	public UpdateStatus(Integer nTweets,Alert alert) {
+	public UpdateStatus(Integer nTweets) {
 		this.nTweets=nTweets;
 	}
 	/**

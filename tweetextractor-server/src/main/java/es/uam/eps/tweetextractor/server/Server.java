@@ -4,6 +4,7 @@
 package es.uam.eps.tweetextractor.server;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 public class Server {
 	ExtractionServiceInterface eServ;
 	ServerTaskServiceInterface stServ;
-	private List<ServerTask> serverTaskList = new ArrayList<ServerTask>();
+	private List<ServerTask> serverTaskList = new ArrayList<>();
 	/*Initialize logger*/
 	private Logger logger = LoggerFactory.getLogger(Server.class);
 	private AnnotationConfigApplicationContext springContext;
@@ -80,35 +81,32 @@ public class Server {
 	
 	public void interruptTask(int id) {
 		ServerTask task= findById(id);
-		if(task!=null) {
-			if(task.getStatus()==Constants.ST_RUNNING) {
+			if(task!=null&&task.getStatus()==Constants.ST_RUNNING) {
 				logger.info("Trying to interrupt task with id "+task.getId()+" ...");
 				task.getThread().interrupt();
 				try {
 					task.getThread().join();
 				} catch (InterruptedException e) {
-					logger.error(e.getStackTrace().toString());
+					logger.error(Arrays.toString(e.getStackTrace()));
+					Thread.currentThread().interrupt();
 				}
 			}
-		}
 	}
 	
 	public void interruptTask(ServerTask task) {
-		if(task!=null) {
-			if(task.getStatus()==Constants.ST_RUNNING) {
+			if(task!=null&&task.getStatus()==Constants.ST_RUNNING) {
 				logger.info("Trying to interrupt task with id "+task.getId()+" ...");
 				task.getThread().interrupt();
 				try {
 					task.getThread().join();
 				} catch (InterruptedException e) {
-					logger.error(e.getStackTrace().toString());
+					logger.error(Arrays.toString(e.getStackTrace()));
+					Thread.currentThread().interrupt();
 				}
 			}
-		}
 	}
 	public void haltTask(ServerTask task) {
-		if(task!=null) {
-			if(task.getStatus()==Constants.ST_RUNNING) {
+			if(task!=null&&task.getStatus()==Constants.ST_RUNNING) {
 				task.getThread().interrupt();
 				try {
 					task.getThread().join();
@@ -116,17 +114,16 @@ public class Server {
 					stServ.update(task);
 					
 				} catch (InterruptedException e) {
-					logger.error(e.getStackTrace().toString());
+					logger.error(Arrays.toString(e.getStackTrace()));
+					Thread.currentThread().interrupt();
 				}
 			}
-		}
 	}
 	public void addTaskToServer(ServerTask task) {
-		if(task!=null||serverTaskList!=null) {
+		if(task!=null&&serverTaskList!=null) {
 			logger.info("Task with id "+task.getId()+" has been added to Server instance.");
 			serverTaskList.add(task);
 		}
-		return;
 	}
 	
 	public void deleteTaskFromServer(ServerTask task) {
