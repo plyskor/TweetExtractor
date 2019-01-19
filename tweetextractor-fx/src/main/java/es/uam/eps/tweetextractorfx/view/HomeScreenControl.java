@@ -5,6 +5,9 @@ package es.uam.eps.tweetextractorfx.view;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskUpdateExtractionIndefResponse;
@@ -50,13 +53,12 @@ public class HomeScreenControl {
 	 * 
 	 */
 	public HomeScreenControl() {
+		super();
 	}
 
 	@FXML
 	private void initialize() {
-		Image logo = new Image("icon.png");
-		if (logo != null)
-			logoView.setImage(logo);
+		logoView.setImage(new Image("icon.png"));
 	}
 
 	/**
@@ -95,7 +97,7 @@ public class HomeScreenControl {
 	public void handleCreateExtraction() {
 		if (!this.getMainApplication().getCurrentUser().hasAnyCredentials()) {
 			ErrorDialog.showErrorNoCredentials();
-			return;
+			
 		}
 		this.getMainApplication().showQueryConstructor();
 	}
@@ -157,7 +159,7 @@ public class HomeScreenControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(HomeScreenControl.class.getResource("dialog/credentials/AddCredentialsDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			AnchorPane page = loader.load();
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -173,10 +175,10 @@ public class HomeScreenControl {
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 
-			return;
+			
 		} catch (IOException e) {
-			e.printStackTrace();
-			return;
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -185,7 +187,7 @@ public class HomeScreenControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(HomeScreenControl.class.getResource("dialog/auth/ChangePasswordDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			AnchorPane page =loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -199,10 +201,11 @@ public class HomeScreenControl {
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 
-			return;
+			
 		} catch (IOException e) {
-			e.printStackTrace();
-			return;
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
+			
 		}
 	}
 
@@ -211,7 +214,7 @@ public class HomeScreenControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(HomeScreenControl.class.getResource("dialog/ServerPreferencesDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			AnchorPane page = loader.load();
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -227,10 +230,11 @@ public class HomeScreenControl {
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 
-			return;
+			
 		} catch (IOException e) {
-			e.printStackTrace();
-			return;
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
+			
 		}
 	}
 
@@ -240,7 +244,7 @@ public class HomeScreenControl {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(
 					HomeScreenControl.class.getResource("server/dialog/CreateServerTaskSelectTaskTypeDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			AnchorPane page = loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -255,7 +259,8 @@ public class HomeScreenControl {
 			dialogStage.showAndWait();
 			return controller.getToReturn();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 			return null;
 		}
 	}
@@ -265,7 +270,7 @@ public class HomeScreenControl {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(
 					HomeScreenControl.class.getResource("server/dialog/CreateExtractionServerTaskSelectExtractionDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			AnchorPane page = loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -280,7 +285,8 @@ public class HomeScreenControl {
 			dialogStage.showAndWait();
 			return controller.getToReturn();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 			return null;
 		}
 	}
@@ -290,7 +296,7 @@ public class HomeScreenControl {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(
 					HomeScreenControl.class.getResource("server/dialog/CreateExtractionServerTaskSelectTaskTypeDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			AnchorPane page = loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -305,7 +311,8 @@ public class HomeScreenControl {
 			dialogStage.showAndWait();
 			return controller.getToReturn();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 			return null;
 		}
 	}
@@ -313,7 +320,7 @@ public class HomeScreenControl {
 	public void onCreateTask() {
 		if(!this.getMainApplication().checkServer()){
 			ErrorDialog.showErrorConfigureServer();
-			return;
+			
 		}
 		String selectedTaskType;
 		selectedTaskType = showCreateServerTaskSelectTypeDialog();
@@ -329,10 +336,7 @@ public class HomeScreenControl {
 			default:
 				break;
 			}
-		} else {
-			return;
-		}
-
+		} 
 	}
 	public void onCreateExtractionTask() {
 		Extraction selectedExtraction;
@@ -354,23 +358,23 @@ public class HomeScreenControl {
 			default:
 				break;
 			}
-			return;
+			
 		}
 	}
 	@FXML
 	public void onManageTasks() {
 		if(!this.getMainApplication().checkServer()){
 			ErrorDialog.showErrorConfigureServer();
-			return;
+			
 		}
 		this.getMainApplication().showManageServerTasks();
-		return;
+		
 	}
 
 	@FXML
 	public void onManageServerPreferences() {
 		showManageServerPreferences();
-		return;
+		
 	}
 
 }

@@ -125,7 +125,7 @@ public class AddCredentialsDialogControl {
 	}
 	@FXML
 	public void handleDone() {
-		if(accessTokenField.getText().trim().isEmpty()||consumerKeyField.getText().trim().isEmpty()||consumerSecretField.getText().trim().isEmpty()||accessTokenField.getText().trim().isEmpty()||accessTokenSecretField.getText().trim().isEmpty()) {
+		if(accessTokenField.getText().trim().isEmpty()||consumerKeyField.getText().trim().isEmpty()||consumerSecretField.getText().trim().isEmpty()||accessTokenSecretField.getText().trim().isEmpty()) {
 			ErrorDialog.showErrorEmptyCredentials();
 			return;
 		}

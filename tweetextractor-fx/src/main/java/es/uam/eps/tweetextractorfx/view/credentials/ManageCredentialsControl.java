@@ -2,6 +2,9 @@ package es.uam.eps.tweetextractorfx.view.credentials;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractor.dao.service.inter.CredentialsServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
@@ -72,16 +75,16 @@ public class ManageCredentialsControl {
 
 	@SuppressWarnings("unchecked")
 	private void updateTreeTableView() {
-		TreeItem<String> root = new TreeItem<String>(
+		TreeItem<String> root = new TreeItem<>(
 				"Twitter API credentials for the account " + this.getMainApplication().getCurrentUser().getNickname());
 		credentialsTableView.setRoot(root);
 		for (Credentials credentials : this.getMainApplication().getCurrentUser().getCredentialList()) {
-			TreeItem<String> credentialsNode = new TreeItem<String>("@" + credentials.getAccountScreenName());
-			TreeItem<String> consumerKey = new TreeItem<String>("consumerKey: " + credentials.getConsumerKey());
-			TreeItem<String> consumerSecret = new TreeItem<String>(
+			TreeItem<String> credentialsNode = new TreeItem<>("@" + credentials.getAccountScreenName());
+			TreeItem<String> consumerKey = new TreeItem<>("consumerKey: " + credentials.getConsumerKey());
+			TreeItem<String> consumerSecret = new TreeItem<>(
 					"consumerSecret: " + credentials.getConsumerSecret());
-			TreeItem<String> accessToken = new TreeItem<String>("accessToken: " + credentials.getAccessToken());
-			TreeItem<String> accessTokenSecret = new TreeItem<String>(
+			TreeItem<String> accessToken = new TreeItem<>("accessToken: " + credentials.getAccessToken());
+			TreeItem<String> accessTokenSecret = new TreeItem<>(
 					"consumerTokenSecret: " + credentials.getAccessTokenSecret());
 			credentialsNode.getChildren().addAll(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 			root.getChildren().add(credentialsNode);
@@ -144,7 +147,7 @@ public class ManageCredentialsControl {
 	public void handleEditCredentials() {
 		if(selectedCredentials==null) {
 			ErrorDialog.showErrorNoSelectedCredentials();
-				return;
+				
 		}
 		showEditCredentials(selectedCredentials);
 		this.updateTreeTableView();
@@ -156,9 +159,10 @@ public class ManageCredentialsControl {
 					loader.setLocation(HomeScreenControl.class.getResource("dialog/credentials/EditCredentialsDialog.fxml"));
 					AnchorPane page=null;
 					try {
-						page = (AnchorPane) loader.load();
+						page = loader.load();
 					} catch (IOException e) {
-						e.printStackTrace();
+						Logger logger = LoggerFactory.getLogger(this.getClass());
+						logger.error(e.getMessage());
 					}
 					// Create the dialog Stage.
 					Stage dialogStage = new Stage();
@@ -174,14 +178,14 @@ public class ManageCredentialsControl {
 					controller.setCredentials(credentials);
 					// Show the dialog and wait until the user closes it, then add filter
 					dialogStage.showAndWait();
-					return;
+					
 	}
 
 	@FXML
 	public void handleRemoveCredentials() {
 		if(selectedCredentials==null) {
 			ErrorDialog.showErrorNoSelectedCredentials();
-				return;
+				
 		}else {
 			this.getMainApplication().getCurrentUser().getCredentialList().remove(selectedCredentials);
 			CredentialsServiceInterface credentialsService = mainApplication.getSpringContext().getBean(CredentialsServiceInterface.class);
@@ -195,7 +199,7 @@ public class ManageCredentialsControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(HomeScreenControl.class.getResource("dialog/credentials/AddCredentialsDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			AnchorPane page = loader.load();
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -211,11 +215,9 @@ public class ManageCredentialsControl {
 			controller.setCredentials(credentials);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			
-			return;
 		} catch (IOException e) {
-			e.printStackTrace();
-			return;
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 		}
 	}
 }

@@ -175,5 +175,5 @@ public abstract class ServerTask implements Runnable,Serializable {
 		this.trigger = trigger;
 	}
 	public abstract void initialize(AnnotationConfigApplicationContext context);
-	public abstract void implementation() throws Exception;
+	public abstract void implementation() ;
 }

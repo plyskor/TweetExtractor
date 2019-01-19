@@ -34,8 +34,8 @@ public class ServerTaskService extends GenericService<ServerTask, Integer> imple
     @Override
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public boolean hasAnyServerTask(User user) {
-		if(findByUser(user)==null)return false;
-		return true;	}
+		return !findByUser(user).isEmpty();
+    }
     @Override
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<ServerTask> findByUser(User user) {

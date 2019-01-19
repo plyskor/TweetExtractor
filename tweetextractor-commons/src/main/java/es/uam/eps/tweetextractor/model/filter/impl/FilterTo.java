@@ -60,7 +60,7 @@ public class FilterTo extends Filter {
 	}
 	@Override
 	public void loadXml() {
-		
+		throw(new UnsupportedOperationException());
 	}
 
 }

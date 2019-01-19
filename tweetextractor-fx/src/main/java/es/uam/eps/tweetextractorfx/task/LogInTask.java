@@ -6,6 +6,8 @@ package es.uam.eps.tweetextractorfx.task;
 import java.util.Date;
 import org.hibernate.HibernateException;
 import org.mindrot.jbcrypt.BCrypt;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
@@ -53,7 +55,8 @@ public class LogInTask extends TwitterExtractorFXTask<LoginStatus>{
 				return ret;
 			}
 		}catch(HibernateException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 			return null;
 		}
 		boolean passOK = BCrypt.checkpw(pass, userLogged.getPassword());

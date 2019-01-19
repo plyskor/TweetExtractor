@@ -3,6 +3,9 @@ package es.uam.eps.tweetextractorfx.twitterapi;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
@@ -33,18 +36,18 @@ public class TwitterExtractor {
 	private String errorMessage=null;
 	private TweetServiceInterface tweetService;
 	private AnnotationConfigApplicationContext springContext;
-	public TwitterExtractor(String consulta,Credentials credentials,AnnotationConfigApplicationContext context) {
+	public TwitterExtractor(Credentials credentials,AnnotationConfigApplicationContext context) {
 		super();
 		if(credentials==null)return;
 		/*Configuramos la API con nuestros datos provisionales*/
 		setCredentials(credentials);
-		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(false).setOAuthConsumerKey(this.credentials.getConsumerKey())
+		ConfigurationBuilder confBuilder = new ConfigurationBuilder();
+		confBuilder.setDebugEnabled(false).setOAuthConsumerKey(this.credentials.getConsumerKey())
 		.setOAuthConsumerSecret(this.credentials.getConsumerSecret())
 		.setOAuthAccessToken(this.credentials.getAccessToken()).setTweetModeExtended(true)
 		.setOAuthAccessTokenSecret(this.credentials.getAccessTokenSecret());
 		/*Instanciamos la conexión*/
-		 tf = new TwitterFactory(cb.build());
+		 tf = new TwitterFactory(confBuilder.build());
 		twitter = tf.getInstance();
 		springContext = context;
 		tweetService=springContext.getBean(TweetServiceInterface.class);
@@ -61,7 +64,7 @@ public class TwitterExtractor {
 		}
 	}
 	public UpdateStatus execute(){
-		List<Tweet> tweetList = new ArrayList<Tweet>();
+		List<Tweet> tweetList = new ArrayList<>();
 		UpdateStatus ret;
 		ret=getStatusListExecution();
 		if(ret.getStatusList()==null)return ret;
@@ -72,8 +75,8 @@ public class TwitterExtractor {
 		return ret;
 	}
 	public UpdateStatus getStatusListExecution() {
-		UpdateStatus ret= new UpdateStatus(0, null);
-		List<Status>resultList=new ArrayList<Status>();
+		UpdateStatus ret= new UpdateStatus(0);
+		List<Status>resultList=new ArrayList<>();
 		try {
             QueryResult result;
             do {
@@ -94,7 +97,7 @@ public class TwitterExtractor {
             //*RATELIMIT
             if(te.getStatusCode()==429&&te.getErrorCode()==88) {
             	this.updateStatus=Constants.RATE_LIMIT_UPDATE_ERROR;
-            	if(resultList!=null&&!resultList.isEmpty()) {
+            	if(!resultList.isEmpty()) {
                 	this.updateStatus=Constants.SUCCESS_UPDATE;
             		ret.setStatusList(resultList);
             		return ret;
@@ -156,7 +159,7 @@ public class TwitterExtractor {
 		if (extraction==null)return null;
 		this.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList())+"-filter:retweets");
 		UpdateStatus ret=null;
-		List<Tweet> toPersist= new ArrayList<Tweet>();
+		List<Tweet> toPersist= new ArrayList<>();
 		ret= execute();
 		if(ret.getTweetList()==null)return ret;
 		for(Tweet tweet:ret.getTweetList()) {
@@ -173,10 +176,10 @@ public class TwitterExtractor {
 	}
 	public RateLimitStatus limit(String endpoint) {
 		  try {
-			  RateLimitStatus status = twitter.getRateLimitStatus().get(endpoint);
-			return status;
+			return twitter.getRateLimitStatus().get(endpoint);
 		} catch (TwitterException e) {
-			e.printStackTrace();
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
 		}
 		  return null;
 		}

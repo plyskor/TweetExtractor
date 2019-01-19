@@ -30,8 +30,8 @@ public class ExtractionService extends GenericService<Extraction, Integer> imple
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
     @Override
 	public boolean hasAnyExtraction(User user) {
-		if(findByUser(user)==null)return false;
-		return true;	}
+		return !findByUser(user).isEmpty();
+    }
     @Override
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<Extraction> findByUser(User user) {

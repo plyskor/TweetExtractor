@@ -13,6 +13,7 @@ public class UpdateExtractionIndefResponse extends ServerTaskResponse {
 	 * 
 	 */
 	public UpdateExtractionIndefResponse() {
+		super();
 	}
 
 }
