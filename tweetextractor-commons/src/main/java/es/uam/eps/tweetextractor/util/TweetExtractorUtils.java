@@ -17,6 +17,6 @@ public class TweetExtractorUtils {
 	}
 	
 	public static String buildServerAdress(String serverHost,String serverAppName, int port) {
-		return new String("http://"+serverHost+":"+port+"/"+serverAppName+"/");
+		return new String("https://"+serverHost+":"+port+"/"+serverAppName+"/");
 	}
 }
