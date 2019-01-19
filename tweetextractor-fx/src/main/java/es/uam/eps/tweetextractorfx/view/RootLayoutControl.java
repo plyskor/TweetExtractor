@@ -7,9 +7,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.task.DeleteAccountTask;
+import es.uam.eps.tweetextractorfx.view.dialog.auth.ChangePasswordDialogControl;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
@@ -17,8 +25,12 @@ public class RootLayoutControl {
 	/*Reference to the MainApplication*/
     private MainApplication mainApplication;
     @FXML
-    private Menu archivoMenu;
+    private Menu tweetExtractorMenu;
+    @FXML
+    private Menu optionsMenu;
     
+    private Stage loadingDialog = null;
+
     private MenuItem logoutmenuitem ;
 	/**
 	 * @return the mainApplication
@@ -39,7 +51,10 @@ public class RootLayoutControl {
     	        mainApplication.showWelcomeScreen();
     	});
 	}
-
+	@FXML 
+	public void initialize() {
+		removeOptionsMenu();
+	}
 	/**
 	 * @return the logoutmenuitem
 	 */
@@ -58,14 +73,14 @@ public class RootLayoutControl {
 	 * @return the archivoMenu
 	 */
 	public Menu getArchivoMenu() {
-		return archivoMenu;
+		return tweetExtractorMenu;
 	}
 
 	/**
 	 * @param archivoMenu the archivoMenu to set
 	 */
 	public void setArchivoMenu(Menu archivoMenu) {
-		this.archivoMenu = archivoMenu;
+		this.tweetExtractorMenu = archivoMenu;
 	}
 
 	/**
@@ -111,8 +126,8 @@ public class RootLayoutControl {
      * Opens the birthday statistics.
      */
     public void addLogOut() {
-    	if(!archivoMenu.getItems().contains(logoutmenuitem)) {
-    		archivoMenu.getItems().add(1, logoutmenuitem);
+    	if(!tweetExtractorMenu.getItems().contains(logoutmenuitem)) {
+    		tweetExtractorMenu.getItems().add(1, logoutmenuitem);
     	}
     }
     public void logOut() {
@@ -120,4 +135,65 @@ public class RootLayoutControl {
     		logoutmenuitem.fire();
     	}
     }
+	public void showUpdatePassword() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(HomeScreenControl.class.getResource("dialog/auth/ChangePasswordDialog.fxml"));
+			AnchorPane page =loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(mainApplication.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			// Set the dialogStage to the controller.
+			ChangePasswordDialogControl controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setMainApplication(mainApplication);
+			// Show the dialog and wait until the user closes it, then add filter
+			dialogStage.showAndWait();
+
+			
+		} catch (IOException e) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
+			
+		}
+	}
+	@FXML
+	public void handleChangePassword() {
+		showUpdatePassword();
+	}
+	@FXML
+	public void handleDeleteUser() {
+		Alert alert = new Alert(AlertType.CONFIRMATION,
+				"This action will delete the account " + this.getMainApplication().getCurrentUser().getNickname()
+						+ ", and also every extraction owned by it. Are you sure you want to continue?",
+				ButtonType.YES, ButtonType.NO);
+		alert.showAndWait();
+		if (alert.getResult() == ButtonType.YES) {
+			DeleteAccountTask deleteTask = new DeleteAccountTask(this.getMainApplication().getCurrentUser(),mainApplication.getSpringContext());
+			deleteTask.setOnSucceeded(e -> {
+				this.logOut();
+				if (loadingDialog != null)
+					loadingDialog.close();
+			});
+			deleteTask.setOnFailed(e -> {
+				if (loadingDialog != null)
+					loadingDialog.close();
+			});
+			Thread thread = new Thread(deleteTask);
+			thread.setName(deleteTask.getClass().getCanonicalName());
+			thread.start();
+			loadingDialog = mainApplication.showLoadingDialog("Deleting account...");
+			loadingDialog.showAndWait();
+		}
+	}
+	public void addOptionsMenu() {
+		optionsMenu.setVisible(true);
+	}
+	public void removeOptionsMenu() {
+		optionsMenu.setVisible(false);
+	}
 }

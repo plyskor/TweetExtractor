@@ -5,26 +5,25 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0"
-	xmlns="http://javafx.com/javafx/10.0.1"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="es.uam.eps.tweetextractorfx.view.RootLayoutControl">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.RootLayoutControl">
 	<top>
 		<MenuBar BorderPane.alignment="CENTER">
 			<menus>
-				<Menu fx:id="archivoMenu" mnemonicParsing="false"
-					text="TweetExtractor">
+				<Menu fx:id="tweetExtractorMenu" mnemonicParsing="false" text="TweetExtractor">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleHome"
-							text="Home" />
-						<MenuItem mnemonicParsing="false" onAction="#handleExit"
-							text="Quit" />
+						<MenuItem mnemonicParsing="false" onAction="#handleHome" text="Home screen" />
+						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Quit" />
 					</items>
 				</Menu>
+            <Menu fx:id="optionsMenu" mnemonicParsing="false" text="Options">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#handleChangePassword" text="Change password..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleDeleteUser" text="Delete this account" />
+              </items>
+            </Menu>
 				<Menu mnemonicParsing="false" text="Help">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleAbout"
-							text="About..." />
+						<MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About..." />
 					</items>
 				</Menu>
 			</menus>

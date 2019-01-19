@@ -153,6 +153,7 @@ public class LoginDialogControl {
         	alertLogin.showAndWait();
         }else {
         	this.getDialogStage().close();
+        	this.getWelcomeScreenControl().getMainApplication().getRootLayoutController().addOptionsMenu();
     		this.getWelcomeScreenControl().getMainApplication().showHomeScreen();
         }
         

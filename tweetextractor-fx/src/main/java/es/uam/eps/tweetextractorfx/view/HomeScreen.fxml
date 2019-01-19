@@ -148,7 +148,7 @@
 													<children>
 														<StackPane prefHeight="37.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 															<children>
-																<Text fill="#f1873c" strokeType="OUTSIDE" strokeWidth="0.0" text="Operations">
+																<Text fill="#f1873c" strokeType="OUTSIDE" strokeWidth="0.0" text="Analytics">
 																	<font>
 																		<Font name="Geeza Pro Regular" size="22.0" />
 																	</font>
@@ -171,17 +171,17 @@
 															<children>
 																<AnchorPane prefHeight="200.0" prefWidth="200.0">
 																	<children>
-																		<Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="61.0" prefWidth="398.0" text="Change my password..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+																		<Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 																	</children>
 																</AnchorPane>
 																<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
 																	<children>
-																		<Button mnemonicParsing="false" onAction="#handleLogOut" prefHeight="61.0" prefWidth="398.0" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+																		<Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 																	</children>
 																</AnchorPane>
 																<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
 																	<children>
-																		<Button mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="61.0" prefWidth="398.0" text="Delete this account" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+																		<Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 																	</children>
 																</AnchorPane>
 															</children>

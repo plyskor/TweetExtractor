@@ -33,5 +33,6 @@
   	<module>tweetextractor-commons</module>
 	<module>tweetextractor-fx</module>
 	<module>tweetextractor-server</module>
+	<module>tweetextractor-analytics</module>
   </modules>
 </project>

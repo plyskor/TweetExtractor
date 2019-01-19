@@ -14,10 +14,8 @@ import es.uam.eps.tweetextractor.model.service.CreateServerTaskUpdateExtractionI
 import es.uam.eps.tweetextractor.service.CreateServerTaskUpdateExtractionIndef;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
-import es.uam.eps.tweetextractorfx.task.DeleteAccountTask;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.dialog.ServerPreferencesDialogControl;
-import es.uam.eps.tweetextractorfx.view.dialog.auth.ChangePasswordDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTaskSelectExtractionDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTaskSelectTaskTypeDialogControl;
@@ -25,9 +23,6 @@ import es.uam.eps.tweetextractorfx.view.server.dialog.CreateServerTaskSelectTask
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -46,8 +41,6 @@ public class HomeScreenControl {
 	private ImageView logoView;
 	@FXML
 	private Text userView;
-
-	private Stage loadingDialog = null;
 
 	/**
 	 * 
@@ -92,7 +85,6 @@ public class HomeScreenControl {
 	public void setLogoView(ImageView logoView) {
 		this.logoView = logoView;
 	}
-
 	@FXML
 	public void handleCreateExtraction() {
 		if (!this.getMainApplication().getCurrentUser().hasAnyCredentials()) {
@@ -101,51 +93,13 @@ public class HomeScreenControl {
 		}
 		this.getMainApplication().showQueryConstructor();
 	}
-
 	@FXML
 	public void handleAddCredentials() {
 		showAddCredentials();
 	}
-
-	@FXML
-	public void handleLogOut() {
-		this.getMainApplication().getRootLayoutController().logOut();
-	}
-
-	@FXML
-	public void handleDeleteUser() {
-		Alert alert = new Alert(AlertType.CONFIRMATION,
-				"This action will delete the account " + this.getMainApplication().getCurrentUser().getNickname()
-						+ ", and also every extraction owned by it. Are you sure you want to continue?",
-				ButtonType.YES, ButtonType.NO);
-		alert.showAndWait();
-		if (alert.getResult() == ButtonType.YES) {
-			DeleteAccountTask deleteTask = new DeleteAccountTask(this.getMainApplication().getCurrentUser(),mainApplication.getSpringContext());
-			deleteTask.setOnSucceeded(e -> {
-				this.handleLogOut();
-				if (loadingDialog != null)
-					loadingDialog.close();
-			});
-			deleteTask.setOnFailed(e -> {
-				if (loadingDialog != null)
-					loadingDialog.close();
-			});
-			Thread thread = new Thread(deleteTask);
-			thread.setName(deleteTask.getClass().getCanonicalName());
-			thread.start();
-			loadingDialog = mainApplication.showLoadingDialog("Deleting account...");
-			loadingDialog.showAndWait();
-		}
-	}
-
 	@FXML
 	public void handleManageCredentials() {
 		this.getMainApplication().showManageCredentials();
-	}
-
-	@FXML
-	public void handleChangePassword() {
-		showUpdatePassword();
 	}
 
 	@FXML
@@ -181,34 +135,6 @@ public class HomeScreenControl {
 			logger.error(e.getMessage());
 		}
 	}
-
-	public void showUpdatePassword() {
-		try {
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(HomeScreenControl.class.getResource("dialog/auth/ChangePasswordDialog.fxml"));
-			AnchorPane page =loader.load();
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(mainApplication.getPrimaryStage());
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-			// Set the dialogStage to the controller.
-			ChangePasswordDialogControl controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setMainApplication(mainApplication);
-			// Show the dialog and wait until the user closes it, then add filter
-			dialogStage.showAndWait();
-
-			
-		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
-			
-		}
-	}
-
 	public void showManageServerPreferences() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
