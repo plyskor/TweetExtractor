@@ -17,7 +17,10 @@
 	<build>
 		<resources>
 			<resource>
-				<directory>src</directory>
+				<directory>src/main/java</directory>
+				<includes>
+                                        <include>**/*.fxml</include>
+                                </includes>
 				<excludes>
 					<exclude>**/*.java</exclude>
 				</excludes>
