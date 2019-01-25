@@ -23,6 +23,8 @@ public class ServerTaskInfo {
 	public TaskTypes taskType;
 	@XmlElement(name="extraction")
 	private String extractionSummary;
+	@XmlElement(name="extractionId")
+	private int extractionId;
 	/**
 	 * 
 	 */
@@ -34,12 +36,13 @@ public class ServerTaskInfo {
 	 * @param status
 	 * @param taskType
 	 */
-	public ServerTaskInfo(int id, int status, TaskTypes taskType,String extractionSummary) {
+	public ServerTaskInfo(int id, int status, TaskTypes taskType,String extractionSummary, int extractionId) {
 		super();
 		this.id = id;
 		this.status = status;
 		this.taskType = taskType;
 		this.extractionSummary=extractionSummary;
+		this.extractionId=extractionId;
 	}
 	/**
 	 * @return the id
@@ -92,6 +95,19 @@ public class ServerTaskInfo {
 	 */
 	public void setExtractionSummary(String extractionSummary) {
 		this.extractionSummary = extractionSummary;
+	}
+	/**
+	 * @return the extractionId
+	 */
+	@XmlTransient
+	public int getExtractionId() {
+		return extractionId;
+	}
+	/**
+	 * @param extractionId the extractionId to set
+	 */
+	public void setExtractionId(int extractionId) {
+		this.extractionId = extractionId;
 	}
 	
 }

@@ -180,7 +180,7 @@ public class Server {
 				if(ExtractionServerTask.class.isAssignableFrom(task.getClass())) {
 					extractionSummary=((ExtractionServerTask)task).getExtraction().getFiltersColumn();
 				}
-				ret.add(new ServerTaskInfo(task.getId(), task.getStatus(), task.getTaskType(),extractionSummary));
+				ret.add(new ServerTaskInfo(task.getId(), task.getStatus(), task.getTaskType(),extractionSummary,((ExtractionServerTask)task).getExtraction().getIdDB()));
 			}
 		}
 		return ret;

@@ -2,16 +2,31 @@ package es.uam.eps.tweetextractorfx.view.extraction;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+import javax.xml.ws.WebServiceException;
+
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.task.DeleteAccountTask;
+import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.filter.Filter;
+import es.uam.eps.tweetextractor.model.servertask.ServerTask;
+import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
+import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
+import es.uam.eps.tweetextractor.model.service.GetUserServerTasksResponse;
+import es.uam.eps.tweetextractor.service.DeleteServerTask;
+import es.uam.eps.tweetextractor.service.GetUserServerTasks;
+import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -157,13 +172,37 @@ public class ShowUserExtractionsControl {
 		if(selectedExtraction==null) {
 			ErrorDialog.showErrorNoSelectedExtraction();
 		}else {
+			deleteExtraction();
+		}
+	}
+	
+	public void deleteExtraction() {
+		Alert alert = new Alert(AlertType.CONFIRMATION,
+				"This action will delete the extraction " + selectedExtraction.getIdDB()
+						+ ", and also every tweet or server task related to it. Are you sure you want to continue?",
+				ButtonType.YES, ButtonType.NO);
+		alert.showAndWait();
+		if (alert.getResult() == ButtonType.YES) {
 			this.getMainApplication().getCurrentUser().removeExtractionFromList(selectedExtraction);
 			XMLManager.deleteExtraction(selectedExtraction);
 			ExtractionServiceInterface extractionService = mainApplication.getSpringContext().getBean(ExtractionServiceInterface.class);
 			extractionService.deleteById(selectedExtraction.getIdDB());
+			try {
+				GetUserServerTasks getTasksService = new GetUserServerTasks(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+				GetUserServerTasksResponse reply = getTasksService.getUserServerTasks(mainApplication.getCurrentUser().getIdDB());
+				if(!reply.isError()) {
+					for(ServerTaskInfo task : reply.getServerTasksList()) {
+						if(selectedExtraction.getIdDB()==task.getExtractionId()) {
+							DeleteServerTask deleteTaskService = new DeleteServerTask(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+							deleteTaskService.deleteServerTask(task.getId());
+						}
+					}
+				}
+			}catch(WebServiceException exception) {
+				exception.printStackTrace();
+			}
 			selectedExtraction=null;
 			this.updateTreeTableView();
 		}
 	}
-
 }
