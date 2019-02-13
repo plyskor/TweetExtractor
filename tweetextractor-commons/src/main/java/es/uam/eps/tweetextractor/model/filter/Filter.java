@@ -29,7 +29,7 @@ import javafx.beans.property.StringProperty;
  *
  */
 @Entity
-@Table(name="perm_fiter")
+@Table(name="perm_filter")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "filter_type",length=6, discriminatorType = DiscriminatorType.STRING)
 public abstract class Filter {
