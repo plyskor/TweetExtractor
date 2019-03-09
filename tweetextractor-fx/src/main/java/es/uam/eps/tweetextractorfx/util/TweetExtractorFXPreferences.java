@@ -24,8 +24,8 @@ public class TweetExtractorFXPreferences {
 		if(!isSetPreference(Constants.PREFERENCE_SERVER_ADDRESS)){
 			prefs.put(Constants.PREFERENCE_SERVER_HOST,"app.preciapps.com");
 			prefs.put(Constants.PREFERENCE_SERVER_PORT,"8080");
-			prefs.put(Constants.PREFERENCE_SERVER_NAMEAPP,"tweetextractor-server-1.0.0.0");
-			prefs.put(Constants.PREFERENCE_SERVER_ADDRESS,TweetExtractorUtils.buildServerAdress("app.preciapps.com", "tweetextractor-server-1.0.0.0", 8080));
+			prefs.put(Constants.PREFERENCE_SERVER_NAMEAPP,"tweetextractor-server-1.0.1.0");
+			prefs.put(Constants.PREFERENCE_SERVER_ADDRESS,TweetExtractorUtils.buildServerAdress("app.preciapps.com", "tweetextractor-server-1.0.1.0", 8080));
 		}
 	}
 	/**
