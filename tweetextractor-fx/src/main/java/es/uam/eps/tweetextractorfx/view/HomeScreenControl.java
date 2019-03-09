@@ -246,7 +246,7 @@ public class HomeScreenControl {
 	public void onCreateTask() {
 		if(!this.getMainApplication().checkServer()){
 			ErrorDialog.showErrorConfigureServer();
-			
+			return;
 		}
 		String selectedTaskType;
 		selectedTaskType = showCreateServerTaskSelectTypeDialog();
