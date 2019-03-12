@@ -10,7 +10,7 @@ import javax.servlet.ServletContext;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import es.uam.eps.tweetextractor.model.service.sei.GetServerStatusSei;
-import es.uam.eps.tweetextractor.server.Server;
+import es.uam.eps.tweetextractor.server.TweetExtractorServer;
 
 /**
  * @author Jose Antonio García del Saz
@@ -32,7 +32,7 @@ public class GetServerStatusImpl implements GetServerStatusSei{
 		MessageContext msgCtx = svcCtx.getMessageContext();
 		ServletContext context = (ServletContext) 
                 msgCtx.get(MessageContext.SERVLET_CONTEXT);
-	    Server server = (Server) context.getAttribute("Server");
+	    TweetExtractorServer server = (TweetExtractorServer) context.getAttribute("Server");
 	    return (server!=null);
 	}
 

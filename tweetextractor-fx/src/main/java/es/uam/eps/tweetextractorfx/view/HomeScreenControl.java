@@ -10,16 +10,20 @@ import org.slf4j.LoggerFactory;
 
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
+import es.uam.eps.tweetextractor.model.service.CreateServerTaskTimelineVolumeReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskUpdateExtractionIndefResponse;
+import es.uam.eps.tweetextractor.service.CreateServerTaskTimelineVolumeReport;
 import es.uam.eps.tweetextractor.service.CreateServerTaskUpdateExtractionIndef;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.dialog.ServerPreferencesDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
+import es.uam.eps.tweetextractorfx.view.server.dialog.CreateAnalyticsServerTaskSelectTypeDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTaskSelectExtractionDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTaskSelectTaskTypeDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateServerTaskSelectTaskTypeDialogControl;
+import es.uam.eps.tweetextractorfx.view.server.dialog.CreateTimelineReportServerTaskSelectTypeDialogControl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -85,18 +89,21 @@ public class HomeScreenControl {
 	public void setLogoView(ImageView logoView) {
 		this.logoView = logoView;
 	}
+
 	@FXML
 	public void handleCreateExtraction() {
 		if (!this.getMainApplication().getCurrentUser().hasAnyCredentials()) {
 			ErrorDialog.showErrorNoCredentials();
-			
+
 		}
 		this.getMainApplication().showQueryConstructor();
 	}
+
 	@FXML
 	public void handleAddCredentials() {
 		showAddCredentials();
 	}
+
 	@FXML
 	public void handleManageCredentials() {
 		this.getMainApplication().showManageCredentials();
@@ -129,12 +136,12 @@ public class HomeScreenControl {
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 
-			
 		} catch (IOException e) {
 			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 		}
 	}
+
 	public void showManageServerPreferences() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -156,11 +163,10 @@ public class HomeScreenControl {
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 
-			
 		} catch (IOException e) {
 			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
-			
+
 		}
 	}
 
@@ -190,12 +196,13 @@ public class HomeScreenControl {
 			return null;
 		}
 	}
+
 	public Extraction showCreateExtractionServerTaskSelectExtractionDialog() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(
-					HomeScreenControl.class.getResource("server/dialog/CreateExtractionServerTaskSelectExtractionDialog.fxml"));
+			loader.setLocation(HomeScreenControl.class
+					.getResource("server/dialog/CreateExtractionServerTaskSelectExtractionDialog.fxml"));
 			AnchorPane page = loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -216,12 +223,13 @@ public class HomeScreenControl {
 			return null;
 		}
 	}
+
 	public String showCreateExtractionServerTaskSelectTypeDialog() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(
-					HomeScreenControl.class.getResource("server/dialog/CreateExtractionServerTaskSelectTaskTypeDialog.fxml"));
+			loader.setLocation(HomeScreenControl.class
+					.getResource("server/dialog/CreateExtractionServerTaskSelectTaskTypeDialog.fxml"));
 			AnchorPane page = loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -242,9 +250,10 @@ public class HomeScreenControl {
 			return null;
 		}
 	}
+
 	@FXML
 	public void onCreateTask() {
-		if(!this.getMainApplication().checkServer()){
+		if (!this.getMainApplication().checkServer()) {
 			ErrorDialog.showErrorConfigureServer();
 			return;
 		}
@@ -253,17 +262,113 @@ public class HomeScreenControl {
 		if (selectedTaskType != null) {
 			switch (selectedTaskType) {
 			case (Constants.EXTRACTION_SERVER_TASK_TYPE):
-				if(this.getMainApplication().getCurrentUser().getExtractionList().isEmpty()) {
+				if (this.getMainApplication().getCurrentUser().getExtractionList().isEmpty()) {
 					ErrorDialog.showErrorUserHasNoExtraction();
-				}else {
+				} else {
 					onCreateExtractionTask();
+				}
+				break;
+			case (Constants.ANALYTICS_SERVER_TASK_TYPE):
+				if (this.getMainApplication().getCurrentUser().getExtractionList().isEmpty()) {
+					ErrorDialog.showErrorUserHasNoExtraction();
+				} else {
+					onCreateAnalyticsTask();
 				}
 				break;
 			default:
 				break;
 			}
-		} 
+		}
 	}
+
+	private void onCreateAnalyticsTask() {
+		String selectedType = showCreateAnalyticsTaskSelectTypeDialog();
+		if (selectedType == null) {
+			onCreateTask();
+		} else {
+			switch (selectedType) {
+			case (Constants.TIMELINE_REPORT_SERVER_TASK_TYPE):
+				String selectedTimelineReport = "";
+			    selectedTimelineReport = showCreateTimelineReportSelectTypeDialog();
+				switch (selectedTimelineReport) {
+				case (Constants.TWEET_VOLUME_TIMELINE_REPORT):
+					CreateServerTaskTimelineVolumeReport service = new CreateServerTaskTimelineVolumeReport(
+							TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+					CreateServerTaskTimelineVolumeReportResponse reply = service
+							.createServerTaskTimelineVolumeReport(this.getMainApplication().getCurrentUser().getIdDB());
+					if (reply.isError()) {
+						ErrorDialog.showErrorCreateServerTask(reply.getMessage());
+					} else {
+						ErrorDialog.showSuccessCreateServerTask(reply.getId());
+					}
+					break;
+				case (Constants.OTHER_TIMELINE_REPORT):
+					break;
+				default:
+					break;
+				}
+				break;
+			default:
+				break;
+			}
+
+		}
+	}
+
+	private String showCreateTimelineReportSelectTypeDialog() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(HomeScreenControl.class
+					.getResource("server/dialog/CreateTimelineReportServerTaskSelectTypeDialog.fxml"));
+			AnchorPane page = loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(mainApplication.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			// Set the dialogStage to the controller.
+			CreateTimelineReportServerTaskSelectTypeDialogControl controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setMainApplication(mainApplication);
+			// Show the dialog and wait until the user closes it, then add filter
+			dialogStage.showAndWait();
+			return controller.getToReturn();
+		} catch (IOException e) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
+			return "";
+		}
+	}
+
+	private String showCreateAnalyticsTaskSelectTypeDialog() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(HomeScreenControl.class
+					.getResource("server/dialog/CreateAnalyticsServerTaskSelectTypeDialog.fxml"));
+			AnchorPane page = loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(mainApplication.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			// Set the dialogStage to the controller.
+			CreateAnalyticsServerTaskSelectTypeDialogControl controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setMainApplication(mainApplication);
+			// Show the dialog and wait until the user closes it, then add filter
+			dialogStage.showAndWait();
+			return controller.getToReturn();
+		} catch (IOException e) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
+			return null;
+		}
+	}
+
 	public void onCreateExtractionTask() {
 		Extraction selectedExtraction;
 		selectedExtraction = showCreateExtractionServerTaskSelectExtractionDialog();
@@ -271,36 +376,39 @@ public class HomeScreenControl {
 			onCreateTask();
 		} else {
 			String selectedTaskType = showCreateExtractionServerTaskSelectTypeDialog();
-			switch(selectedTaskType) {
-			case(Constants.UPDATE_EXTRACTION_INDEF_SERVER_TASK_TYPE):
-				CreateServerTaskUpdateExtractionIndef service = new CreateServerTaskUpdateExtractionIndef(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
-				CreateServerTaskUpdateExtractionIndefResponse reply = service.createServerTaskUpdateExtractionIndef(selectedExtraction.getIdDB());
-				if(reply.isError()) {
+			switch (selectedTaskType) {
+			case (Constants.UPDATE_EXTRACTION_INDEF_SERVER_TASK_TYPE):
+				CreateServerTaskUpdateExtractionIndef service = new CreateServerTaskUpdateExtractionIndef(
+						TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+				CreateServerTaskUpdateExtractionIndefResponse reply = service
+						.createServerTaskUpdateExtractionIndef(selectedExtraction.getIdDB());
+				if (reply.isError()) {
 					ErrorDialog.showErrorCreateServerTask(reply.getMessage());
-				}else {
+				} else {
 					ErrorDialog.showSuccessCreateServerTask(reply.getId());
 				}
 				break;
 			default:
 				break;
 			}
-			
+
 		}
 	}
+
 	@FXML
 	public void onManageTasks() {
-		if(!this.getMainApplication().checkServer()){
+		if (!this.getMainApplication().checkServer()) {
 			ErrorDialog.showErrorConfigureServer();
-			
+
 		}
 		this.getMainApplication().showManageServerTasks();
-		
+
 	}
 
 	@FXML
 	public void onManageServerPreferences() {
 		showManageServerPreferences();
-		
+
 	}
 
 }

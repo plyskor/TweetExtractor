@@ -66,23 +66,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 			ret.setMessage("There is no extraction to update.");
 			return ret;
 		}
-		if (this.getStatus() == Constants.ST_RUNNING) {
-			ret.setError(true);
-			ret.setMessage("Task is currently running.");
-			return ret;
-		}
-		this.setThread(new Thread(this));
-		this.getThread().setName("tweetextractor-server:ServerTask-" + this.getId());
-		this.getThread().setDaemon(true);
-		ret.setError(false);
-		ret.setMessage("Task is ready to run.");
-		this.goReady();
-		if (this.getStatus() != Constants.ST_READY) {
-			ret.setError(true);
-			ret.setMessage("Task is not ready to be called.");
-			return ret;
-		}
-		return ret;
+		return new UpdateExtractionIndefResponse(super.call());
 	}
 
 	@Override

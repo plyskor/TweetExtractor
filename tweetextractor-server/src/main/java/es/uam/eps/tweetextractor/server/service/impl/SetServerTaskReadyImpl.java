@@ -15,7 +15,7 @@ import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.SetServerTaskReadyResponse;
 import es.uam.eps.tweetextractor.model.service.sei.SetServerTaskReadySei;
-import es.uam.eps.tweetextractor.server.Server;
+import es.uam.eps.tweetextractor.server.TweetExtractorServer;
 
 /**
  * @author Jose Antonio García del Saz
@@ -45,7 +45,7 @@ public class SetServerTaskReadyImpl implements SetServerTaskReadySei {
 		}
 		MessageContext msgCtx = svcCtx.getMessageContext();
 		ServletContext context = (ServletContext) msgCtx.get(MessageContext.SERVLET_CONTEXT);
-		Server server = (Server) context.getAttribute("Server");
+		TweetExtractorServer server = (TweetExtractorServer) context.getAttribute("Server");
 		ServerTask task = server.findById(id);
 		if (task == null) {
 			reply.setError(true);

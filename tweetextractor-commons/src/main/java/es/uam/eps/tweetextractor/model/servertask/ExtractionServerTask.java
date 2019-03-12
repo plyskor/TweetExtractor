@@ -4,6 +4,8 @@
 package es.uam.eps.tweetextractor.model.servertask;
 
 
+import java.util.Date;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -84,6 +86,7 @@ public abstract class ExtractionServerTask extends ServerTask{
 	 */
 	public void run() {
 		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
+		this.setLastExecutedDate(new Date());
 		if(Thread.currentThread().isInterrupted()) {
 			logger.info("The task with id: "+this.getId()+" has been interrupted.");
 			onStop();

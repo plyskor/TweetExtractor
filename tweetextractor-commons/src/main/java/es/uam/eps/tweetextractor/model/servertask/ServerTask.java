@@ -4,6 +4,7 @@
 package es.uam.eps.tweetextractor.model.servertask;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -18,6 +19,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Polymorphism;
@@ -60,6 +63,12 @@ public abstract class ServerTask implements Runnable,Serializable {
 	@XmlTransient
 	@ManyToOne
 	private User user;
+	@Column(name = "creation_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date creationDate;
+	@Column(name = "last_executed_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastExecutedDate;
 	@XmlTransient
 	@Transient
 	private transient Thread thread = new Thread(this);
@@ -72,9 +81,11 @@ public abstract class ServerTask implements Runnable,Serializable {
 		this.id = id;
 		this.status = Constants.ST_NEW;
 		this.user = user;
+		this.creationDate=new Date();
 	}
 	public ServerTask() {
 		this.status = Constants.ST_NEW;
+		this.creationDate=new Date();
 	}
 	/**
 	 * @return the id
@@ -148,7 +159,26 @@ public abstract class ServerTask implements Runnable,Serializable {
 	public void setTaskType(TaskTypes taskType) {
 		this.taskType = taskType;
 	}
-	public abstract ServerTaskResponse call();
+	public ServerTaskResponse call() {
+		ServerTaskResponse ret =new ServerTaskResponse();
+		if (this.getStatus() == Constants.ST_RUNNING) {
+			ret.setError(true);
+			ret.setMessage("Task is currently running.");
+			return ret;
+		}
+		this.setThread(new Thread(this));
+		this.getThread().setName("tweetextractor-server:ServerTask-" + this.getId());
+		this.getThread().setDaemon(true);
+		ret.setError(false);
+		ret.setMessage("Task is ready to run.");
+		this.goReady();
+		if (this.getStatus() != Constants.ST_READY) {
+			ret.setError(true);
+			ret.setMessage("Task is not ready to be called.");
+			return ret;
+		}
+		return ret;
+	}
 	/**
 	 * @return the thread
 	 */
@@ -173,6 +203,32 @@ public abstract class ServerTask implements Runnable,Serializable {
 	 */
 	public void setTrigger(boolean trigger) {
 		this.trigger = trigger;
+	}
+	
+	/**
+	 * @return the creationDate
+	 */
+	public Date getCreationDate() {
+		return creationDate;
+	}
+	/**
+	 * @param creationDate the creationDate to set
+	 */
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	/**
+	 * @return the lastExecutedDate
+	 */
+	public Date getLastExecutedDate() {
+		return lastExecutedDate;
+	}
+	/**
+	 * @param lastExecutedDate the lastExecutedDate to set
+	 */
+	public void setLastExecutedDate(Date lastExecutedDate) {
+		this.lastExecutedDate = lastExecutedDate;
 	}
 	public abstract void initialize(AnnotationConfigApplicationContext context);
 	public abstract void implementation() ;

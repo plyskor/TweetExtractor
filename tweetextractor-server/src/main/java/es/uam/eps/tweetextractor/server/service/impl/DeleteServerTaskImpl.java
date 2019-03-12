@@ -18,7 +18,7 @@ import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.model.service.DeleteServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.sei.DeleteServerTaskSei;
-import es.uam.eps.tweetextractor.server.Server;
+import es.uam.eps.tweetextractor.server.TweetExtractorServer;
 
 /**
  * @author jgarciadelsaz
@@ -39,7 +39,7 @@ public class DeleteServerTaskImpl implements DeleteServerTaskSei{
 		MessageContext msgCtx = svcCtx.getMessageContext();
 		ServletContext context = (ServletContext) 
                 msgCtx.get(MessageContext.SERVLET_CONTEXT);
-	    Server server = (Server) context.getAttribute("Server");
+	    TweetExtractorServer server = (TweetExtractorServer) context.getAttribute("Server");
 	    if(server==null) {
 	    	reply.setError(true);
 	    	reply.setMessage("Server instance not found");

@@ -14,6 +14,8 @@ import es.uam.eps.tweetextractor.dao.TweetDAO;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Tweet;
+import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportVolumeRegister;
 
 /**
  * @author Jose Antonio García del Saz
@@ -40,6 +42,11 @@ public class TweetService extends GenericService<Tweet, Integer> implements Twee
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<Tweet> findByExtraction(Extraction extraction) {
 		return tweetDAO.findByExtraction(extraction);
+	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<TimelineReportVolumeRegister> extractGlobalTimelineVolumeReport(User user) {
+		return tweetDAO.extractGlobalTimelineVolumeReport(user);
 	}
 
 }

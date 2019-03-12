@@ -14,7 +14,7 @@ import javax.xml.ws.handler.MessageContext;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
 import es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei;
-import es.uam.eps.tweetextractor.server.Server;
+import es.uam.eps.tweetextractor.server.TweetExtractorServer;
 import javax.annotation.Resource;
 
 
@@ -40,7 +40,7 @@ public class GetServerTaskStatusImpl implements GetServerTaskStatusSei {
 		MessageContext msgCtx = svcCtx.getMessageContext();
 		ServletContext context = (ServletContext) 
                 msgCtx.get(MessageContext.SERVLET_CONTEXT);
-	     Server server = (Server) context.getAttribute("Server");
+	     TweetExtractorServer server = (TweetExtractorServer) context.getAttribute("Server");
 	     if(server==null) {
 	    	 ret.setError(true);
 	    	 ret.setMessage("Could not find server instance");

@@ -12,10 +12,12 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
+import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.servertask.ExtractionServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
+import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskTimelineVolumeReport;
 import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 
 /**
@@ -23,19 +25,19 @@ import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
  *
  */
 @Controller
-public class Server {
+public class TweetExtractorServer {
 	ExtractionServiceInterface eServ;
 	ServerTaskServiceInterface stServ;
 	private List<ServerTask> serverTaskList = new ArrayList<>();
 	/*Initialize logger*/
-	private Logger logger = LoggerFactory.getLogger(Server.class);
+	private Logger logger = LoggerFactory.getLogger(TweetExtractorServer.class);
 	private AnnotationConfigApplicationContext springContext;
 	/**
 	 * @param tEServerSpringContext 
 	 * 
 	 */
 	
-	public Server(AnnotationConfigApplicationContext tEServerSpringContext) {
+	public TweetExtractorServer(AnnotationConfigApplicationContext tEServerSpringContext) {
 		springContext=tEServerSpringContext;
 		eServ=springContext.getBean(ExtractionServiceInterface.class);
 		stServ=springContext.getBean(ServerTaskServiceInterface.class);
@@ -65,11 +67,18 @@ public class Server {
 	public void initialize() {
 		/*Load all tasks from database*/
 		serverTaskList.addAll(stServ.findAll());
+		//testing();
 		/*Launch all ready tasks*/
 		for (ServerTask task : serverTaskList) {
 			task.initialize(springContext);
 			launchServerTask(task);
 		}
+		
+	}
+	public void testing () {
+		ServerTaskTimelineVolumeReport taskAux = new ServerTaskTimelineVolumeReport();
+		taskAux.setUser(serverTaskList.get(10).getUser());
+		stServ.persist(taskAux);
 	}
 	public ServerTask findById(int id) {
 		if(id<=0)return null;
@@ -121,6 +130,7 @@ public class Server {
 	}
 	public void addTaskToServer(ServerTask task) {
 		if(task!=null&&serverTaskList!=null) {
+			task.initialize(springContext);
 			logger.info("Task with id "+task.getId()+" has been added to Server instance.");
 			serverTaskList.add(task);
 		}
@@ -137,6 +147,7 @@ public class Server {
 		/*Response object for calls*/
 		ServerTaskResponse response = null;
 		if (task.getStatus() == Constants.ST_READY||task.getStatus() ==Constants.ST_HALT) {
+			try {
 			if(ExtractionServerTask.class.isAssignableFrom(task.getClass())) {
 				eServ.refresh(((ExtractionServerTask)task).getExtraction());
 				if (((ExtractionServerTask)task).getExtraction().isExtracting()) {
@@ -146,8 +157,6 @@ public class Server {
 					return response;
 				}
 			}
-			
-			try {
 				response = task.call();
 				if (response!=null&&!response.isError()) {
 					task.setStatus(Constants.ST_RUNNING);
@@ -155,7 +164,7 @@ public class Server {
 					task.getThread().start();
 				}
 			} catch (Exception e1) {
-				logger.error("Exception calling task with id:"+task.getId()+":\n"+e1.getStackTrace().toString());
+				logger.error("Exception calling task with id:"+task.getId()+" :\n"+Arrays.toString(e1.getStackTrace()));
 				return response;
 			}
 			if (response != null) {
@@ -179,8 +188,9 @@ public class Server {
 				String extractionSummary="";
 				if(ExtractionServerTask.class.isAssignableFrom(task.getClass())) {
 					extractionSummary=((ExtractionServerTask)task).getExtraction().getFiltersColumn();
+					ret.add(new ServerTaskInfo(task.getId(), task.getStatus(), task.getTaskType(),extractionSummary,((ExtractionServerTask)task).getExtraction().getIdDB()));
 				}
-				ret.add(new ServerTaskInfo(task.getId(), task.getStatus(), task.getTaskType(),extractionSummary,((ExtractionServerTask)task).getExtraction().getIdDB()));
+				ret.add(new ServerTaskInfo(task.getId(), task.getStatus(), task.getTaskType(),extractionSummary,0));
 			}
 		}
 		return ret;

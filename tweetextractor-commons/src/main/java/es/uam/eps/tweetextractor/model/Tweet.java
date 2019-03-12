@@ -31,6 +31,7 @@ import twitter4j.UserMentionEntity;
  * @author Jose Antonio García del Saz
  *
  */
+
 @Entity
 @Table(name="perm_tweet")
 public class Tweet implements Serializable {

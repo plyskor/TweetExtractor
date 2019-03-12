@@ -12,7 +12,6 @@
 	<groupId>tweetextractor-commons</groupId>
 	<artifactId>tweetextractor-commons</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.1.0</version>
 	<name>Tweetextractor Commons</name>
 	<url>http://maven.apache.org</url>
 	<properties>

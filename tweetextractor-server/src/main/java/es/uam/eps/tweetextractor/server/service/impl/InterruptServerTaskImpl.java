@@ -15,7 +15,7 @@ import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.model.service.InterruptServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.sei.InterruptServerTaskSei;
-import es.uam.eps.tweetextractor.server.Server;
+import es.uam.eps.tweetextractor.server.TweetExtractorServer;
 
 /**
  * @author Jose Antonio García del Saz
@@ -39,7 +39,7 @@ public class InterruptServerTaskImpl implements InterruptServerTaskSei {
 		MessageContext msgCtx = svcCtx.getMessageContext();
 		ServletContext context = (ServletContext) 
                 msgCtx.get(MessageContext.SERVLET_CONTEXT);
-	     Server server = (Server) context.getAttribute("Server");
+	     TweetExtractorServer server = (TweetExtractorServer) context.getAttribute("Server");
 	     if(server==null) {
 	    	 ret.setError(true);
 	    	 ret.setMessage("Could not find server instance");

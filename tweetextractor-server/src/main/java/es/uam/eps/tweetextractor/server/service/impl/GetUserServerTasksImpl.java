@@ -15,7 +15,7 @@ import javax.xml.ws.handler.MessageContext;
 import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
 import es.uam.eps.tweetextractor.model.service.GetUserServerTasksResponse;
 import es.uam.eps.tweetextractor.model.service.sei.GetUserServerTasksSei;
-import es.uam.eps.tweetextractor.server.Server;
+import es.uam.eps.tweetextractor.server.TweetExtractorServer;
 
 /**
  * @author Jose Antonio García del Saz
@@ -44,7 +44,7 @@ public class GetUserServerTasksImpl implements GetUserServerTasksSei{
 		MessageContext msgCtx = svcCtx.getMessageContext();
 		ServletContext context = (ServletContext) 
                 msgCtx.get(MessageContext.SERVLET_CONTEXT);
-	    Server server = (Server) context.getAttribute("Server");
+	    TweetExtractorServer server = (TweetExtractorServer) context.getAttribute("Server");
 	    if(server==null) {
 	    	ret.setError(true);
 			ret.setMessage("Could not find server instance");

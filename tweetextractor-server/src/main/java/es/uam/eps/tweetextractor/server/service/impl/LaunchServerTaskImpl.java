@@ -15,7 +15,7 @@ import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.LaunchServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.sei.LaunchServerTaskSei;
-import es.uam.eps.tweetextractor.server.Server;
+import es.uam.eps.tweetextractor.server.TweetExtractorServer;
 
 /**
  * @author jgarciadelsaz
@@ -40,7 +40,7 @@ public class LaunchServerTaskImpl implements LaunchServerTaskSei {
 		MessageContext msgCtx = svcCtx.getMessageContext();
 		ServletContext context = (ServletContext) 
                 msgCtx.get(MessageContext.SERVLET_CONTEXT);
-	     Server server = (Server) context.getAttribute("Server");
+	     TweetExtractorServer server = (TweetExtractorServer) context.getAttribute("Server");
 	     if(server==null) {
 	    	 reply.setError(true);
 	    	 reply.setMessage("Could not find server instance. Please, restart the server.");

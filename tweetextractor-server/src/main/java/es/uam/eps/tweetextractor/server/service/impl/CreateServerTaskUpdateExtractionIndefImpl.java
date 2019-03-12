@@ -21,7 +21,7 @@ import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskUpdateExtractio
 import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskUpdateExtractionIndefResponse;
 import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskUpdateExtractionIndefSei;
-import es.uam.eps.tweetextractor.server.Server;
+import es.uam.eps.tweetextractor.server.TweetExtractorServer;
 
 /**
  * @author jgarciadelsaz
@@ -46,7 +46,7 @@ public class CreateServerTaskUpdateExtractionIndefImpl implements CreateServerTa
 		MessageContext msgCtx = svcCtx.getMessageContext();
 		ServletContext context = (ServletContext) 
                 msgCtx.get(MessageContext.SERVLET_CONTEXT);
-	    Server server = (Server) context.getAttribute("Server");
+	    TweetExtractorServer server = (TweetExtractorServer) context.getAttribute("Server");
 	    if(server==null) {
 	    	reply.setError(true);
 	    	reply.setMessage("Server instance not found");

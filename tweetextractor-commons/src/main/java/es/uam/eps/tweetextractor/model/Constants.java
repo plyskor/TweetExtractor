@@ -58,18 +58,40 @@ public final class Constants {
 	public enum TaskTypes {
 		@XmlEnumValue("ET")
 		ET(Values.TYPE_EXTRACTION_TASK),
+		@XmlEnumValue("AT")
+		AT(Values.TYPE_ANALYTICS_TASK),
 		@XmlEnumValue("TUEI")
-		TUEI(Values.TYPE_TASK_UPDATE_EXTRACTION_INDEF);
+		TUEI(Values.TYPE_TASK_UPDATE_EXTRACTION_INDEF),
+		@XmlEnumValue("TTVR")
+		TTVR(Values.TYPE_TASK_TIMELINE_VOLUME_REPORT);
 		private TaskTypes(String type) {
 			
 		}
 		public static class Values {
-			// Available filters
+			// Available server tasks
 			public static final String TYPE_EXTRACTION_TASK = "ET";
+			public static final String TYPE_ANALYTICS_TASK = "AT";
 			public static final String TYPE_TASK_UPDATE_EXTRACTION_INDEF = "TUEI";
+			public static final String TYPE_TASK_TIMELINE_VOLUME_REPORT = "TTVR";
+
 		}
 	}
-
+	@XmlType(name = "analyticsReportType")
+	@XmlEnum
+	public enum AnalyticsReportTypes {
+		@XmlEnumValue("TR")
+		TR(Values.TYPE_TIMELINE_REPORT),
+		@XmlEnumValue("TVR")
+		TVR(Values.TYPE_TIMELINE_VOLUME_REPORT);
+		private AnalyticsReportTypes(String type) {
+			
+		}
+		public static class Values {
+			// Available server tasks
+			public static final String TYPE_TIMELINE_REPORT = "TR";
+			public static final String TYPE_TIMELINE_VOLUME_REPORT = "TVR";
+		}
+	}
 	/*
 	 * Generic Strings
 	 */
@@ -119,6 +141,7 @@ public final class Constants {
 	public static final String GET_SERVER_TASK_STATUS_ENDPOINT="getServerTaskStatus";
 	public static final String INTERRUPT_SERVER_TASK_ENDPOINT="interruptServerTask";
 	public static final String CREATE_UPDATE_EXTRACTION_INDEF_SERVER_TASK_ENDPOINT="createServerTaskUpdateExtractionIndef";
+	public static final String CREATE_TIMELINE_VOLUME_REPORT_SERVER_TASK_ENDPOINT="createServerTaskTimelineVolumeReport";
 	public static final String DELETE_SERVER_TASK_ENDPOINT="deleteServerTask";
 	public static final String LAUNCH_SERVER_TASK_ENDPOINT="launchServerTask";
 	public static final String GET_SERVER_STATUS_ENDPOINT="getServerStatus";
@@ -180,9 +203,15 @@ public final class Constants {
 	*Types of task available
 	**/
     public static final String EXTRACTION_SERVER_TASK_TYPE="Task for extraction";
+    public static final String ANALYTICS_SERVER_TASK_TYPE="Task for analytics";
 	public static final String UPDATE_EXTRACTION_INDEF_SERVER_TASK_TYPE = "Update an extraction indefinitely";
+	public static final String TIMELINE_REPORT_SERVER_TASK_TYPE = "Create a timeline report based on different criteria.";
+	/*
+	 * Types of Timeline Reports Criteria 
+	 */
 	
-
+	public static final String TWEET_VOLUME_TIMELINE_REPORT="TVTR";
+    public static final String OTHER_TIMELINE_REPORT="OTR";
 
 
 

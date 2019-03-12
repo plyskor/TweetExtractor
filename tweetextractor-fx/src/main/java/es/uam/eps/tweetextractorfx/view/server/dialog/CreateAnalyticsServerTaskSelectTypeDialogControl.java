@@ -13,10 +13,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
 /**
- * @author joseantoniogarciadelsaz
+ * @author jose
  *
  */
-public class CreateServerTaskSelectTaskTypeDialogControl {
+public class CreateAnalyticsServerTaskSelectTypeDialogControl {
 	/*Reference to the MainApplication*/
     private MainApplication mainApplication;
     private Stage dialogStage;
@@ -24,13 +24,6 @@ public class CreateServerTaskSelectTaskTypeDialogControl {
     private ChoiceBox<String> taskTypeChoice;
     private ObservableList<String> taskTypesList = FXCollections.observableArrayList();
     private String toReturn;
-    
-	/**
-	 * 
-	 */
-	public CreateServerTaskSelectTaskTypeDialogControl() {
-		super();
-	}
 	/**
 	 * @return the mainApplication
 	 */
@@ -44,6 +37,10 @@ public class CreateServerTaskSelectTaskTypeDialogControl {
 		this.mainApplication = mainApplication;
 		taskTypeChoice.setItems(taskTypesList);
 		initializeTaskTypeChoice();
+	}
+	private void initializeTaskTypeChoice() {
+		/*Initialize available types of tasks*/
+		taskTypesList.add(Constants.TIMELINE_REPORT_SERVER_TASK_TYPE);		
 	}
 	/**
 	 * @return the dialogStage
@@ -69,8 +66,7 @@ public class CreateServerTaskSelectTaskTypeDialogControl {
 	public void setTaskTypeChoice(ChoiceBox<String> taskTypeChoice) {
 		this.taskTypeChoice = taskTypeChoice;
 	}
-	
-    /**
+	/**
 	 * @return the taskTypesList
 	 */
 	public ObservableList<String> getTaskTypesList() {
@@ -82,7 +78,6 @@ public class CreateServerTaskSelectTaskTypeDialogControl {
 	public void setTaskTypesList(ObservableList<String> taskTypesList) {
 		this.taskTypesList = taskTypesList;
 	}
-	
 	/**
 	 * @return the toReturn
 	 */
@@ -94,11 +89,6 @@ public class CreateServerTaskSelectTaskTypeDialogControl {
 	 */
 	public void setToReturn(String toReturn) {
 		this.toReturn = toReturn;
-	}
-	public void initializeTaskTypeChoice() {
-		/*Initialize available types of tasks*/
-		taskTypesList.add(Constants.EXTRACTION_SERVER_TASK_TYPE);
-		taskTypesList.add(Constants.ANALYTICS_SERVER_TASK_TYPE);
 	}
 	@FXML
     public void onCancel() {

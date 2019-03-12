@@ -16,4 +16,9 @@ public class UpdateExtractionIndefResponse extends ServerTaskResponse {
 		super();
 	}
 
+	public UpdateExtractionIndefResponse(ServerTaskResponse call) {
+		super();
+		this.setError(call.isError());
+		this.setMessage(call.getMessage());
+	}
 }

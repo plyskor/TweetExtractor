@@ -11,7 +11,6 @@
 	</parent>
 	<groupId>tweetextractor-fx</groupId>
 	<artifactId>tweetextractor-fx</artifactId>
-	<version>1.0.1.0</version>
 	<name>TweetExtractorFX</name>
 	<url>http://maven.apache.org</url>
 	<build>
@@ -19,8 +18,8 @@
 			<resource>
 				<directory>src/main/java</directory>
 				<includes>
-                                        <include>**/*.fxml</include>
-                                </includes>
+					<include>**/*.fxml</include>
+				</includes>
 				<excludes>
 					<exclude>**/*.java</exclude>
 				</excludes>

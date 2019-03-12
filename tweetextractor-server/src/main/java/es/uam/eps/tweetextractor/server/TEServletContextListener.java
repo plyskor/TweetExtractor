@@ -18,7 +18,7 @@ import es.uam.eps.tweetextractor.spring.config.TweetExtractorSpringConfig;
  *
  */
 public class TEServletContextListener implements ServletContextListener {
-	private Server server =null;
+	private TweetExtractorServer server =null;
 	private Logger logger = LoggerFactory.getLogger(TEServletContextListener.class);
 
 	/**
@@ -31,7 +31,7 @@ public class TEServletContextListener implements ServletContextListener {
 	  @Override
 	  public void contextDestroyed(ServletContextEvent arg0) {
 		  ServletContext context = arg0.getServletContext();
-		  server=(Server)context.getAttribute("Server");
+		  server=(TweetExtractorServer)context.getAttribute("Server");
 		  if(this.server!=null) {
 			  server.destroy();
 		  }else {
@@ -44,7 +44,7 @@ public class TEServletContextListener implements ServletContextListener {
 		  AnnotationConfigApplicationContext tEServerSpringContext = 
 	                new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
 		  ServletContext context = arg0.getServletContext();
-		  server = new Server(tEServerSpringContext);
+		  server = new TweetExtractorServer(tEServerSpringContext);
 		  if(this.server!=null) {
 			  this.server.initialize();
 		  }else {
@@ -57,14 +57,14 @@ public class TEServletContextListener implements ServletContextListener {
 	/**
 	 * @return the server
 	 */
-	public Server getServer() {
+	public TweetExtractorServer getServer() {
 		return server;
 	}
 
 	/**
 	 * @param server the server to set
 	 */
-	public void setServer(Server server) {
+	public void setServer(TweetExtractorServer server) {
 		this.server = server;
 	}
 

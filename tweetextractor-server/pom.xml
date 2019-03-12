@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>tweetextractor-server</groupId>
 	<artifactId>tweetextractor-server</artifactId>
-	<version>1.0.1.0</version>
 	<packaging>war</packaging>
 	<name>TweetExtractor Server</name>
 	<description>Server module for the TweetExtractorFX application</description>

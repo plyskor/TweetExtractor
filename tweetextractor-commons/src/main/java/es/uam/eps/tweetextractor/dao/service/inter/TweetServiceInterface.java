@@ -7,6 +7,8 @@ import java.util.List;
 
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Tweet;
+import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportVolumeRegister;
 
 /**
  * @author jose
@@ -15,4 +17,5 @@ import es.uam.eps.tweetextractor.model.Tweet;
 public interface TweetServiceInterface extends GenericServiceInterface<Tweet, Integer> {
 	public void persistList(List<Tweet> entityList);
 	public List<Tweet> findByExtraction(Extraction extraction);
+	public List<TimelineReportVolumeRegister> extractGlobalTimelineVolumeReport(User user);
 }
