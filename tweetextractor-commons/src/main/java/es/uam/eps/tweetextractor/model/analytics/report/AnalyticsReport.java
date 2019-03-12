@@ -32,7 +32,7 @@ import org.hibernate.annotations.PolymorphismType;
 import org.springframework.stereotype.Controller;
 
 import es.uam.eps.tweetextractor.model.User;
-@NamedQuery(name="findByUser", query="SELECT r from AnalyticsReport r where r.user=:user")
+@NamedQuery(name="findAnalyticsReportByUser", query="SELECT r from AnalyticsReport r where r.user=:user")
 /**
  * @author jose
  *

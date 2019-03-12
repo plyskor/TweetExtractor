@@ -25,7 +25,7 @@ public class ExtractionDAO extends AbstractGenericDAO<Extraction,Integer> implem
 	}
 
 	public List<Extraction> findByUser(User user) {
-		Query<Extraction> query = currentSession().createNamedQuery("findByUser",Extraction.class);
+		Query<Extraction> query = currentSession().createNamedQuery("findExtractionsByUser",Extraction.class);
 	    query.setParameter("user", user);
 	     List<Extraction> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {

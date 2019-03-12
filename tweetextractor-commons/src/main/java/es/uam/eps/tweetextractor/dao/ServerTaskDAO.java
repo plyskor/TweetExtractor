@@ -19,7 +19,7 @@ public class ServerTaskDAO extends AbstractGenericDAO<ServerTask, Integer> imple
 	}
 
 	public List<ServerTask> findByUser(User user) {
-		Query<ServerTask> query = currentSession().createNamedQuery("findByUser",ServerTask.class);
+		Query<ServerTask> query = currentSession().createNamedQuery("findServerTasksByUser",ServerTask.class);
 	    query.setParameter("user", user);
 	     List<ServerTask> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {

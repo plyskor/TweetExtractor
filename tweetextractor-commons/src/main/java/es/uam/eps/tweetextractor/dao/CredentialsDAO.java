@@ -31,7 +31,7 @@ public class CredentialsDAO  extends AbstractGenericDAO<Credentials,Integer> imp
 		super();
 	}
 	public List<Credentials> findByUser(User user) {
-		Query<Credentials> query = currentSession().createNamedQuery("findByUser",Credentials.class);
+		Query<Credentials> query = currentSession().createNamedQuery("findCredentialsByUser",Credentials.class);
 	    query.setParameter("user", user);
 	     List<Credentials> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {

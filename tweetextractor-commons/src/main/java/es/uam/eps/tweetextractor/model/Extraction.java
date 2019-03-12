@@ -35,7 +35,7 @@ import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.filter.Filter;
 import es.uam.eps.tweetextractor.util.DateAdapter;
-@NamedQuery(name="findByUser", query="SELECT e from Extraction e WHERE e.user=:user")
+@NamedQuery(name="findExtractionsByUser", query="SELECT e from Extraction e WHERE e.user=:user")
 
 
 /**

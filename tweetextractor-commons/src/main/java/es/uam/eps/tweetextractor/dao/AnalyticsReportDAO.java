@@ -21,7 +21,7 @@ public class AnalyticsReportDAO extends AbstractGenericDAO<AnalyticsReport,Integ
 		super();
 	}
 	public List<AnalyticsReport> findByUser(User user) {
-	    Query<AnalyticsReport> query = currentSession().createNamedQuery("findByUser",AnalyticsReport.class);
+	    Query<AnalyticsReport> query = currentSession().createNamedQuery("findAnalyticsReportByUser",AnalyticsReport.class);
 	    query.setParameter("user", user);
 	     List<AnalyticsReport> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {

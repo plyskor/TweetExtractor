@@ -70,7 +70,7 @@ public class TweetDAO extends AbstractGenericDAO<Tweet,Integer> implements Tweet
 	}
 	
 	public List<Tweet> findByExtraction(Extraction extraction) {
-		org.hibernate.query.Query<Tweet> query = currentSession().createNamedQuery("findByExtraction",Tweet.class);
+		org.hibernate.query.Query<Tweet> query = currentSession().createNamedQuery("findTweetsByExtraction",Tweet.class);
 	    query.setParameter("extraction", extraction);
 	     List<Tweet> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {

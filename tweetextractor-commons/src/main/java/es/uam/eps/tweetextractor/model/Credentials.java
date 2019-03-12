@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
-@NamedQuery(name="findByUser", query="SELECT c from Credentials c WHERE c.user=:user")
+@NamedQuery(name="findCredentialsByUser", query="SELECT c from Credentials c WHERE c.user=:user")
 
 @Entity
 @Table(name = "perm_credentials")
