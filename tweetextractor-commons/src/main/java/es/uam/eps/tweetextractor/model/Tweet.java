@@ -25,6 +25,7 @@ import es.uam.eps.tweetextractor.util.DateAdapter;
 import twitter4j.HashtagEntity;
 import twitter4j.Status;
 import twitter4j.UserMentionEntity;
+@NamedQuery(name="findByExtraction", query="SELECT t FROM Tweet t WHERE t.extraction=:extraction")
 
 /**
  * Clase para encapsular los datos de la clase twitter4j.Status y guardarlos mejor en XML

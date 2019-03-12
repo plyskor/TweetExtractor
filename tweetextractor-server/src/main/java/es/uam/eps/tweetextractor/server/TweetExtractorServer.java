@@ -67,7 +67,6 @@ public class TweetExtractorServer {
 	public void initialize() {
 		/*Load all tasks from database*/
 		serverTaskList.addAll(stServ.findAll());
-		//testing();
 		/*Launch all ready tasks*/
 		for (ServerTask task : serverTaskList) {
 			task.initialize(springContext);
@@ -75,11 +74,7 @@ public class TweetExtractorServer {
 		}
 		
 	}
-	public void testing () {
-		ServerTaskTimelineVolumeReport taskAux = new ServerTaskTimelineVolumeReport();
-		taskAux.setUser(serverTaskList.get(10).getUser());
-		stServ.persist(taskAux);
-	}
+
 	public ServerTask findById(int id) {
 		if(id<=0)return null;
 		for(ServerTask task:getServerTaskList()) {

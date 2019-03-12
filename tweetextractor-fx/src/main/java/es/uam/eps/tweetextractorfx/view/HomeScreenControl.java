@@ -410,5 +410,16 @@ public class HomeScreenControl {
 		showManageServerPreferences();
 
 	}
+	/*Analytics menu*/
+	@FXML
+	public void onMyReports() {
+		this.mainApplication.showMyReports();
+
+	}
+	@FXML
+	public void onGraphicsForAnalytics() {
+		showManageServerPreferences();
+
+	}
 
 }

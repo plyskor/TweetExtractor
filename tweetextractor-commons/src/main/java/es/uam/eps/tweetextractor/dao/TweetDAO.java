@@ -8,17 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.ColumnResult;
-import javax.persistence.EntityResult;
-import javax.persistence.FieldResult;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.persistence.SqlResultSetMapping;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Root;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,18 +70,13 @@ public class TweetDAO extends AbstractGenericDAO<Tweet,Integer> implements Tweet
 	}
 	
 	public List<Tweet> findByExtraction(Extraction extraction) {
-	    CriteriaBuilder criteriaBuilder = currentSession().getCriteriaBuilder();
-	    CriteriaQuery<Tweet> criteriaQuery = criteriaBuilder.createQuery(Tweet.class);
-	    Root<Tweet> root = criteriaQuery.from(Tweet.class);
-	    criteriaQuery.select(root);
-	    ParameterExpression<Extraction> params = criteriaBuilder.parameter(Extraction.class);
-	    criteriaQuery.where(criteriaBuilder.equal(root.get("extraction"), params));
-	    TypedQuery<Tweet> query = currentSession().createQuery(criteriaQuery);
-	    query.setParameter(params, extraction );
-	    List<Tweet> ret= new ArrayList<>();
+		org.hibernate.query.Query<Tweet> query = currentSession().createNamedQuery("findByExtraction",Tweet.class);
+	    query.setParameter("extraction", extraction);
+	     List<Tweet> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {
 	    	Logger logger = LoggerFactory.getLogger(this.getClass());
-	    	logger.info("No tweet found for extractionID: "+extraction.getIdDB());	   
+	    	logger.info("No tweets found for extractionID: "+extraction.getIdDB());
+	    	return new ArrayList<>();
 	    	}
 	    return ret;
 	}

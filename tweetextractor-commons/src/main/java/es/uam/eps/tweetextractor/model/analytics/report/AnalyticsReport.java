@@ -19,6 +19,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,6 +31,8 @@ import org.hibernate.annotations.Polymorphism;
 import org.hibernate.annotations.PolymorphismType;
 import org.springframework.stereotype.Controller;
 
+import es.uam.eps.tweetextractor.model.User;
+@NamedQuery(name="findByUser", query="SELECT r from AnalyticsReport r where r.user=:user")
 /**
  * @author jose
  *
@@ -52,6 +56,9 @@ public abstract class AnalyticsReport implements Serializable{
 	@Column(name = "last_updated_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdatedDate;
+	@ManyToOne
+	@XmlTransient
+	private User user;
 	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE,CascadeType.REFRESH,CascadeType.DETACH},mappedBy="report")
 	protected List<AnalyticsReportImage> graphics;
 	/**
@@ -114,6 +121,18 @@ public abstract class AnalyticsReport implements Serializable{
 	 */
 	public void setGraphics(List<AnalyticsReportImage> graphics) {
 		this.graphics = graphics;
+	}
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 

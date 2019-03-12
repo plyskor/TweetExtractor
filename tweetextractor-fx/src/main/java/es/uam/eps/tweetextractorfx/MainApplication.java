@@ -27,6 +27,7 @@ import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
+import es.uam.eps.tweetextractorfx.view.analytics.reports.MyReportsControl;
 import es.uam.eps.tweetextractorfx.view.credentials.ManageCredentialsControl;
 import es.uam.eps.tweetextractorfx.view.dialog.LoadingDialogControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
@@ -263,6 +264,23 @@ public class MainApplication extends Application {
 			controller.setMainApplication(this);
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(homeScreen);
+		} catch (IOException e) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
+		}
+	}
+	
+	public void showMyReports() {
+		try {
+			// Load query constructor
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource("view/analytics/reports/MyReports.fxml"));
+			AnchorPane queryConstructor = loader.load();
+			// Set query constructor into the center of root layout.
+			rootLayout.setCenter(queryConstructor);
+			// Give the controller access to the main app.
+			MyReportsControl controller = loader.getController();
+			controller.setMainApplication(this);
 		} catch (IOException e) {
 			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());

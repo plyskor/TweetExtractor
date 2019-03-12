@@ -171,12 +171,12 @@
 															<children>
 																<AnchorPane prefHeight="200.0" prefWidth="200.0">
 																	<children>
-																		<Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+																		<Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" onAction="#onMyReports" prefHeight="61.0" prefWidth="398.0" text="My reports..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 																	</children>
 																</AnchorPane>
 																<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
 																	<children>
-																		<Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+																		<Button mnemonicParsing="false" onAction="#onGraphicsForAnalytics" prefHeight="61.0" prefWidth="398.0" text="Graphics for analytics reports..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 																	</children>
 																</AnchorPane>
 																<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">

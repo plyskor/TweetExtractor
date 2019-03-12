@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.util.DateAdapter;
 
@@ -69,6 +70,10 @@ public class User implements Serializable {
 	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="user")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ServerTask> serverTaskList;
+	@XmlTransient
+	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="user")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<AnalyticsReport> analyticsReportList;
 	
 	
 	/**
@@ -176,6 +181,33 @@ public class User implements Serializable {
 	@XmlElement(name="credential")
 	public List<Credentials> getCredentialList() {
 		return credentialList;
+	}
+	
+	/**
+	 * @return the serverTaskList
+	 */
+	@XmlTransient
+	public List<ServerTask> getServerTaskList() {
+		return serverTaskList;
+	}
+	/**
+	 * @param serverTaskList the serverTaskList to set
+	 */
+	public void setServerTaskList(List<ServerTask> serverTaskList) {
+		this.serverTaskList = serverTaskList;
+	}
+	/**
+	 * @return the analyticsReportList
+	 */
+	@XmlTransient
+	public List<AnalyticsReport> getAnalyticsReportList() {
+		return analyticsReportList;
+	}
+	/**
+	 * @param analyticsReportList the analyticsReportList to set
+	 */
+	public void setAnalyticsReportList(List<AnalyticsReport> analyticsReportList) {
+		this.analyticsReportList = analyticsReportList;
 	}
 	/**
 	 * @param credentials the credentials to set
