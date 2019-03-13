@@ -74,6 +74,7 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 		logger.info("Generating timeline tweet volume report...");
 		if(this.report==null) {
 			this.report=new TimelineVolumeReport();
+			report.setUser(getUser());
 		}
 		List<TimelineReportVolumeRegister> list=tServ.extractGlobalTimelineVolumeReport(this.getUser());
 		if(list==null) {

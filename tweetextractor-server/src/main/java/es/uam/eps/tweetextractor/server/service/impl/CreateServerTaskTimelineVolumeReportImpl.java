@@ -13,9 +13,6 @@ import javax.servlet.ServletContext;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import org.springframework.stereotype.Controller;
-
-import es.uam.eps.tweetextractor.dao.service.UserService;
-import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
@@ -72,6 +69,7 @@ public class CreateServerTaskTimelineVolumeReportImpl implements CreateServerTas
 		ServerTaskTimelineVolumeReport task = new ServerTaskTimelineVolumeReport();
 		task.setUser(u);
 		TimelineVolumeReport report = new TimelineVolumeReport();
+		report.setUser(u);
 		task.setReport(report);
 		try{
 	    	stServ.persist(task);
