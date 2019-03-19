@@ -72,6 +72,9 @@ public class TweetExtractorServer {
 				haltTask(task);
 			}
 		}
+		if(scheduler!=null) {
+			scheduler.shutdown();
+		}
 	}
 	public void initialize() {
 		/*Load all tasks from database*/
@@ -81,7 +84,6 @@ public class TweetExtractorServer {
 			task.initialize(springContext);
 			launchServerTask(task);
 		}
-		
 	}
 
 	public ServerTask findById(int id) {
@@ -243,9 +245,10 @@ public class TweetExtractorServer {
 			return Constants.ERROR;
 		}
 		try {
-			scheduler.schedule(sTask.getThread(), delay, TimeUnit.MILLISECONDS);
+			scheduler.schedule(sTask, delay, TimeUnit.MILLISECONDS);
 			sTask.setScheduleDate(date);
 			sTask.onSchedule();
+			logger.info("Task with id %i has been scheduled on %s",task.getId(),date.toString());
 			return Constants.SUCCESS;
 		}catch (Exception e) {
 			logger.warn("An exception ocurred scheduling task with id %i : %s",sTask.getId(),e.getMessage());

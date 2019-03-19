@@ -149,6 +149,14 @@ public abstract class ServerTask implements Runnable,Serializable {
 		this.setStatus(Constants.ST_STOPPED);
 		sServ.update(this);
 	}
+	public void onStart() {
+		sServ=springContext.getBean(ServerTaskServiceInterface.class);
+		if(this.status==Constants.ST_READY||this.status==Constants.ST_SCHEDULED) {
+			this.status=Constants.ST_RUNNING;
+			this.setThread(Thread.currentThread());
+			sServ.update(this);
+		}
+	}
 	/**
 	 * @return the taskType
 	 */

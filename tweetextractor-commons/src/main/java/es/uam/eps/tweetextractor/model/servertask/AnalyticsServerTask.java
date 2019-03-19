@@ -54,6 +54,7 @@ public abstract class AnalyticsServerTask extends ScheduledServerTask {
 	public void run() {
 		Logger logger = LoggerFactory.getLogger(AnalyticsServerTask.class);
 		this.setLastExecutedDate(new Date());
+		onStart();
 		if(Thread.currentThread().isInterrupted()) {
 			logger.info("The task with id: "+this.getId()+" has been interrupted.");
 			onStop();

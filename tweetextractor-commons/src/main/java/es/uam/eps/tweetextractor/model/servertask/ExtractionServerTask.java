@@ -87,6 +87,7 @@ public abstract class ExtractionServerTask extends ScheduledServerTask{
 	public void run() {
 		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
 		this.setLastExecutedDate(new Date());
+		onStart();
 		if(Thread.currentThread().isInterrupted()) {
 			logger.info("The task with id: "+this.getId()+" has been interrupted.");
 			onStop();
