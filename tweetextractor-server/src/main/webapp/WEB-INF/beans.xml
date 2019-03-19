@@ -36,4 +36,7 @@
 	<jaxws:endpoint id="CreateServerTaskTimelineVolumeReport"
 		implementor="es.uam.eps.tweetextractor.server.service.impl.CreateServerTaskTimelineVolumeReportImpl"
 		address="/createServerTaskTimelineVolumeReport" />
+	<jaxws:endpoint id="ScheduleServerTask"
+		implementor="es.uam.eps.tweetextractor.server.service.impl.ScheduleServerTaskImpl"
+		address="/scheduleServerTask" />
 </beans>

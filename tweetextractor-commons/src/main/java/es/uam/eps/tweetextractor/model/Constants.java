@@ -63,7 +63,9 @@ public final class Constants {
 		@XmlEnumValue("TUEI")
 		TUEI(Values.TYPE_TASK_UPDATE_EXTRACTION_INDEF),
 		@XmlEnumValue("TTVR")
-		TTVR(Values.TYPE_TASK_TIMELINE_VOLUME_REPORT);
+		TTVR(Values.TYPE_TASK_TIMELINE_VOLUME_REPORT),
+		@XmlEnumValue("SCHT")
+		SCHT(Values.TYPE_SCHEDULED_TASK);
 		private TaskTypes(String type) {
 			
 		}
@@ -73,6 +75,7 @@ public final class Constants {
 			public static final String TYPE_ANALYTICS_TASK = "AT";
 			public static final String TYPE_TASK_UPDATE_EXTRACTION_INDEF = "TUEI";
 			public static final String TYPE_TASK_TIMELINE_VOLUME_REPORT = "TTVR";
+			public static final String TYPE_SCHEDULED_TASK="SCHT";
 
 		}
 	}
@@ -147,8 +150,11 @@ public final class Constants {
 	public static final String GET_SERVER_STATUS_ENDPOINT="getServerStatus";
 	public static final String GET_USER_SERVER_TASKS_ENDPOINT="getUserServerTasks";
 	public static final String SET_SERVER_TASK_READY_ENDPOINT="setServerTaskReady";
+	public static final String SCHEDULE_SERVER_TASK_ENDPOINT="scheduleServerTask";
 
-
+	public static final int MAX_SCHEDULED_SERVER_TASKS=250;
+	public static final int SUCCESS=0;
+	public static final int ERROR=-1;
 	/*
 	 * Login Status
 	 */
@@ -189,6 +195,8 @@ public final class Constants {
 	public static final int ST_FINISHED=4;
 	public static final int ST_INTERRUPTED=5;
 	public static final int ST_HALT = 6;
+	public static final int ST_SCHEDULED = 7;
+	public static final int ST_OUTDATED = 8;
 	public static final ImmutableMap<Integer, String> TASK_STATUS_MAP =
 		       new ImmutableMap.Builder<Integer, String>()
 		           .put(ST_NEW,"NEW")
@@ -198,6 +206,8 @@ public final class Constants {
 		           .put(ST_FINISHED,"FINISHED")
 		           .put(ST_INTERRUPTED,"INTERRUPTED")
 		           .put(ST_HALT,"HALT")
+		           .put(ST_SCHEDULED,"SCHEDULED")
+		           .put(ST_OUTDATED,"OUTDATED")
 		           .build();
 	/*
 	*Types of task available
@@ -212,7 +222,14 @@ public final class Constants {
 	
 	public static final String TWEET_VOLUME_TIMELINE_REPORT="TVTR";
     public static final String OTHER_TIMELINE_REPORT="OTR";
+    /*
+	 * Types of scheduling for ServerTasks  
+	 */
+	public static final int SCHEDULE_GIVEN_DATE_TIME=0;
+	public static final int SCHEDULE_DELAY=1;
+	public static final int SCHEDULE_PERIODICALLY=2;
 
+	
 
 
 

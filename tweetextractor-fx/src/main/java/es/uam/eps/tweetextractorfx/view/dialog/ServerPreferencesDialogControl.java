@@ -111,7 +111,7 @@ public class ServerPreferencesDialogControl {
 	public void onDefault() {
 		getServerHost().setText("app.preciapps.com");
 		getServerPort().setText("8080");
-		getServerAppName().setText("tweetextractor-server-1.0.0.0");
+		getServerAppName().setText("tweetextractor-server-1.0.1.0");
 		
 	}
 	@FXML

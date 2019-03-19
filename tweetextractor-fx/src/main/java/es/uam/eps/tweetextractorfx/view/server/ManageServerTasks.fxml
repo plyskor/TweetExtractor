@@ -131,6 +131,7 @@
                                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                               <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
@@ -183,7 +184,16 @@
                                                    <children>
                                                       <StackPane prefHeight="83.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" text="Delete task..." />
+                                                            <Button mnemonicParsing="false" onAction="#onScheduleTask" text="Schedule..." />
+                                                         </children>
+                                                      </StackPane>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="7">
+                                                   <children>
+                                                      <StackPane layoutX="59.0" layoutY="16.0" prefHeight="59.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <Button mnemonicParsing="false" onAction="#onDeleteTask" text="Delete task..." />
                                                          </children>
                                                       </StackPane>
                                                    </children>

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.server.dialog.CreateTimelineReportServerTaskSelectTypeDialogControl">
+<AnchorPane prefHeight="300.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.server.dialog.ScheduleServerTaskDialogControl">
    <children>
       <GridPane layoutX="250.0" layoutY="205.0" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -41,7 +41,7 @@
                            <children>
                               <StackPane layoutX="263.0" layoutY="22.0" prefHeight="60.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label text="Select the criteria for the timeline report...">
+                                    <Label text="When do you want this task to be executed?">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -70,8 +70,9 @@
                                              <children>
                                                 <VBox spacing="5.0" StackPane.alignment="CENTER">
                                                    <children>
-                                                      <RadioButton fx:id="timelineVolumeReportButton" mnemonicParsing="false" selected="true" text="Tweet volume" />
-                                                      <RadioButton fx:id="othersButton" mnemonicParsing="false" text="Others to come..." />
+                                                      <RadioButton fx:id="givenDateTimeButton" mnemonicParsing="false" selected="true" text="At a given date and time" />
+                                                      <RadioButton fx:id="delayButton" mnemonicParsing="false" text="After a given delay starting now" />
+                                                      <RadioButton fx:id="periodicallyButton" mnemonicParsing="false" text="Periodically" />
                                                    </children>
                                                 </VBox>
                                              </children>

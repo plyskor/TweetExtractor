@@ -38,6 +38,7 @@ import es.uam.eps.tweetextractor.model.filter.impl.FilterUntil;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterUrl;
 import es.uam.eps.tweetextractor.model.servertask.AnalyticsServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ExtractionServerTask;
+import es.uam.eps.tweetextractor.model.servertask.ScheduledServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskTimelineVolumeReport;
 import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskUpdateExtractionIndef;
@@ -76,7 +77,7 @@ public class TweetExtractorSpringConfig {
 				FilterOr.class, FilterSince.class, FilterUntil.class, FilterUrl.class, ExtractionServerTask.class,
 				AnalyticsServerTask.class, ServerTaskUpdateExtractionIndef.class, AnalyticsReport.class,
 				TimelineVolumeReport.class, TimelineReport.class, TimelineReportRegister.class,
-				TimelineReportVolumeRegister.class, ServerTaskTimelineVolumeReport.class, AnalyticsReportImage.class);
+				TimelineReportVolumeRegister.class, ServerTaskTimelineVolumeReport.class, AnalyticsReportImage.class,ScheduledServerTask.class);
 		return factoryBean;
 	}
 

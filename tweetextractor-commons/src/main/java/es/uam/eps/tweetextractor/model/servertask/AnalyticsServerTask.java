@@ -27,7 +27,7 @@ import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue(value=TaskTypes.Values.TYPE_ANALYTICS_TASK)
-public abstract class AnalyticsServerTask extends ServerTask {
+public abstract class AnalyticsServerTask extends ScheduledServerTask {
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = 874178661084669884L;

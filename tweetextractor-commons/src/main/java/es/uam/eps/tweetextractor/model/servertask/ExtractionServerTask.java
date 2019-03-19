@@ -29,7 +29,7 @@ import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskUpdateExtractio
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue(value=TaskTypes.Values.TYPE_EXTRACTION_TASK)
-public abstract class ExtractionServerTask extends ServerTask{
+public abstract class ExtractionServerTask extends ScheduledServerTask{
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = 9030030968940220019L;

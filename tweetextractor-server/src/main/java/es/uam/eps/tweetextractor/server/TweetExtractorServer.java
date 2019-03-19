@@ -5,16 +5,24 @@ package es.uam.eps.tweetextractor.server;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.scheduling.config.ScheduledTask;
 import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.servertask.ExtractionServerTask;
+import es.uam.eps.tweetextractor.model.servertask.ScheduledServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
 import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskTimelineVolumeReport;
@@ -32,6 +40,7 @@ public class TweetExtractorServer {
 	/*Initialize logger*/
 	private Logger logger = LoggerFactory.getLogger(TweetExtractorServer.class);
 	private AnnotationConfigApplicationContext springContext;
+	private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(Constants.MAX_SCHEDULED_SERVER_TASKS);
 	/**
 	 * @param tEServerSpringContext 
 	 * 
@@ -184,8 +193,9 @@ public class TweetExtractorServer {
 				if(ExtractionServerTask.class.isAssignableFrom(task.getClass())) {
 					extractionSummary=((ExtractionServerTask)task).getExtraction().getFiltersColumn();
 					ret.add(new ServerTaskInfo(task.getId(), task.getStatus(), task.getTaskType(),extractionSummary,((ExtractionServerTask)task).getExtraction().getIdDB()));
+				}else {
+					ret.add(new ServerTaskInfo(task.getId(), task.getStatus(), task.getTaskType(),extractionSummary,0));
 				}
-				ret.add(new ServerTaskInfo(task.getId(), task.getStatus(), task.getTaskType(),extractionSummary,0));
 			}
 		}
 		return ret;
@@ -198,5 +208,48 @@ public class TweetExtractorServer {
 	public void setSpringContext(AnnotationConfigApplicationContext springContext) {
 		this.springContext = springContext;
 	}
+
+	/**
+	 * @return the scheduler
+	 */
+	public ScheduledExecutorService getScheduler() {
+		return scheduler;
+	}
+
+	/**
+	 * @param scheduler the scheduler to set
+	 */
+	public void setScheduler(ScheduledExecutorService scheduler) {
+		this.scheduler = scheduler;
+	}
 	
+	public int scheduleTaskOnDate(int taskId,Date date) {
+		if(scheduler==null||taskId<=0||date==null||date.before(new Date())) {
+			return Constants.ERROR;
+		}
+		ServerTask task = findById(taskId);
+		if(task==null||!ScheduledServerTask.class.isAssignableFrom(task.getClass())) {
+			logger.info("No scheduled task found in the server instance for id: %i",taskId);
+			return Constants.ERROR;
+		}
+		ScheduledServerTask sTask = (ScheduledServerTask)task;
+		if(sTask.getStatus()!=Constants.ST_READY) {
+			logger.info("Task "+sTask.getId()+" is not ready to be scheduled.");
+			return Constants.ERROR;
+		}
+		long delay = date.getTime()-System.currentTimeMillis();
+		if(delay<0) {
+			logger.info("Scheduled date is in the past, please enter a date from the future.");
+			return Constants.ERROR;
+		}
+		try {
+			scheduler.schedule(sTask.getThread(), delay, TimeUnit.MILLISECONDS);
+			sTask.setScheduleDate(date);
+			sTask.onSchedule();
+			return Constants.SUCCESS;
+		}catch (Exception e) {
+			logger.warn("An exception ocurred scheduling task with id %i : %s",sTask.getId(),e.getMessage());
+			return Constants.ERROR;
+		}
+	}
 }

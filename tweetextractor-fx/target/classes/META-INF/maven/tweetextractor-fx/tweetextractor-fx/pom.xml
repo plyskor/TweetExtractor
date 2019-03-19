@@ -279,5 +279,11 @@
 			<version>11</version>
 			<classifier>mac</classifier>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/no.tornado/tornadofx-controls -->
+		<dependency>
+			<groupId>no.tornado</groupId>
+			<artifactId>tornadofx-controls</artifactId>
+			<version>1.0.6</version>
+		</dependency>
 	</dependencies>
 </project>

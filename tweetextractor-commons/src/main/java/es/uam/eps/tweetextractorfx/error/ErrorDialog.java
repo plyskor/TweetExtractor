@@ -507,4 +507,35 @@ public class ErrorDialog {
 		alert.setContentText("This extraction is currently being updated by another process.");		
 		alert.showAndWait();
 	}
+
+	public static void showErrorScheduleServerTask(String message) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText("An error has ocurred scheduling your task");
+		alert.setContentText("Server has thrown this error trying to schedule this task:\n\n'"+message+"'");		
+		alert.showAndWait();
+	}
+
+	public static void showSuccessScheduleServerTask() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Server task has been scheduled");
+		alert.setContentText("The server task has been scheduled and will be executed on the chosen date and time.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorNoSelectedDateTime() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No date selected");
+		alert.setContentText("Please select a valid date and time to schedule your task.");		
+		alert.showAndWait();
+	}
+	public static void showErrorTimeAlreadyPassed() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Time already passed");
+		alert.setContentText("Please select a date and time from the future.");		
+		alert.showAndWait();
+	}
 }
