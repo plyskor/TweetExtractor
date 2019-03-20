@@ -80,13 +80,25 @@ public abstract class ScheduledServerTask extends ServerTask {
 			sServ.update(this);
 		}
 	}
-	public void onOutdate() {
-		this.sServ=springContext.getBean(ServerTaskServiceInterface.class);
+	public void onOutdated() {
+		sServ=springContext.getBean(ServerTaskServiceInterface.class);
 		if(this.getStatus()==Constants.ST_SCHEDULED) {
 			this.setStatus(Constants.ST_OUTDATED);
+			this.setRunningScheduled(false);
 			sServ.update(this);
 		}
 	}
-
+	@Override
+	public void onStart() {
+		sServ=springContext.getBean(ServerTaskServiceInterface.class);
+		if(this.getStatus()==Constants.ST_READY||this.getStatus()==Constants.ST_SCHEDULED) {
+			this.setStatus(Constants.ST_RUNNING);
+			if(this.isRunningScheduled()) {
+				this.setThread(Thread.currentThread());
+				this.setScheduleDate(null);
+			}
+			sServ.update(this);
+		}
+	}
 
 }

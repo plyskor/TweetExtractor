@@ -74,6 +74,8 @@ public abstract class ServerTask implements Runnable,Serializable {
 	@XmlTransient
 	@Transient
 	private transient Thread thread = new Thread(this);
+	@Column(name = "running_scheduled")
+	private boolean runningScheduled;
 	@Transient
 	@XmlTransient
 	protected transient AnnotationConfigApplicationContext springContext;
@@ -82,6 +84,7 @@ public abstract class ServerTask implements Runnable,Serializable {
 		super();
 		this.id = id;
 		this.status = Constants.ST_NEW;
+		this.runningScheduled=false;
 		this.user = user;
 		this.creationDate=new Date();
 	}
@@ -128,6 +131,9 @@ public abstract class ServerTask implements Runnable,Serializable {
 	public void goReady() {
 		sServ=springContext.getBean(ServerTaskServiceInterface.class);
 		if(this.status!=Constants.ST_RUNNING) {
+			if(this.isRunningScheduled()) {
+				this.setRunningScheduled(false);
+			}
 			this.status=Constants.ST_READY;
 			sServ.update(this);
 		}
@@ -144,16 +150,20 @@ public abstract class ServerTask implements Runnable,Serializable {
 		this.setStatus(Constants.ST_INTERRUPTED);
 		 sServ.update(this);
 	}
+	
 	public void onStop() {
 		sServ=springContext.getBean(ServerTaskServiceInterface.class);
 		this.setStatus(Constants.ST_STOPPED);
 		sServ.update(this);
 	}
+
 	public void onStart() {
 		sServ=springContext.getBean(ServerTaskServiceInterface.class);
 		if(this.status==Constants.ST_READY||this.status==Constants.ST_SCHEDULED) {
 			this.status=Constants.ST_RUNNING;
-			this.setThread(Thread.currentThread());
+			if(this.isRunningScheduled()) {
+				this.setThread(Thread.currentThread());
+			}
 			sServ.update(this);
 		}
 	}
@@ -242,4 +252,17 @@ public abstract class ServerTask implements Runnable,Serializable {
 	}
 	public abstract void initialize(AnnotationConfigApplicationContext context);
 	public abstract void implementation() ;
+	/**
+	 * @return the runningScheduled
+	 */
+	public boolean isRunningScheduled() {
+		return runningScheduled;
+	}
+	/**
+	 * @param runningScheduled the runningScheduled to set
+	 */
+	public void setRunningScheduled(boolean runningScheduled) {
+		this.runningScheduled = runningScheduled;
+	}
+	
 }

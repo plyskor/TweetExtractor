@@ -399,7 +399,7 @@ public class HomeScreenControl {
 	public void onManageTasks() {
 		if (!this.getMainApplication().checkServer()) {
 			ErrorDialog.showErrorConfigureServer();
-
+			return;
 		}
 		this.getMainApplication().showManageServerTasks();
 
@@ -418,8 +418,7 @@ public class HomeScreenControl {
 	}
 	@FXML
 	public void onGraphicsForAnalytics() {
-		showManageServerPreferences();
-
+		//TODO à faire
 	}
 
 }

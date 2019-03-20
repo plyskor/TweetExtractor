@@ -57,7 +57,11 @@ public abstract class GenericService<V extends Serializable, K extends Serializa
     public void persist(V entity) {
         genericDao.persist(entity);
     }
- 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void merge(V entity) {
+        genericDao.merge(entity);
+    }
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void update(V entity) {

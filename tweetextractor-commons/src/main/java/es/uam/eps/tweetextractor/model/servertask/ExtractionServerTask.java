@@ -84,6 +84,7 @@ public abstract class ExtractionServerTask extends ScheduledServerTask{
 	 * Thread method, executed when task is running.
 	 * 
 	 */
+	@Override
 	public void run() {
 		Logger logger = LoggerFactory.getLogger(ServerTaskUpdateExtractionIndef.class);
 		this.setLastExecutedDate(new Date());

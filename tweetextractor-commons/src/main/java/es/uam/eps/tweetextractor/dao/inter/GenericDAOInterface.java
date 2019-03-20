@@ -17,6 +17,7 @@ public interface GenericDAOInterface <V extends Serializable,K extends Serializa
     public void delete(V entity);
     public void deleteById(K id);
     public V find(K key);
+    public void merge(V entity);
     public List<V> getAll() ;
 	void refresh(V entity);
 	void deleteAll();

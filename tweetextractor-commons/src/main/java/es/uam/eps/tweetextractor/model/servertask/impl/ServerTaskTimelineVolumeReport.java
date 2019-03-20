@@ -81,17 +81,23 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 			logger.warn("There was an error querying the database while generating the report.");
 			onInterrupt();
 			return;
+		}if (list.isEmpty()) {
+			logger.info("Server task "+this.getId()+" has generated an empty timeline volume report. It hasn't been saved.");
+			finish();
+			return;
 		}
 		for(TimelineReportVolumeRegister register: list) {
 			register.setReport(report);
 		}
-		report.getResult().clear();
+		//permClearReport();
 		report.getResult().addAll(list);
 		report.setLastUpdatedDate(new Date());
-		arServ.update(report);
+		arServ.merge(report);
 		logger.info("Timeline tweet volume report succesfully saved to database with id: "+report.getId());
 		finish();
 	}
+
+	
 
 	/**
 	 * @return the report

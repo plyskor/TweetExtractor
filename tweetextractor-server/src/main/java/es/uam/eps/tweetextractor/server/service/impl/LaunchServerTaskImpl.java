@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.LaunchServerTaskResponse;
@@ -50,6 +51,11 @@ public class LaunchServerTaskImpl implements LaunchServerTaskSei {
 	     if(task==null) {
 	    	 reply.setError(true);
 	    	 reply.setMessage("Task "+id+" doesn't exist");
+	    	 return reply;
+	     }
+	     if(task.getStatus()!=Constants.ST_READY) {
+	    	 reply.setError(true);
+	    	 reply.setMessage("Task "+id+" is not ready to run");
 	    	 return reply;
 	     }
 	     ServerTaskResponse response = server.launchServerTask(task);
