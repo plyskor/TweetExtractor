@@ -3,25 +3,15 @@ package es.uam.eps.tweetextractorfx;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;
-import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
-import es.uam.eps.tweetextractor.model.service.GetUserServerTasksResponse;
-import es.uam.eps.tweetextractor.model.service.LaunchServerTaskResponse;
-import es.uam.eps.tweetextractor.model.service.SetServerTaskReadyResponse;
 import es.uam.eps.tweetextractor.service.GetServerStatus;
-import es.uam.eps.tweetextractor.service.GetUserServerTasks;
-import es.uam.eps.tweetextractor.service.LaunchServerTask;
-import es.uam.eps.tweetextractor.service.SetServerTaskReady;
 import es.uam.eps.tweetextractor.spring.config.TweetExtractorSpringConfig;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
@@ -67,34 +57,11 @@ public class MainApplication extends Application {
 		springContext = new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
 		// onBoot();
 	}
-
+/*
 	private void onBoot() {
-		LaunchServerTask service3 = new LaunchServerTask(
-				TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
-		SetServerTaskReady service2 = new SetServerTaskReady(
-				TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
-		GetUserServerTasks service = new GetUserServerTasks(
-				TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
-		GetUserServerTasksResponse reply = service.getUserServerTasks(1);
-		if (!reply.isError()) {
-			for (ServerTaskInfo task : reply.getServerTasksList()) {
-				SetServerTaskReadyResponse reply2 = service2.setServerTaskReady(task.getId());
-				if (!reply2.isError()) {
-					LaunchServerTaskResponse reply3 = service3.launchServerTask(task.getId());
-					if (!reply3.isError()) {
-						try {
-							TimeUnit.MICROSECONDS.sleep(15);
-						} catch (InterruptedException e) {
-							Logger logger = LoggerFactory.getLogger(this.getClass());
-							logger.error(e.getMessage());
-							Thread.currentThread().interrupt();
-						}
-					}
-				}
-			}
-		}
+		
 	}
-
+*/
 	/* Initialize the RootLayout */
 	public void initRootLayout() {
 		try {

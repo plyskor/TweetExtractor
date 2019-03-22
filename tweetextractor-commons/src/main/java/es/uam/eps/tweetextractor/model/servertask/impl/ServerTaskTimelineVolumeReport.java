@@ -5,9 +5,7 @@ package es.uam.eps.tweetextractor.model.servertask.impl;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,12 +13,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
-
 import es.uam.eps.tweetextractor.dao.service.inter.AnalyticsReportServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
@@ -29,7 +25,6 @@ import es.uam.eps.tweetextractor.model.analytics.report.TimelineVolumeReport;
 import es.uam.eps.tweetextractor.model.servertask.AnalyticsServerTask;
 import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 import es.uam.eps.tweetextractor.model.servertask.response.TimelineVolumeReportResponse;
-import net.bytebuddy.implementation.attribute.AnnotationAppender.Target.OnField;
 
 /**
  * @author jose

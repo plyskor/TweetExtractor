@@ -4,16 +4,13 @@
 package es.uam.eps.tweetextractor.model.analytics.report;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +27,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Polymorphism;
 import org.hibernate.annotations.PolymorphismType;
 import org.springframework.stereotype.Controller;
-
 import es.uam.eps.tweetextractor.model.User;
 @NamedQuery(name="findAnalyticsReportByUser", query="SELECT r from AnalyticsReport r where r.user=:user")
 /**

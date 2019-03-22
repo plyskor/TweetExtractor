@@ -5,12 +5,9 @@ package es.uam.eps.tweetextractorfx.view.server;
 
 import java.io.IOException;
 import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import es.uam.eps.tweetextractor.model.Constants;
-import es.uam.eps.tweetextractor.model.servertask.ScheduledServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
 import es.uam.eps.tweetextractor.model.service.DeleteServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.GetUserServerTasksResponse;
@@ -27,8 +24,6 @@ import es.uam.eps.tweetextractor.service.SetServerTaskReady;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
-import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
-import es.uam.eps.tweetextractorfx.view.server.dialog.CreateAnalyticsServerTaskSelectTypeDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.ScheduleServerTaskDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.ScheduleServerTaskSelectDateDialogControl;
 import javafx.beans.property.SimpleStringProperty;

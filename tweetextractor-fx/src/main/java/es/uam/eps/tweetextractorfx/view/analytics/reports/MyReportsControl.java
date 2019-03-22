@@ -6,10 +6,7 @@ package es.uam.eps.tweetextractorfx.view.analytics.reports;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
-
-import es.uam.eps.tweetextractor.dao.service.AnalyticsReportService;
 import es.uam.eps.tweetextractor.dao.service.inter.AnalyticsReportServiceInterface;
-import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import javafx.beans.property.SimpleIntegerProperty;

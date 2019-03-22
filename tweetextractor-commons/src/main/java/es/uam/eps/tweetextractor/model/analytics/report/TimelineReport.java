@@ -4,9 +4,7 @@
 package es.uam.eps.tweetextractor.model.analytics.report;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

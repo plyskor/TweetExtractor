@@ -2,19 +2,14 @@ package es.uam.eps.tweetextractorfx.view.extraction;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import javax.xml.ws.WebServiceException;
-
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
-import es.uam.eps.tweetextractorfx.task.DeleteAccountTask;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.filter.Filter;
-import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
-import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
 import es.uam.eps.tweetextractor.model.service.GetUserServerTasksResponse;
 import es.uam.eps.tweetextractor.service.DeleteServerTask;
 import es.uam.eps.tweetextractor.service.GetUserServerTasks;
