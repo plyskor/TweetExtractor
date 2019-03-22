@@ -13,9 +13,11 @@ import javax.servlet.ServletContext;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import es.uam.eps.tweetextractor.model.Constants;
+import es.uam.eps.tweetextractor.model.servertask.response.ScheduleTaskOnDateResponse;
 import es.uam.eps.tweetextractor.model.service.ScheduleServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.sei.ScheduleServerTaskSei;
 import es.uam.eps.tweetextractor.server.TweetExtractorServer;
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 
 /**
  * @author jose
@@ -56,11 +58,11 @@ public class ScheduleServerTaskImpl implements ScheduleServerTaskSei {
 			reply.setMessage("Server instance is null");
 			reply.setResponse(null);
 			return reply;
-		}
-		int result=server.scheduleTaskOnDate(taskId, date);
-		if(result==Constants.ERROR) {
+		} 
+		ScheduleTaskOnDateResponse result=server.scheduleTaskOnDate(taskId, date);
+		if(result.isError()) {
 			reply.setError(true);
-			reply.setMessage("An error has ocurred, check the server log for more information");
+			reply.setMessage(result.getMessage());
 			reply.setResponse(null);
 			return reply;
 		}

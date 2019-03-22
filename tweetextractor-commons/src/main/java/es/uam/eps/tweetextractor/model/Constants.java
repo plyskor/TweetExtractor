@@ -174,6 +174,14 @@ public final class Constants {
 	public static final int EXIST_USER_REGISTER_ERROR=-4;
 	public static final int EMPTY_USER_REGISTER_ERROR=-5;
 	/*
+	 * Schedule task Status
+	 */
+
+	public static final int SCHEDULE_NO_TASK_FOUND=-1;
+	public static final int SCHEDULE_NOT_READY=-2;
+	public static final int SCHEDULE_DATE_PAST=-3;
+	public static final int SCHEDULE_EXCEPTION=-4;
+	/*
 	 * Update Status
 	 */
 	public static final int SUCCESS_UPDATE=0;

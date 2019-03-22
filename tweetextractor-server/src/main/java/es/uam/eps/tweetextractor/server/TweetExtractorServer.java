@@ -26,6 +26,7 @@ import es.uam.eps.tweetextractor.model.servertask.ScheduledServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
 import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskTimelineVolumeReport;
+import es.uam.eps.tweetextractor.model.servertask.response.ScheduleTaskOnDateResponse;
 import es.uam.eps.tweetextractor.model.servertask.response.ServerTaskResponse;
 import es.uam.eps.tweetextractor.server.util.TweetExtractorThreadFactory;
 
@@ -264,35 +265,54 @@ public class TweetExtractorServer {
 		this.scheduler = scheduler;
 	}
 
-	public int scheduleTaskOnDate(int taskId, Date date) {
-		if (scheduler == null || taskId <= 0 || date == null || date.before(new Date())) {
-			return Constants.ERROR;
+	public ScheduleTaskOnDateResponse scheduleTaskOnDate(int taskId, Date date) {
+		ScheduleTaskOnDateResponse reply = new ScheduleTaskOnDateResponse();
+		if (scheduler == null || taskId <= 0 || date == null ) {
+			reply.setError(true);
+			reply.setMessage("Task id or date are not valid");
+			reply.setError_code(Constants.ERROR);
+			return reply;
 		}
 		ServerTask task = findById(taskId);
 		if (task == null || !ScheduledServerTask.class.isAssignableFrom(task.getClass())) {
 			logger.info("No scheduled task found in the server instance for id: %i", taskId);
-			return Constants.ERROR;
+			reply.setError(true);
+			reply.setMessage("No scheduled task found in the server instance for id: " +taskId);
+			reply.setError_code(Constants.SCHEDULE_NO_TASK_FOUND);
+			return reply;
 		}
 		ScheduledServerTask sTask = (ScheduledServerTask) task;
 		if (sTask.getStatus() != Constants.ST_READY) {
 			logger.info("Task " + sTask.getId() + " is not ready to be scheduled.");
-			return Constants.ERROR;
+			reply.setError(true);
+			reply.setMessage("Task " + sTask.getId() +" is not ready to be scheduled.");
+			reply.setError_code(Constants.SCHEDULE_NOT_READY);
+			return reply;
 		}
 		long delay = date.getTime() - System.currentTimeMillis();
 		if (delay < 0) {
 			logger.info("Scheduled date is in the past, please enter a date from the future.");
-			return Constants.ERROR;
+			reply.setError(true);
+			reply.setMessage("Scheduled date is in the past, please enter a date from the future.");
+			reply.setError_code(Constants.SCHEDULE_DATE_PAST);
+			return reply;
 		}
 		try {
 			scheduler.schedule(sTask, delay, TimeUnit.MILLISECONDS);
 			sTask.setScheduleDate(date);
 			sTask.setRunningScheduled(true);
 			sTask.onSchedule();
-			logger.info("Task with id %i has been scheduled on %s", task.getId(), date.toString());
-			return Constants.SUCCESS;
+			logger.info("Task with id "+task.getId()+" has been scheduled on "+date.toString());
+			reply.setError(false);
+			reply.setMessage("Task with id %i has been scheduled on %s\"");
+			reply.setError_code(Constants.SUCCESS);
+			return reply;
 		} catch (Exception e) {
 			logger.warn("An exception ocurred scheduling task with id %i : %s", sTask.getId(), e.getMessage());
-			return Constants.ERROR;
+			reply.setError(true);
+			reply.setMessage("An exception ocurred scheduling task with id "+task.getId()+" : "+ e.getMessage());
+			reply.setError_code(Constants.ERROR);
+			return reply;
 		}
 	}
 }
