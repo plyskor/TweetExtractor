@@ -25,6 +25,7 @@ import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.server.dialog.ScheduleServerTaskDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.ScheduleServerTaskSelectDateDialogControl;
+import es.uam.eps.tweetextractorfx.view.server.dialog.ScheduleServerTaskSelectDelayDialogControl;
 import es.uam.eps.tweetextractorserver.model.servertask.ServerTaskInfo;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -287,26 +288,67 @@ public class ManageServerTasksControl {
 			return;
 		}
 		int choice = showScheduleServerTaskDialog();
+		Date date=null;
+		ScheduleServerTask service = new ScheduleServerTask(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		ScheduleServerTaskResponse reply =null;
 		switch (choice) {
 		case Constants.SCHEDULE_GIVEN_DATE_TIME:
-			Date date = showScheduleServerTaskSelectDateDialog();
+			date = showScheduleServerTaskSelectDateDialog();
 			if(date==null) {
 				return;
 			}
-			ScheduleServerTask service = new ScheduleServerTask(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
-			ScheduleServerTaskResponse reply = service.scheduleServerTask(selectedServerTask.getId(), date);
+			reply = service.scheduleServerTask(selectedServerTask.getId(), date);
 			if(reply.isError()) {
 				ErrorDialog.showErrorScheduleServerTask(reply.getMessage());
 				return;
 			}
 			ErrorDialog.showSuccessScheduleServerTask();
+			refreshTable();
 			break;
 		case Constants.SCHEDULE_DELAY:
+			date = showScheduleServerTaskSelectDelayDialog();
+			if(date==null) {
+				return;
+			}
+			reply = service.scheduleServerTask(selectedServerTask.getId(), date);
+			if(reply.isError()) {
+				ErrorDialog.showErrorScheduleServerTask(reply.getMessage());
+				return;
+			}
+			ErrorDialog.showSuccessScheduleServerTask();
+			refreshTable();
 			break;
 		case Constants.SCHEDULE_PERIODICALLY:
+			ErrorDialog.showErrorNotAvailableYet();
 			break;
 		default:
 			break;
+		}
+	}
+
+	private Date showScheduleServerTaskSelectDelayDialog() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(ManageServerTasksControl.class.getResource("dialog/ScheduleServerTaskSelectDelayDialog.fxml"));
+			AnchorPane page = loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(mainApplication.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			// Set the dialogStage to the controller.
+			ScheduleServerTaskSelectDelayDialogControl controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setMainApplication(mainApplication);
+			// Show the dialog and wait until the user closes it, then add filter
+			dialogStage.showAndWait();
+			return controller.getToReturn();
+		} catch (IOException e) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.error(e.getMessage());
+			return null;
 		}
 	}
 

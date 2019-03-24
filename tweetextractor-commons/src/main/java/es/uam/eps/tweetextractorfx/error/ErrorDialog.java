@@ -538,4 +538,11 @@ public class ErrorDialog {
 		alert.setContentText("Please select a date and time from the future.");		
 		alert.showAndWait();
 	}
+	public static void showErrorNotAvailableYet() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Feature not available");
+		alert.setContentText("This feature has not yet been implemented. It will be available in a future release of TweetExtractor");		
+		alert.showAndWait();
+	}
 }

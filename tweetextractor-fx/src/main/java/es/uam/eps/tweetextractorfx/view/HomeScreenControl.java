@@ -303,6 +303,7 @@ public class HomeScreenControl {
 					}
 					break;
 				case (Constants.OTHER_TIMELINE_REPORT):
+					ErrorDialog.showErrorNotAvailableYet();
 					break;
 				default:
 					break;
