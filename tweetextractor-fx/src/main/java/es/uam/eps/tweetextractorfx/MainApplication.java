@@ -152,8 +152,7 @@ public class MainApplication extends Application {
 	        Object controller = clazz.getConstructor(params).newInstance(rootNode.getScene(),report);
 	        loader.setController(controller);
 	        //Run a method from the generic controller
-	        Class<MainApplication> parameterType = MainApplication.class;
-	        Method meth = clazz.getMethod("setMainApplication", parameterType);
+	        Method meth = clazz.getMethod("setMainApplication", MainApplication.class);
 	        meth.invoke(controller, this);
 		} catch (Exception e) {
 			logger.error(e.getMessage());

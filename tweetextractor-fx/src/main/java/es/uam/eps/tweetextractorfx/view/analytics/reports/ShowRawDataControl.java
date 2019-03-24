@@ -38,9 +38,9 @@ public abstract class ShowRawDataControl extends TweetExtractorFXController {
 		super();
 		this.scene=scene;
 		this.report=report;
-		table =(TableView)scene.lookup("#table");
-		doneButton = (Button)scene.lookup("#doneButton");
-		titleText = (Text)scene.lookup("#titleText");
+		this.table =(TableView)scene.lookup("#table");
+		this.doneButton = (Button)scene.lookup("#doneButton");
+		this.titleText = (Text)scene.lookup("#titleText");
 	}
 
 	@Override
