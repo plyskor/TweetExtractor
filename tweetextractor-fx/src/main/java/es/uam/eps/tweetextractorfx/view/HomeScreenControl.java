@@ -93,9 +93,7 @@ public class HomeScreenControl extends TweetExtractorFXController{
 			ErrorDialog.showErrorNoCredentials();
 
 		}
-		AnchorPane node=null;
-		QueryConstructorControl controller = null;
-		this.getMainApplication().showScreenInCenterOfRootLayout("view/extraction/QueryConstructor.fxml", node, controller);
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/extraction/QueryConstructor.fxml");
 	}
 
 	@FXML
@@ -105,16 +103,12 @@ public class HomeScreenControl extends TweetExtractorFXController{
 
 	@FXML
 	public void handleManageCredentials() {
-		AnchorPane node = null;
-		ManageCredentialsControl controller = null;
-		this.getMainApplication().showScreenInCenterOfRootLayout("view/credentials/ManageCredentials.fxml", node, controller);
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/credentials/ManageCredentials.fxml");
 	}
 
 	@FXML
 	public void handleManageExtractions() {
-		AnchorPane node = null;
-		ShowUserExtractionsControl controller = null;
-		this.getMainApplication().showScreenInCenterOfRootLayout("view/extraction/ShowUserExtractions.fxml", node, controller);
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/extraction/ShowUserExtractions.fxml");
 	}
 	/* DIALOGOS */
 
@@ -405,9 +399,7 @@ public class HomeScreenControl extends TweetExtractorFXController{
 			ErrorDialog.showErrorConfigureServer();
 			return;
 		}
-		AnchorPane node = null;
-		ManageServerTasksControl controller = null;
-		this.getMainApplication().showScreenInCenterOfRootLayout("view/server/ManageServerTasks.fxml", node, controller);;
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/server/ManageServerTasks.fxml");
 
 	}
 
@@ -419,9 +411,7 @@ public class HomeScreenControl extends TweetExtractorFXController{
 	/*Analytics menu*/
 	@FXML
 	public void onMyReports() {
-		AnchorPane node = null;
-		MyReportsControl controller = null;
-		this.mainApplication.showScreenInCenterOfRootLayout("view/analytics/reports/MyReports.fxml",node , controller);
+		this.mainApplication.showScreenInCenterOfRootLayout("view/analytics/reports/MyReports.fxml");
 
 	}
 	@FXML

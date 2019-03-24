@@ -127,9 +127,7 @@ public class ManageCredentialsControl extends TweetExtractorFXController{
 
 	@FXML
 	public void handleBack() {
-		AnchorPane node = null;
-		HomeScreenControl controller = null;
-		this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml", node, controller);
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml");
 	}
 
 	@FXML

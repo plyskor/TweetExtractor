@@ -141,9 +141,7 @@ public class LoginDialogControl extends TweetExtractorFXDialogController{
         }else {
         	this.getDialogStage().close();
         	this.getWelcomeScreenControl().getMainApplication().getRootLayoutController().addOptionsMenu();
-        	AnchorPane node = null;
-    		HomeScreenControl controller = null;
-    		this.getWelcomeScreenControl().getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml", node, controller);        }
+    		this.getWelcomeScreenControl().getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml");        }
         
 	}
 

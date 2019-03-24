@@ -74,9 +74,7 @@ public class MainApplication extends Application {
 			// Give the controller access to the main app.
 			rootLayoutController = loader.getController();
 			rootLayoutController.setMainApplication(this);
-			AnchorPane node=null;
-			WelcomeScreenControl controller=null;
-    		this.showScreenInCenterOfRootLayout("view/WelcomeScreen.fxml", node, controller);			
+    		this.showScreenInCenterOfRootLayout("view/WelcomeScreen.fxml");			
     		primaryStage.show();
 		} catch (IOException e) {
 			logger.error(e.getMessage());
@@ -131,16 +129,16 @@ public class MainApplication extends Application {
 		}
 	}
 
-	public void showScreenInCenterOfRootLayout(String fxmlPath,Node rootNode, TweetExtractorFXController controller) {
+	public void showScreenInCenterOfRootLayout(String fxmlPath) {
 		try {	
 		// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource(fxmlPath));
-			rootNode = loader.load();
+			Node rootNode = loader.load();
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(rootNode);
 			// Give the controller access to the main app.
-			controller = loader.getController();
+			TweetExtractorFXController controller = loader.getController();
 			controller.setMainApplication(this);
 		} catch (IOException e) {
 			logger.error(e.getMessage());

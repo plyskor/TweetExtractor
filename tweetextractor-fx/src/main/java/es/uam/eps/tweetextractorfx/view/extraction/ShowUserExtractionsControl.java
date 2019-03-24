@@ -32,7 +32,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Jose Antonio García del Saz
  *
  */
-public class ShowUserExtractionsControl extends TweetExtractorFXController{
+public class ShowUserExtractionsControl extends TweetExtractorFXController {
 	@FXML
 	private TreeTableView<String> extractionTableView;
 	@FXML
@@ -47,17 +47,20 @@ public class ShowUserExtractionsControl extends TweetExtractorFXController{
 	public void initialize() {
 		extractionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue()));
 		extractionTableView.getSelectionModel().selectedItemProperty().addListener((c, oldValue, newValue) -> {
-			if ((newValue != null && newValue.getValue()!=null&&!newValue.getValue().startsWith("Extraction"))||newValue == null || newValue.getValue()==null||newValue.getValue().contains("of the account")) {
+			if ((newValue != null && newValue.getValue() != null && !newValue.getValue().startsWith("Extraction"))
+					|| newValue == null || newValue.getValue() == null
+					|| newValue.getValue().contains("of the account")) {
 				Platform.runLater(() -> extractionTableView.getSelectionModel().clearSelection());
-				selectedExtraction=null;
+				selectedExtraction = null;
 			} else {
-				if(newValue!=null) {
-				selectedExtraction = this.getMainApplication().getCurrentUser()
-						.getExtraction(Integer.parseInt(newValue.getValue().substring(11)));
+				if (newValue != null) {
+					selectedExtraction = this.getMainApplication().getCurrentUser()
+							.getExtraction(Integer.parseInt(newValue.getValue().substring(11)));
 				}
 			}
 		});
 	}
+
 	/**
 	 * @param mainApplication the mainApplication to set
 	 */
@@ -74,21 +77,21 @@ public class ShowUserExtractionsControl extends TweetExtractorFXController{
 				"Extractions of the account " + this.getMainApplication().getCurrentUser().getNickname());
 		extractionTableView.setRoot(root);
 		for (Extraction extraction : this.getMainApplication().getCurrentUser().getExtractionList()) {
-			if(extraction!=null) {
-			TreeItem<String> extractionNode = new TreeItem<>("Extraction " + extraction.getIdDB());
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			TreeItem<String> createdAt = new TreeItem<>("Created On: " + df.format(extraction.getCreationDate()));
-			TreeItem<String> lastModified = new TreeItem<>(
-					"Last updated: " + df.format(extraction.getLastModificationDate()));
-			TreeItem<String> filtersNode = new TreeItem<>("Filters");
-			for(Filter filter:extraction.getFilterList()) {
-				TreeItem<String> filterItem = new TreeItem<>(filter.getSummary());
-				filtersNode.getChildren().add(filterItem);
+			if (extraction != null) {
+				TreeItem<String> extractionNode = new TreeItem<>("Extraction " + extraction.getIdDB());
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				TreeItem<String> createdAt = new TreeItem<>("Created On: " + df.format(extraction.getCreationDate()));
+				TreeItem<String> lastModified = new TreeItem<>(
+						"Last updated: " + df.format(extraction.getLastModificationDate()));
+				TreeItem<String> filtersNode = new TreeItem<>("Filters");
+				for (Filter filter : extraction.getFilterList()) {
+					TreeItem<String> filterItem = new TreeItem<>(filter.getSummary());
+					filtersNode.getChildren().add(filterItem);
+				}
+				extractionNode.getChildren().addAll(createdAt, lastModified, filtersNode);
+				root.getChildren().add(extractionNode);
 			}
-			extractionNode.getChildren().addAll(createdAt,lastModified,filtersNode);
-			root.getChildren().add(extractionNode);
 		}
-		}	
 	}
 
 	/**
@@ -135,40 +138,36 @@ public class ShowUserExtractionsControl extends TweetExtractorFXController{
 
 	@FXML
 	public void handleBack() {
-		AnchorPane node = null;
-		HomeScreenControl controller = null;
-		this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml", node, controller);
-		}
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml");
+	}
 
 	@FXML
 	public void handleAddExtraction() {
-		if(!this.getMainApplication().getCurrentUser().hasAnyCredentials()) {
+		if (!this.getMainApplication().getCurrentUser().hasAnyCredentials()) {
 			ErrorDialog.showErrorNoCredentials();
 			return;
 		}
-		AnchorPane node=null;
-		QueryConstructorControl controller = null;
-		this.getMainApplication().showScreenInCenterOfRootLayout("view/extraction/QueryConstructor.fxml", node, controller);
-		}
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/extraction/QueryConstructor.fxml");
+	}
 
 	@FXML
 	public void handleEditExtraction() {
-		if(selectedExtraction==null) {
+		if (selectedExtraction == null) {
 			ErrorDialog.showErrorNoSelectedExtraction();
 			return;
 		}
-		this.getMainApplication().showExtractionDetails(selectedExtraction,false);
+		this.getMainApplication().showExtractionDetails(selectedExtraction, false);
 	}
 
 	@FXML
 	public void handleRemoveExtraction() {
-		if(selectedExtraction==null) {
+		if (selectedExtraction == null) {
 			ErrorDialog.showErrorNoSelectedExtraction();
-		}else {
+		} else {
 			deleteExtraction();
 		}
 	}
-	
+
 	public void deleteExtraction() {
 		Alert alert = new Alert(AlertType.CONFIRMATION,
 				"This action will delete the extraction " + selectedExtraction.getIdDB()
@@ -178,23 +177,27 @@ public class ShowUserExtractionsControl extends TweetExtractorFXController{
 		if (alert.getResult() == ButtonType.YES) {
 			this.getMainApplication().getCurrentUser().removeExtractionFromList(selectedExtraction);
 			XMLManager.deleteExtraction(selectedExtraction);
-			ExtractionServiceInterface extractionService = mainApplication.getSpringContext().getBean(ExtractionServiceInterface.class);
+			ExtractionServiceInterface extractionService = mainApplication.getSpringContext()
+					.getBean(ExtractionServiceInterface.class);
 			extractionService.deleteById(selectedExtraction.getIdDB());
 			try {
-				GetUserServerTasks getTasksService = new GetUserServerTasks(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
-				GetUserServerTasksResponse reply = getTasksService.getUserServerTasks(mainApplication.getCurrentUser().getIdDB());
-				if(!reply.isError()) {
-					for(ServerTaskInfo task : reply.getServerTasksList()) {
-						if(selectedExtraction.getIdDB()==task.getExtractionId()) {
-							DeleteServerTask deleteTaskService = new DeleteServerTask(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+				GetUserServerTasks getTasksService = new GetUserServerTasks(
+						TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+				GetUserServerTasksResponse reply = getTasksService
+						.getUserServerTasks(mainApplication.getCurrentUser().getIdDB());
+				if (!reply.isError()) {
+					for (ServerTaskInfo task : reply.getServerTasksList()) {
+						if (selectedExtraction.getIdDB() == task.getExtractionId()) {
+							DeleteServerTask deleteTaskService = new DeleteServerTask(TweetExtractorFXPreferences
+									.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
 							deleteTaskService.deleteServerTask(task.getId());
 						}
 					}
 				}
-			}catch(WebServiceException exception) {
+			} catch (WebServiceException exception) {
 				exception.printStackTrace();
 			}
-			selectedExtraction=null;
+			selectedExtraction = null;
 			this.updateTreeTableView();
 		}
 	}

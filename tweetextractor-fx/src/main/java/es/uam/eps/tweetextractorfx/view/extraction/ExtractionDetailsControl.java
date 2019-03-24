@@ -210,10 +210,8 @@ public class ExtractionDetailsControl extends TweetExtractorFXController {
 
 	@FXML
 	public void handleCancel() {
-		AnchorPane node = null;
-		HomeScreenControl controller = null;
-		this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml", node, controller);
-		}
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml");
+	}
 
 	@FXML
 	public void handleDelete() {

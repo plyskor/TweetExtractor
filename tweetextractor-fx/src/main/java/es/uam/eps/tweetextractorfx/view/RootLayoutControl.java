@@ -43,9 +43,7 @@ public class RootLayoutControl extends TweetExtractorFXController {
 			mainApplication.setCurrentUser(null);
 			mainApplication.getRootLayoutController().getArchivoMenu().getItems()
 					.remove(mainApplication.getRootLayoutController().getLogoutmenuitem());
-			AnchorPane node = null;
-			WelcomeScreenControl controller = null;
-			this.getMainApplication().showScreenInCenterOfRootLayout("view/WelcomeScreen.fxml", node, controller);
+			this.getMainApplication().showScreenInCenterOfRootLayout("view/WelcomeScreen.fxml");
 		});
 	}
 
@@ -107,13 +105,10 @@ public class RootLayoutControl extends TweetExtractorFXController {
 	 */
 	@FXML
 	private void handleHome() {
-		AnchorPane node = null;
 		if (this.getMainApplication().getCurrentUser() == null) {
-			WelcomeScreenControl controller = null;
-			this.getMainApplication().showScreenInCenterOfRootLayout("view/WelcomeScreen.fxml", node, controller);
+			this.getMainApplication().showScreenInCenterOfRootLayout("view/WelcomeScreen.fxml");
 		} else {
-			HomeScreenControl controller = null;
-			this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml", node, controller);
+			this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml");
 		}
 	}
 
