@@ -175,7 +175,16 @@ public class MyReportsControl extends TweetExtractorFXController {
 	}
 	@FXML
 	public void onSeeRawData() {
-		
+		if(selectedReport!=null) {
+			Class<?> clazz = selectedReport.getClass();
+			switch(clazz.getName()) {
+			case "es.uam.eps.tweetextractor.model.analytics.report.TimelineVolumeReport":
+				this.getMainApplication().showReportRawDataInCenterOfRootLayout("view/analytics/reports/ShowRawData.fxml",ShowRawDataTimelineVolumeReportControl.class,selectedReport);
+				break;
+			default:
+				break;
+			}
+		}
 	}
 	@FXML
 	public void onUpdateReport() {
@@ -185,4 +194,5 @@ public class MyReportsControl extends TweetExtractorFXController {
 	public void onDeleteReport() {
 		
 	}
+	
 }

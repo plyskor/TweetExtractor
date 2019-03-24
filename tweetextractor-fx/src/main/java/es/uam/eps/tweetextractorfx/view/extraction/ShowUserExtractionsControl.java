@@ -14,7 +14,6 @@ import es.uam.eps.tweetextractor.service.DeleteServerTask;
 import es.uam.eps.tweetextractor.service.GetUserServerTasks;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
-import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import es.uam.eps.tweetextractorserver.model.servertask.ServerTaskInfo;
 import javafx.fxml.FXML;
@@ -24,7 +23,6 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 

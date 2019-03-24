@@ -4,10 +4,8 @@
 package es.uam.eps.tweetextractorfx.view;
 
 import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTimelineVolumeReportResponse;
@@ -17,13 +15,8 @@ import es.uam.eps.tweetextractor.service.CreateServerTaskUpdateExtractionIndef;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
-import es.uam.eps.tweetextractorfx.view.analytics.reports.MyReportsControl;
-import es.uam.eps.tweetextractorfx.view.credentials.ManageCredentialsControl;
 import es.uam.eps.tweetextractorfx.view.dialog.ServerPreferencesDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
-import es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl;
-import es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl;
-import es.uam.eps.tweetextractorfx.view.server.ManageServerTasksControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateAnalyticsServerTaskSelectTypeDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTaskSelectExtractionDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTaskSelectTaskTypeDialogControl;

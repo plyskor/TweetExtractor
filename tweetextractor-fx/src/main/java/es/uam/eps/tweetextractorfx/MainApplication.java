@@ -1,6 +1,7 @@
 package es.uam.eps.tweetextractorfx;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -9,22 +10,16 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;
 import es.uam.eps.tweetextractor.service.GetServerStatus;
 import es.uam.eps.tweetextractor.spring.config.TweetExtractorSpringConfig;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
-import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
-import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
-import es.uam.eps.tweetextractorfx.view.analytics.reports.MyReportsControl;
-import es.uam.eps.tweetextractorfx.view.credentials.ManageCredentialsControl;
 import es.uam.eps.tweetextractorfx.view.dialog.LoadingDialogControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
-import es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl;
-import es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl;
-import es.uam.eps.tweetextractorfx.view.server.ManageServerTasksControl;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -131,7 +126,6 @@ public class MainApplication extends Application {
 
 	public void showScreenInCenterOfRootLayout(String fxmlPath) {
 		try {	
-		// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApplication.class.getResource(fxmlPath));
 			Node rootNode = loader.load();
@@ -141,6 +135,27 @@ public class MainApplication extends Application {
 			TweetExtractorFXController controller = loader.getController();
 			controller.setMainApplication(this);
 		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+	}
+	public void showReportRawDataInCenterOfRootLayout(String fxmlPath,Class<?> clazz,AnalyticsReport report) {
+		try {	
+			//Loader
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource(fxmlPath));
+			Node rootNode = loader.load();
+			rootLayout.setCenter(rootNode);
+			//Construct a controller from the provided class
+			Class<?>[] params = new Class<?>[2];
+			params[0]=Scene.class;
+			params[1]=AnalyticsReport.class;
+	        Object controller = clazz.getConstructor(params).newInstance(rootNode.getScene(),report);
+	        loader.setController(controller);
+	        //Run a method from the generic controller
+	        Class<MainApplication> parameterType = MainApplication.class;
+	        Method meth = clazz.getMethod("setMainApplication", parameterType);
+	        meth.invoke(controller, this);
+		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 	}

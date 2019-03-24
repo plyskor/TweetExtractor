@@ -2,11 +2,8 @@ package es.uam.eps.tweetextractorfx.view;
 
 
 import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.view.dialog.auth.LoginDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.auth.NewUserDialogControl;
 import javafx.fxml.FXML;

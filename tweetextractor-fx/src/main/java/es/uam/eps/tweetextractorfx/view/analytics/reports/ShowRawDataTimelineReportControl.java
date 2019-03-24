@@ -2,10 +2,12 @@
  * 
  */
 package es.uam.eps.tweetextractorfx.view.analytics.reports;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportRegister;
+import es.uam.eps.tweetextractorfx.MainApplication;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 
 /**
@@ -14,21 +16,25 @@ import javafx.scene.control.TableColumn;
  */
 public abstract class ShowRawDataTimelineReportControl extends ShowRawDataControl {
 
-	private TableColumn<AnalyticsReportRegister, Integer> dayColumn;
-	private TableColumn<AnalyticsReportRegister,Integer> monthColumn;
-	private TableColumn<AnalyticsReportRegister,Integer> yearColumn;
-	public ShowRawDataTimelineReportControl() {
-		super();
+	private TableColumn<AnalyticsReportRegister, Integer> dayColumn = new TableColumn<>();
+	private TableColumn<AnalyticsReportRegister,Integer> monthColumn=new TableColumn<>();
+	private TableColumn<AnalyticsReportRegister,Integer> yearColumn=new TableColumn<>();
+	public ShowRawDataTimelineReportControl(Scene scene,AnalyticsReport report) {
+		super(scene,report);
 	}
 	
-	@FXML
-	private void initialize() {
+	@Override
+	public void setMainApplication(MainApplication mainApplication) {
+		super.setMainApplication(mainApplication);
 		this.getTable().getColumns().add(dayColumn);
 		dayColumn.setCellValueFactory(cellData->new SimpleIntegerProperty(((TimelineReportRegister<?>)cellData.getValue()).getDay()).asObject());
+		dayColumn.setText("Day");
 		this.getTable().getColumns().add(monthColumn);
 		monthColumn.setCellValueFactory(cellData->new SimpleIntegerProperty(((TimelineReportRegister<?>)cellData.getValue()).getMonth()).asObject());
+		monthColumn.setText("Month");
 		this.getTable().getColumns().add(yearColumn);
 		yearColumn.setCellValueFactory(cellData->new SimpleIntegerProperty(((TimelineReportRegister<?>)cellData.getValue()).getYear()).asObject());
+		yearColumn.setText("Year");
 	}
 	/**
 	 * @return the dayColumn
