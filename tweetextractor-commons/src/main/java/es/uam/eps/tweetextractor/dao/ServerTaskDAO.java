@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import es.uam.eps.tweetextractor.dao.inter.ServerTaskDAOInterface;
 import es.uam.eps.tweetextractor.model.User;
-import es.uam.eps.tweetextractor.model.servertask.ServerTask;
+import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
 @Repository
 public class ServerTaskDAO extends AbstractGenericDAO<ServerTask, Integer> implements ServerTaskDAOInterface<ServerTask> {
 

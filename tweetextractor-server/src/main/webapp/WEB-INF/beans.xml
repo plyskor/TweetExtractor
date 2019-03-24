@@ -7,36 +7,35 @@
         http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<!-- WebServices endpoints -->
-
 	<jaxws:endpoint id="GetServerTaskStatus"
-		implementor="es.uam.eps.tweetextractor.server.service.impl.GetServerTaskStatusImpl"
+		implementor="es.uam.eps.tweetextractorserver.service.impl.GetServerTaskStatusImpl"
 		address="/getServerTaskStatus" />
 	<jaxws:endpoint id="InterruptServerTask"
-		implementor="es.uam.eps.tweetextractor.server.service.impl.InterruptServerTaskImpl"
+		implementor="es.uam.eps.tweetextractorserver.service.impl.InterruptServerTaskImpl"
 		address="/interruptServerTask" />
 	<jaxws:endpoint
 		id="CreateServerTaskUpdateExtractionIndef"
-		implementor="es.uam.eps.tweetextractor.server.service.impl.CreateServerTaskUpdateExtractionIndefImpl"
+		implementor="es.uam.eps.tweetextractorserver.service.impl.CreateServerTaskUpdateExtractionIndefImpl"
 		address="/createServerTaskUpdateExtractionIndef" />
 	<jaxws:endpoint id="DeleteServerTask"
-		implementor="es.uam.eps.tweetextractor.server.service.impl.DeleteServerTaskImpl"
+		implementor="es.uam.eps.tweetextractorserver.service.impl.DeleteServerTaskImpl"
 		address="/deleteServerTask" />
 	<jaxws:endpoint id="LaunchServerTask"
-		implementor="es.uam.eps.tweetextractor.server.service.impl.LaunchServerTaskImpl"
+		implementor="es.uam.eps.tweetextractorserver.service.impl.LaunchServerTaskImpl"
 		address="/launchServerTask" />
 	<jaxws:endpoint id="GetServerStatus"
-		implementor="es.uam.eps.tweetextractor.server.service.impl.GetServerStatusImpl"
+		implementor="es.uam.eps.tweetextractorserver.service.impl.GetServerStatusImpl"
 		address="/getServerStatus" />
 	<jaxws:endpoint id="GetUserServerTasks"
-		implementor="es.uam.eps.tweetextractor.server.service.impl.GetUserServerTasksImpl"
+		implementor="es.uam.eps.tweetextractorserver.service.impl.GetUserServerTasksImpl"
 		address="/getUserServerTasks" />
 	<jaxws:endpoint id="SetServerTaskReady"
-		implementor="es.uam.eps.tweetextractor.server.service.impl.SetServerTaskReadyImpl"
+		implementor="es.uam.eps.tweetextractorserver.service.impl.SetServerTaskReadyImpl"
 		address="/setServerTaskReady" />
 	<jaxws:endpoint id="CreateServerTaskTimelineVolumeReport"
-		implementor="es.uam.eps.tweetextractor.server.service.impl.CreateServerTaskTimelineVolumeReportImpl"
+		implementor="es.uam.eps.tweetextractorserver.service.impl.CreateServerTaskTimelineVolumeReportImpl"
 		address="/createServerTaskTimelineVolumeReport" />
 	<jaxws:endpoint id="ScheduleServerTask"
-		implementor="es.uam.eps.tweetextractor.server.service.impl.ScheduleServerTaskImpl"
+		implementor="es.uam.eps.tweetextractorserver.service.impl.ScheduleServerTaskImpl"
 		address="/scheduleServerTask" />
 </beans>

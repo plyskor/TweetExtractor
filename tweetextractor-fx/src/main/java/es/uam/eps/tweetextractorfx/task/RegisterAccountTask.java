@@ -6,6 +6,8 @@ package es.uam.eps.tweetextractorfx.task;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.mindrot.jbcrypt.BCrypt;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
@@ -20,6 +22,7 @@ public class RegisterAccountTask extends TwitterExtractorFXTask<RegisterStatus>{
 	private String username;
 	private String password1;
 	private String password2;
+	private Logger logger = LoggerFactory.getLogger(RegisterAccountTask.class);
 	/**
 	 * 
 	 */
@@ -36,6 +39,7 @@ public class RegisterAccountTask extends TwitterExtractorFXTask<RegisterStatus>{
 		if(this.username==null||this.password1==null) {
 			ret.setStatus(Constants.UNKNOWN_REGISTER_ERROR);
 			ret.setUser(null);
+			logger.warn("Nickname or password to register are null");
 			return ret;
 		}
 		UserServiceInterface userService = springContext.getBean(UserServiceInterface.class);
@@ -47,6 +51,7 @@ public class RegisterAccountTask extends TwitterExtractorFXTask<RegisterStatus>{
 		if(userService.existsUser(username)) {
 			ret.setStatus(Constants.EXIST_USER_REGISTER_ERROR);
 			ret.setUser(null);
+			logger.info("Account with nickname "+username+" already exists.");
 			return ret;
 		}
 		String password11=this.password1.replace("\r", "").replace("\n", "");
@@ -65,6 +70,7 @@ public class RegisterAccountTask extends TwitterExtractorFXTask<RegisterStatus>{
 		userService.persist(newUser);
 		ret.setStatus(Constants.SUCCESS_REGISTER);
 		ret.setUser(newUser);
+		logger.info("User account with nickname "+newUser.getNickname()+" has been successfully created");
 		return ret;		
 	}
 	public static boolean checkPassword(String password) {

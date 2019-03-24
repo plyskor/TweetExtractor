@@ -3,6 +3,8 @@
  */
 package es.uam.eps.tweetextractorfx.task;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.User;
@@ -13,6 +15,7 @@ import es.uam.eps.tweetextractor.model.User;
  */
 public class DeleteAccountTask extends TwitterExtractorFXTask<Integer>{
 	private User user;
+	private Logger logger = LoggerFactory.getLogger(DeleteAccountTask.class);
 	/**
 	 * 
 	 */
@@ -26,6 +29,7 @@ public class DeleteAccountTask extends TwitterExtractorFXTask<Integer>{
 		if (user==null)return -1;
 		UserServiceInterface userService = springContext.getBean(UserServiceInterface.class);
 		userService.deleteById(user.getIdDB());
+		logger.info("Account "+user.getNickname()+" and all its data succesfully deleted.");
 		return 0;
 	}
 

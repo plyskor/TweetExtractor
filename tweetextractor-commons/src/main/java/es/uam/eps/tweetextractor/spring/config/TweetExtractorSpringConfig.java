@@ -19,6 +19,7 @@ import es.uam.eps.tweetextractor.model.Tweet;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportImage;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportVolumeRegister;
@@ -36,12 +37,12 @@ import es.uam.eps.tweetextractor.model.filter.impl.FilterSince;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterTo;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterUntil;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterUrl;
-import es.uam.eps.tweetextractor.model.servertask.AnalyticsServerTask;
-import es.uam.eps.tweetextractor.model.servertask.ExtractionServerTask;
-import es.uam.eps.tweetextractor.model.servertask.ScheduledServerTask;
-import es.uam.eps.tweetextractor.model.servertask.ServerTask;
-import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskTimelineVolumeReport;
-import es.uam.eps.tweetextractor.model.servertask.impl.ServerTaskUpdateExtractionIndef;
+import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
+import es.uam.eps.tweetextractorserver.model.servertask.ExtractionServerTask;
+import es.uam.eps.tweetextractorserver.model.servertask.ScheduledServerTask;
+import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
+import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTimelineVolumeReport;
+import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskUpdateExtractionIndef;
 
 @Configuration
 @EnableTransactionManagement
@@ -53,7 +54,8 @@ public class TweetExtractorSpringConfig {
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://db.preciapps.com/te_op00?currentSchema=te_op00&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
+		dataSource.setUrl(
+				"jdbc:postgresql://db.preciapps.com/te_op00?currentSchema=te_op00&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
 		dataSource.setUsername("te_op00_update");
 		dataSource.setPassword("te_op00_update");
 		return dataSource;
@@ -77,7 +79,8 @@ public class TweetExtractorSpringConfig {
 				FilterOr.class, FilterSince.class, FilterUntil.class, FilterUrl.class, ExtractionServerTask.class,
 				AnalyticsServerTask.class, ServerTaskUpdateExtractionIndef.class, AnalyticsReport.class,
 				TimelineVolumeReport.class, TimelineReport.class, TimelineReportRegister.class,
-				TimelineReportVolumeRegister.class, ServerTaskTimelineVolumeReport.class, AnalyticsReportImage.class,ScheduledServerTask.class);
+				TimelineReportVolumeRegister.class, ServerTaskTimelineVolumeReport.class, AnalyticsReportImage.class,
+				ScheduledServerTask.class, AnalyticsReportRegister.class);
 		return factoryBean;
 	}
 

@@ -18,7 +18,7 @@
 	</listener>
 
 	<listener>
-		<listener-class>es.uam.eps.tweetextractor.server.TEServletContextListener</listener-class>
+		<listener-class>es.uam.eps.tweetextractorserver.TEServletContextListener</listener-class>
 	</listener>
 
 	<servlet>

@@ -43,6 +43,7 @@ public class MainApplication extends Application {
 	private User currentUser = null;
 	private RootLayoutControl rootLayoutController;
 	private AnnotationConfigApplicationContext springContext;
+	private Logger logger = LoggerFactory.getLogger(MainApplication.class);
 
 	public MainApplication() {
 		initAvailableFilters();
@@ -50,18 +51,14 @@ public class MainApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		logger.info("Starting TweetExtractorFX...");
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("tweetextractor");
+		this.primaryStage.setTitle("TweetExtractorFX");
 		initRootLayout();
 		TweetExtractorFXPreferences.initializePreferences();
 		springContext = new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
-		// onBoot();
 	}
-/*
-	private void onBoot() {
-		
-	}
-*/
+
 	/* Initialize the RootLayout */
 	public void initRootLayout() {
 		try {
@@ -78,7 +75,6 @@ public class MainApplication extends Application {
 			showWelcomeScreen();
 			primaryStage.show();
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 		}
 	}
@@ -96,7 +92,6 @@ public class MainApplication extends Application {
 			WelcomeScreenControl controller = loader.getController();
 			controller.setMainApplication(this);
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 		}
 	}
@@ -113,7 +108,6 @@ public class MainApplication extends Application {
 			QueryConstructorControl controller = loader.getController();
 			controller.setMainApplication(this);
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 		}
 	}
@@ -136,9 +130,7 @@ public class MainApplication extends Application {
 			}
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(queryDetails);
-
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 		}
 	}
@@ -163,7 +155,6 @@ public class MainApplication extends Application {
 			// Show the dialog and wait until the user closes it, then add filter
 			return dialogStage;
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 			return null;
 		}
@@ -181,7 +172,6 @@ public class MainApplication extends Application {
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(homeScreen);
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 		}
 	}
@@ -198,7 +188,6 @@ public class MainApplication extends Application {
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(homeScreen);
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 		}
 	}
@@ -215,7 +204,6 @@ public class MainApplication extends Application {
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(homeScreen);
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 		}
 	}
@@ -232,7 +220,6 @@ public class MainApplication extends Application {
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(homeScreen);
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 		}
 	}
@@ -249,7 +236,6 @@ public class MainApplication extends Application {
 			MyReportsControl controller = loader.getController();
 			controller.setMainApplication(this);
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 		}
 	}

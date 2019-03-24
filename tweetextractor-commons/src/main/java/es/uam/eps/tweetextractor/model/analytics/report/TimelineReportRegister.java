@@ -6,12 +6,8 @@ package es.uam.eps.tweetextractor.model.analytics.report;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -21,17 +17,10 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class TimelineReportRegister<T extends Serializable> implements Serializable {
+public abstract class TimelineReportRegister<T extends Serializable> extends AnalyticsReportRegister implements Serializable {
 	@XmlTransient
 	@Transient
 	private static final long serialVersionUID = -1191008698226686168L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "identifier")
-	private int identifier;
-	@ManyToOne
-	@XmlTransient
-	private TimelineReport report;
 	@Column(name="year")
 	private int year;
 	@Column(name="month")
@@ -42,19 +31,9 @@ public abstract class TimelineReportRegister<T extends Serializable> implements 
 	 * 
 	 */
 	public TimelineReportRegister() {
+		super();
 	}
-	/**
-	 * @return the report
-	 */
-	public TimelineReport getReport() {
-		return report;
-	}
-	/**
-	 * @param report the report to set
-	 */
-	public void setReport(TimelineReport report) {
-		this.report = report;
-	}
+
 	/**
 	 * @return the serialversionuid
 	 */

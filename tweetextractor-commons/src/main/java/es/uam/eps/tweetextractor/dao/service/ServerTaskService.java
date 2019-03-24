@@ -13,7 +13,7 @@ import es.uam.eps.tweetextractor.dao.AbstractGenericDAO;
 import es.uam.eps.tweetextractor.dao.ServerTaskDAO;
 import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
 import es.uam.eps.tweetextractor.model.User;
-import es.uam.eps.tweetextractor.model.servertask.ServerTask;
+import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
 
 /**
  * @author Jose Antonio García del Saz

@@ -29,8 +29,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
-import es.uam.eps.tweetextractor.model.servertask.ServerTask;
 import es.uam.eps.tweetextractor.util.DateAdapter;
+import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
 
 
 /**

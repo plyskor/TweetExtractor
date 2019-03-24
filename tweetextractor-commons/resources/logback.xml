@@ -2,53 +2,108 @@
 
 <!-- Logback configuration. See http://logback.qos.ch/manual/index.html -->
 <configuration scan="true" scanPeriod="10 seconds">
-  
-  <!-- Simple file output -->
-  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <!-- encoder defaults to ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
-    <encoder>
-      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n</pattern>
-    </encoder>
 
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <!-- rollover daily -->
-      <fileNamePattern>logs/tweetextractor-server-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-      <timeBasedFileNamingAndTriggeringPolicy
-          class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-        <!-- or whenever the file size reaches 20 MB -->
-        <maxFileSize>20 MB</maxFileSize>
-      </timeBasedFileNamingAndTriggeringPolicy>
-    </rollingPolicy>
+	<!-- Simple file output -->
+	<appender name="FILE-SERVER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- encoder defaults to ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n</pattern>
+		</encoder>
 
-    <!-- Safely log to the same file from multiple JVMs. Degrades performance! -->
-    <prudent>true</prudent>
-  </appender>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>logs/tweetextractor-server-%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 20 MB -->
+				<maxFileSize>20 MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<!-- Safely log to the same file from multiple JVMs. Degrades performance! -->
+		<prudent>true</prudent>
+	</appender>
+	<appender name="FILE-COMMONS"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- encoder defaults to ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n</pattern>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>logs/tweetextractor-%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 20 MB -->
+				<maxFileSize>20 MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<!-- Safely log to the same file from multiple JVMs. Degrades performance! -->
+		<prudent>true</prudent>
+	</appender>
+	<appender name="FILE-GUI"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- encoder defaults to ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>logs/tweetextractor-fx-%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 20 MB -->
+				<maxFileSize>20 MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<!-- Safely log to the same file from multiple JVMs. Degrades performance! -->
+		<prudent>true</prudent>
+	</appender>
+
+	<!-- Console output -->
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoder defaults to ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+		<encoder>
+			<pattern>%-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+		<!-- Only log level INFO and above -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+	</appender>
 
 
-  <!-- Console output -->
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <!-- encoder defaults to ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
-    <encoder>
-      <pattern>%-5level %logger{36} - %msg%n</pattern>
-    </encoder>
-    <!-- Only log level INFO and above -->
-    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-      <level>INFO</level>
-    </filter>
-  </appender>
-
-
-  <!-- Enable FILE and STDOUT appenders for all log messages.
-       By default, only log at level INFO and above. -->
-  <root level="INFO">
-    <appender-ref ref="FILE" />
-    <appender-ref ref="STDOUT" />
-  </root>
-
-  <!-- For loggers in the these namespaces, log at all levels. -->
-  <logger name="user" level="ALL" />
-  <!-- To log pedestal internals, enable this and change ThresholdFilter to DEBUG
-  <logger name="pedestal" level="ALL" />
-  -->
+	<!-- Enable FILE and STDOUT appenders for all log messages. By default, 
+		only log at level INFO and above. -->
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+	<logger name="es.uam.eps.tweetextractorfx">
+		<appender-ref ref="FILE-GUI" />
+	</logger>
+	<logger name="es.uam.eps.tweetextractorserver">
+		<appender-ref ref="FILE-SERVER" />
+	</logger>
+	<logger name="es.uam.eps.tweetextractor">
+		<appender-ref ref="FILE-COMMONS" />
+	</logger>
+	<!-- For loggers in the these namespaces, log at all levels. -->
+	<logger name="user" level="ALL" />
+	<!-- To log pedestal internals, enable this and change ThresholdFilter to 
+		DEBUG <logger name="pedestal" level="ALL" /> -->
 
 </configuration>

@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-import es.uam.eps.tweetextractor.model.servertask.ServerTaskInfo;
+import es.uam.eps.tweetextractorserver.model.servertask.ServerTaskInfo;
 
 /**
  * @author Jose Antonio García del Saz

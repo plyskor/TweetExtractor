@@ -2,10 +2,8 @@ package es.uam.eps.tweetextractorfx.view;
 
 import java.io.IOException;
 import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.task.DeleteAccountTask;
 import es.uam.eps.tweetextractorfx.view.dialog.auth.ChangePasswordDialogControl;
@@ -32,6 +30,8 @@ public class RootLayoutControl {
     private Stage loadingDialog = null;
 
     private MenuItem logoutmenuitem ;
+    
+	private Logger logger = LoggerFactory.getLogger(MainApplication.class);
 	/**
 	 * @return the mainApplication
 	 */
@@ -46,6 +46,7 @@ public class RootLayoutControl {
 		this.mainApplication = mainApplication;
 		logoutmenuitem = new MenuItem("Log out");
     	logoutmenuitem.setOnAction(event -> {
+	        	logger.info("User "+mainApplication.getCurrentUser().getNickname()+" logging out...");
     	        mainApplication.setCurrentUser(null);
     	        mainApplication.getRootLayoutController().getArchivoMenu().getItems().remove(mainApplication.getRootLayoutController().getLogoutmenuitem());
     	        mainApplication.showWelcomeScreen();
@@ -94,7 +95,6 @@ public class RootLayoutControl {
 			properties.load(this.getClass().getClassLoader().getResourceAsStream("tweetextractorfx.properties"));
 			message=message.concat(properties.getProperty("tweetextractorfx.version"));
 		} catch (IOException  e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 		}
         Alert alert = new Alert(AlertType.INFORMATION);
@@ -156,7 +156,6 @@ public class RootLayoutControl {
 
 			
 		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 			
 		}

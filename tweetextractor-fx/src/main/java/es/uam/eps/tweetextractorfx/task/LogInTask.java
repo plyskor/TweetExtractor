@@ -21,6 +21,8 @@ import es.uam.eps.tweetextractor.model.task.status.LoginStatus;
 public class LogInTask extends TwitterExtractorFXTask<LoginStatus>{
 	String username;
 	String password;
+	private Logger logger = LoggerFactory.getLogger(LogInTask.class);
+
 	/**
 	 * 
 	 */
@@ -39,12 +41,14 @@ public class LogInTask extends TwitterExtractorFXTask<LoginStatus>{
 		if(username.isEmpty()) {
 			ret.setStatus(Constants.EMPTY_USER_LOGIN_ERROR);
 			ret.setUser(null);
+			logger.info("Empty user invalid for login.");
 			return ret;
 		}
 		String pass = password.trim();
 		if(pass.isEmpty()) {
 			ret.setStatus(Constants.EMPTY_PASSWORD_LOGIN_ERROR);
 			ret.setUser(null);
+			logger.info("Empty password invalid for login.");
 			return ret;
 		}
 		try {
@@ -52,10 +56,10 @@ public class LogInTask extends TwitterExtractorFXTask<LoginStatus>{
 			if(userLogged==null) {
 				ret.setStatus(Constants.EXIST_USER_LOGIN_ERROR);
 				ret.setUser(null);
+				logger.info("Provided user for login "+username+" doesn't exist");
 				return ret;
 			}
 		}catch(HibernateException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 			return null;
 		}
@@ -65,10 +69,12 @@ public class LogInTask extends TwitterExtractorFXTask<LoginStatus>{
 			userLogged.setLastConnectionDate(new Date());
 			userService.update(userLogged);
 			ret.setUser(userLogged);
+			logger.info("User "+ userLogged.getNickname()+" has logged in");
 			return ret;
 		}else {
 			ret.setStatus(Constants.INCORRECT_PASSWORD_LOGIN_ERROR);
 			ret.setUser(null);
+			logger.info("Password provided for login is not correct.");
 			return ret;
 		}
 	}
