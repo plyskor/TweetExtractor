@@ -3,12 +3,12 @@ package es.uam.eps.tweetextractorfx.view.dialog.credentials;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractor.dao.service.inter.CredentialsServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractor.model.Credentials;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-public class AddCredentialsDialogControl {
+public class AddCredentialsDialogControl extends TweetExtractorFXDialogController{
 	@FXML
 	private TextField accountScreenNameField;
 	@FXML
@@ -19,8 +19,6 @@ public class AddCredentialsDialogControl {
 	private TextField accessTokenField;
 	@FXML
 	private TextField accessTokenSecretField;
-	private Stage dialogStage;
-	private MainApplication mainApplication;
 	
 	public AddCredentialsDialogControl() {
 		super();
@@ -88,31 +86,12 @@ public class AddCredentialsDialogControl {
 	public void setAccessTokenSecretField(TextField accessTokenSecretField) {
 		this.accessTokenSecretField = accessTokenSecretField;
 	}
-	
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
-	
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
 	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		accountScreenNameField.setText("jgarciasaz");
 		consumerKeyField.setText("WHnn9ajf9fRiEjoQ400vJjR28");
 		consumerSecretField.setText("YmtYa3xLn8bhix0mqq90We3ldVGfX2laqDlIhxY31X07Psz7Bp");

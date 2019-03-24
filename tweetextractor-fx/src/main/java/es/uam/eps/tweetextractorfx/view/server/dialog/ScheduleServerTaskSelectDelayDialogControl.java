@@ -7,18 +7,16 @@ import java.util.Calendar;
 import java.util.Date;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 /**
  * @author jose
  *
  */
-public class ScheduleServerTaskSelectDelayDialogControl {
-	private MainApplication mainApplication;
-	private Stage dialogStage;
+public class ScheduleServerTaskSelectDelayDialogControl extends TweetExtractorFXDialogController{
 	private Date toReturn=null;
 	@FXML
 	private Slider secondsSlider;
@@ -50,17 +48,13 @@ public class ScheduleServerTaskSelectDelayDialogControl {
 	public ScheduleServerTaskSelectDelayDialogControl() {
 		super();
 	}
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
+
 	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		secondsSlider.valueProperty().addListener((observable, oldValue, newValue) -> secondsText.setText(""+newValue.intValue()));
 		minutesSlider.valueProperty().addListener((observable, oldValue, newValue) -> minutesText.setText(""+newValue.intValue()));
 		hoursSlider.valueProperty().addListener((observable, oldValue, newValue) -> hoursText.setText(""+newValue.intValue()));
@@ -68,18 +62,7 @@ public class ScheduleServerTaskSelectDelayDialogControl {
 		monthsSlider.valueProperty().addListener((observable, oldValue, newValue) -> monthsText.setText(""+newValue.intValue()));
 		yearsSlider.valueProperty().addListener((observable, oldValue, newValue) -> yearsText.setText(""+newValue.intValue()));
 	}
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
+
 	/**
 	 * @return the toReturn
 	 */

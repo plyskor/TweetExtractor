@@ -14,6 +14,7 @@ import es.uam.eps.tweetextractor.model.filter.impl.*;
 import es.uam.eps.tweetextractor.util.FilterManager;
 import es.uam.eps.tweetextractorfx.task.CreateExtractionTask;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
+import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import es.uam.eps.tweetextractorfx.view.dialog.filter.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,9 +31,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class QueryConstructorControl {
-	/* Reference to the MainApplication */
-	private MainApplication mainApplication;
+public class QueryConstructorControl extends TweetExtractorFXController{
 	@FXML
 	private TableView<Filter> availableFiltersTable;
 	@FXML
@@ -163,19 +162,12 @@ public class QueryConstructorControl {
 	public void setSelectedAvailableFilter(Filter selectedAvailableFilter) {
 		this.selectedAvailableFilter = selectedAvailableFilter;
 	}
-
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
-
 	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		availableFiltersTable.setItems(mainApplication.getAvailableFilters());
 		addedFilterTable.setItems(addedFiltersList);
 		// Necesario para operaciones lógicas

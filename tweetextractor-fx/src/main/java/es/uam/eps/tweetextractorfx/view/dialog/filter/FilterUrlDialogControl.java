@@ -1,16 +1,15 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterUrl;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-public class FilterUrlDialogControl {
+public class FilterUrlDialogControl extends TweetExtractorFXDialogController{
 	private FilterUrl filter;
 	@FXML
 	private TextField keyWordField;
-    private Stage dialogStage;
 
 	public FilterUrlDialogControl() {
 		initialize();
@@ -30,20 +29,6 @@ public class FilterUrlDialogControl {
 	public void setFilter(FilterUrl filter) {
 		this.filter = filter;
 	}
-	
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
-	
 	/**
 	 * @return the keyWord
 	 */

@@ -4,6 +4,7 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
 import es.uam.eps.tweetextractor.model.filter.impl.FilterContains;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,13 +18,12 @@ import javafx.stage.Stage;
  * @author Jose Antonio García del Saz
  *
  */
-public class FilterContainsDialogControl {
+public class FilterContainsDialogControl extends TweetExtractorFXDialogController{
 	@FXML
 	private ListView<String> selectedWordsView;
 	@FXML
 	private TextField wordToAdd;
     private FilterContains filter;
-    private Stage dialogStage;
     private ObservableList<String> keywordsList=FXCollections.observableArrayList();
 	/**
 	 * 
@@ -45,19 +45,12 @@ public class FilterContainsDialogControl {
 	public void setFilter(FilterContains filter) {
 		this.filter = filter;
 	}
-
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-
 	/**
 	 * @param dialogStage the dialogStage to set
 	 */
+	@Override
 	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
+		super.setDialogStage(dialogStage);
 		selectedWordsView.setItems(keywordsList);
 	}
 

@@ -9,6 +9,7 @@ import java.util.List;
 import es.uam.eps.tweetextractor.dao.service.inter.AnalyticsReportServiceInterface;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,9 +23,7 @@ import javafx.scene.control.TableView;
  * @author jose
  *
  */
-public class MyReportsControl {
-	/* Reference to the MainApplication */
-	private MainApplication mainApplication;
+public class MyReportsControl extends TweetExtractorFXController {
 	@FXML
 	private TableView<AnalyticsReport> reportsTable;
 	@FXML
@@ -37,7 +36,7 @@ public class MyReportsControl {
 	private TableColumn<AnalyticsReport, LocalDate> lastUpdatedColumn;
 	private AnalyticsReport selectedReport = null;
 	private ObservableList<AnalyticsReport> reportList = FXCollections.observableArrayList();
-	AnalyticsReportServiceInterface arServ;
+	private AnalyticsReportServiceInterface arServ;
 	/**
 	 * 
 	 */
@@ -58,17 +57,13 @@ public class MyReportsControl {
 
 		selectedReport = null;
 	}
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
+
 	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override	
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		reportsTable.setItems(reportList);
 		arServ = this.mainApplication.getSpringContext().getBean(AnalyticsReportServiceInterface.class);
 		refreshReportList();

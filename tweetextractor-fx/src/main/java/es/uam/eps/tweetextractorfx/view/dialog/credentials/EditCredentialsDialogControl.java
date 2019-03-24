@@ -3,19 +3,18 @@
  */
 package es.uam.eps.tweetextractorfx.view.dialog.credentials;
 
-import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractor.dao.service.inter.CredentialsServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractor.model.Credentials;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
-public class EditCredentialsDialogControl {
+public class EditCredentialsDialogControl extends TweetExtractorFXDialogController{
 
 	@FXML
 	private TextField accountScreenNameField;
@@ -27,9 +26,7 @@ public class EditCredentialsDialogControl {
 	private TextField accessTokenField;
 	@FXML
 	private TextField accessTokenSecretField;
-	private Stage dialogStage;
 	private Credentials selectedCredentials;
-	private MainApplication mainApplication;
 	
 	public EditCredentialsDialogControl() {
 		super();
@@ -97,31 +94,6 @@ public class EditCredentialsDialogControl {
 		this.accessTokenSecretField = accessTokenSecretField;
 	}
 	
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
-	
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
-	/**
-	 * @param mainApplication the mainApplication to set
-	 */
-	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
-	}
 	@FXML
 	public void handleCancel() {
 		this.getDialogStage().close();

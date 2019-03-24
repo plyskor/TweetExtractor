@@ -10,6 +10,7 @@ import es.uam.eps.tweetextractor.dao.service.inter.CredentialsServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.Credentials;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
+import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.EditCredentialsDialogControl;
 import javafx.fxml.FXML;
@@ -28,9 +29,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Jose Antonio García del Saz
  *
  */
-public class ManageCredentialsControl {
-	/* Reference to the MainApplication */
-	private MainApplication mainApplication;
+public class ManageCredentialsControl extends TweetExtractorFXController{
 	@FXML
 	private TreeTableView<String> credentialsTableView;
 	@FXML
@@ -58,19 +57,12 @@ public class ManageCredentialsControl {
 	}
 
 	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
-
-	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		this.updateTreeTableView();
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -135,7 +127,9 @@ public class ManageCredentialsControl {
 
 	@FXML
 	public void handleBack() {
-		this.getMainApplication().showHomeScreen();
+		AnchorPane node = null;
+		HomeScreenControl controller = null;
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml", node, controller);
 	}
 
 	@FXML

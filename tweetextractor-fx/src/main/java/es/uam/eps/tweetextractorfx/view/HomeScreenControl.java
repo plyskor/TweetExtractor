@@ -17,8 +17,13 @@ import es.uam.eps.tweetextractor.service.CreateServerTaskUpdateExtractionIndef;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
+import es.uam.eps.tweetextractorfx.view.analytics.reports.MyReportsControl;
+import es.uam.eps.tweetextractorfx.view.credentials.ManageCredentialsControl;
 import es.uam.eps.tweetextractorfx.view.dialog.ServerPreferencesDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
+import es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl;
+import es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl;
+import es.uam.eps.tweetextractorfx.view.server.ManageServerTasksControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateAnalyticsServerTaskSelectTypeDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTaskSelectExtractionDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTaskSelectTaskTypeDialogControl;
@@ -38,9 +43,7 @@ import javafx.stage.Stage;
  * @author Jose Antonio García del Saz
  *
  */
-public class HomeScreenControl {
-	/* Reference to the MainApplication */
-	private MainApplication mainApplication;
+public class HomeScreenControl extends TweetExtractorFXController{
 	@FXML
 	private ImageView logoView;
 	@FXML
@@ -59,17 +62,11 @@ public class HomeScreenControl {
 	}
 
 	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
-
-	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		this.getMainApplication().getRootLayoutController().addLogOut();
 		String nickName = this.getMainApplication().getCurrentUser().getNickname().substring(0, 1).toUpperCase()
 				+ this.getMainApplication().getCurrentUser().getNickname().substring(1);
@@ -96,7 +93,9 @@ public class HomeScreenControl {
 			ErrorDialog.showErrorNoCredentials();
 
 		}
-		this.getMainApplication().showQueryConstructor();
+		AnchorPane node=null;
+		QueryConstructorControl controller = null;
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/extraction/QueryConstructor.fxml", node, controller);
 	}
 
 	@FXML
@@ -106,12 +105,16 @@ public class HomeScreenControl {
 
 	@FXML
 	public void handleManageCredentials() {
-		this.getMainApplication().showManageCredentials();
+		AnchorPane node = null;
+		ManageCredentialsControl controller = null;
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/credentials/ManageCredentials.fxml", node, controller);
 	}
 
 	@FXML
 	public void handleManageExtractions() {
-		this.getMainApplication().showUserExtractions();
+		AnchorPane node = null;
+		ShowUserExtractionsControl controller = null;
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/extraction/ShowUserExtractions.fxml", node, controller);
 	}
 	/* DIALOGOS */
 
@@ -402,7 +405,9 @@ public class HomeScreenControl {
 			ErrorDialog.showErrorConfigureServer();
 			return;
 		}
-		this.getMainApplication().showManageServerTasks();
+		AnchorPane node = null;
+		ManageServerTasksControl controller = null;
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/server/ManageServerTasks.fxml", node, controller);;
 
 	}
 
@@ -414,7 +419,9 @@ public class HomeScreenControl {
 	/*Analytics menu*/
 	@FXML
 	public void onMyReports() {
-		this.mainApplication.showMyReports();
+		AnchorPane node = null;
+		MyReportsControl controller = null;
+		this.mainApplication.showScreenInCenterOfRootLayout("view/analytics/reports/MyReports.fxml",node , controller);
 
 	}
 	@FXML

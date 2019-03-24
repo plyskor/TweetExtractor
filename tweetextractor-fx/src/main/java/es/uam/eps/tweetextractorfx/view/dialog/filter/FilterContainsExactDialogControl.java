@@ -4,6 +4,7 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
 import es.uam.eps.tweetextractor.model.filter.impl.FilterContainsExact;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,14 +18,13 @@ import javafx.stage.Stage;
  * @author Jose Antonio García del Saz
  *
  */
-public class FilterContainsExactDialogControl {
+public class FilterContainsExactDialogControl extends TweetExtractorFXDialogController {
 	@FXML
 	private ListView<String> selectedWordsView;
 	@FXML
 	private TextField wordToAdd;
 	private ObservableList<String> listWords= FXCollections.observableArrayList();
     private FilterContainsExact filter;
-    private Stage dialogStage;
 	/**
 	 * 
 	 */
@@ -45,19 +45,12 @@ public class FilterContainsExactDialogControl {
 	public void setFilter(FilterContainsExact filter) {
 		this.filter = filter;
 	}
-
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-
 	/**
 	 * @param dialogStage the dialogStage to set
 	 */
+	@Override
 	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
+		super.setDialogStage(dialogStage);
 		selectedWordsView.setItems(listWords);
 	}
 
@@ -102,11 +95,9 @@ public class FilterContainsExactDialogControl {
 	    	alert.setContentText("Por favor, escriba una palabra para añadirla al filtro.");
 	    	alert.showAndWait();
 		}else {
-			if(wordToAdd!=null) {
 				filter.addKeywordWord(wordToAdd.getText().trim());
 				refreshWordList();
 				wordToAdd.clear();
-				}
 		}
 	}
 	private void refreshWordList() {

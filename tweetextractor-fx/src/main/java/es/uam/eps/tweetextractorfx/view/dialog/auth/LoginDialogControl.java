@@ -8,23 +8,25 @@ import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.task.status.LoginStatus;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.task.LogInTask;
+import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
-public class LoginDialogControl {
+public class LoginDialogControl extends TweetExtractorFXDialogController{
 	@FXML
 	private TextField userField;
 	@FXML
 	private PasswordField passField;
-	private Stage dialogStage;
 	private WelcomeScreenControl welcomeScreenControl;
 	private Stage loadingDialog = null;
 	private Alert alertLogin=null; 
@@ -65,21 +67,6 @@ public class LoginDialogControl {
 	public void setPassField(PasswordField passField) {
 		this.passField = passField;
 	}
-
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogState) {
-		this.dialogStage = dialogState;
-	}
-
 	/**
 	 * @return the welcomeScreenControl
 	 */
@@ -154,8 +141,9 @@ public class LoginDialogControl {
         }else {
         	this.getDialogStage().close();
         	this.getWelcomeScreenControl().getMainApplication().getRootLayoutController().addOptionsMenu();
-    		this.getWelcomeScreenControl().getMainApplication().showHomeScreen();
-        }
+        	AnchorPane node = null;
+    		HomeScreenControl controller = null;
+    		this.getWelcomeScreenControl().getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml", node, controller);        }
         
 	}
 

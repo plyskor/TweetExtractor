@@ -18,28 +18,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class WelcomeScreenControl {
-	/*Reference to the MainApplication*/
-    private MainApplication mainApplication;
+public class WelcomeScreenControl extends TweetExtractorFXController{
     @FXML
     private ImageView logoView;
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
 	@FXML
 	private void initialize() {
        logoView.setImage(new Image("icon.png"));
 	}
-	/**
-	 * @param mainApplication the mainApplication to set
-	 */
-	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
-	}
-
 	/**
 	 * @return the logoView
 	 */

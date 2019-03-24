@@ -14,6 +14,8 @@ import es.uam.eps.tweetextractor.service.DeleteServerTask;
 import es.uam.eps.tweetextractor.service.GetUserServerTasks;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
+import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
+import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import es.uam.eps.tweetextractorserver.model.servertask.ServerTaskInfo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -22,6 +24,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -29,9 +32,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Jose Antonio García del Saz
  *
  */
-public class ShowUserExtractionsControl {
-	/* Reference to the MainApplication */
-	private MainApplication mainApplication;
+public class ShowUserExtractionsControl extends TweetExtractorFXController{
 	@FXML
 	private TreeTableView<String> extractionTableView;
 	@FXML
@@ -57,19 +58,12 @@ public class ShowUserExtractionsControl {
 			}
 		});
 	}
-
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
-
 	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		this.updateTreeTableView();
 
 	}
@@ -141,8 +135,10 @@ public class ShowUserExtractionsControl {
 
 	@FXML
 	public void handleBack() {
-		this.getMainApplication().showHomeScreen();
-	}
+		AnchorPane node = null;
+		HomeScreenControl controller = null;
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml", node, controller);
+		}
 
 	@FXML
 	public void handleAddExtraction() {
@@ -150,8 +146,10 @@ public class ShowUserExtractionsControl {
 			ErrorDialog.showErrorNoCredentials();
 			return;
 		}
-		this.getMainApplication().showQueryConstructor();
-	}
+		AnchorPane node=null;
+		QueryConstructorControl controller = null;
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/extraction/QueryConstructor.fxml", node, controller);
+		}
 
 	@FXML
 	public void handleEditExtraction() {

@@ -3,14 +3,13 @@ package es.uam.eps.tweetextractorfx.view.dialog.filter;
 import java.time.LocalDate;
 
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterUntil;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
-import javafx.stage.Stage;
 
-public class FilterUntilDialogControl {
+public class FilterUntilDialogControl extends TweetExtractorFXDialogController {
     private FilterUntil filter;
-    private Stage dialogStage;
     @FXML
     private DatePicker datePicker = new DatePicker(LocalDate.now());
 	public FilterUntilDialogControl() {
@@ -31,18 +30,7 @@ public class FilterUntilDialogControl {
 	public void setFilter(FilterUntil filter) {
 		this.filter = filter;
 	}
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
+
 	/**
 	 * @return the datePicker
 	 */

@@ -16,6 +16,7 @@ import es.uam.eps.tweetextractor.spring.config.TweetExtractorSpringConfig;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
+import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.analytics.reports.MyReportsControl;
 import es.uam.eps.tweetextractorfx.view.credentials.ManageCredentialsControl;
@@ -28,6 +29,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -72,41 +74,10 @@ public class MainApplication extends Application {
 			// Give the controller access to the main app.
 			rootLayoutController = loader.getController();
 			rootLayoutController.setMainApplication(this);
-			showWelcomeScreen();
-			primaryStage.show();
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-		}
-	}
-	/* Mostrando la pantalla de bienvenida */
-
-	public void showWelcomeScreen() {
-		try {
-			// Load elcome screen.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource("view/WelcomeScreen.fxml"));
-			AnchorPane welcomeScreen = loader.load();
-			// Set welcome screen into the center of root layout.
-			rootLayout.setCenter(welcomeScreen);
-			// Give the controller access to the main app.
-			WelcomeScreenControl controller = loader.getController();
-			controller.setMainApplication(this);
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-		}
-	}
-
-	public void showQueryConstructor() {
-		try {
-			// Load query constructor
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource("view/extraction/QueryConstructor.fxml"));
-			AnchorPane queryConstructor = loader.load();
-			// Set query constructor into the center of root layout.
-			rootLayout.setCenter(queryConstructor);
-			// Give the controller access to the main app.
-			QueryConstructorControl controller = loader.getController();
-			controller.setMainApplication(this);
+			AnchorPane node=null;
+			WelcomeScreenControl controller=null;
+    		this.showScreenInCenterOfRootLayout("view/WelcomeScreen.fxml", node, controller);			
+    		primaryStage.show();
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
@@ -160,86 +131,21 @@ public class MainApplication extends Application {
 		}
 	}
 
-	public void showHomeScreen() {
-		try {
-			// Load query constructor
+	public void showScreenInCenterOfRootLayout(String fxmlPath,Node rootNode, TweetExtractorFXController controller) {
+		try {	
+		// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource("view/HomeScreen.fxml"));
-			AnchorPane homeScreen = loader.load();
-			// Give the controller access to the main app.
-			HomeScreenControl controller = loader.getController();
-			controller.setMainApplication(this);
+			loader.setLocation(MainApplication.class.getResource(fxmlPath));
+			rootNode = loader.load();
 			// Set query constructor into the center of root layout.
-			rootLayout.setCenter(homeScreen);
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-		}
-	}
-
-	public void showManageCredentials() {
-		try {
-			// Load query constructor
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource("view/credentials/ManageCredentials.fxml"));
-			AnchorPane homeScreen = loader.load();
+			rootLayout.setCenter(rootNode);
 			// Give the controller access to the main app.
-			ManageCredentialsControl controller = loader.getController();
-			controller.setMainApplication(this);
-			// Set query constructor into the center of root layout.
-			rootLayout.setCenter(homeScreen);
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-		}
-	}
-
-	public void showUserExtractions() {
-		try {
-			// Load query constructor
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource("view/extraction/ShowUserExtractions.fxml"));
-			AnchorPane homeScreen = loader.load();
-			// Give the controller access to the main app.
-			ShowUserExtractionsControl controller = loader.getController();
-			controller.setMainApplication(this);
-			// Set query constructor into the center of root layout.
-			rootLayout.setCenter(homeScreen);
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-		}
-	}
-
-	public void showManageServerTasks() {
-		try {
-			// Load query constructor
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource("view/server/ManageServerTasks.fxml"));
-			AnchorPane homeScreen = loader.load();
-			// Give the controller access to the main app.
-			ManageServerTasksControl controller = loader.getController();
-			controller.setMainApplication(this);
-			// Set query constructor into the center of root layout.
-			rootLayout.setCenter(homeScreen);
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-		}
-	}
-	
-	public void showMyReports() {
-		try {
-			// Load query constructor
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource("view/analytics/reports/MyReports.fxml"));
-			AnchorPane queryConstructor = loader.load();
-			// Set query constructor into the center of root layout.
-			rootLayout.setCenter(queryConstructor);
-			// Give the controller access to the main app.
-			MyReportsControl controller = loader.getController();
+			controller = loader.getController();
 			controller.setMainApplication(this);
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
 	}
-
 	public static void main(String[] args) {
 		launch(args);
 	}

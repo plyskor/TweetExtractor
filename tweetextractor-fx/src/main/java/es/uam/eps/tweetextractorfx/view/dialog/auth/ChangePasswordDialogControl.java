@@ -5,37 +5,28 @@ package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractorfx.task.RegisterAccountTask;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
-import javafx.stage.Stage;
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
-public class ChangePasswordDialogControl {
-	private Stage dialogStage;
+public class ChangePasswordDialogControl extends TweetExtractorFXDialogController{
 	@FXML
 	private PasswordField oldPasswordField;
 	@FXML
 	private PasswordField passwordField1;
 	@FXML
 	private PasswordField passwordField2;
-	private MainApplication mainApplication;
 	public ChangePasswordDialogControl() {
 		super();
-	}
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
 	}
 	public PasswordField getOldPasswordField() {
 		return oldPasswordField;
@@ -54,12 +45,6 @@ public class ChangePasswordDialogControl {
 	}
 	public void setPasswordField2(PasswordField passwordField2) {
 		this.passwordField2 = passwordField2;
-	}
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
-	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
 	}
 	@FXML
 	public void handleCancel() {

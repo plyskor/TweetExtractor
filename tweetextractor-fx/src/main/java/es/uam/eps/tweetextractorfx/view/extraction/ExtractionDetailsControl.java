@@ -28,6 +28,8 @@ import es.uam.eps.tweetextractorfx.task.LoadTweetsTask;
 import es.uam.eps.tweetextractorfx.task.TwitterExtractorFXTask;
 import es.uam.eps.tweetextractorfx.task.UpdateExtractionTask;
 import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
+import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
+import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,6 +40,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -46,8 +49,7 @@ import javafx.stage.Stage;
  * @author Jose Antonio García del Saz
  *
  */
-public class ExtractionDetailsControl {
-	private MainApplication mainApplication;
+public class ExtractionDetailsControl extends TweetExtractorFXController {
 	@FXML
 	private TableView<Tweet> tweetsTable;
 	@FXML
@@ -174,17 +176,11 @@ public class ExtractionDetailsControl {
 	}
 
 	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
-
-	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		this.getTweetsTable().setItems(this.tweetObservableList);
 		authorLabel.setText("");
 		dateLabel.setText("");
@@ -192,11 +188,11 @@ public class ExtractionDetailsControl {
 		langLabel.setText("");
 	}
 
-
-
 	public void executeQuery() {
-		twitterextractor = new TwitterExtractor(this.getMainApplication().getCurrentUser().getCredentialList().get(0),mainApplication.getSpringContext());
-		UpdateExtractionTask updateTask = new UpdateExtractionTask(twitterextractor, extraction,mainApplication.getSpringContext());
+		twitterextractor = new TwitterExtractor(this.getMainApplication().getCurrentUser().getCredentialList().get(0),
+				mainApplication.getSpringContext());
+		UpdateExtractionTask updateTask = new UpdateExtractionTask(twitterextractor, extraction,
+				mainApplication.getSpringContext());
 		updateTask.setOnSucceeded(e -> {
 			if (loadingDialog != null)
 				loadingDialog.close();
@@ -214,8 +210,10 @@ public class ExtractionDetailsControl {
 
 	@FXML
 	public void handleCancel() {
-		this.mainApplication.showHomeScreen();
-	}
+		AnchorPane node = null;
+		HomeScreenControl controller = null;
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml", node, controller);
+		}
 
 	@FXML
 	public void handleDelete() {
@@ -231,13 +229,15 @@ public class ExtractionDetailsControl {
 
 	@FXML
 	public void handleUpdateExtraction() {
-		ExtractionServiceInterface eServ= mainApplication.getSpringContext().getBean(ExtractionServiceInterface.class);
+		ExtractionServiceInterface eServ = mainApplication.getSpringContext().getBean(ExtractionServiceInterface.class);
 		eServ.refresh(extraction);
-		if(extraction.isExtracting()) {
+		if (extraction.isExtracting()) {
 			ErrorDialog.showErrorExtractionIsCurrentlyUpdating();
 		}
-		twitterextractor = new TwitterExtractor(this.getMainApplication().getCurrentUser().getCredentialList().get(0),mainApplication.getSpringContext());
-		TwitterExtractorFXTask<UpdateStatus> updateTask = new UpdateExtractionTask(twitterextractor, extraction,mainApplication.getSpringContext());
+		twitterextractor = new TwitterExtractor(this.getMainApplication().getCurrentUser().getCredentialList().get(0),
+				mainApplication.getSpringContext());
+		TwitterExtractorFXTask<UpdateStatus> updateTask = new UpdateExtractionTask(twitterextractor, extraction,
+				mainApplication.getSpringContext());
 		updateTask.setOnSucceeded(e -> {
 			UpdateStatus result = updateTask.getValue();
 			if (result == null)
@@ -245,7 +245,8 @@ public class ExtractionDetailsControl {
 			if (result.getnTweets() > 0) {
 				this.tweetObservableList.addAll(result.getTweetList());
 				try {
-					ExtractionServiceInterface extractionService = mainApplication.getSpringContext().getBean(ExtractionServiceInterface.class);
+					ExtractionServiceInterface extractionService = mainApplication.getSpringContext()
+							.getBean(ExtractionServiceInterface.class);
 					extractionService.update(this.getExtraction());
 				} catch (Exception ex) {
 					if (loadingDialog != null)
@@ -256,8 +257,9 @@ public class ExtractionDetailsControl {
 			}
 			if (loadingDialog != null)
 				loadingDialog.close();
-			alertUpdate=twitterextractor.onError();
-			if(alertUpdate==null)alertUpdate = ErrorDialog.showUpdateQueryResults(result.getnTweets());
+			alertUpdate = twitterextractor.onError();
+			if (alertUpdate == null)
+				alertUpdate = ErrorDialog.showUpdateQueryResults(result.getnTweets());
 
 		});
 		updateTask.setOnFailed(e -> {
@@ -282,7 +284,7 @@ public class ExtractionDetailsControl {
 
 	public void refreshTweetObservableList() {
 		if (extraction != null && extraction.getFilterList() != null) {
-			LoadTweetsTask loadTask = new LoadTweetsTask(extraction,mainApplication.getSpringContext());
+			LoadTweetsTask loadTask = new LoadTweetsTask(extraction, mainApplication.getSpringContext());
 			loadTask.setOnSucceeded(e -> {
 				this.tweetObservableList.clear();
 				this.tweetObservableList.setAll(extraction.getTweetList());
@@ -307,47 +309,47 @@ public class ExtractionDetailsControl {
 	public void setExtraction(Extraction extraction) {
 		this.extraction = extraction;
 	}
-	
+
 	@FXML
 	public void handleExport() {
-		alertExport=null;
+		alertExport = null;
 		FileChooser fileChooser = new FileChooser();
-        // Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-                "XML files (*.xml)", "*.xml");
-        fileChooser.getExtensionFilters().add(extFilter);
-        // Show save file dialog
-        File file = fileChooser.showSaveDialog(this.mainApplication.getPrimaryStage());
-        if(file!=null) {
-        ExportExtractionTask exportTask = new ExportExtractionTask(extraction, file,mainApplication.getSpringContext());
-        exportTask.setOnSucceeded(e->{
-        	Integer status = exportTask.getValue();
-        	if (loadingDialog != null) {
-				loadingDialog.close();
-        	}
-        	switch(status) {
-        	case(Constants.SUCCESS_EXPORT):
-        		alertExport=ErrorDialog.showSuccessExport();
-        		break;
-        	case(Constants.UNKNOWN_EXPORT_ERROR):
-        		alertExport=ErrorDialog.showErrorExportTweets(exportTask.getErrorMessage());
-        		break;
-        	default:
-        			break;
-        	}
-        });
-        exportTask.setOnFailed(e->{
-        	if (loadingDialog != null) {
-				loadingDialog.close();
-        	}
-        });
-        Thread thread = new Thread(exportTask);
-		thread.setName(exportTask.getClass().getCanonicalName());
-		thread.start();
-		loadingDialog = mainApplication.showLoadingDialog("Exporting tweets...");
-		loadingDialog.showAndWait();
-		if (alertExport != null)
-			alertExport.showAndWait();
-        }
+		// Set extension filter
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+		fileChooser.getExtensionFilters().add(extFilter);
+		// Show save file dialog
+		File file = fileChooser.showSaveDialog(this.mainApplication.getPrimaryStage());
+		if (file != null) {
+			ExportExtractionTask exportTask = new ExportExtractionTask(extraction, file,
+					mainApplication.getSpringContext());
+			exportTask.setOnSucceeded(e -> {
+				Integer status = exportTask.getValue();
+				if (loadingDialog != null) {
+					loadingDialog.close();
+				}
+				switch (status) {
+				case (Constants.SUCCESS_EXPORT):
+					alertExport = ErrorDialog.showSuccessExport();
+					break;
+				case (Constants.UNKNOWN_EXPORT_ERROR):
+					alertExport = ErrorDialog.showErrorExportTweets(exportTask.getErrorMessage());
+					break;
+				default:
+					break;
+				}
+			});
+			exportTask.setOnFailed(e -> {
+				if (loadingDialog != null) {
+					loadingDialog.close();
+				}
+			});
+			Thread thread = new Thread(exportTask);
+			thread.setName(exportTask.getClass().getCanonicalName());
+			thread.start();
+			loadingDialog = mainApplication.showLoadingDialog("Exporting tweets...");
+			loadingDialog.showAndWait();
+			if (alertExport != null)
+				alertExport.showAndWait();
+		}
 	}
 }

@@ -5,7 +5,6 @@ package es.uam.eps.tweetextractorfx.view.dialog;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.service.GetServerStatus;
 import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
@@ -14,40 +13,32 @@ import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * @author jgarciadelsaz
  *
  */
-public class ServerPreferencesDialogControl {
-	/*Reference to the MainApplication*/
-    private MainApplication mainApplication;
+public class ServerPreferencesDialogControl extends TweetExtractorFXDialogController {
     @FXML
     private TextField serverHost;
     @FXML
     private TextField serverPort;
     @FXML
     private TextField serverAppName;
-	private Stage dialogStage;
 	/**
 	 *
 	 */
 	public ServerPreferencesDialogControl() {
 		super();
 	}
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
+
 	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
-		if(TweetExtractorFXPreferences.isSetPreference(Constants.PREFERENCE_SERVER_ADDRESS)) {
+			super.setMainApplication(mainApplication);
+			if(TweetExtractorFXPreferences.isSetPreference(Constants.PREFERENCE_SERVER_ADDRESS)) {
 			serverHost.setText(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_HOST));
 			serverPort.setText(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_PORT));
 			serverAppName.setText(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_NAMEAPP));
@@ -88,18 +79,6 @@ public class ServerPreferencesDialogControl {
 	 */
 	public void setServerAppName(TextField serverAppName) {
 		this.serverAppName = serverAppName;
-	}
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
 	}
 	@FXML
 	public void onCancel() {

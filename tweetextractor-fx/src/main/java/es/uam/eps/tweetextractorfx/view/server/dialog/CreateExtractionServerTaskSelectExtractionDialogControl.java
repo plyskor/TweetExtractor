@@ -9,22 +9,19 @@ import java.text.SimpleDateFormat;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 /**
  * @author joseantoniogarciadelsaz
  *
  */
-public class CreateExtractionServerTaskSelectExtractionDialogControl {
-	/*Reference to the MainApplication*/
-    private MainApplication mainApplication;
-    private Stage dialogStage;
+public class CreateExtractionServerTaskSelectExtractionDialogControl extends TweetExtractorFXDialogController{
     private Extraction toReturn;
     @FXML 
     private TableView<Extraction> extractionTableView;
@@ -43,32 +40,16 @@ public class CreateExtractionServerTaskSelectExtractionDialogControl {
 	public CreateExtractionServerTaskSelectExtractionDialogControl() {
 		super();
 	}
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
+
 	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		this.extractionTableView.setItems(extractionList);
 		this.extractionList.addAll(this.mainApplication.getCurrentUser().getExtractionList());
 		
-	}
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
 	}
 
 	/**

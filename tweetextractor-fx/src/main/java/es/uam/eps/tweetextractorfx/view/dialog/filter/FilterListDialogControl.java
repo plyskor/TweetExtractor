@@ -2,18 +2,17 @@ package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
 
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-public class FilterListDialogControl {
+public class FilterListDialogControl extends TweetExtractorFXDialogController {
 	private FilterList filter;
 	@FXML
 	private TextField accountField;
 	@FXML
 	private TextField listField;
-    private Stage dialogStage;
 
 	public FilterListDialogControl() {
 		initialize();
@@ -33,18 +32,7 @@ public class FilterListDialogControl {
 	public void setFilter(FilterList filter) {
 		this.filter = filter;
 	}
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
+
 	
 	/**
 	 * @return the accountField

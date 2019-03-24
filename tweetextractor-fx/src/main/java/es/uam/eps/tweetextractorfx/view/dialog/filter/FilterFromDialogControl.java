@@ -1,16 +1,15 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterFrom;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-public class FilterFromDialogControl {
+public class FilterFromDialogControl extends TweetExtractorFXDialogController{
 	private FilterFrom filter;
 	@FXML
 	private TextField nickToAdd;
-    private Stage dialogStage;
 
 	public FilterFromDialogControl() {
 		initialize();
@@ -41,19 +40,6 @@ public class FilterFromDialogControl {
 	 */
 	public void setNickToAdd(TextField nickToAdd) {
 		this.nickToAdd = nickToAdd;
-	}
-	
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
 	}
 	public void handleAddNick() {
 		if (nickToAdd.getText().trim().isEmpty()) {

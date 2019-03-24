@@ -6,21 +6,18 @@ package es.uam.eps.tweetextractorfx.view.server.dialog;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import tornadofx.control.DateTimePicker;
 
 /**
  * @author jose
  *
  */
-public class ScheduleServerTaskSelectDateDialogControl {
-	private MainApplication mainApplication;
-	private Stage dialogStage;
+public class ScheduleServerTaskSelectDateDialogControl extends TweetExtractorFXDialogController{
 	private Date toReturn;
 	@FXML
 	private StackPane datePickerPane;
@@ -31,31 +28,16 @@ public class ScheduleServerTaskSelectDateDialogControl {
 	public ScheduleServerTaskSelectDateDialogControl() {
 		super();
 	}
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
+
 	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		datePickerPane.getChildren().add(datePicker);
 	}
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
+
 	/**
 	 * @return the toReturn
 	 */

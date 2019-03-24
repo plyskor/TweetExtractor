@@ -23,10 +23,12 @@ import es.uam.eps.tweetextractor.service.SetServerTaskReady;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
+import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import es.uam.eps.tweetextractorfx.view.server.dialog.ScheduleServerTaskDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.ScheduleServerTaskSelectDateDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.ScheduleServerTaskSelectDelayDialogControl;
 import es.uam.eps.tweetextractorserver.model.servertask.ServerTaskInfo;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,13 +45,11 @@ import javafx.stage.Stage;
  * @author joseantoniogarciadelsaz
  *
  */
-public class ManageServerTasksControl {
-	/* Reference to the MainApplication */
-	private MainApplication mainApplication;
+public class ManageServerTasksControl extends TweetExtractorFXController {
 	@FXML
 	private TableView<ServerTaskInfo> serverTaskTable;
 	@FXML
-	private TableColumn<ServerTaskInfo, String> serverTaskID;
+	private TableColumn<ServerTaskInfo, Integer> serverTaskID;
 	@FXML
 	private TableColumn<ServerTaskInfo, String> serverTaskType;
 	@FXML
@@ -69,7 +69,7 @@ public class ManageServerTasksControl {
 	@FXML
 	private void initialize() {
 		// Initialize the person table with the two columns.
-		serverTaskID.setCellValueFactory(cellData -> new SimpleStringProperty("" + cellData.getValue().getId()));
+		serverTaskID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
 		serverTaskExtraction.setCellValueFactory(
 				cellData -> new SimpleStringProperty("" + cellData.getValue().getExtractionSummary()));
 		serverTaskStatus.setCellValueFactory(cellData -> new SimpleStringProperty(
@@ -83,19 +83,12 @@ public class ManageServerTasksControl {
 
 		selectedServerTask = null;
 	}
-
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
-
 	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		serverTaskTable.setItems(serverTasksList);
 		refreshTable();
 	}
@@ -117,14 +110,14 @@ public class ManageServerTasksControl {
 	/**
 	 * @return the serverTaskID
 	 */
-	public TableColumn<ServerTaskInfo, String> getServerTaskID() {
+	public TableColumn<ServerTaskInfo, Integer> getServerTaskID() {
 		return serverTaskID;
 	}
 
 	/**
 	 * @param serverTaskID the serverTaskID to set
 	 */
-	public void setServerTaskID(TableColumn<ServerTaskInfo, String> serverTaskID) {
+	public void setServerTaskID(TableColumn<ServerTaskInfo, Integer> serverTaskID) {
 		this.serverTaskID = serverTaskID;
 	}
 

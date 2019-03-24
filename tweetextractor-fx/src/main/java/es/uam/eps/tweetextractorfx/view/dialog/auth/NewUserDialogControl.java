@@ -2,9 +2,9 @@ package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
 
 
-import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.task.RegisterAccountTask;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import javafx.fxml.FXML;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.task.status.RegisterStatus;
@@ -13,32 +13,17 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class NewUserDialogControl {
-	private Stage dialogStage;
+public class NewUserDialogControl extends TweetExtractorFXDialogController {
 	@FXML
 	private TextField userNameField;
 	@FXML
 	private PasswordField passwordField1;
 	@FXML
 	private PasswordField passwordField2;
-	private MainApplication mainApplication;
 	private Stage loadingDialog = null;
 	private Alert alertRegister=null; 
 	public NewUserDialogControl() {
 		super();
-	}
-
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
 	}
 	/**
 	 * @return the userNameField
@@ -75,19 +60,6 @@ public class NewUserDialogControl {
 	 */
 	public void setPasswordField2(PasswordField passwordField2) {
 		this.passwordField2 = passwordField2;
-	}
-	
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
-	/**
-	 * @param mainApplication the mainApplication to set
-	 */
-	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
 	}
 	@FXML 
 	public void handleCancel() {

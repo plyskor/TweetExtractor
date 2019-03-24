@@ -19,43 +19,41 @@ import javafx.stage.Stage;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
-public class RootLayoutControl {
-	/*Reference to the MainApplication*/
-    private MainApplication mainApplication;
-    @FXML
-    private Menu tweetExtractorMenu;
-    @FXML
-    private Menu optionsMenu;
-    
-    private Stage loadingDialog = null;
+public class RootLayoutControl extends TweetExtractorFXController {
+	@FXML
+	private Menu tweetExtractorMenu;
+	@FXML
+	private Menu optionsMenu;
 
-    private MenuItem logoutmenuitem ;
-    
+	private Stage loadingDialog = null;
+
+	private MenuItem logoutmenuitem;
+
 	private Logger logger = LoggerFactory.getLogger(MainApplication.class);
-	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
 
 	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		logoutmenuitem = new MenuItem("Log out");
-    	logoutmenuitem.setOnAction(event -> {
-	        	logger.info("User "+mainApplication.getCurrentUser().getNickname()+" logging out...");
-    	        mainApplication.setCurrentUser(null);
-    	        mainApplication.getRootLayoutController().getArchivoMenu().getItems().remove(mainApplication.getRootLayoutController().getLogoutmenuitem());
-    	        mainApplication.showWelcomeScreen();
-    	});
+		logoutmenuitem.setOnAction(event -> {
+			logger.info("User " + mainApplication.getCurrentUser().getNickname() + " logging out...");
+			mainApplication.setCurrentUser(null);
+			mainApplication.getRootLayoutController().getArchivoMenu().getItems()
+					.remove(mainApplication.getRootLayoutController().getLogoutmenuitem());
+			AnchorPane node = null;
+			WelcomeScreenControl controller = null;
+			this.getMainApplication().showScreenInCenterOfRootLayout("view/WelcomeScreen.fxml", node, controller);
+		});
 	}
-	@FXML 
+
+	@FXML
 	public void initialize() {
 		removeOptionsMenu();
 	}
+
 	/**
 	 * @return the logoutmenuitem
 	 */
@@ -85,62 +83,69 @@ public class RootLayoutControl {
 	}
 
 	/**
-     * Opens an about dialog.
-     */
-    @FXML
-    private void handleAbout() {
-        String message="Twitter data extractor with JavaFX\nAuthor: Jose Antonio García del Saz\nVersion: ";
+	 * Opens an about dialog.
+	 */
+	@FXML
+	private void handleAbout() {
+		String message = "Twitter data extractor with JavaFX\nAuthor: Jose Antonio García del Saz\nVersion: ";
 		try {
 			final Properties properties = new Properties();
 			properties.load(this.getClass().getClassLoader().getResourceAsStream("tweetextractorfx.properties"));
-			message=message.concat(properties.getProperty("tweetextractorfx.version"));
-		} catch (IOException  e) {
+			message = message.concat(properties.getProperty("tweetextractorfx.version"));
+		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
-        Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("TweetExtractorFX");
-    	alert.setHeaderText("About...");
-    	alert.setContentText(message);
-    	alert.showAndWait();
-    }
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("TweetExtractorFX");
+		alert.setHeaderText("About...");
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
 
-    /**
-     * Gets you to the home/welcome screen
-     */
-    @FXML
-    private void handleHome() {
-    	if(this.getMainApplication().getCurrentUser()==null) {
-        	this.getMainApplication().showWelcomeScreen();
-    	}else {
-    		this.getMainApplication().showHomeScreen();
-    	}
-    }
-    /**
-     * Closes the application.
-     */
-    @FXML
-    private void handleExit() {
-        System.exit(0);
-    }
-    /**
-     * Opens the birthday statistics.
-     */
-    public void addLogOut() {
-    	if(!tweetExtractorMenu.getItems().contains(logoutmenuitem)) {
-    		tweetExtractorMenu.getItems().add(1, logoutmenuitem);
-    	}
-    }
-    public void logOut() {
-    	if(logoutmenuitem!=null) {
-    		logoutmenuitem.fire();
-    	}
-    }
+	/**
+	 * Gets you to the home/welcome screen
+	 */
+	@FXML
+	private void handleHome() {
+		AnchorPane node = null;
+		if (this.getMainApplication().getCurrentUser() == null) {
+			WelcomeScreenControl controller = null;
+			this.getMainApplication().showScreenInCenterOfRootLayout("view/WelcomeScreen.fxml", node, controller);
+		} else {
+			HomeScreenControl controller = null;
+			this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml", node, controller);
+		}
+	}
+
+	/**
+	 * Closes the application.
+	 */
+	@FXML
+	private void handleExit() {
+		System.exit(0);
+	}
+
+	/**
+	 * Opens the birthday statistics.
+	 */
+	public void addLogOut() {
+		if (!tweetExtractorMenu.getItems().contains(logoutmenuitem)) {
+			tweetExtractorMenu.getItems().add(1, logoutmenuitem);
+		}
+	}
+
+	public void logOut() {
+		if (logoutmenuitem != null) {
+			logoutmenuitem.fire();
+		}
+	}
+
 	public void showUpdatePassword() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(HomeScreenControl.class.getResource("dialog/auth/ChangePasswordDialog.fxml"));
-			AnchorPane page =loader.load();
+			AnchorPane page = loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -154,16 +159,17 @@ public class RootLayoutControl {
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 
-			
 		} catch (IOException e) {
 			logger.error(e.getMessage());
-			
+
 		}
 	}
+
 	@FXML
 	public void handleChangePassword() {
 		showUpdatePassword();
 	}
+
 	@FXML
 	public void handleDeleteUser() {
 		Alert alert = new Alert(AlertType.CONFIRMATION,
@@ -172,7 +178,8 @@ public class RootLayoutControl {
 				ButtonType.YES, ButtonType.NO);
 		alert.showAndWait();
 		if (alert.getResult() == ButtonType.YES) {
-			DeleteAccountTask deleteTask = new DeleteAccountTask(this.getMainApplication().getCurrentUser(),mainApplication.getSpringContext());
+			DeleteAccountTask deleteTask = new DeleteAccountTask(this.getMainApplication().getCurrentUser(),
+					mainApplication.getSpringContext());
 			deleteTask.setOnSucceeded(e -> {
 				this.logOut();
 				if (loadingDialog != null)
@@ -189,9 +196,11 @@ public class RootLayoutControl {
 			loadingDialog.showAndWait();
 		}
 	}
+
 	public void addOptionsMenu() {
 		optionsMenu.setVisible(true);
 	}
+
 	public void removeOptionsMenu() {
 		optionsMenu.setVisible(false);
 	}

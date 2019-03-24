@@ -6,20 +6,17 @@ package es.uam.eps.tweetextractorfx.view.server.dialog;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.stage.Stage;
 
 /**
  * @author joseantoniogarciadelsaz
  *
  */
-public class CreateExtractionServerTaskSelectTaskTypeDialogControl {
-	/*Reference to the MainApplication*/
-    private MainApplication mainApplication;
-    private Stage dialogStage;
+public class CreateExtractionServerTaskSelectTaskTypeDialogControl extends TweetExtractorFXDialogController{
     @FXML
     private ChoiceBox<String> taskTypeChoice;
     private ObservableList<String> taskTypesList = FXCollections.observableArrayList();
@@ -32,31 +29,15 @@ public class CreateExtractionServerTaskSelectTaskTypeDialogControl {
 		super();
 	}
 	/**
-	 * @return the mainApplication
-	 */
-	public MainApplication getMainApplication() {
-		return mainApplication;
-	}
-	/**
 	 * @param mainApplication the mainApplication to set
 	 */
+	@Override
 	public void setMainApplication(MainApplication mainApplication) {
-		this.mainApplication = mainApplication;
+		super.setMainApplication(mainApplication);
 		taskTypeChoice.setItems(taskTypesList);
 		initializeTaskTypeChoice();
 	}
-	/**
-	 * @return the dialogStage
-	 */
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-	/**
-	 * @param dialogStage the dialogStage to set
-	 */
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
+
 	/**
 	 * @return the taskTypeChoice
 	 */
