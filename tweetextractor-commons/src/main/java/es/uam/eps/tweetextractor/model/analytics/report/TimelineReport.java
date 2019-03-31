@@ -25,12 +25,12 @@ import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue(value=AnalyticsReportTypes.Values.TYPE_TIMELINE_REPORT)
-public abstract class TimelineReport extends AnalyticsReport implements Serializable {
+public abstract class TimelineReport extends AnalyticsRepresentableReport implements Serializable {
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = -7250000628622657293L;
 	@OneToMany(fetch=FetchType.EAGER,cascade = {CascadeType.ALL},mappedBy="report")
-	protected List<TimelineReportRegister> result;
+	private List<TimelineReportRegister<?>> result;
 	/**
 	 * 
 	 */
@@ -48,14 +48,14 @@ public abstract class TimelineReport extends AnalyticsReport implements Serializ
 	/**
 	 * @return the result
 	 */
-	public List<TimelineReportRegister> getResult() {
+	public List<TimelineReportRegister<?>> getResult() {
 		return result;
 	}
 
 	/**
 	 * @param result the result to set
 	 */
-	public void setResult(List<TimelineReportRegister> result) {
+	public void setResult(List<TimelineReportRegister<?>> result) {
 		this.result = result;
 	}
 

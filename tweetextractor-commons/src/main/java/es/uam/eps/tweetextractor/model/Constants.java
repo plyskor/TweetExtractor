@@ -95,6 +95,27 @@ public final class Constants {
 			public static final String TYPE_TIMELINE_VOLUME_REPORT = "TVR";
 		}
 	}
+	
+	@XmlType(name = "chartType")
+	@XmlEnum
+	public enum AnalyticsReportImageTypes {
+		@XmlEnumValue("TSC")
+		TSC(Values.TYPE_TIME_SERIES_CHART),
+		@XmlEnumValue("BARC")
+		BARC(Values.TYPE_BAR_CHART),
+		@XmlEnumValue("BXYC")
+		BXYC(Values.TYPE_XY_BAR_CHART);
+		private AnalyticsReportImageTypes(String type) {
+			
+		}
+		public static class Values {
+			// Available charts
+			public static final String TYPE_TIME_SERIES_CHART = "TSC";
+			public static final String TYPE_BAR_CHART = "BARC";
+			public static final String TYPE_XY_BAR_CHART = "BXYC";
+		}
+	}
+	
 	/*
 	 * Generic Strings
 	 */

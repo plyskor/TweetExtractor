@@ -5,8 +5,6 @@ package es.uam.eps.tweetextractor.model.analytics.report;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -18,7 +16,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -55,8 +52,7 @@ public abstract class AnalyticsReport implements Serializable{
 	@ManyToOne
 	@XmlTransient
 	private User user;
-	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE,CascadeType.REFRESH,CascadeType.DETACH},mappedBy="report")
-	protected List<AnalyticsReportImage> graphics;
+
 	/**
 	 * 
 	 */
@@ -106,18 +102,7 @@ public abstract class AnalyticsReport implements Serializable{
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
-	/**
-	 * @return the graphics
-	 */
-	public List<AnalyticsReportImage> getGraphics() {
-		return graphics;
-	}
-	/**
-	 * @param graphics the graphics to set
-	 */
-	public void setGraphics(List<AnalyticsReportImage> graphics) {
-		this.graphics = graphics;
-	}
+
 	/**
 	 * @return the user
 	 */
@@ -130,6 +115,5 @@ public abstract class AnalyticsReport implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
 
 }

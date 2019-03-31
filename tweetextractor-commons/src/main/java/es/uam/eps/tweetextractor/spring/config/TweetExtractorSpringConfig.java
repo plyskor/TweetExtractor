@@ -47,15 +47,17 @@ import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskUpdateExt
 @Configuration
 @EnableTransactionManagement
 @ComponentScans(value = { @ComponentScan("es.uam.eps.tweetextractor.dao"),
-		@ComponentScan("es.uam.eps.tweetextractor.dao.service") })
+						  @ComponentScan("es.uam.eps.tweetextractor.dao.service"), 
+						  @ComponentScan("es.uam.eps.tweetextractor.analytics.dao"),
+						  @ComponentScan("es.uam.eps.tweetextractor.analytics.dao.service") 
+})
 public class TweetExtractorSpringConfig {
 
 	@Bean
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl(
-				"jdbc:postgresql://db.preciapps.com/te_op00?currentSchema=te_op00&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
+		dataSource.setUrl("jdbc:postgresql://db.preciapps.com/te_op00?currentSchema=te_op00&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
 		dataSource.setUsername("te_op00_update");
 		dataSource.setPassword("te_op00_update");
 		return dataSource;

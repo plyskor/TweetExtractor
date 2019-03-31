@@ -72,7 +72,7 @@ public class User implements Serializable {
 	private List<ServerTask> serverTaskList;
 	@XmlTransient
 	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="user")
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<AnalyticsReport> analyticsReportList;
 	
 	

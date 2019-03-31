@@ -167,7 +167,11 @@
 			<artifactId>tweetextractor-commons</artifactId>
 			<version>1.0.1.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>tweetextractor-analytics</groupId>
+			<artifactId>tweetextractor-analytics</artifactId>
+			<version>1.0.1.0</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-bindings-soap -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>

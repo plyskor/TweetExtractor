@@ -1,5 +1,7 @@
 package es.uam.eps.tweetextractorfx;
 
+
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -7,14 +9,19 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportImage;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;
 import es.uam.eps.tweetextractor.service.GetServerStatus;
 import es.uam.eps.tweetextractor.spring.config.TweetExtractorSpringConfig;
+import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
@@ -54,8 +61,32 @@ public class MainApplication extends Application {
 		initRootLayout();
 		TweetExtractorFXPreferences.initializePreferences();
 		springContext = new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
+		//onBoot();
+	}
+	
+
+	private void onBoot() {
+		AnalyticsReportServiceInterface inter;
+		inter=springContext.getBean(AnalyticsReportServiceInterface.class);
+		AnalyticsRepresentableReport report =(AnalyticsRepresentableReport)inter.findById(1);
+		int i =0;
+		for(AnalyticsReportImage reportImage : report.getGraphics()) {
+			File f = new File("image0"+i+".jpeg");
+			if(!f.exists()) {
+				try {
+					f.createNewFile();
+					TweetExtractorUtils.writeByteArrayToFile(f, reportImage.getImage());
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			i++;
+		}
 	}
 
+	
 	/* Initialize the RootLayout */
 	public void initRootLayout() {
 		try {

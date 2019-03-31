@@ -405,11 +405,10 @@ public class HomeScreenControl extends TweetExtractorFXController{
 	@FXML
 	public void onMyReports() {
 		this.mainApplication.showScreenInCenterOfRootLayout("view/analytics/reports/MyReports.fxml");
-
 	}
 	@FXML
 	public void onGraphicsForAnalytics() {
-		//TODO à faire
+		this.mainApplication.showScreenInCenterOfRootLayout("view/analytics/reports/graphics/MyGraphics.fxml");
 	}
 
 }

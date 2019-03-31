@@ -30,22 +30,16 @@
 			<artifactId>kumo-core</artifactId>
 			<version>1.17</version>
 		</dependency>
-		<dependency>
-			<groupId>tweetextractor-commons</groupId>
-			<artifactId>tweetextractor-commons</artifactId>
-			<version>1.0.1.0</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.kennycason/kumo-api -->
 		<dependency>
 			<groupId>com.kennycason</groupId>
 			<artifactId>kumo-api</artifactId>
 			<version>1.17</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
-		<dependency>
-			<groupId>org.jfree</groupId>
-			<artifactId>jfreechart</artifactId>
-			<version>1.5.0</version>
+			<dependency>
+			<groupId>tweetextractor-commons</groupId>
+			<artifactId>tweetextractor-commons</artifactId>
+			<version>1.0.1.0</version>
 		</dependency>
 	</dependencies>
 </project>

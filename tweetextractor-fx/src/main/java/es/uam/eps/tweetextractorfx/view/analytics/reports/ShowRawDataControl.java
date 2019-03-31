@@ -4,7 +4,8 @@
 package es.uam.eps.tweetextractorfx.view.analytics.reports;
 
 import java.util.List;
-import es.uam.eps.tweetextractor.dao.service.inter.AnalyticsReportRegisterServiceInterface;
+
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegisterServiceInterface;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
 import es.uam.eps.tweetextractorfx.MainApplication;

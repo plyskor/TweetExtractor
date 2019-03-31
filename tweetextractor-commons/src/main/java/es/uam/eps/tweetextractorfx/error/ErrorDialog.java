@@ -545,4 +545,12 @@ public class ErrorDialog {
 		alert.setContentText("This feature has not yet been implemented. It will be available in a future release of TweetExtractor");		
 		alert.showAndWait();
 	}
+
+	public static void showErrorNoSelectedGraphics() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No chart selected");
+		alert.setContentText("Please, select a graphic chart first to perform this action.");		
+		alert.showAndWait();	
+	}
 }

@@ -1,4 +1,4 @@
-package es.uam.eps.tweetextractor.dao.inter;
+package es.uam.eps.tweetextractor.analytics.dao.inter;
 
 import java.util.List;
 

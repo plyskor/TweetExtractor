@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
+import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.User;
 
 /**
@@ -26,11 +27,11 @@ public class DeleteAccountTask extends TwitterExtractorFXTask<Integer>{
 
 	@Override
 	protected Integer call() throws Exception {
-		if (user==null)return -1;
+		if (user==null)return Constants.ERROR;
 		UserServiceInterface userService = springContext.getBean(UserServiceInterface.class);
 		userService.deleteById(user.getIdDB());
 		logger.info("Account "+user.getNickname()+" and all its data succesfully deleted.");
-		return 0;
+		return Constants.SUCCESS;
 	}
 
 	/**
