@@ -7,28 +7,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
-
-import javax.xml.ws.WebServiceException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportImageServiceInterface;
-import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
-import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
-import es.uam.eps.tweetextractor.model.Constants;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportImage;
-import es.uam.eps.tweetextractor.model.service.GetUserServerTasksResponse;
-import es.uam.eps.tweetextractor.service.DeleteServerTask;
-import es.uam.eps.tweetextractor.service.GetUserServerTasks;
+import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
-import es.uam.eps.tweetextractorfx.task.DeleteAccountTask;
 import es.uam.eps.tweetextractorfx.task.DeleteChartTask;
-import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
-import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
-import es.uam.eps.tweetextractorserver.model.servertask.ServerTaskInfo;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -65,7 +51,6 @@ public class MyGraphicsControl extends TweetExtractorFXController {
 	@FXML
 	private AnalyticsReportImage selectedGraphic=null;
 	private ObservableList<AnalyticsReportImage> graphicsList= FXCollections.observableArrayList();
-	private AnalyticsReportServiceInterface arServ;
 	private AnalyticsReportImageServiceInterface ariServ;
 	private Stage loadingDialog = null;
 
@@ -91,7 +76,6 @@ public class MyGraphicsControl extends TweetExtractorFXController {
 	public void setMainApplication(MainApplication mainApplication) {
 		super.setMainApplication(mainApplication);
 		graphicsTable.setItems(graphicsList);
-		arServ = this.mainApplication.getSpringContext().getBean(AnalyticsReportServiceInterface.class);
 		ariServ = this.mainApplication.getSpringContext().getBean(AnalyticsReportImageServiceInterface.class);
 		refreshGraphicsList();
 	}
@@ -142,6 +126,13 @@ public class MyGraphicsControl extends TweetExtractorFXController {
 		}else {
 			ErrorDialog.showErrorNoSelectedGraphics();
 		}
+	}
+	@FXML
+	public void onCreateChart() {
+		createChart();
+	}
+	private void createChart() {
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/analytics/reports/graphics/ChartTypeSelection.fxml");
 	}
 	public void deleteGraphic() {
 		Alert alert = new Alert(AlertType.CONFIRMATION,

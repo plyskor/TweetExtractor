@@ -21,6 +21,8 @@ import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.springframework.stereotype.Controller;
 
+import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
+
 
 /**
  * @author jgarciadelsaz

@@ -50,7 +50,13 @@ public class MyReportsControl extends TweetExtractorFXController {
 		idColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
 		typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClass().toString()));
 		createdOnColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(cellData.getValue().getCreationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
-		lastUpdatedColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(cellData.getValue().getLastUpdatedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+		lastUpdatedColumn.setCellValueFactory(cellData -> {
+		if(cellData.getValue().getLastUpdatedDate()!=null) {
+			return new SimpleObjectProperty<LocalDate>(cellData.getValue().getLastUpdatedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		}else {
+			return null;
+		}
+		});
 
 		// Listen for selection changes and show the person details when changed.
 		reportsTable.getSelectionModel().selectedItemProperty()

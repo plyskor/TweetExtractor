@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,6 +27,7 @@ import org.hibernate.annotations.Polymorphism;
 import org.hibernate.annotations.PolymorphismType;
 import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 @NamedQuery(name="findAnalyticsReportByUser", query="SELECT r from AnalyticsReport r where r.user=:user")
 /**
  * @author jose
@@ -52,6 +55,10 @@ public abstract class AnalyticsReport implements Serializable{
 	@ManyToOne
 	@XmlTransient
 	private User user;
+	@XmlTransient
+	@Column(name = "report_type", length=6 ,nullable = false, insertable = false, updatable = false)
+	@Enumerated(EnumType.STRING)
+	public AnalyticsReportTypes reportType;
 
 	/**
 	 * 
@@ -114,6 +121,18 @@ public abstract class AnalyticsReport implements Serializable{
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+	/**
+	 * @return the reportType
+	 */
+	public AnalyticsReportTypes getReportType() {
+		return reportType;
+	}
+	/**
+	 * @param reportType the reportType to set
+	 */
+	public void setReportType(AnalyticsReportTypes reportType) {
+		this.reportType = reportType;
 	}
 
 }

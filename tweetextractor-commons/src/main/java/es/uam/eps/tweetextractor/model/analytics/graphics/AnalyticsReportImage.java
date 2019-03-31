@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.model.analytics.report;
+package es.uam.eps.tweetextractor.model.analytics.graphics;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Type;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
 @NamedQuery(name="findAnalyticsReportImageByUser", query="SELECT i from AnalyticsReportImage i where i.report.user=:user")
 /**
  * @author jose

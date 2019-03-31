@@ -9,7 +9,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportImageServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportImage;
+import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 
 /**
  * @author jose

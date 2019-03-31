@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 /**
@@ -103,19 +104,35 @@ public final class Constants {
 		TSC(Values.TYPE_TIME_SERIES_CHART),
 		@XmlEnumValue("BARC")
 		BARC(Values.TYPE_BAR_CHART),
+		@XmlEnumValue("PCH")
+		PCH(Values.TYPE_PIE_CHART),
+		@XmlEnumValue("P3DCH")
+		P3DCH(Values.TYPE_3D_PIE_CHART),
+		@XmlEnumValue("WCC")
+		WCC(Values.TYPE_WORD_CLOUD_CHART),
 		@XmlEnumValue("BXYC")
 		BXYC(Values.TYPE_XY_BAR_CHART);
 		private AnalyticsReportImageTypes(String type) {
 			
 		}
-		public static class Values {
+		private static class Values {
 			// Available charts
 			public static final String TYPE_TIME_SERIES_CHART = "TSC";
 			public static final String TYPE_BAR_CHART = "BARC";
 			public static final String TYPE_XY_BAR_CHART = "BXYC";
+			public static final String TYPE_PIE_CHART = "PCH";
+			public static final String TYPE_3D_PIE_CHART = "P3DCH";
+			public static final String TYPE_WORD_CLOUD_CHART = "WCC";
 		}
 	}
-	
+	/*Analytics Report <-> Graphic Chart (Compatibility)*/
+	public static final ImmutableList<AnalyticsReportTypes> TIME_SERIES_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR);
+	public static final ImmutableList<AnalyticsReportTypes> XY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR);
+	public static final ImmutableList<AnalyticsReportTypes> CATEGORY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR);
+	public static final ImmutableList<AnalyticsReportTypes> PIE_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
+	public static final ImmutableList<AnalyticsReportTypes> PIE_3D_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
+	public static final ImmutableList<AnalyticsReportTypes> WORD_CLOUD_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
+
 	/*
 	 * Generic Strings
 	 */

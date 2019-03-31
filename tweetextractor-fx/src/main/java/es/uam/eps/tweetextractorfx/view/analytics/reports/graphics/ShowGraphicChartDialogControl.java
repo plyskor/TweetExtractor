@@ -3,7 +3,8 @@
  */
 package es.uam.eps.tweetextractorfx.view.analytics.reports.graphics;
 import java.io.ByteArrayInputStream;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportImage;
+
+import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.javafx.WrappedImageView;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;

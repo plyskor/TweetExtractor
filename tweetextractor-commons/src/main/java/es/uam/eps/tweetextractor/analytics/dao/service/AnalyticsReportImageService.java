@@ -14,7 +14,7 @@ import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportImag
 
 import es.uam.eps.tweetextractor.dao.service.GenericService;
 import es.uam.eps.tweetextractor.model.User;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportImage;
+import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 
 /**
  * @author jose

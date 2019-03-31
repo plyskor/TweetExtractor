@@ -14,8 +14,8 @@ import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServ
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;

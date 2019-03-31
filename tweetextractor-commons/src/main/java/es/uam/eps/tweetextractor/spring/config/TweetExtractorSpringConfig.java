@@ -17,8 +17,9 @@ import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.GeoLocation;
 import es.uam.eps.tweetextractor.model.Tweet;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
+import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportRegister;
@@ -82,7 +83,7 @@ public class TweetExtractorSpringConfig {
 				AnalyticsServerTask.class, ServerTaskUpdateExtractionIndef.class, AnalyticsReport.class,
 				TimelineVolumeReport.class, TimelineReport.class, TimelineReportRegister.class,
 				TimelineReportVolumeRegister.class, ServerTaskTimelineVolumeReport.class, AnalyticsReportImage.class,
-				ScheduledServerTask.class, AnalyticsReportRegister.class);
+				ScheduledServerTask.class, AnalyticsReportRegister.class,TweetExtractorChartGraphicPreferences.class);
 		return factoryBean;
 	}
 

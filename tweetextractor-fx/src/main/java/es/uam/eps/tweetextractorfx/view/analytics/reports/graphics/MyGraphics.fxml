@@ -89,7 +89,7 @@
                                                    <children>
                                                       <StackPane prefHeight="110.0" prefWidth="225.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" text="New graphic..." />
+                                                            <Button mnemonicParsing="false" onAction="#onCreateChart" text="New graphic..." />
                                                          </children>
                                                       </StackPane>
                                                    </children>
