@@ -27,6 +27,8 @@ import org.jfree.data.xy.XYDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
+
 /**
  * @author jgarciadelsaz
  *
@@ -58,20 +60,20 @@ public class TweetExtractorChartConstructor {
 	/*
 		 * 
 		 */
-	public TweetExtractorChartConstructor(Dataset dataset) {
+	public TweetExtractorChartConstructor(Dataset dataset,TweetExtractorChartGraphicPreferences config) {
 		super();
 		this.dataset = dataset;
-		theme.setTitlePaint(Color.decode(hexTitleColour));
-		theme.setExtraLargeFont(new Font(fontName, Font.PLAIN, 16)); // title
-		theme.setLargeFont(new Font(fontName, Font.BOLD, 15)); // axis-title
-		theme.setRegularFont(new Font(fontName, Font.PLAIN, 11));
-		theme.setRangeGridlinePaint(Color.decode(hexRangeGridLineColour));
-		theme.setPlotBackgroundPaint(Color.white);
-		theme.setChartBackgroundPaint(Color.white);
-		theme.setGridBandPaint(Color.red);
+		theme.setTitlePaint(Color.decode(config.getHexTitleColour()));
+		theme.setExtraLargeFont(new Font(config.getFontName(), config.getTitleFontType(), config.getTitleFontSize())); // title
+		theme.setLargeFont(new Font(config.getFontName(),config.getAxisTitleFontType(), config.getAxisTitleFontSize())); // axis-title
+		theme.setRegularFont(new Font(config.getFontName(), config.getRegularFontType(), config.getRegularFontSize()));
+		theme.setRangeGridlinePaint(Color.decode(config.getHexRangeGridLineColour()));
+		theme.setPlotBackgroundPaint(Color.decode(config.getHexPlotBackgroundPaintColour()));
+		theme.setChartBackgroundPaint(Color.decode(config.getHexChartBackgroundPaintColour()));
+		theme.setGridBandPaint(Color.decode(config.getHexGridBandPaintColour()));
 		theme.setAxisOffset(new RectangleInsets(0, 0, 0, 0));
 		theme.setBarPainter(new StandardBarPainter());
-		theme.setAxisLabelPaint(Color.decode(hexAxisLabelColour));
+		theme.setAxisLabelPaint(Color.decode(config.getHexAxisLabelColour()));
 	}
 
 	/**

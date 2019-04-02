@@ -115,7 +115,7 @@ public final class Constants {
 		private AnalyticsReportImageTypes(String type) {
 			
 		}
-		private static class Values {
+		public static class Values {
 			// Available charts
 			public static final String TYPE_TIME_SERIES_CHART = "TSC";
 			public static final String TYPE_BAR_CHART = "BARC";

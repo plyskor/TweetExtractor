@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.util.DateAdapter;
 import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
@@ -74,7 +75,10 @@ public class User implements Serializable {
 	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="user")
 	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<AnalyticsReport> analyticsReportList;
-	
+	@XmlTransient
+	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="user")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<TweetExtractorChartGraphicPreferences> graphicsUserPreferencesList;
 	
 	/**
 	 * 
