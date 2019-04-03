@@ -51,6 +51,8 @@ public abstract class TweetExtractorChartGraphicPreferences implements  Serializ
 	@XmlTransient
 	@ManyToOne
 	private User user;
+	@Column(name = "name",length=30)
+	private String name;
 	//Font name to use
 	private String fontName;
 	//Colour for the chart title
@@ -290,6 +292,18 @@ public abstract class TweetExtractorChartGraphicPreferences implements  Serializ
 	 */
 	public void setHexGridBandPaintColour(String hexGridBandPaintColour) {
 		this.hexGridBandPaintColour = hexGridBandPaintColour;
+	}
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

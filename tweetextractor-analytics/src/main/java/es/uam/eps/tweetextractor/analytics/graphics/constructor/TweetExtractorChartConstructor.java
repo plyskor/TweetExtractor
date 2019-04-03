@@ -52,8 +52,7 @@ public class TweetExtractorChartConstructor {
 	private String hexLineColour = "#E0FB00";
 	private String hexRangeGridLineColour = "#C0C0C0";
 	private String hexTitleColour = "#E0FB00";
-	private String hexAxisLabelColour = "#666666";
-		//Font properties
+ 		//Font properties
 	private String fontName = "Lucida Sans";
 
 
