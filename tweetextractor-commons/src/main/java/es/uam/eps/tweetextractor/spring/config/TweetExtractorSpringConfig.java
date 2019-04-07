@@ -61,10 +61,9 @@ public class TweetExtractorSpringConfig {
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://localhost/te_op00?currentSchema=te_op00");
-		// + "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
-		dataSource.setUsername("te_adm");
-		dataSource.setPassword("L-%9ko1fG");
+		dataSource.setUrl("jdbc:postgresql://db.preciapps.com/te_op00?currentSchema=te_op00&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
+		dataSource.setUsername("te_op00_update");
+		dataSource.setPassword("te_op00_update");
 		return dataSource;
 	}
 
@@ -73,7 +72,7 @@ public class TweetExtractorSpringConfig {
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 		factoryBean.setDataSource(getDataSource());
 		Properties props = new Properties();
-		props.put("hibernate.show_sql", "true");
+		props.put("hibernate.show_sql", "false");
 		props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		props.put("connection.provider_class", "org.hibernate.connection.C3P0ConnectionProvider");
 		props.put("transaction.auto_close_session", "true");
