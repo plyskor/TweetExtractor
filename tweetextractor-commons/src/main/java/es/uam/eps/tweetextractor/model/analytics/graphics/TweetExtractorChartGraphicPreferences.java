@@ -26,7 +26,7 @@ import org.hibernate.annotations.PolymorphismType;
 
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
-@NamedQuery(name="findTweetExtractorChartGraphicPreferencesByUserAndChartType", query="SELECT p from TweetExtractorChartGraphicPreferences p where p.user=:user and p.chartTyoe=:chartType")
+@NamedQuery(name="findTweetExtractorChartGraphicPreferencesByUserAndChartType", query="SELECT p from TweetExtractorChartGraphicPreferences p where p.user=:user and p.chartType=:chartType")
 
 /**
  * @author jose
@@ -81,14 +81,19 @@ public abstract class TweetExtractorChartGraphicPreferences implements  Serializ
 	private int regularFontType;
 	@Column(name = "regular_font_size")
 	private int regularFontSize;
-
+	@Column(name = "legend")
+	private boolean legend;
+	@Column(name = "tooltips")
+	private boolean tooltips;
+	@Column(name = "urls")
+	private boolean urls;
 
 	/**
 	 * 
 	 */
 	public TweetExtractorChartGraphicPreferences() {
 		super();
-		this.fontName="Lucida Sans";
+		this.fontName="Palatino";
 		this.hexTitleColour="#000000";
 		this.hexRangeGridLineColour="#C0C0C0";
 		this.hexPlotBackgroundPaintColour="#FFFFFF";
@@ -100,6 +105,9 @@ public abstract class TweetExtractorChartGraphicPreferences implements  Serializ
 		this.axisTitleFontSize=15;
 		this.regularFontType=Font.PLAIN;
 		this.regularFontSize=11;
+		this.legend=true;
+		this.tooltips=false;
+		this.urls=false;
 	}
 	/**
 	 * @return the chartType
@@ -304,6 +312,42 @@ public abstract class TweetExtractorChartGraphicPreferences implements  Serializ
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+	/**
+	 * @return the legend
+	 */
+	public boolean isLegend() {
+		return legend;
+	}
+	/**
+	 * @param legend the legend to set
+	 */
+	public void setLegend(boolean legend) {
+		this.legend = legend;
+	}
+	/**
+	 * @return the tooltips
+	 */
+	public boolean isTooltips() {
+		return tooltips;
+	}
+	/**
+	 * @param tooltips the tooltips to set
+	 */
+	public void setTooltips(boolean tooltips) {
+		this.tooltips = tooltips;
+	}
+	/**
+	 * @return the urls
+	 */
+	public boolean isUrls() {
+		return urls;
+	}
+	/**
+	 * @param urls the urls to set
+	 */
+	public void setUrls(boolean urls) {
+		this.urls = urls;
 	}
 
 }

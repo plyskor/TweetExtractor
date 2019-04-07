@@ -29,6 +29,8 @@ import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 @NamedQuery(name="findAnalyticsReportByUser", query="SELECT r from AnalyticsReport r where r.user=:user")
+@NamedQuery(name="findAnalyticsReportByUserAndReportType", query="SELECT r from AnalyticsReport r where r.reportType in (:reportTypeList) and r.user=:user")
+
 /**
  * @author jose
  *

@@ -18,7 +18,11 @@ import es.uam.eps.tweetextractor.model.GeoLocation;
 import es.uam.eps.tweetextractor.model.Tweet;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
+import es.uam.eps.tweetextractor.model.analytics.graphics.CategoryBarChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.graphics.XYBarChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReport;
@@ -48,19 +52,19 @@ import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskUpdateExt
 @Configuration
 @EnableTransactionManagement
 @ComponentScans(value = { @ComponentScan("es.uam.eps.tweetextractor.dao"),
-						  @ComponentScan("es.uam.eps.tweetextractor.dao.service"), 
-						  @ComponentScan("es.uam.eps.tweetextractor.analytics.dao"),
-						  @ComponentScan("es.uam.eps.tweetextractor.analytics.dao.service") 
-})
+		@ComponentScan("es.uam.eps.tweetextractor.dao.service"),
+		@ComponentScan("es.uam.eps.tweetextractor.analytics.dao"),
+		@ComponentScan("es.uam.eps.tweetextractor.analytics.dao.service") })
 public class TweetExtractorSpringConfig {
 
 	@Bean
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://localhost/te_op00?currentSchema=te_op00&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
-		dataSource.setUsername("te_op00_update");
-		dataSource.setPassword("te_op00_update");
+		dataSource.setUrl("jdbc:postgresql://localhost/te_op00?currentSchema=te_op00");
+		// + "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
+		dataSource.setUsername("te_adm");
+		dataSource.setPassword("L-%9ko1fG");
 		return dataSource;
 	}
 
@@ -69,7 +73,7 @@ public class TweetExtractorSpringConfig {
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 		factoryBean.setDataSource(getDataSource());
 		Properties props = new Properties();
-		props.put("hibernate.show_sql", "false");
+		props.put("hibernate.show_sql", "true");
 		props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		props.put("connection.provider_class", "org.hibernate.connection.C3P0ConnectionProvider");
 		props.put("transaction.auto_close_session", "true");
@@ -83,7 +87,9 @@ public class TweetExtractorSpringConfig {
 				AnalyticsServerTask.class, ServerTaskUpdateExtractionIndef.class, AnalyticsReport.class,
 				TimelineVolumeReport.class, TimelineReport.class, TimelineReportRegister.class,
 				TimelineReportVolumeRegister.class, ServerTaskTimelineVolumeReport.class, AnalyticsReportImage.class,
-				ScheduledServerTask.class, AnalyticsReportRegister.class,TweetExtractorChartGraphicPreferences.class);
+				ScheduledServerTask.class, AnalyticsReportRegister.class, TweetExtractorChartGraphicPreferences.class,
+				XYChartGraphicPreferences.class, PlotStrokeConfiguration.class,
+				CategoryBarChartGraphicPreferences.class, XYBarChartGraphicPreferences.class);
 		return factoryBean;
 	}
 

@@ -3,6 +3,9 @@
  */
 package es.uam.eps.tweetextractorfx.error;
 
+import java.util.List;
+
+import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -552,5 +555,47 @@ public class ErrorDialog {
 		alert.setHeaderText("No chart selected");
 		alert.setContentText("Please, select a graphic chart first to perform this action.");		
 		alert.showAndWait();	
+	}
+
+	public static void showErrorNoSelectedReport() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No report selected");
+		alert.setContentText("Please, select a report first to perform this action.");		
+		alert.showAndWait();	
+	}
+
+	public static void showErrorNoReportsForThisChart(List<AnalyticsReportTypes> compatibles) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Didn't find compatible reports");
+		StringBuilder builder = new StringBuilder();
+		builder.append("It seems that you don't have any analytics report compatible with that type of chart.\n");
+		if(compatibles.isEmpty()) {
+			builder.append("No report is compatible with this chart yet.");
+		}else {
+			builder.append("This kind of chart is only compatible with these reports:\n");
+			for(AnalyticsReportTypes type : compatibles) {
+				builder.append(type.toString()+"\n");
+			}
+		}
+		alert.setContentText(builder.toString());		
+		alert.showAndWait();
+	}
+
+	public static void showErrorNoSelectedChartConfig() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No saved preferences selected");
+		alert.setContentText("Please, select a saved preference first to perform this action.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorNoSelectedChartType() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No chart type selected");
+		alert.setContentText("Please, select a chart type first to create a graphic chart.");		
+		alert.showAndWait();
 	}
 }

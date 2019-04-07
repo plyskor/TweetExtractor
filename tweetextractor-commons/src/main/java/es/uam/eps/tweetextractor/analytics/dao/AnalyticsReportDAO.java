@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 
-
+import org.hibernate.exception.SQLGrammarException;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import es.uam.eps.tweetextractor.analytics.dao.inter.AnalyticsReportDAOInterface;
 import es.uam.eps.tweetextractor.dao.AbstractGenericDAO;
+import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 
@@ -31,6 +32,18 @@ public class AnalyticsReportDAO extends AbstractGenericDAO<AnalyticsReport,Integ
 	    	logger.info("No analytics report found for userID: "+user.getIdDB());
 	    	return new ArrayList<>();
 	    	}
+	    return ret;
+	}
+	public List<AnalyticsReport> findByUserAndReportType(User user,List<AnalyticsReportTypes> types) {
+	    Query<AnalyticsReport> query = currentSession().createNamedQuery("findAnalyticsReportByUserAndReportType",AnalyticsReport.class);
+	    query.setParameter("user", user);
+	    query.setParameterList("reportTypeList", types);
+	    List<AnalyticsReport> ret= null;
+	    Logger logger = LoggerFactory.getLogger(this.getClass());
+	    try {ret=query.getResultList();}catch(Exception e) {
+	    	logger.info("No analytics report found for userID: "+user.getIdDB()+" and types: "+types.toString());
+	    	return new ArrayList<>();
+	    }
 	    return ret;
 	}
 }

@@ -10,7 +10,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportImageServiceInterface;
+import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.task.DeleteChartTask;
@@ -132,7 +134,7 @@ public class MyGraphicsControl extends TweetExtractorFXController {
 		createChart();
 	}
 	private void createChart() {
-		this.getMainApplication().showScreenInCenterOfRootLayout("view/analytics/reports/graphics/ChartTypeSelection.fxml");
+		this.getMainApplication().showCreateChart();
 	}
 	public void deleteGraphic() {
 		Alert alert = new Alert(AlertType.CONFIRMATION,

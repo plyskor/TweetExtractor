@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 
 /**
  * @author Jose Antonio García del Saz
@@ -132,6 +133,14 @@ public final class Constants {
 	public static final ImmutableList<AnalyticsReportTypes> PIE_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
 	public static final ImmutableList<AnalyticsReportTypes> PIE_3D_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
 	public static final ImmutableList<AnalyticsReportTypes> WORD_CLOUD_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
+
+	public static final ImmutableMap<AnalyticsReportImageTypes, ImmutableList<AnalyticsReportTypes>> REPORT_CHART_TYPES_COMPATIBILITY =new ImmutableMap.Builder<AnalyticsReportImageTypes, ImmutableList<AnalyticsReportTypes>>()
+			.put(AnalyticsReportImageTypes.TSC,TIME_SERIES_CHART_COMPATIBLE_REPORTS)
+			.put(AnalyticsReportImageTypes.BXYC,XY_BAR_CHART_COMPATIBLE_REPORTS)
+			.put(AnalyticsReportImageTypes.BARC,CATEGORY_BAR_CHART_COMPATIBLE_REPORTS)
+			.put(AnalyticsReportImageTypes.PCH,PIE_CHART_COMPATIBLE_REPORTS)
+			.put(AnalyticsReportImageTypes.P3DCH,PIE_3D_CHART_COMPATIBLE_REPORTS)
+			.put(AnalyticsReportImageTypes.WCC,WORD_CLOUD_CHART_COMPATIBLE_REPORTS).build();
 
 	/*
 	 * Generic Strings

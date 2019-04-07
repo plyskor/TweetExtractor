@@ -10,10 +10,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
@@ -26,8 +26,11 @@ import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import es.uam.eps.tweetextractor.model.analytics.graphics.CategoryBarChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.graphics.XYBarChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferences;
 
 /**
  * @author jgarciadelsaz
@@ -40,31 +43,30 @@ public class TweetExtractorChartConstructor {
 	private Logger logger = LoggerFactory.getLogger(TweetExtractorChartConstructor.class);
 	// Theme for charts (JFreeChart)
 	private StandardChartTheme theme = (StandardChartTheme) StandardChartTheme.createJFreeTheme();
-	//Stroke choices
+	// Stroke choices
 	private static final String STROKE_LINE = "line";
 	private static final String STROKE_DASH = "dash";
 	private static final String STROKE_DOT = "dot";
 	// Properties
-		//Line properties
+	// Line properties
 	private float lineWidth = 3.2f;
 	private float dashWidth = 5.0f;
-		//Colours
+	// Colours
 	private String hexLineColour = "#E0FB00";
 	private String hexRangeGridLineColour = "#C0C0C0";
 	private String hexTitleColour = "#E0FB00";
- 		//Font properties
+	// Font properties
 	private String fontName = "Lucida Sans";
-
-
 	/*
 		 * 
 		 */
-	public TweetExtractorChartConstructor(Dataset dataset,TweetExtractorChartGraphicPreferences config) {
+	public TweetExtractorChartConstructor(Dataset dataset, TweetExtractorChartGraphicPreferences config) {
 		super();
 		this.dataset = dataset;
 		theme.setTitlePaint(Color.decode(config.getHexTitleColour()));
 		theme.setExtraLargeFont(new Font(config.getFontName(), config.getTitleFontType(), config.getTitleFontSize())); // title
-		theme.setLargeFont(new Font(config.getFontName(),config.getAxisTitleFontType(), config.getAxisTitleFontSize())); // axis-title
+		theme.setLargeFont(
+				new Font(config.getFontName(), config.getAxisTitleFontType(), config.getAxisTitleFontSize())); // axis-title
 		theme.setRegularFont(new Font(config.getFontName(), config.getRegularFontType(), config.getRegularFontSize()));
 		theme.setRangeGridlinePaint(Color.decode(config.getHexRangeGridLineColour()));
 		theme.setPlotBackgroundPaint(Color.decode(config.getHexPlotBackgroundPaintColour()));
@@ -187,38 +189,12 @@ public class TweetExtractorChartConstructor {
 		this.fontName = fontName;
 	}
 
-	public JFreeChart constructLineChart(String title, String xAxisLabel, String yAxisLabel,
-			PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
+	public JFreeChart constructTimeSeriesChart(String title, XYChartGraphicPreferences config ,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		try {
-			return ChartFactory.createLineChart(title, xAxisLabel, yAxisLabel,
-					(CategoryDataset) this.dataset, orientation, legend, tooltips, urls);
-		} catch (Exception e) {
-			logger.warn(e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public JFreeChart constructTimeSeriesChart(String title, String xAxisLabel, String yAxisLabel, boolean legend,
-			boolean tooltips, boolean urls) {
-		try {
-			JFreeChart timeSeriesChart = ChartFactory.createTimeSeriesChart(title, xAxisLabel, yAxisLabel,
-					(XYDataset) this.dataset, legend, tooltips, urls);
+			JFreeChart timeSeriesChart = ChartFactory.createTimeSeriesChart(title, config.getxAxisLabel(),
+					config.getyAxisLabel(), (XYDataset) this.dataset, config.isLegend(), config.isTooltips(), config.isUrls());
 			this.theme.apply(timeSeriesChart);
-			String[] arg0= {STROKE_LINE};
-			int[] arg1= {0};
-			return setPreferencesXYChart(timeSeriesChart,arg0,arg1);
-		} catch (Exception e) {
-			logger.warn(e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public JFreeChart constructXYBarChart(String title, String xAxisLabel, String yAxisLabel,boolean dateAxis) {
-		try {
-			JFreeChart xyBarChart = ChartFactory.createXYBarChart(title, xAxisLabel, dateAxis, yAxisLabel,(IntervalXYDataset) this.dataset);
-			this.theme.apply(xyBarChart);
-			return setPreferencesXYBarChart(xyBarChart);
+			return setPreferencesXYChart(timeSeriesChart, config,plotStrokeConfiguration);
 		} catch (Exception e) {
 			logger.warn(e.getMessage());
 			e.printStackTrace();
@@ -226,88 +202,112 @@ public class TweetExtractorChartConstructor {
 		}
 	}
 
-	public JFreeChart constructBarChart(String title, String xAxisLabel, String yAxisLabel) {
+	public JFreeChart constructXYBarChart(String title, XYBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		try {
-			JFreeChart barChart = ChartFactory.createBarChart(title, xAxisLabel, yAxisLabel,(CategoryDataset) this.dataset);
-			this.theme.apply(barChart);
-			return setPreferencesCategoryBarChart(barChart);
+			JFreeChart xyBarChart = ChartFactory.createXYBarChart(title, config.getxAxisLabel(), config.isDateAxis(),
+					config.getyAxisLabel(), (IntervalXYDataset) this.dataset);
+			this.theme.apply(xyBarChart);
+			return setPreferencesXYBarChart(xyBarChart, config,plotStrokeConfiguration);
 		} catch (Exception e) {
 			logger.warn(e.getMessage());
 			e.printStackTrace();
 			return null;
 		}
 	}
-	public JFreeChart setPreferencesXYChart(JFreeChart chart, String[] strokeToUse, int[] strokeIndex) {
-		if(chart == null) {
+
+	public JFreeChart constructBarChart(String title, CategoryBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+		try {
+			JFreeChart barChart = ChartFactory.createBarChart(title, config.getxAxisLabel(), config.getyAxisLabel(),
+					(CategoryDataset) this.dataset);
+			this.theme.apply(barChart);
+			return setPreferencesCategoryBarChart(barChart, config,plotStrokeConfiguration);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public JFreeChart setPreferencesXYChart(JFreeChart chart, XYChartGraphicPreferences config, List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+		if (chart == null) {
 			return null;
 		}
 		XYPlot xyPlot = chart.getXYPlot();
 		XYItemRenderer cir = xyPlot.getRenderer();
-		if(strokeToUse.length!=strokeIndex.length) {
-			return chart;
+		for (PlotStrokeConfiguration strokeToUse :plotStrokeConfiguration) {
+			BasicStroke stroke = toStroke(strokeToUse.getStrokeType());
+			cir.setSeriesStroke(strokeToUse.getCategoryIndex(), stroke); // series line style
+			chart.getXYPlot().getRenderer().setSeriesPaint(strokeToUse.getCategoryIndex(),
+					Color.decode(strokeToUse.getHexLineColour()));
 		}
-		for(int i=0; i < strokeIndex.length; i++) {
-			BasicStroke stroke = toStroke(strokeToUse[i]);
-			cir.setSeriesStroke(strokeIndex[i], stroke); // series line style
-		}
-		chart.getXYPlot().setOutlineVisible(false);
-		chart.getXYPlot().getRangeAxis().setAxisLineVisible(false);
-		chart.getXYPlot().getRangeAxis().setTickMarksVisible(false);
+		chart.getXYPlot().setOutlineVisible(config.isOutlineVisible());
+		chart.getXYPlot().getRangeAxis().setAxisLineVisible(config.isRangeAxisLineVisible());
+		chart.getXYPlot().getRangeAxis().setTickMarksVisible(config.isRangeAxistTickMarksVisible());
 		chart.getXYPlot().setRangeGridlineStroke(new BasicStroke());
-		chart.getXYPlot().getRangeAxis().setTickLabelPaint(Color.decode("#666666"));
-		chart.getXYPlot().getDomainAxis().setTickLabelPaint(Color.decode("#666666"));
+		chart.getXYPlot().getRangeAxis().setTickLabelPaint(Color.decode(config.getRangeAxisHexTickLabelPaint()));
+		chart.getXYPlot().getDomainAxis().setTickLabelPaint(Color.decode(config.getDomainAxisHexTickLabelPaint()));
 		chart.setTextAntiAlias(true);
 		chart.setAntiAlias(true);
-		chart.getXYPlot().getRenderer().setSeriesPaint(0, Color.decode(this.hexLineColour));
 		return chart;
-	}
-	public JFreeChart setPreferencesCategoryBarChart(JFreeChart chart) {
-		if(chart == null) {
-			return null;
-		}
-		chart.getCategoryPlot().setOutlineVisible( false );
-	    chart.getCategoryPlot().getRangeAxis().setAxisLineVisible( false );
-	    chart.getCategoryPlot().getRangeAxis().setTickMarksVisible( false );
-	    chart.getCategoryPlot().setRangeGridlineStroke( new BasicStroke() );
-	    chart.getCategoryPlot().getRangeAxis().setTickLabelPaint( Color.decode("#666666") );
-	    chart.getCategoryPlot().getDomainAxis().setTickLabelPaint( Color.decode("#666666") );
-	    chart.setTextAntiAlias( true );
-	    chart.setAntiAlias( true );
-	    chart.getCategoryPlot().getRenderer().setSeriesPaint( 0, Color.decode( "#4572a7" ));
-	    setPreferencesRendererBarChart(chart);
-		return chart;
-	}
-	private JFreeChart setPreferencesXYBarChart(JFreeChart xyBarChart) {
-		if(xyBarChart == null) {
-			return null;
-		}
-		xyBarChart.getXYPlot().setOutlineVisible( false );
-	    xyBarChart.getXYPlot().getRangeAxis().setAxisLineVisible( false );
-	    xyBarChart.getXYPlot().getRangeAxis().setTickMarksVisible( false );
-	    xyBarChart.getXYPlot().setRangeGridlineStroke( new BasicStroke() );
-	    xyBarChart.getXYPlot().getRangeAxis().setTickLabelPaint( Color.decode("#666666") );
-	    xyBarChart.getXYPlot().getDomainAxis().setTickLabelPaint( Color.decode("#666666") );
-	    xyBarChart.setTextAntiAlias( true );
-	    xyBarChart.setAntiAlias( true );
-	    xyBarChart.getXYPlot().getRenderer().setSeriesPaint( 0, Color.decode( "#4572a7" ));
-	    setPreferencesRendererXYBarChart(xyBarChart);
-		return xyBarChart;
-	}
-	private void setPreferencesRendererBarChart(JFreeChart chart) {
-		BarRenderer rend = (BarRenderer) chart.getCategoryPlot().getRenderer();
-	    rend.setShadowVisible( true );
-	    rend.setShadowXOffset( 2 );
-	    rend.setShadowYOffset( 0 );
-	    rend.setShadowPaint( Color.decode( "#C0C0C0"));
-	    rend.setMaximumBarWidth( 0.1);
 	}
 
-	private void setPreferencesRendererXYBarChart(JFreeChart xyBarChart) {
-		XYBarRenderer rend = (XYBarRenderer) xyBarChart.getXYPlot().getRenderer();
-	    rend.setShadowVisible( true );
-	    rend.setShadowXOffset( 2 );
-	    rend.setShadowYOffset( 0 );
+	public JFreeChart setPreferencesCategoryBarChart(JFreeChart chart, CategoryBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+		if (chart == null) {
+			return null;
+		}
+		chart.getCategoryPlot().setOutlineVisible(config.isOutlineVisible());
+		chart.getCategoryPlot().getRangeAxis().setAxisLineVisible(config.isRangeAxisLineVisible());
+		chart.getCategoryPlot().getRangeAxis().setTickMarksVisible(config.isRangeAxistTickMarksVisible());
+		chart.getCategoryPlot().setRangeGridlineStroke(new BasicStroke());
+		chart.getCategoryPlot().getRangeAxis().setTickLabelPaint(Color.decode(config.getRangeAxisHexTickLabelPaint()));
+		chart.getCategoryPlot().getDomainAxis()
+				.setTickLabelPaint(Color.decode(config.getDomainAxisHexTickLabelPaint()));
+		chart.setTextAntiAlias(true);
+		chart.setAntiAlias(true);
+		for (PlotStrokeConfiguration strokeToUse : plotStrokeConfiguration) {
+			chart.getCategoryPlot().getRenderer().setSeriesPaint(strokeToUse.getCategoryIndex(),
+					Color.decode(strokeToUse.getHexLineColour()));
+		}
+		setPreferencesRendererBarChart(chart, config);
+		return chart;
 	}
+
+	private JFreeChart setPreferencesXYBarChart(JFreeChart xyBarChart, XYBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+		if (xyBarChart == null) {
+			return null;
+		}
+		xyBarChart.getXYPlot().setOutlineVisible(config.isOutlineVisible());
+		xyBarChart.getXYPlot().getRangeAxis().setAxisLineVisible(config.isRangeAxisLineVisible());
+		xyBarChart.getXYPlot().getRangeAxis().setTickMarksVisible(config.isRangeAxistTickMarksVisible());
+		xyBarChart.getXYPlot().setRangeGridlineStroke(new BasicStroke());
+		xyBarChart.getXYPlot().getRangeAxis().setTickLabelPaint(Color.decode(config.getRangeAxisHexTickLabelPaint()));
+		xyBarChart.getXYPlot().getDomainAxis().setTickLabelPaint(Color.decode(config.getDomainAxisHexTickLabelPaint()));
+		xyBarChart.setTextAntiAlias(true);
+		xyBarChart.setAntiAlias(true);
+		for (PlotStrokeConfiguration strokeToUse : plotStrokeConfiguration) {
+			xyBarChart.getXYPlot().getRenderer().setSeriesPaint(strokeToUse.getCategoryIndex(),
+					Color.decode(strokeToUse.getHexLineColour()));
+		}
+		setPreferencesRendererXYBarChart(xyBarChart, config);
+		return xyBarChart;
+	}
+
+	private void setPreferencesRendererBarChart(JFreeChart chart, CategoryBarChartGraphicPreferences config) {
+		BarRenderer rend = (BarRenderer) chart.getCategoryPlot().getRenderer();
+		rend.setShadowVisible(config.isShadowVisible());
+		rend.setShadowXOffset(config.getShadowXOffset());
+		rend.setShadowYOffset(config.getShadowYOffset());
+		rend.setShadowPaint(Color.decode(config.getHexShadowPaint()));
+		rend.setMaximumBarWidth(config.getMaximumBarWidth());
+	}
+
+	private void setPreferencesRendererXYBarChart(JFreeChart xyBarChart, XYBarChartGraphicPreferences config) {
+		XYBarRenderer rend = (XYBarRenderer) xyBarChart.getXYPlot().getRenderer();
+		rend.setShadowVisible(true);
+		rend.setShadowXOffset(2);
+		rend.setShadowYOffset(0);
+	}
+
 	private BasicStroke toStroke(String style) {
 		BasicStroke result = null;
 		if (style != null) {
@@ -323,21 +323,21 @@ public class TweetExtractorChartConstructor {
 		}
 		return result;
 	}
-	
-	/*Function to convert an Image file into a Blob*/
+
+	/* Function to convert an Image file into a Blob */
 	public byte[] convertFileContentToByteArray(File file) throws IOException {
 		byte[] fileContent = null;
-	        // initialize string buffer to hold contents of file
+		// initialize string buffer to hold contents of file
 		StringBuilder fileContentStr = new StringBuilder("");
-		try (BufferedReader reader = new BufferedReader(new FileReader(file));){
-	                // initialize buffered reader  
+		try (BufferedReader reader = new BufferedReader(new FileReader(file));) {
+			// initialize buffered reader
 			String line = null;
-	                // read lines of file
+			// read lines of file
 			while ((line = reader.readLine()) != null) {
-	                        //append line to string buffer
+				// append line to string buffer
 				fileContentStr.append(line).append("\n");
 			}
-	                // convert string to byte array
+			// convert string to byte array
 			fileContent = fileContentStr.toString().trim().getBytes();
 		} catch (IOException e) {
 			throw new IOException("Unable to convert file to byte array. " + e.getMessage());

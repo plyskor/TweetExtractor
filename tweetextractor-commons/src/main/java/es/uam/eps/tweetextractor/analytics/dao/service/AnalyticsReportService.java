@@ -13,6 +13,7 @@ import es.uam.eps.tweetextractor.analytics.dao.AnalyticsReportDAO;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.GenericService;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 
 /**
@@ -33,5 +34,10 @@ public class AnalyticsReportService extends GenericService<AnalyticsReport, Inte
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<AnalyticsReport> findByUser(User user) {
 		return analyticsReportDAO.findByUser(user);
+	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<AnalyticsReport> findByUserAndReportType(User user,List<AnalyticsReportTypes> types) {
+		return analyticsReportDAO.findByUserAndReportType(user, types);
 	}
 }

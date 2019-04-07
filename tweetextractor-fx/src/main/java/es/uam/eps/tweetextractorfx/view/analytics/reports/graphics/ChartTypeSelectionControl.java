@@ -3,8 +3,14 @@
  */
 package es.uam.eps.tweetextractorfx.view.analytics.reports.graphics;
 
+import java.util.List;
+
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
+import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
@@ -43,9 +49,9 @@ public class ChartTypeSelectionControl extends TweetExtractorFXController {
 	private ImageView wordCloudToggleImage;
 	
 	private ToggleGroup toggleGroup = new ToggleGroup();
+		
+	private AnalyticsReportServiceInterface arServ;
 	
-	private AnalyticsReportImageTypes toReturn;
-
 	/**
 	 * 
 	 */
@@ -68,6 +74,7 @@ public class ChartTypeSelectionControl extends TweetExtractorFXController {
 		pieChartToggleButton.setToggleGroup(toggleGroup);
 		pie3DChartToggleButton.setToggleGroup(toggleGroup);
 		wordCloudToggleButton.setToggleGroup(toggleGroup);
+		arServ=this.mainApplication.getSpringContext().getBean(AnalyticsReportServiceInterface.class);
 	}
 
 	@FXML
@@ -88,27 +95,53 @@ public class ChartTypeSelectionControl extends TweetExtractorFXController {
 	@FXML
 	private void onNext() {
 		ToggleButton selectedToggle = (ToggleButton) toggleGroup.getSelectedToggle();
-		switch (selectedToggle.getAccessibleText()) {
-		case "Time Series Chart":
-			setToReturn(AnalyticsReportImageTypes.TSC);
-			break;
-		case "Category 3D Bar Chart":
-			setToReturn(AnalyticsReportImageTypes.BARC);
-			break;
-		case "Pie Chart":
-			setToReturn(AnalyticsReportImageTypes.PCH);
-			break;
-		case "XY Bar Chart":
-			setToReturn(AnalyticsReportImageTypes.BXYC);
-			break;
-		case "3D Pie Chart":
-			setToReturn(AnalyticsReportImageTypes.P3DCH);
-			break;
-		case "Word Cloud":
-			setToReturn(AnalyticsReportImageTypes.WCC);
-			break;
-		default:
-			break;
+		if(selectedToggle==null) {
+			ErrorDialog.showErrorNoSelectedChartType();
+			return;
+		}
+		List<AnalyticsReport> result;
+		if(selectedToggle.equals(timeSeriesChartToggleButton)) {
+			result = arServ.findByUserAndReportType(this.mainApplication.getCurrentUser(), Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.TSC));
+			if(result==null||result.isEmpty()) {
+				ErrorDialog.showErrorNoReportsForThisChart(Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.TSC));
+			}else{
+				this.mainApplication.showCompatibleReportSelection(AnalyticsReportImageTypes.TSC);
+			}
+		} else if(selectedToggle.equals(categoryBarChartToggleButton)) {
+			result = arServ.findByUserAndReportType(this.mainApplication.getCurrentUser(), Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.BARC));
+			if(result==null||result.isEmpty()) {
+				ErrorDialog.showErrorNoReportsForThisChart(Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.BARC));
+			}else {
+				this.mainApplication.showCompatibleReportSelection(AnalyticsReportImageTypes.BARC);
+			}	
+		}else if(selectedToggle.equals(pieChartToggleButton)) {
+			result = arServ.findByUserAndReportType(this.mainApplication.getCurrentUser(), Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.PCH));
+			if(result==null||result.isEmpty()) {
+				ErrorDialog.showErrorNoReportsForThisChart(Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.PCH));
+			}else {
+				this.mainApplication.showCompatibleReportSelection(AnalyticsReportImageTypes.PCH);
+			}	
+		}else if(selectedToggle.equals(xyBarChartToggleButton)) {
+			result = arServ.findByUserAndReportType(this.mainApplication.getCurrentUser(), Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.BXYC));
+			if(result==null||result.isEmpty()) {
+				ErrorDialog.showErrorNoReportsForThisChart(Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.BXYC));
+			}else {
+				this.mainApplication.showCompatibleReportSelection(AnalyticsReportImageTypes.BXYC);
+			}
+		}else if(selectedToggle.equals(pie3DChartToggleButton)) {
+			result = arServ.findByUserAndReportType(this.mainApplication.getCurrentUser(), Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.P3DCH));
+			if(result==null||result.isEmpty()) {
+				ErrorDialog.showErrorNoReportsForThisChart(Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.P3DCH));
+			}else {
+				this.mainApplication.showCompatibleReportSelection(AnalyticsReportImageTypes.P3DCH);
+			}
+		}else if(selectedToggle.equals(wordCloudToggleButton)) {
+			result = arServ.findByUserAndReportType(this.mainApplication.getCurrentUser(), Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.WCC));
+			if(result==null||result.isEmpty()) {
+				ErrorDialog.showErrorNoReportsForThisChart(Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.WCC));
+			}else {
+				this.mainApplication.showCompatibleReportSelection(AnalyticsReportImageTypes.WCC);
+			}
 		}
 
 	}
@@ -295,19 +328,7 @@ public class ChartTypeSelectionControl extends TweetExtractorFXController {
 		this.wordCloudToggleImage = wordCloudToggleImage;
 	}
 
-	/**
-	 * @return the toReturn
-	 */
-	public AnalyticsReportImageTypes getToReturn() {
-		return toReturn;
-	}
 
-	/**
-	 * @param toReturn the toReturn to set
-	 */
-	public void setToReturn(AnalyticsReportImageTypes toReturn) {
-		this.toReturn = toReturn;
-	}
 
 
 }

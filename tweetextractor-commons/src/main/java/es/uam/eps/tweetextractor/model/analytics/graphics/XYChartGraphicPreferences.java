@@ -2,7 +2,6 @@
  * 
  */
 package es.uam.eps.tweetextractor.model.analytics.graphics;
-
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -33,6 +32,10 @@ public class XYChartGraphicPreferences extends TweetExtractorChartGraphicPrefere
 	private String rangeAxisHexTickLabelPaint;
 	@Column(name = "domain_axis_hex_tick_label_paint",length=8)
 	private String domainAxisHexTickLabelPaint;
+	@Column(name = "x_axis_label",length=50)
+	private String xAxisLabel;
+	@Column(name = "y_axis_label",length=50)
+	private String yAxisLabel;
 	
 	/**
 	 * 
@@ -44,12 +47,12 @@ public class XYChartGraphicPreferences extends TweetExtractorChartGraphicPrefere
 		this.rangeAxistTickMarksVisible=false;
 		this.rangeAxisHexTickLabelPaint="#666666";
 		this.domainAxisHexTickLabelPaint="#666666";
-		
 	}
 
 	/**
 	 * @return the outlineVisible
 	 */
+	@XmlTransient
 	public boolean isOutlineVisible() {
 		return outlineVisible;
 	}
@@ -64,6 +67,7 @@ public class XYChartGraphicPreferences extends TweetExtractorChartGraphicPrefere
 	/**
 	 * @return the rangeAxisLineVisible
 	 */
+	@XmlTransient
 	public boolean isRangeAxisLineVisible() {
 		return rangeAxisLineVisible;
 	}
@@ -78,6 +82,7 @@ public class XYChartGraphicPreferences extends TweetExtractorChartGraphicPrefere
 	/**
 	 * @return the rangeAxistTickMarksVisible
 	 */
+	@XmlTransient
 	public boolean isRangeAxistTickMarksVisible() {
 		return rangeAxistTickMarksVisible;
 	}
@@ -92,6 +97,7 @@ public class XYChartGraphicPreferences extends TweetExtractorChartGraphicPrefere
 	/**
 	 * @return the rangeAxisHexTickLabelPaint
 	 */
+	@XmlTransient
 	public String getRangeAxisHexTickLabelPaint() {
 		return rangeAxisHexTickLabelPaint;
 	}
@@ -106,6 +112,7 @@ public class XYChartGraphicPreferences extends TweetExtractorChartGraphicPrefere
 	/**
 	 * @return the domainAxisHexTickLabelPaint
 	 */
+	@XmlTransient
 	public String getDomainAxisHexTickLabelPaint() {
 		return domainAxisHexTickLabelPaint;
 	}
@@ -115,6 +122,34 @@ public class XYChartGraphicPreferences extends TweetExtractorChartGraphicPrefere
 	 */
 	public void setDomainAxisHexTickLabelPaint(String domainAxisHexTickLabelPaint) {
 		this.domainAxisHexTickLabelPaint = domainAxisHexTickLabelPaint;
+	}
+
+	/**
+	 * @return the xAxisLabel
+	 */
+	public String getxAxisLabel() {
+		return xAxisLabel;
+	}
+
+	/**
+	 * @param xAxisLabel the xAxisLabel to set
+	 */
+	public void setxAxisLabel(String xAxisLabel) {
+		this.xAxisLabel = xAxisLabel;
+	}
+
+	/**
+	 * @return the yAxisLabel
+	 */
+	public String getyAxisLabel() {
+		return yAxisLabel;
+	}
+
+	/**
+	 * @param yAxisLabel the yAxisLabel to set
+	 */
+	public void setyAxisLabel(String yAxisLabel) {
+		this.yAxisLabel = yAxisLabel;
 	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
+import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
@@ -25,6 +26,9 @@ import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
+import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.ChartTypeSelectionControl;
+import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.CompatibleAnalyticsReportSelectionControl;
+import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.config.ChartGraphicPreferencesControl;
 import es.uam.eps.tweetextractorfx.view.dialog.LoadingDialogControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
 import javafx.application.Application;
@@ -324,6 +328,56 @@ public class MainApplication extends Application {
 
 	public void setSpringContext(AnnotationConfigApplicationContext springContext) {
 		this.springContext = springContext;
+	}
+
+	public void showCreateChart() {
+		try {	
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource("view/analytics/reports/graphics/ChartTypeSelection.fxml"));
+			Node rootNode = loader.load();
+			// Set query constructor into the center of root layout.
+			rootLayout.setCenter(rootNode);
+			// Give the controller access to the main app.
+			ChartTypeSelectionControl controller = loader.getController();
+			controller.setMainApplication(this);
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+	}
+
+	public AnalyticsRepresentableReport showCompatibleReportSelection(AnalyticsReportImageTypes input) {
+		try {	
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource("view/analytics/reports/graphics/CompatibleAnalyticsReportSelection.fxml"));
+			Node rootNode = loader.load();
+			// Set query constructor into the center of root layout.
+			rootLayout.setCenter(rootNode);
+			// Give the controller access to the main app.
+			CompatibleAnalyticsReportSelectionControl controller = loader.getController();
+			controller.setInput(input);
+			controller.setMainApplication(this);
+			return controller.getToReturn();
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+	}
+
+	public void showChartGraphicsPreferences(AnalyticsReportImageTypes input,AnalyticsRepresentableReport selectedReport) {
+		try {	
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource("view/analytics/reports/graphics/config/ChartGraphicPreferences.fxml"));
+			Node rootNode = loader.load();
+			// Set query constructor into the center of root layout.
+			rootLayout.setCenter(rootNode);
+			// Give the controller access to the main app.
+			ChartGraphicPreferencesControl controller = loader.getController();
+			controller.setChartTypeInput(input);
+			controller.setReportInput(selectedReport);
+			controller.setMainApplication(this);
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
 	}
 
 }
