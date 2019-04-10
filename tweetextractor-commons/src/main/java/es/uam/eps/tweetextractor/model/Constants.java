@@ -3,6 +3,8 @@
  */
 package es.uam.eps.tweetextractor.model;
 
+import java.awt.Font;
+
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
@@ -126,6 +128,10 @@ public final class Constants {
 			public static final String TYPE_WORD_CLOUD_CHART = "WCC";
 		}
 	}
+	// Stroke choices
+	public static final String STROKE_LINE = "line";
+	public static final String STROKE_DASH = "dash";
+	public static final String STROKE_DOT = "dot";
 	/*Analytics Report <-> Graphic Chart (Compatibility)*/
 	public static final ImmutableList<AnalyticsReportTypes> TIME_SERIES_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR);
 	public static final ImmutableList<AnalyticsReportTypes> XY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR);
@@ -264,6 +270,18 @@ public final class Constants {
 		           .put(ST_SCHEDULED,"SCHEDULED")
 		           .put(ST_OUTDATED,"OUTDATED")
 		           .build();
+	public static final ImmutableMap<String,Integer > FONT_TYPES_MAP =
+		       new ImmutableMap.Builder<String, Integer>()
+		       .put("Plain", Font.PLAIN)
+		       .put("Bold",Font.BOLD)
+		       .put("Italic",Font.ITALIC)
+		       .build();
+	public static final ImmutableMap<String,String > STROKE_TYPE_MAP =
+		       new ImmutableMap.Builder<String, String>()
+		       .put(Constants.STROKE_LINE,"Line" )
+		       .put(Constants.STROKE_DOT,"Dot")
+		       .put(Constants.STROKE_DASH,"Dash")
+		       .build();
 	/*
 	*Types of task available
 	**/

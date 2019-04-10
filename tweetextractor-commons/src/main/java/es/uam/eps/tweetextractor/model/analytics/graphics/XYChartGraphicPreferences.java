@@ -22,11 +22,11 @@ public class XYChartGraphicPreferences extends TweetExtractorChartGraphicPrefere
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = 81784048182671939L;
-	@Column(name = "outline_visible",length=8)
+	@Column(name = "outline_visible")
 	private boolean outlineVisible;
-	@Column(name = "range_axis_line_visible",length=8)
+	@Column(name = "range_axis_line_visible")
 	private boolean rangeAxisLineVisible;
-	@Column(name = "range_axis_tick_marks_visible",length=8)
+	@Column(name = "range_axis_tick_marks_visible")
 	private boolean rangeAxistTickMarksVisible;
 	@Column(name = "range_axis_hex_tick_label_paint",length=8)
 	private String rangeAxisHexTickLabelPaint;
@@ -40,13 +40,22 @@ public class XYChartGraphicPreferences extends TweetExtractorChartGraphicPrefere
 	/**
 	 * 
 	 */
-	public XYChartGraphicPreferences() {
-		super();
+	public XYChartGraphicPreferences(String name) {
+		super(name);
 		this.outlineVisible=false;
 		this.rangeAxisLineVisible=true;
 		this.rangeAxistTickMarksVisible=false;
 		this.rangeAxisHexTickLabelPaint="#666666";
 		this.domainAxisHexTickLabelPaint="#666666";
+		this.xAxisLabel="";
+		this.yAxisLabel="";
+	}
+
+	/**
+	 * @param name
+	 */
+	public XYChartGraphicPreferences() {
+		super("");
 	}
 
 	/**

@@ -26,6 +26,8 @@ import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.analytics.graphics.CategoryBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
@@ -43,10 +45,6 @@ public class TweetExtractorChartConstructor {
 	private Logger logger = LoggerFactory.getLogger(TweetExtractorChartConstructor.class);
 	// Theme for charts (JFreeChart)
 	private StandardChartTheme theme = (StandardChartTheme) StandardChartTheme.createJFreeTheme();
-	// Stroke choices
-	private static final String STROKE_LINE = "line";
-	private static final String STROKE_DASH = "dash";
-	private static final String STROKE_DOT = "dot";
 	// Properties
 	// Line properties
 	private float lineWidth = 3.2f;
@@ -238,7 +236,7 @@ public class TweetExtractorChartConstructor {
 			BasicStroke stroke = toStroke(strokeToUse.getStrokeType());
 			cir.setSeriesStroke(strokeToUse.getCategoryIndex(), stroke); // series line style
 			chart.getXYPlot().getRenderer().setSeriesPaint(strokeToUse.getCategoryIndex(),
-					Color.decode(strokeToUse.getHexLineColour()));
+			Color.decode(strokeToUse.getHexLineColour()));
 		}
 		chart.getXYPlot().setOutlineVisible(config.isOutlineVisible());
 		chart.getXYPlot().getRangeAxis().setAxisLineVisible(config.isRangeAxisLineVisible());
@@ -313,11 +311,11 @@ public class TweetExtractorChartConstructor {
 		if (style != null) {
 			float[] dash = { dashWidth };
 			float[] dot = { this.lineWidth };
-			if (style.equalsIgnoreCase(STROKE_LINE)) {
+			if (style.equalsIgnoreCase(Constants.STROKE_LINE)) {
 				result = new BasicStroke(lineWidth);
-			} else if (style.equalsIgnoreCase(STROKE_DASH)) {
+			} else if (style.equalsIgnoreCase(Constants.STROKE_DASH)) {
 				result = new BasicStroke(lineWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-			} else if (style.equalsIgnoreCase(STROKE_DOT)) {
+			} else if (style.equalsIgnoreCase(Constants.STROKE_DOT)) {
 				result = new BasicStroke(lineWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 2.0f, dot, 0.0f);
 			}
 		}

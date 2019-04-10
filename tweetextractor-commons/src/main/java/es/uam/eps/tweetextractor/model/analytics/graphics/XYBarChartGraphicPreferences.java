@@ -32,12 +32,20 @@ public class XYBarChartGraphicPreferences extends XYChartGraphicPreferences {
 	private int shadowXOffset;
 	@Column(name = "shadow_y_offset")
 	private int shadowYOffset;
-	public XYBarChartGraphicPreferences() {
-		super();
+	public XYBarChartGraphicPreferences(String name) {
+		super(name);
 		this.shadowVisible=true;
 		this.shadowXOffset=2;
 		this.shadowYOffset=0;
 	}
+	
+	/**
+	 * @param name
+	 */
+	public XYBarChartGraphicPreferences() {
+		super("");
+	}
+
 	/**
 	 * @return the dateAxis
 	 */

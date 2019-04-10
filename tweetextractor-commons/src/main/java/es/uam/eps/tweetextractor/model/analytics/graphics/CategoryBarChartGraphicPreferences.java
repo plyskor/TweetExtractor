@@ -34,14 +34,22 @@ public class CategoryBarChartGraphicPreferences extends XYChartGraphicPreference
 	private String hexShadowPaint;
 	@Column(name = "maximum_bar_width")
 	private double maximumBarWidth;
-	public CategoryBarChartGraphicPreferences() {
-		super();
+	public CategoryBarChartGraphicPreferences(String name) {
+		super(name);
 		this.shadowVisible=true;
 		this.shadowXOffset=2;
 		this.shadowYOffset=0;
 		this.hexShadowPaint="#C0C0C0";
 		this.maximumBarWidth=0.1;
 	}
+	
+	/**
+	 * @param name
+	 */
+	public CategoryBarChartGraphicPreferences() {
+		super("");
+	}
+
 	/**
 	 * @return the shadowVisible
 	 */

@@ -41,11 +41,11 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 	@XmlTransient
 	private static final long serialVersionUID = 2360564182683128202L;
 	@Transient
-	TweetServiceInterface tServ;
+	private TweetServiceInterface tServ;
 	@Transient
-	AnalyticsReportServiceInterface arServ;
+	private AnalyticsReportServiceInterface arServ;
 	@Transient
-	AnalyticsReportRegisterServiceInterface regServ;
+	private AnalyticsReportRegisterServiceInterface regServ;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(nullable=true)
 	private TimelineVolumeReport report;

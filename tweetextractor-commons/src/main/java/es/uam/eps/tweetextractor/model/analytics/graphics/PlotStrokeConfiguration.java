@@ -35,6 +35,12 @@ public class PlotStrokeConfiguration implements Serializable{
 	private int categoryIndex;
 	@Column(name = "hex_line_colour",length=8)
 	private String hexLineColour ;
+	@Column(name = "category_name",length=20)
+	private String categoryName;
+	@Column(name = "category_label",length=50)
+	private String categoryLabel;
+	@Column(name = "stroke_width")
+	private float strokeWidth;
 	@ManyToOne
 	private AnalyticsReportImage chart; 
 	/**
@@ -45,11 +51,29 @@ public class PlotStrokeConfiguration implements Serializable{
 		super();
 		this.hexLineColour="#E0FB00";
 	}
-	public PlotStrokeConfiguration(String strokeType, int categoryIndex) {
+	
+	/**
+	 * @param id
+	 * @param strokeType
+	 * @param categoryIndex
+	 * @param hexLineColour
+	 * @param categoryName
+	 * @param categoryLabel
+	 * @param strokeWidth
+	 * @param chart
+	 */
+	public PlotStrokeConfiguration(String strokeType, int categoryIndex, String hexLineColour,
+			String categoryName, String categoryLabel, float strokeWidth, AnalyticsReportImage chart) {
 		super();
 		this.strokeType = strokeType;
 		this.categoryIndex = categoryIndex;
+		this.hexLineColour = hexLineColour;
+		this.categoryName = categoryName;
+		this.categoryLabel = categoryLabel;
+		this.strokeWidth = strokeWidth;
+		this.chart = chart;
 	}
+
 	/**
 	 * @return the strokeType
 	 */
@@ -110,6 +134,42 @@ public class PlotStrokeConfiguration implements Serializable{
 	 */
 	public void setHexLineColour(String hexLineColour) {
 		this.hexLineColour = hexLineColour;
+	}
+	/**
+	 * @return the categoryName
+	 */
+	public String getCategoryName() {
+		return categoryName;
+	}
+	/**
+	 * @param categoryName the categoryName to set
+	 */
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	/**
+	 * @return the categoryLabel
+	 */
+	public String getCategoryLabel() {
+		return categoryLabel;
+	}
+	/**
+	 * @param categoryLabel the categoryLabel to set
+	 */
+	public void setCategoryLabel(String categoryLabel) {
+		this.categoryLabel = categoryLabel;
+	}
+	/**
+	 * @return the strokeWidth
+	 */
+	public float getStrokeWidth() {
+		return strokeWidth;
+	}
+	/**
+	 * @param strokeWidth the strokeWidth to set
+	 */
+	public void setStrokeWidth(float strokeWidth) {
+		this.strokeWidth = strokeWidth;
 	}
 
 }

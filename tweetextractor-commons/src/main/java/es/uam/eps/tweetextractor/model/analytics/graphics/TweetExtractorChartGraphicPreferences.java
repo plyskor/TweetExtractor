@@ -91,8 +91,9 @@ public abstract class TweetExtractorChartGraphicPreferences implements  Serializ
 	/**
 	 * 
 	 */
-	public TweetExtractorChartGraphicPreferences() {
+	public TweetExtractorChartGraphicPreferences(String name) {
 		super();
+		this.name=name;
 		this.fontName="Palatino";
 		this.hexTitleColour="#000000";
 		this.hexRangeGridLineColour="#C0C0C0";
@@ -109,6 +110,14 @@ public abstract class TweetExtractorChartGraphicPreferences implements  Serializ
 		this.tooltips=false;
 		this.urls=false;
 	}
+	
+	/**
+	 * 
+	 */
+	public TweetExtractorChartGraphicPreferences() {
+		super();
+	}
+
 	/**
 	 * @return the chartType
 	 */

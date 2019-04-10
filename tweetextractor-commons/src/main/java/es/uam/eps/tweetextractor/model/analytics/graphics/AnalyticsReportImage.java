@@ -4,6 +4,7 @@
 package es.uam.eps.tweetextractor.model.analytics.graphics;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,6 +66,7 @@ public class AnalyticsReportImage implements Serializable{
 		if(creationDate==null) {
 			creationDate= new Date();
 		}
+		plotStrokeConfiguration= new ArrayList<>();
 	}
 	/**
 	 * @return the id
@@ -126,6 +128,18 @@ public class AnalyticsReportImage implements Serializable{
 	 */
 	public void setChartType(AnalyticsReportImageTypes chartType) {
 		this.chartType = chartType;
+	}
+	/**
+	 * @return the plotStrokeConfiguration
+	 */
+	public List<PlotStrokeConfiguration> getPlotStrokeConfiguration() {
+		return plotStrokeConfiguration;
+	}
+	/**
+	 * @param plotStrokeConfiguration the plotStrokeConfiguration to set
+	 */
+	public void setPlotStrokeConfiguration(List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+		this.plotStrokeConfiguration = plotStrokeConfiguration;
 	}
 	
 }

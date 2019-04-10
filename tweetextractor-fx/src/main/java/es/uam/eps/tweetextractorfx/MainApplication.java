@@ -1,7 +1,6 @@
 package es.uam.eps.tweetextractorfx;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -9,26 +8,25 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
+import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;
 import es.uam.eps.tweetextractor.service.GetServerStatus;
 import es.uam.eps.tweetextractor.spring.config.TweetExtractorSpringConfig;
-import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.ChartTypeSelectionControl;
 import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.CompatibleAnalyticsReportSelectionControl;
 import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.config.ChartGraphicPreferencesControl;
+import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.config.SpecificGraphicChartPreferencesController;
 import es.uam.eps.tweetextractorfx.view.dialog.LoadingDialogControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
 import javafx.application.Application;
@@ -68,7 +66,7 @@ public class MainApplication extends Application {
 		//onBoot();
 	}
 	
-
+/*
 	private void onBoot() {
 		AnalyticsReportServiceInterface inter;
 		inter=springContext.getBean(AnalyticsReportServiceInterface.class);
@@ -89,7 +87,7 @@ public class MainApplication extends Application {
 			i++;
 		}
 	}
-
+*/
 	
 	/* Initialize the RootLayout */
 	public void initRootLayout() {
@@ -376,6 +374,33 @@ public class MainApplication extends Application {
 			controller.setReportInput(selectedReport);
 			controller.setMainApplication(this);
 		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+	}
+	public void showSpecificGraphicChartConfiguration(String fxmlPath,Class<?> controllerClazz,AnalyticsReportImageTypes chartType,AnalyticsRepresentableReport sourceReport, TweetExtractorChartGraphicPreferences preferences,AnalyticsReportImage chart) {
+		try {	
+			//Loader
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource(fxmlPath));
+			Node rootNode = loader.load();
+			rootLayout.setCenter(rootNode);
+			//Construct a controller from the provided class
+			Class<?>[] params = new Class<?>[4];
+			params[0]=AnalyticsReportImageTypes.class;
+			params[1]=AnalyticsRepresentableReport.class;
+			params[2]=TweetExtractorChartGraphicPreferences.class;
+			params[3]=AnalyticsReportImage.class;
+	        Object controller = loader.getController();
+	        SpecificGraphicChartPreferencesController castedController = (SpecificGraphicChartPreferencesController)controller;
+	        castedController.setChartTypeInput(chartType);
+	        castedController.setReportInput(sourceReport);
+	        castedController.setPreferencesInput(preferences);
+	        //Run a method from the generic controller
+	        Method meth = controllerClazz.getMethod("setMainApplication", MainApplication.class);
+	        meth.invoke(controller, this);
+	        meth=controllerClazz.getMethod("setChart", AnalyticsReportImage.class);
+	        meth.invoke(controller, chart);
+		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 	}
