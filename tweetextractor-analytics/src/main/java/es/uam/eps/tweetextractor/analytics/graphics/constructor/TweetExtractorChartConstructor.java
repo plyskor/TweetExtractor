@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.plot.XYPlot;
@@ -28,17 +29,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.uam.eps.tweetextractor.model.Constants;
+import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
+import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.CategoryBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
+import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
 
 /**
  * @author jgarciadelsaz
  *
  */
 public class TweetExtractorChartConstructor {
+	private AnalyticsRepresentableReport report;
+	private AnalyticsReportImage reportImage;
+	private AnalyticsReportImageTypes chartType;
+	private TweetExtractorChartGraphicPreferences preferences;
 	// Set of data to build the chart
 	private Dataset dataset;
 	// Logger
@@ -58,21 +67,54 @@ public class TweetExtractorChartConstructor {
 	/*
 		 * 
 		 */
-	public TweetExtractorChartConstructor(Dataset dataset, TweetExtractorChartGraphicPreferences config) {
+	public TweetExtractorChartConstructor(AnalyticsRepresentableReport report, AnalyticsReportImage chart, AnalyticsReportImageTypes chartType, TweetExtractorChartGraphicPreferences config) {
 		super();
-		this.dataset = dataset;
-		theme.setTitlePaint(Color.decode(config.getHexTitleColour()));
-		theme.setExtraLargeFont(new Font(config.getFontName(), config.getTitleFontType(), config.getTitleFontSize())); // title
+		this.report=report;
+		this.reportImage=chart;
+		this.chartType=chartType;
+		this.preferences=config;
+		constructDataset();
+		theme.setTitlePaint(Color.decode(preferences.getHexTitleColour()));
+		theme.setExtraLargeFont(new Font(preferences.getFontName(), preferences.getTitleFontType(), preferences.getTitleFontSize())); // title
 		theme.setLargeFont(
-				new Font(config.getFontName(), config.getAxisTitleFontType(), config.getAxisTitleFontSize())); // axis-title
-		theme.setRegularFont(new Font(config.getFontName(), config.getRegularFontType(), config.getRegularFontSize()));
-		theme.setRangeGridlinePaint(Color.decode(config.getHexRangeGridLineColour()));
-		theme.setPlotBackgroundPaint(Color.decode(config.getHexPlotBackgroundPaintColour()));
-		theme.setChartBackgroundPaint(Color.decode(config.getHexChartBackgroundPaintColour()));
-		theme.setGridBandPaint(Color.decode(config.getHexGridBandPaintColour()));
+				new Font(preferences.getFontName(), preferences.getAxisTitleFontType(), preferences.getAxisTitleFontSize())); // axis-title
+		theme.setRegularFont(new Font(preferences.getFontName(), preferences.getRegularFontType(), preferences.getRegularFontSize()));
+		theme.setRangeGridlinePaint(Color.decode(preferences.getHexRangeGridLineColour()));
+		theme.setPlotBackgroundPaint(Color.decode(preferences.getHexPlotBackgroundPaintColour()));
+		theme.setChartBackgroundPaint(Color.decode(preferences.getHexChartBackgroundPaintColour()));
+		theme.setGridBandPaint(Color.decode(preferences.getHexGridBandPaintColour()));
 		theme.setAxisOffset(new RectangleInsets(0, 0, 0, 0));
 		theme.setBarPainter(new StandardBarPainter());
-		theme.setAxisLabelPaint(Color.decode(config.getHexAxisLabelColour()));
+		theme.setAxisLabelPaint(Color.decode(preferences.getHexAxisLabelColour()));
+	}
+
+	public void constructDataset() {
+		switch(chartType) {
+		case TSC:
+			this.setDataset(report.constructIntervalXYDataset(this.getReportImage().getPlotStrokeConfiguration()));
+			break;
+		case BXYC:
+			this.setDataset(report.constructXYDataset(this.getReportImage().getPlotStrokeConfiguration()));
+			break;
+		default:
+			break;
+		}
+	}
+	public void constructChart() {
+		JFreeChart chartObject = null;
+		switch (chartType) {
+		case TSC:
+			chartObject = constructTimeSeriesChart((XYChartGraphicPreferences)preferences, reportImage.getPlotStrokeConfiguration());
+			break;
+		case BXYC:
+			chartObject = constructXYBarChart((XYBarChartGraphicPreferences)preferences,reportImage.getPlotStrokeConfiguration());
+			break;
+		default:
+			break;
+		}
+		if(chartObject!=null) {
+			this.getReportImage().setImage(TweetExtractorUtils.convertChartObjectToByteArray(chartObject));
+		}
 	}
 
 	/**
@@ -187,9 +229,9 @@ public class TweetExtractorChartConstructor {
 		this.fontName = fontName;
 	}
 
-	public JFreeChart constructTimeSeriesChart(String title, XYChartGraphicPreferences config ,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+	public JFreeChart constructTimeSeriesChart(XYChartGraphicPreferences config ,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		try {
-			JFreeChart timeSeriesChart = ChartFactory.createTimeSeriesChart(title, config.getxAxisLabel(),
+			JFreeChart timeSeriesChart = ChartFactory.createTimeSeriesChart(config.getChartTitle(), config.getxAxisLabel(),
 					config.getyAxisLabel(), (XYDataset) this.dataset, config.isLegend(), config.isTooltips(), config.isUrls());
 			this.theme.apply(timeSeriesChart);
 			return setPreferencesXYChart(timeSeriesChart, config,plotStrokeConfiguration);
@@ -200,9 +242,9 @@ public class TweetExtractorChartConstructor {
 		}
 	}
 
-	public JFreeChart constructXYBarChart(String title, XYBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+	public JFreeChart constructXYBarChart(XYBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		try {
-			JFreeChart xyBarChart = ChartFactory.createXYBarChart(title, config.getxAxisLabel(), config.isDateAxis(),
+			JFreeChart xyBarChart = ChartFactory.createXYBarChart(config.getChartTitle(), config.getxAxisLabel(), config.isDateAxis(),
 					config.getyAxisLabel(), (IntervalXYDataset) this.dataset);
 			this.theme.apply(xyBarChart);
 			return setPreferencesXYBarChart(xyBarChart, config,plotStrokeConfiguration);
@@ -213,9 +255,9 @@ public class TweetExtractorChartConstructor {
 		}
 	}
 
-	public JFreeChart constructBarChart(String title, CategoryBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+	public JFreeChart constructBarChart(CategoryBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		try {
-			JFreeChart barChart = ChartFactory.createBarChart(title, config.getxAxisLabel(), config.getyAxisLabel(),
+			JFreeChart barChart = ChartFactory.createBarChart(config.getChartTitle(), config.getxAxisLabel(), config.getyAxisLabel(),
 					(CategoryDataset) this.dataset);
 			this.theme.apply(barChart);
 			return setPreferencesCategoryBarChart(barChart, config,plotStrokeConfiguration);
@@ -233,7 +275,7 @@ public class TweetExtractorChartConstructor {
 		XYPlot xyPlot = chart.getXYPlot();
 		XYItemRenderer cir = xyPlot.getRenderer();
 		for (PlotStrokeConfiguration strokeToUse :plotStrokeConfiguration) {
-			BasicStroke stroke = toStroke(strokeToUse.getStrokeType());
+			BasicStroke stroke = toStroke(strokeToUse);
 			cir.setSeriesStroke(strokeToUse.getCategoryIndex(), stroke); // series line style
 			chart.getXYPlot().getRenderer().setSeriesPaint(strokeToUse.getCategoryIndex(),
 			Color.decode(strokeToUse.getHexLineColour()));
@@ -306,17 +348,17 @@ public class TweetExtractorChartConstructor {
 		rend.setShadowYOffset(0);
 	}
 
-	private BasicStroke toStroke(String style) {
+	private BasicStroke toStroke(PlotStrokeConfiguration category) {
 		BasicStroke result = null;
-		if (style != null) {
-			float[] dash = { dashWidth };
-			float[] dot = { this.lineWidth };
-			if (style.equalsIgnoreCase(Constants.STROKE_LINE)) {
-				result = new BasicStroke(lineWidth);
-			} else if (style.equalsIgnoreCase(Constants.STROKE_DASH)) {
-				result = new BasicStroke(lineWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-			} else if (style.equalsIgnoreCase(Constants.STROKE_DOT)) {
-				result = new BasicStroke(lineWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 2.0f, dot, 0.0f);
+		if (category != null) {
+			float[] dash = { category.getStrokeWidth() };
+			float[] dot = { category.getStrokeWidth() };
+			if (category.getStrokeType().equalsIgnoreCase(Constants.STROKE_LINE)) {
+				result = new BasicStroke(category.getStrokeWidth());
+			} else if (category.getStrokeType().equalsIgnoreCase(Constants.STROKE_DASH)) {
+				result = new BasicStroke(category.getStrokeWidth(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+			} else if (category.getStrokeType().equalsIgnoreCase(Constants.STROKE_DOT)) {
+				result = new BasicStroke(category.getStrokeWidth(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 2.0f, dot, 0.0f);
 			}
 		}
 		return result;
@@ -342,4 +384,62 @@ public class TweetExtractorChartConstructor {
 		}
 		return fileContent;
 	}
+
+	/**
+	 * @return the report
+	 */
+	public AnalyticsRepresentableReport getReport() {
+		return report;
+	}
+
+	/**
+	 * @param report the report to set
+	 */
+	public void setReport(AnalyticsRepresentableReport report) {
+		this.report = report;
+	}
+
+	/**
+	 * @return the reportImage
+	 */
+	public AnalyticsReportImage getReportImage() {
+		return reportImage;
+	}
+
+	/**
+	 * @param reportImage the reportImage to set
+	 */
+	public void setReportImage(AnalyticsReportImage reportImage) {
+		this.reportImage = reportImage;
+	}
+
+	/**
+	 * @return the preferences
+	 */
+	public TweetExtractorChartGraphicPreferences getPreferences() {
+		return preferences;
+	}
+
+	/**
+	 * @param preferences the preferences to set
+	 */
+	public void setPreferences(TweetExtractorChartGraphicPreferences preferences) {
+		this.preferences = preferences;
+	}
+
+	/**
+	 * @return the chartType
+	 */
+	public AnalyticsReportImageTypes getChartType() {
+		return chartType;
+	}
+
+	/**
+	 * @param chartType the chartType to set
+	 */
+	public void setChartType(AnalyticsReportImageTypes chartType) {
+		this.chartType = chartType;
+	}
+	
+	
 }

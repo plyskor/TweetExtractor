@@ -53,10 +53,10 @@ public class AnalyticsReportImage implements Serializable{
 	@ManyToOne
 	private AnalyticsRepresentableReport report;
 	@XmlTransient
-	@Column(name = "graphic_type", length=5,nullable = false, insertable = false, updatable = false)
+	@Column(name = "graphic_type", length=5)
 	@Enumerated(EnumType.STRING)
 	public AnalyticsReportImageTypes chartType;
-	@OneToMany(fetch=FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="chart")
+	@OneToMany(fetch=FetchType.LAZY,cascade = {CascadeType.ALL},mappedBy="chart")
 	private List<PlotStrokeConfiguration> plotStrokeConfiguration;
 	/**
 	 * 

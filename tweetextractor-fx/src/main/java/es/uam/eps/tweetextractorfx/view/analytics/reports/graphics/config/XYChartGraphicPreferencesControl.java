@@ -105,6 +105,7 @@ public class XYChartGraphicPreferencesControl extends SpecificGraphicChartPrefer
 		prefsService.saveOrUpdate(preferences);
 		if (this.getChart()==null) {
 			AnalyticsReportImage chart = new AnalyticsReportImage();
+			chart.setReport(getReportInput());
 			chart.setPlotStrokeConfiguration(TweetExtractorUtils.initializePlotStrokeConfiguration(this.getReportInput(), chart));
 			this.getReportInput().getGraphics().add(chart);
 			this.setChart(chart);

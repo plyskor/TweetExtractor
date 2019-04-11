@@ -3,9 +3,12 @@
  */
 package es.uam.eps.tweetextractor.analytics.graphics;
 
+import java.util.List;
+
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYDataset;
 
+import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
 
 /**
@@ -33,25 +36,25 @@ public class TweetExtractorDatasetConstructor {
 	public void setReport(AnalyticsRepresentableReport report) {
 		this.report = report;
 	}
-	public DefaultCategoryDataset constructDefaultCategoryDataset(String categoryLabel) {
+	public DefaultCategoryDataset constructDefaultCategoryDataset(List<PlotStrokeConfiguration> categories) {
 		if(this.report==null) {
 			return null;
 		}else {
-			return report.constructDefaultCategoryDataset(categoryLabel);
+			return report.constructDefaultCategoryDataset(categories);
 		}
 	}
-	public XYDataset constructXYDataset(String categoryLabel) {
+	public XYDataset constructXYDataset(List<PlotStrokeConfiguration> categories) {
 		if(this.report==null) {
 			return null;
 		}else {
-			return report.constructXYDataset(categoryLabel);
+			return report.constructXYDataset(categories);
 		}
 	}
-	public XYDataset constructIntervalXYDataset(String categoryLabel) {
+	public XYDataset constructIntervalXYDataset(List<PlotStrokeConfiguration> categories) {
 		if(this.report==null) {
 			return null;
 		}else {
-			return report.constructIntervalXYDataset(categoryLabel);
+			return report.constructIntervalXYDataset(categories);
 		}
 	}
 }

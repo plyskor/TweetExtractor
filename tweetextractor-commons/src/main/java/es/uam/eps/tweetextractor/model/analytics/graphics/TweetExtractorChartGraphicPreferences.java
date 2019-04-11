@@ -54,7 +54,10 @@ public abstract class TweetExtractorChartGraphicPreferences implements  Serializ
 	@Column(name = "name",length=30)
 	private String name;
 	//Font name to use
+	@Column(name = "font_name",length=60)
 	private String fontName;
+	@Column(name = "chart_title",length=150)
+	private String chartTitle;
 	//Colour for the chart title
 	@Column(name = "hex_title_colour",length=8)
 	private String hexTitleColour;
@@ -357,6 +360,20 @@ public abstract class TweetExtractorChartGraphicPreferences implements  Serializ
 	 */
 	public void setUrls(boolean urls) {
 		this.urls = urls;
+	}
+
+	/**
+	 * @return the chartTitle
+	 */
+	public String getChartTitle() {
+		return chartTitle;
+	}
+
+	/**
+	 * @param chartTitle the chartTitle to set
+	 */
+	public void setChartTitle(String chartTitle) {
+		this.chartTitle = chartTitle;
 	}
 
 }

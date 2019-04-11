@@ -5,12 +5,14 @@ package es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.config;
 
 import java.text.DecimalFormat;
 
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportImageServiceInterface;
 import es.uam.eps.tweetextractor.analytics.graphics.constructor.TweetExtractorChartConstructor;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.MyGraphicsControl;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -53,6 +55,10 @@ public class DatasetConfigurationControl extends SpecificGraphicChartPreferences
 	private ObservableList<PlotStrokeConfiguration> categoryConfigList = FXCollections.observableArrayList();
 	
     private DecimalFormat decimalFormat = new DecimalFormat("#.00");
+    
+    private AnalyticsReportImageServiceInterface chartService;
+    
+    
 	/**
 	 * 
 	 */
@@ -83,10 +89,12 @@ public class DatasetConfigurationControl extends SpecificGraphicChartPreferences
 				.addListener((observable, oldValue, newValue) -> widthText.setText("" + decimalFormat.format(newValue.floatValue())));
 		widthText.setText("1.00");
 		plotTypeChoiceBox.getItems().setAll(Constants.STROKE_TYPE_MAP.values());
+		chartService= this.getMainApplication().getSpringContext().getBean(AnalyticsReportImageServiceInterface.class);
 	}
 
 	@FXML
 	public void onBack() {
+		updateCategory();
 		switch(this.getChartTypeInput()) {
 		case TSC:
 			nextFXMLscreen="view/analytics/reports/graphics/config/XYChartGraphicPreferences.fxml";
@@ -102,18 +110,14 @@ public class DatasetConfigurationControl extends SpecificGraphicChartPreferences
 
 	@FXML
 	public void onDone() {
-		TweetExtractorChartConstructor constructor;
-		switch(this.getChartTypeInput()) {
-		case TSC:
-			nextFXMLscreen="view/analytics/reports/graphics/config/MyGraphics.fxml";
-			nextControllerClazz=MyGraphicsControl.class;
-			constructor= new TweetExtractorChartConstructor(this.getReportInput().constructIntervalXYDataset(selectedCategory.getCategoryLabel()), this.getPreferencesInput());
-			break;
-		case BXYC:
-			break;
-		default:
-			break;
-		}
+		updateCategory();
+		TweetExtractorChartConstructor constructor= new TweetExtractorChartConstructor(this.getReportInput(), this.getChart(), this.getChartTypeInput(), this.getPreferencesInput());
+		nextFXMLscreen="view/analytics/reports/graphics/MyGraphics.fxml";
+		nextControllerClazz=MyGraphicsControl.class;
+		constructor.constructChart();
+		getChart().setChartType(getChartTypeInput());
+		chartService.saveOrUpdate(getChart());
+		ErrorDialog.showSuccessCreateGraphicChart(getChart().getId());
 		this.getMainApplication().showScreenInCenterOfRootLayout(nextFXMLscreen);
 	
 	}
@@ -261,7 +265,7 @@ public class DatasetConfigurationControl extends SpecificGraphicChartPreferences
 		if(selectedCategory != null) {
 			selectedCategory.setCategoryLabel(categoryLabelTextField.getText());
 			selectedCategory.setHexLineColour(TweetExtractorUtils.colorToHex(plotColorPicker.getValue()));
-			selectedCategory.setStrokeType(Constants.STROKE_TYPE_MAP.get(plotTypeChoiceBox.getValue()));
+			selectedCategory.setStrokeType(TweetExtractorUtils.getKeyFromMap(Constants.STROKE_TYPE_MAP, plotTypeChoiceBox.getValue()));
 			selectedCategory.setStrokeWidth((float)strokeWidthSlider.getValue());
 		}
 	}

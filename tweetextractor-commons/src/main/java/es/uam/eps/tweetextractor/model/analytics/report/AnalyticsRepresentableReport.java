@@ -22,6 +22,7 @@ import org.jfree.data.xy.XYDataset;
 import org.springframework.stereotype.Controller;
 
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
+import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 
 
 /**
@@ -57,7 +58,7 @@ public abstract class AnalyticsRepresentableReport extends AnalyticsReport {
 		this.graphics = graphics;
 	}
 	
-	public abstract DefaultCategoryDataset constructDefaultCategoryDataset(String categoryLabel);
-	public abstract XYDataset constructXYDataset(String categoryLabel);
-	public abstract IntervalXYDataset constructIntervalXYDataset(String categoryLabel) ;
+	public abstract DefaultCategoryDataset constructDefaultCategoryDataset(List<PlotStrokeConfiguration> categories);
+	public abstract XYDataset constructXYDataset(List<PlotStrokeConfiguration> categories);
+	public abstract IntervalXYDataset constructIntervalXYDataset(List<PlotStrokeConfiguration> categories) ;
 }

@@ -598,4 +598,12 @@ public class ErrorDialog {
 		alert.setContentText("Please, select a chart type first to create a graphic chart.");		
 		alert.showAndWait();
 	}
+
+	public static void showSuccessCreateGraphicChart(int id) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Generation successful");
+		alert.setContentText("Your graphic chart has been successfully generated with id "+id+" and will now appear on your graphic charts list.");		
+		alert.showAndWait();
+	}
 }
