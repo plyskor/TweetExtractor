@@ -196,6 +196,8 @@ public class ChartGraphicPreferencesControl extends TweetExtractorFXController {
 				break;
 			case BARC:
 				configClazz=CategoryBarChartGraphicPreferences.class;
+				nextFXMLscreen="view/analytics/reports/graphics/config/CategoryBarChartGraphicPreferences.fxml";
+				nextControllerClazz=CategoryBarChartGraphicPreferencesControl.class;
 				break;
 			case BXYC:
 				configClazz=XYBarChartGraphicPreferences.class;

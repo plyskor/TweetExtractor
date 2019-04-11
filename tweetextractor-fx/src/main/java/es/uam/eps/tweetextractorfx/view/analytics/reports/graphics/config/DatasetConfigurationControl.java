@@ -57,7 +57,7 @@ public class DatasetConfigurationControl extends SpecificGraphicChartPreferences
     private DecimalFormat decimalFormat = new DecimalFormat("#.00");
     
     private AnalyticsReportImageServiceInterface chartService;
-    
+        
     
 	/**
 	 * 
@@ -101,6 +101,12 @@ public class DatasetConfigurationControl extends SpecificGraphicChartPreferences
 			nextControllerClazz=XYChartGraphicPreferencesControl.class;
 			break;
 		case BXYC:
+			nextFXMLscreen="view/analytics/reports/graphics/config/XYBarChartGraphicPreferences.fxml";
+			nextControllerClazz=XYBarChartGraphicPreferencesControl.class;
+			break;
+		case BARC:
+			nextFXMLscreen="view/analytics/reports/graphics/config/CategoryBarChartGraphicPreferences.fxml";
+			nextControllerClazz=CategoryBarChartGraphicPreferencesControl.class;
 			break;
 		default:
 			break;

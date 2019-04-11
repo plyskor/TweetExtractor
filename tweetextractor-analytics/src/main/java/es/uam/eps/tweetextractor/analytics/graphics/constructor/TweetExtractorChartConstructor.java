@@ -12,7 +12,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.plot.XYPlot;
@@ -20,7 +19,6 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.ui.RectangleInsets;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.xy.IntervalXYDataset;
@@ -83,7 +81,7 @@ public class TweetExtractorChartConstructor {
 		theme.setPlotBackgroundPaint(Color.decode(preferences.getHexPlotBackgroundPaintColour()));
 		theme.setChartBackgroundPaint(Color.decode(preferences.getHexChartBackgroundPaintColour()));
 		theme.setGridBandPaint(Color.decode(preferences.getHexGridBandPaintColour()));
-		theme.setAxisOffset(new RectangleInsets(0, 0, 0, 0));
+		theme.setAxisOffset(new org.jfree.ui.RectangleInsets(0, 0, 0, 0));
 		theme.setBarPainter(new StandardBarPainter());
 		theme.setAxisLabelPaint(Color.decode(preferences.getHexAxisLabelColour()));
 	}
@@ -95,6 +93,9 @@ public class TweetExtractorChartConstructor {
 			break;
 		case BXYC:
 			this.setDataset(report.constructXYDataset(this.getReportImage().getPlotStrokeConfiguration()));
+			break;
+		case BARC:
+			this.setDataset(report.constructDefaultCategoryDataset(this.getReportImage().getPlotStrokeConfiguration()));
 			break;
 		default:
 			break;
@@ -108,6 +109,9 @@ public class TweetExtractorChartConstructor {
 			break;
 		case BXYC:
 			chartObject = constructXYBarChart((XYBarChartGraphicPreferences)preferences,reportImage.getPlotStrokeConfiguration());
+			break;
+		case BARC:
+			chartObject = constructBarChart((CategoryBarChartGraphicPreferences)preferences,reportImage.getPlotStrokeConfiguration());
 			break;
 		default:
 			break;
@@ -257,7 +261,7 @@ public class TweetExtractorChartConstructor {
 
 	public JFreeChart constructBarChart(CategoryBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		try {
-			JFreeChart barChart = ChartFactory.createBarChart(config.getChartTitle(), config.getxAxisLabel(), config.getyAxisLabel(),
+			JFreeChart barChart = ChartFactory.createBarChart3D(config.getChartTitle(), config.getxAxisLabel(), config.getyAxisLabel(),
 					(CategoryDataset) this.dataset);
 			this.theme.apply(barChart);
 			return setPreferencesCategoryBarChart(barChart, config,plotStrokeConfiguration);
