@@ -43,12 +43,11 @@ public class TweetExtractorUtils {
 	}
 
 	public static byte[] readFileToByteArray(File file) {
-		FileInputStream fis = null;
 		// Creating a byte array using the length of the file
 		// file.length returns long which is cast to int
 		byte[] bArray = new byte[(int) file.length()];
-		try {
-			fis = new FileInputStream(file);
+		try(FileInputStream fis = new FileInputStream(file)) {
+			
 			fis.read(bArray);
 			fis.close();
 
@@ -112,7 +111,7 @@ public class TweetExtractorUtils {
 			AnalyticsReportImage chart) {
 		List<PlotStrokeConfiguration> ret = new ArrayList<>();
 		if (report == null) {
-			return null;
+			return new ArrayList<>();
 		}
 		switch (report.reportType) {
 		case TVR:
