@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import es.uam.eps.tweetextractor.analytics.dao.inter.AnalyticsReportRegisterDAOInterface;
 import es.uam.eps.tweetextractor.dao.AbstractGenericDAO;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 
 /**
  * @author jose

@@ -41,7 +41,7 @@ public abstract class ExtractionServerTask extends ScheduledServerTask{
 	@Transient
 	protected Extraction extraction;
 	/**
-	 * @param extraction
+	 * @param e the extraction to set
 	 */
 	public ExtractionServerTask(Extraction e) {
 		super();

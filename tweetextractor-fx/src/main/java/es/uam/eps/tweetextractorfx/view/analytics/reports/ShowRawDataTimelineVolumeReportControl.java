@@ -3,8 +3,8 @@
  */
 package es.uam.eps.tweetextractorfx.view.analytics.reports;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
-import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportVolumeRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Scene;
@@ -16,11 +16,13 @@ import javafx.scene.control.TableColumn;
  */
 public class ShowRawDataTimelineVolumeReportControl extends ShowRawDataTimelineReportControl {
 	private TableColumn<AnalyticsReportRegister,Integer> valueColumn=new TableColumn<>();
+
 	/**
-	 * 
+	 * @param scene the scene to set
+	 * @param report the report to set
 	 */
-	public ShowRawDataTimelineVolumeReportControl(Scene scene,AnalyticsReport report) {
-		super(scene,report);
+	public ShowRawDataTimelineVolumeReportControl(Scene scene, AnalyticsReport report) {
+		super(scene, report);
 	}
 
 	@Override

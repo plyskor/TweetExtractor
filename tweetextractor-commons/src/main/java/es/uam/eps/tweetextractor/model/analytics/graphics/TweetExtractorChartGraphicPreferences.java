@@ -92,7 +92,7 @@ public abstract class TweetExtractorChartGraphicPreferences implements  Serializ
 	private boolean urls;
 
 	/**
-	 * 
+	 * @param name the config name
 	 */
 	public TweetExtractorChartGraphicPreferences(String name) {
 		super();

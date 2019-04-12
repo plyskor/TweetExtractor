@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.model.analytics.report;
+package es.uam.eps.tweetextractor.model.analytics.report.register;
 
 import java.io.Serializable;
 
@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
-@NamedQuery(name="findAnalyticsReportRegisterByReport", query="SELECT r from AnalyticsReportRegister r WHERE r.report=:report")
+@NamedQuery(name="findAnalyticsReportRegisterByReport", query="SELECT r from AnalyticsReportRegister r WHERE r.category.report=:report")
 
 /**
  * @author jose
@@ -31,9 +31,7 @@ public abstract class AnalyticsReportRegister implements Serializable{
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "identifier")
 	private int identifier;
-	@ManyToOne
-	@XmlTransient
-	private AnalyticsReport report;
+	
 	/**
 	 * 
 	 */
@@ -52,17 +50,6 @@ public abstract class AnalyticsReportRegister implements Serializable{
 	public void setIdentifier(int identifier) {
 		this.identifier = identifier;
 	}
-	/**
-	 * @return the report
-	 */
-	public AnalyticsReport getReport() {
-		return report;
-	}
-	/**
-	 * @param report the report to set
-	 */
-	public void setReport(AnalyticsReport report) {
-		this.report = report;
-	}
+
 
 }

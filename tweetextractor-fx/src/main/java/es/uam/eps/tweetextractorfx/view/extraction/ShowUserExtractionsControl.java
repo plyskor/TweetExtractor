@@ -102,8 +102,8 @@ public class ShowUserExtractionsControl extends TweetExtractorFXController {
 	/**
 	 * @param extractionTableView the extractionTableView to set
 	 */
-	public void setExtractionTableView(TreeTableView<String> credentialsTableView) {
-		this.extractionTableView = credentialsTableView;
+	public void setExtractionTableView(TreeTableView<String> extractionTableView) {
+		this.extractionTableView = extractionTableView;
 	}
 
 	/**
@@ -116,8 +116,8 @@ public class ShowUserExtractionsControl extends TweetExtractorFXController {
 	/**
 	 * @param extractionColumn the extractionColumn to set
 	 */
-	public void setExtractionColumn(TreeTableColumn<String, String> credentialsColumn) {
-		this.extractionColumn = credentialsColumn;
+	public void setExtractionColumn(TreeTableColumn<String, String> extractionColumn) {
+		this.extractionColumn = extractionColumn;
 	}
 
 	/**

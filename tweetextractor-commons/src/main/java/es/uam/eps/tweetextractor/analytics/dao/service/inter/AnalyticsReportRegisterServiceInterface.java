@@ -7,7 +7,7 @@ import java.util.List;
 
 import es.uam.eps.tweetextractor.dao.service.inter.GenericServiceInterface;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 
 /**
  * @author jose

@@ -24,12 +24,14 @@ public class LogInTask extends TwitterExtractorFXTask<LoginStatus>{
 	private Logger logger = LoggerFactory.getLogger(LogInTask.class);
 
 	/**
-	 * 
+	 * @param springContext the spring context to set
+	 * @param username the username to set
+	 * @param password the password to set
 	 */
-	public LogInTask(String username,String password,AnnotationConfigApplicationContext context) {
-		super(context);
-		this.username=username;
-		this.password=password;
+	public LogInTask(AnnotationConfigApplicationContext springContext, String username, String password) {
+		super(springContext);
+		this.username = username;
+		this.password = password;
 	}
 
 	@Override

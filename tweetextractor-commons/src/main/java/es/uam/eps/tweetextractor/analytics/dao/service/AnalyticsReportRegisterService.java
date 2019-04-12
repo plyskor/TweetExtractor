@@ -14,7 +14,7 @@ import es.uam.eps.tweetextractor.analytics.dao.AnalyticsReportRegisterDAO;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegisterServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.GenericService;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 
 /**
  * @author jose

@@ -18,12 +18,15 @@ public class DeleteAccountTask extends TwitterExtractorFXTask<Integer>{
 	private User user;
 	private Logger logger = LoggerFactory.getLogger(DeleteAccountTask.class);
 	/**
-	 * 
+	 * @param user the user to set
+	 * @param springContext the spring context to set
+
 	 */
-	public DeleteAccountTask(User user, AnnotationConfigApplicationContext context)  {
-		super(context);
-		this.setUser(user);
+	public DeleteAccountTask( User user,AnnotationConfigApplicationContext springContext) {
+		super(springContext);
+		this.user = user;
 	}
+
 
 	@Override
 	protected Integer call() throws Exception {

@@ -16,12 +16,14 @@ public class CreateExtractionTask extends TwitterExtractorFXTask<Integer>{
 	private Extraction extraction;
 	private Logger logger = LoggerFactory.getLogger(CreateExtractionTask.class);
 	/**
-	 * 
+	 * @param springContext the context to set
+	 * @param extraction the extraction to set
 	 */
-	public CreateExtractionTask(Extraction extraction,AnnotationConfigApplicationContext context) {
-		super(context);
-		this.extraction=extraction;
+	public CreateExtractionTask(AnnotationConfigApplicationContext springContext, Extraction extraction) {
+		super(springContext);
+		this.extraction = extraction;
 	}
+
 
 	@Override
 	protected Integer call() throws Exception {

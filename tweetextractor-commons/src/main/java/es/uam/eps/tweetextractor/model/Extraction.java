@@ -163,8 +163,8 @@ public class Extraction implements Serializable {
 	/**
 	 * @param creationDate the creationDate to set
 	 */
-	public void setCreationDate(Date creatingDate) {
-		this.creationDate = creatingDate;
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	/**

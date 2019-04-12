@@ -20,7 +20,7 @@ public class UpdateStatus {
 	private List<Tweet>tweetList=null;
 	private String errorMessage;
 	/**
-	 * 
+	 * @param nTweets the number of tweets
 	 */
 	public UpdateStatus(Integer nTweets) {
 		this.nTweets=nTweets;

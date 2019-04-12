@@ -21,9 +21,10 @@ import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegi
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
-import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportRegister;
-import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportVolumeRegister;
-import es.uam.eps.tweetextractor.model.analytics.report.TimelineVolumeReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineVolumeReport;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
 import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.response.ServerTaskResponse;
 import es.uam.eps.tweetextractorserver.model.servertask.response.TimelineVolumeReportResponse;
@@ -86,12 +87,13 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 			finish();
 			return;
 		}
+		AnalyticsReportCategory nTweetsCategory= report.getCategories().get(0);
 		for(TimelineReportVolumeRegister register: list) {
-			register.setReport(report);
+			register.setCategory(nTweetsCategory);
 		}
 		permanentClearReport();
-		report.getResult().clear();
-		report.getResult().addAll(list);
+		nTweetsCategory.getResult().clear();
+		nTweetsCategory.getResult().addAll(list);
 		report.setLastUpdatedDate(new Date());
 		arServ.update(report);
 		logger.info("Timeline tweet volume report succesfully saved to database with id: "+report.getId());
@@ -102,8 +104,10 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 
 	private void permanentClearReport() {
 		if(report!=null) {
-			for(TimelineReportRegister<?> register : report.getResult()) {
-				regServ.delete(register);
+			for(AnalyticsReportCategory category : report.getCategories()) {
+				for(AnalyticsReportRegister register : category.getResult()) {
+					regServ.delete(register);
+				}
 			}
 		}
 	}

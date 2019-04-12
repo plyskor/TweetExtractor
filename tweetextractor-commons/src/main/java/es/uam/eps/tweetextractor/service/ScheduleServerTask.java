@@ -16,7 +16,7 @@ public class ScheduleServerTask extends TweetExtractorCXFService implements Sche
 	private ScheduleServerTaskSei client;
 
 	/**
-	 * @param endpoint
+	 * @param endpoint the server endpoint to set
 	 */
 	public ScheduleServerTask(String endpoint) {
 		super(endpoint);

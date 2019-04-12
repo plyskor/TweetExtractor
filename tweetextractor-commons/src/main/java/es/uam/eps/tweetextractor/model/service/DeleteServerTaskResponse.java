@@ -17,6 +17,10 @@ public class DeleteServerTaskResponse {
 	private boolean error;
 	@XmlElement(name="message")
 	private String message;
+	/*
+	* @param error the error to set
+	 * @param message the message to set
+	 * */
 	public DeleteServerTaskResponse(boolean error, String message) {
 		super();
 		this.error = error;

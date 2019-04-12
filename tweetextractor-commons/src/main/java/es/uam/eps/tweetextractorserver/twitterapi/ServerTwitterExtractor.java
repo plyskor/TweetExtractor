@@ -44,7 +44,7 @@ public class ServerTwitterExtractor {
 	private AnnotationConfigApplicationContext springContext;
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	/**
-	 * 
+	 * @param springContext the spring context to set 
 	 */
 	public ServerTwitterExtractor(AnnotationConfigApplicationContext springContext) {
 		this.springContext=springContext;

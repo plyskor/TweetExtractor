@@ -20,7 +20,7 @@ public class TweetListWrapper {
 	private List<Tweet> tweets;
 
 	/**
-	 * @return the users
+	 * @return the tweets
 	 */
 	@XmlElement(name="tweet")
 	public List<Tweet> getTweets() {
@@ -28,7 +28,7 @@ public class TweetListWrapper {
 	}
 
 	/**
-	 * @param users the users to set
+	 * @param tweets the tweets to set
 	 */
 	public void setTweets(List<Tweet> tweets) {
 		this.tweets = tweets;

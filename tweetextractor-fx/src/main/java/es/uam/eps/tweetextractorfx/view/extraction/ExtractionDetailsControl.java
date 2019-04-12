@@ -189,8 +189,7 @@ public class ExtractionDetailsControl extends TweetExtractorFXController {
 	public void executeQuery() {
 		twitterextractor = new TwitterExtractor(this.getMainApplication().getCurrentUser().getCredentialList().get(0),
 				mainApplication.getSpringContext());
-		UpdateExtractionTask updateTask = new UpdateExtractionTask(twitterextractor, extraction,
-				mainApplication.getSpringContext());
+		UpdateExtractionTask updateTask = new UpdateExtractionTask(mainApplication.getSpringContext(),twitterextractor, extraction);
 		updateTask.setOnSucceeded(e -> {
 			if (loadingDialog != null)
 				loadingDialog.close();
@@ -232,8 +231,7 @@ public class ExtractionDetailsControl extends TweetExtractorFXController {
 		}
 		twitterextractor = new TwitterExtractor(this.getMainApplication().getCurrentUser().getCredentialList().get(0),
 				mainApplication.getSpringContext());
-		TwitterExtractorFXTask<UpdateStatus> updateTask = new UpdateExtractionTask(twitterextractor, extraction,
-				mainApplication.getSpringContext());
+		TwitterExtractorFXTask<UpdateStatus> updateTask = new UpdateExtractionTask(mainApplication.getSpringContext(),twitterextractor, extraction);
 		updateTask.setOnSucceeded(e -> {
 			UpdateStatus result = updateTask.getValue();
 			if (result == null)
@@ -280,7 +278,7 @@ public class ExtractionDetailsControl extends TweetExtractorFXController {
 
 	public void refreshTweetObservableList() {
 		if (extraction != null && extraction.getFilterList() != null) {
-			LoadTweetsTask loadTask = new LoadTweetsTask(extraction, mainApplication.getSpringContext());
+			LoadTweetsTask loadTask = new LoadTweetsTask(mainApplication.getSpringContext(), extraction);
 			loadTask.setOnSucceeded(e -> {
 				this.tweetObservableList.clear();
 				this.tweetObservableList.setAll(extraction.getTweetList());
@@ -316,8 +314,7 @@ public class ExtractionDetailsControl extends TweetExtractorFXController {
 		// Show save file dialog
 		File file = fileChooser.showSaveDialog(this.mainApplication.getPrimaryStage());
 		if (file != null) {
-			ExportExtractionTask exportTask = new ExportExtractionTask(extraction, file,
-					mainApplication.getSpringContext());
+			ExportExtractionTask exportTask = new ExportExtractionTask(mainApplication.getSpringContext(),extraction, file);
 			exportTask.setOnSucceeded(e -> {
 				Integer status = exportTask.getValue();
 				if (loadingDialog != null) {

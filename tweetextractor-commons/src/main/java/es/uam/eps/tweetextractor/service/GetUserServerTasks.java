@@ -15,7 +15,7 @@ public class GetUserServerTasks extends TweetExtractorCXFService implements GetU
 	private GetUserServerTasksSei client ;
 
 	/**
-	 * 
+	 * @param endpoint the server endpoint to set
 	 */
 	public GetUserServerTasks(String endpoint) {
 		super(endpoint);

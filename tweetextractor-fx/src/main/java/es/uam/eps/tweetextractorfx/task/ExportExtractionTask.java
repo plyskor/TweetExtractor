@@ -22,13 +22,16 @@ public class ExportExtractionTask extends TwitterExtractorFXTask<Integer>{
 	private String message=null;
 	private Logger logger = LoggerFactory.getLogger(ExportExtractionTask.class);
 	/**
-	 * 
+	 * @param springContext the spring context to set
+	 * @param extraction the extraction to set
+	 * @param file the file to set
 	 */
-	public ExportExtractionTask(Extraction extraction,File file,AnnotationConfigApplicationContext context) {
-		super(context);
-		this.extraction=extraction;
-		this.file=file;
+	public ExportExtractionTask(AnnotationConfigApplicationContext springContext, Extraction extraction, File file) {
+		super(springContext);
+		this.extraction = extraction;
+		this.file = file;
 	}
+
 
 	@Override
 	protected Integer call() throws Exception {

@@ -14,7 +14,7 @@ import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskUpdateExtract
 public class CreateServerTaskUpdateExtractionIndef extends TweetExtractorCXFService implements CreateServerTaskUpdateExtractionIndefSei {
 	private CreateServerTaskUpdateExtractionIndefSei client ;
 	/**
-	 * 
+	 * @param endpoint the server endpoint to set
 	 */
 	public CreateServerTaskUpdateExtractionIndef(String endpoint) {
 		super(endpoint);

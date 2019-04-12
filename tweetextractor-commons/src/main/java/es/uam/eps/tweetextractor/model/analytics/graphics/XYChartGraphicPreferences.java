@@ -38,7 +38,7 @@ public class XYChartGraphicPreferences extends TweetExtractorChartGraphicPrefere
 	private String yAxisLabel;
 	
 	/**
-	 * 
+	 * @param name the name
 	 */
 	public XYChartGraphicPreferences(String name) {
 		super(name);
@@ -51,9 +51,7 @@ public class XYChartGraphicPreferences extends TweetExtractorChartGraphicPrefere
 		this.yAxisLabel="";
 	}
 
-	/**
-	 * @param name
-	 */
+	
 	public XYChartGraphicPreferences() {
 		super("");
 	}

@@ -256,7 +256,7 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 		extraction = new Extraction();
 		extraction.addFilters(addedFiltersList);
 		this.getMainApplication().getCurrentUser().addExtractionToList(extraction);
-		CreateExtractionTask createTask = new CreateExtractionTask(extraction,mainApplication.getSpringContext());
+		CreateExtractionTask createTask = new CreateExtractionTask(mainApplication.getSpringContext(),extraction);
 		createTask.setOnSucceeded(e->{
     		if(loadingDialog!=null)loadingDialog.close();
 		});

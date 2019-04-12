@@ -43,7 +43,7 @@ public class ServerTaskUpdateExtractionIndef extends ExtractionServerTask {
 	transient TweetServiceInterface tServ;
 	
 	/**
-	 * 
+	 * @param e the extraction to set
 	 */
 
 	public ServerTaskUpdateExtractionIndef(Extraction e) {

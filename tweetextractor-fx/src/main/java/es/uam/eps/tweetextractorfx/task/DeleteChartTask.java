@@ -20,12 +20,14 @@ public class DeleteChartTask extends TwitterExtractorFXTask<Integer> {
 	private Logger logger = LoggerFactory.getLogger(DeleteChartTask.class);
 
 	/**
-	 * 
+	 * @param springContext the spring context to set
+	 * @param chart the chart to set
 	 */
-	public DeleteChartTask(AnalyticsReportImage chart,AnnotationConfigApplicationContext context) {
-		super(context);
-		this.setChart(chart);
+	public DeleteChartTask(AnnotationConfigApplicationContext springContext, AnalyticsReportImage chart) {
+		super(springContext);
+		this.chart = chart;
 	}
+
 
 	@Override
 	protected Integer call() throws Exception {

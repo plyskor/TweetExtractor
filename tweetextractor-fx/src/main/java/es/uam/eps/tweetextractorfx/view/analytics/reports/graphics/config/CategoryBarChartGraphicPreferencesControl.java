@@ -73,9 +73,9 @@ private TweetExtractorChartGraphicPreferencesServiceInterface prefsService;
 	}
 	
 	/**
-	 * @param chartTypeInput
-	 * @param reportInput
-	 * @param preferencesInput
+	 * @param chartTypeInput the chartTypeInput
+	 * @param reportInput the reportInput
+	 * @param preferencesInput the preferencesInput
 	 */
 	public CategoryBarChartGraphicPreferencesControl(AnalyticsReportImageTypes chartTypeInput,
 			AnalyticsRepresentableReport reportInput, TweetExtractorChartGraphicPreferences preferencesInput) {

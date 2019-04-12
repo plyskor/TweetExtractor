@@ -24,11 +24,13 @@ import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGra
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReport;
-import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportRegister;
-import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportVolumeRegister;
-import es.uam.eps.tweetextractor.model.analytics.report.TimelineVolumeReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineVolumeReport;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.TimelineReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
 import es.uam.eps.tweetextractor.model.filter.Filter;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterContains;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterContainsExact;
@@ -88,7 +90,8 @@ public class TweetExtractorSpringConfig {
 				TimelineReportVolumeRegister.class, ServerTaskTimelineVolumeReport.class, AnalyticsReportImage.class,
 				ScheduledServerTask.class, AnalyticsReportRegister.class, TweetExtractorChartGraphicPreferences.class,
 				XYChartGraphicPreferences.class, PlotStrokeConfiguration.class,
-				CategoryBarChartGraphicPreferences.class, XYBarChartGraphicPreferences.class);
+				CategoryBarChartGraphicPreferences.class, XYBarChartGraphicPreferences.class,AnalyticsReportCategory.class,
+				AnalyticsReportCategoryRegister.class);
 		return factoryBean;
 	}
 

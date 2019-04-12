@@ -13,7 +13,7 @@ public abstract class TweetExtractorCXFService {
 	protected String endpoint;
 	protected JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
 	/**
-	 * 
+	 * @param endpoint the server endpoint to set
 	 */
 	public TweetExtractorCXFService(String endpoint) {
 		this.endpoint=endpoint;

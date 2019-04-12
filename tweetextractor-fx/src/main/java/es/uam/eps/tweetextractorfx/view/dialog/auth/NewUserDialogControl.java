@@ -67,7 +67,7 @@ public class NewUserDialogControl extends TweetExtractorFXDialogController {
 	}
 	@FXML
 	public void handleCreateUser() {
-		RegisterAccountTask registerTask = new RegisterAccountTask(userNameField.getText().trim(), passwordField1.getText(), passwordField2.getText(),getMainApplication().getSpringContext());
+		RegisterAccountTask registerTask = new RegisterAccountTask(getMainApplication().getSpringContext(),userNameField.getText().trim(), passwordField1.getText(), passwordField2.getText());
 		registerTask.setOnSucceeded(e->{
 			RegisterStatus registerResult = registerTask.getValue();
 			if (registerResult==null) {

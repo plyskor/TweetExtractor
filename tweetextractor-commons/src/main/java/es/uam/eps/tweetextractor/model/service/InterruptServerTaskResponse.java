@@ -21,8 +21,8 @@ public class InterruptServerTaskResponse {
 	}
 	/**
 	 
-	 * @param error
-	 * @param message
+	 * @param error the error to set
+	 * @param message the message to set
 	 */
 	public InterruptServerTaskResponse(boolean error, String message) {
 		super();

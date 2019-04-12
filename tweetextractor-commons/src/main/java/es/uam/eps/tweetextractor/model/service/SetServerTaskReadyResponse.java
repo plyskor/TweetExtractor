@@ -27,8 +27,8 @@ public class SetServerTaskReadyResponse {
 	public SetServerTaskReadyResponse() {
 	}
 	/**
-	 * @param error
-	 * @param message
+	 * @param error the error to set
+	 * @param message the message to set
 	 */
 	public SetServerTaskReadyResponse(boolean error, String message) {
 		super();

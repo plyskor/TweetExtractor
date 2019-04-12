@@ -53,14 +53,13 @@ public class PlotStrokeConfiguration implements Serializable{
 	}
 	
 	/**
-	 * @param id
-	 * @param strokeType
-	 * @param categoryIndex
-	 * @param hexLineColour
-	 * @param categoryName
-	 * @param categoryLabel
-	 * @param strokeWidth
-	 * @param chart
+	 * @param strokeType the stroke type
+	 * @param categoryIndex the category index
+	 * @param hexLineColour the plot colour
+	 * @param categoryName the category name
+	 * @param categoryLabel the category label
+	 * @param strokeWidth the stroke width 
+	 * @param chart the graphic chart
 	 */
 	public PlotStrokeConfiguration(String strokeType, int categoryIndex, String hexLineColour,
 			String categoryName, String categoryLabel, float strokeWidth, AnalyticsReportImage chart) {

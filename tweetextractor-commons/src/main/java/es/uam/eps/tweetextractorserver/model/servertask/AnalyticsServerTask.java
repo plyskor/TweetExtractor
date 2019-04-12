@@ -33,8 +33,8 @@ public abstract class AnalyticsServerTask extends ScheduledServerTask {
 	private static final long serialVersionUID = 874178661084669884L;
 
 	/**
-	 * @param id
-	 * @param user
+	 * @param id the id to set
+	 * @param user the user to set
 	 */
 	public AnalyticsServerTask(int id, User user) {
 		super(id, user);

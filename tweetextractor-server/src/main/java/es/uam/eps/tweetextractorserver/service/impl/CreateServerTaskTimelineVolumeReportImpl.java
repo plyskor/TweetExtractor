@@ -17,7 +17,8 @@ import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.User;
-import es.uam.eps.tweetextractor.model.analytics.report.TimelineVolumeReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineVolumeReport;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTimelineVolumeReportResponse;
 import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTimelineVolumeReportSei;
 import es.uam.eps.tweetextractorserver.TweetExtractorServer;
@@ -69,6 +70,9 @@ public class CreateServerTaskTimelineVolumeReportImpl implements CreateServerTas
 		ServerTaskTimelineVolumeReport task = new ServerTaskTimelineVolumeReport();
 		task.setUser(u);
 		TimelineVolumeReport report = new TimelineVolumeReport();
+		AnalyticsReportCategory nTweetsCategory = new AnalyticsReportCategory("Number of tweets");
+		nTweetsCategory.setReport(report);
+		report.getCategories().add(nTweetsCategory);
 		report.setUser(u);
 		task.setReport(report);
 		try{

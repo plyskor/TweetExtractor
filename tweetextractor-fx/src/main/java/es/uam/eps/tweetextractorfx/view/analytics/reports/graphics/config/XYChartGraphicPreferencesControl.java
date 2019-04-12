@@ -53,9 +53,9 @@ public class XYChartGraphicPreferencesControl extends SpecificGraphicChartPrefer
 	}
 	
 	/**
-	 * @param chartTypeInput
-	 * @param reportInput
-	 * @param preferencesInput
+	 * @param chartTypeInput the chartTypeInput
+	 * @param reportInput the reportInput
+	 * @param preferencesInput the preferencesInput
 	 */
 	public XYChartGraphicPreferencesControl(AnalyticsReportImageTypes chartTypeInput,
 			AnalyticsRepresentableReport reportInput, TweetExtractorChartGraphicPreferences preferencesInput) {

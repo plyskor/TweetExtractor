@@ -7,7 +7,7 @@ import java.util.List;
 
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegisterServiceInterface;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import javafx.collections.FXCollections;
@@ -33,16 +33,18 @@ public abstract class ShowRawDataControl extends TweetExtractorFXController {
 	private Text titleText;
 
 	/**
-	 * 
+	 * @param report the report
+	 * @param scene the scene
 	 */
-	public ShowRawDataControl(Scene scene,AnalyticsReport report) {
+	public ShowRawDataControl(AnalyticsReport report, Scene scene) {
 		super();
-		this.scene=scene;
-		this.report=report;
+		this.report = report;
+		this.scene = scene;
 		this.table =(TableView)scene.lookup("#table");
 		this.doneButton = (Button)scene.lookup("#doneButton");
 		this.titleText = (Text)scene.lookup("#titleText");
 	}
+
 
 	@Override
 	public void setMainApplication(MainApplication mainApplication) {

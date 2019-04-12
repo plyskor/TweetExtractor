@@ -13,6 +13,9 @@ import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTimelineVolum
  */
 public class CreateServerTaskTimelineVolumeReport extends TweetExtractorCXFService implements CreateServerTaskTimelineVolumeReportSei {
 	private CreateServerTaskTimelineVolumeReportSei client ;
+	/**
+	 * @param endpoint the server endpoint to set
+	 */
 	public CreateServerTaskTimelineVolumeReport(String endpoint) {
 		super(endpoint);
 		factory.setServiceClass(CreateServerTaskTimelineVolumeReportSei.class); 

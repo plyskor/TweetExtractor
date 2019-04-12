@@ -14,17 +14,27 @@ import javafx.concurrent.Task;
 public abstract class TwitterExtractorFXTask<V> extends Task<V> {
 	protected AnnotationConfigApplicationContext springContext;
 
+	/**
+	 * @param springContext the springContext to set
+	 */
 	public TwitterExtractorFXTask(AnnotationConfigApplicationContext springContext) {
 		super();
 		this.springContext = springContext;
 	}
 
+	/**
+	 * @return the springContext
+	 */
 	public AnnotationConfigApplicationContext getSpringContext() {
 		return springContext;
 	}
 
+	/**
+	 * @param springContext the springContext to set
+	 */
 	public void setSpringContext(AnnotationConfigApplicationContext springContext) {
 		this.springContext = springContext;
 	}
-	
+
+
 }

@@ -43,9 +43,7 @@ public class CategoryBarChartGraphicPreferences extends XYChartGraphicPreference
 		this.maximumBarWidth=0.1;
 	}
 	
-	/**
-	 * @param name
-	 */
+
 	public CategoryBarChartGraphicPreferences() {
 		super("");
 	}

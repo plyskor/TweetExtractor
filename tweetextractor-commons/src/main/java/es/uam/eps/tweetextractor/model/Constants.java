@@ -67,6 +67,8 @@ public final class Constants {
 		TUEI(Values.TYPE_TASK_UPDATE_EXTRACTION_INDEF),
 		@XmlEnumValue("TTVR")
 		TTVR(Values.TYPE_TASK_TIMELINE_VOLUME_REPORT),
+		@XmlEnumValue("TTTNHR")
+		TTTNHR(Values.TYPE_TASK_TIMELINE_TOP_N_HASHTAGS_REPORT),
 		@XmlEnumValue("SCHT")
 		SCHT(Values.TYPE_SCHEDULED_TASK);
 		private TaskTypes(String type) {
@@ -79,7 +81,7 @@ public final class Constants {
 			public static final String TYPE_TASK_UPDATE_EXTRACTION_INDEF = "TUEI";
 			public static final String TYPE_TASK_TIMELINE_VOLUME_REPORT = "TTVR";
 			public static final String TYPE_SCHEDULED_TASK="SCHT";
-
+			public static final String TYPE_TASK_TIMELINE_TOP_N_HASHTAGS_REPORT="TTTNHR";
 		}
 	}
 	@XmlType(name = "analyticsReportType")
@@ -88,7 +90,9 @@ public final class Constants {
 		@XmlEnumValue("TR")
 		TR(Values.TYPE_TIMELINE_REPORT),
 		@XmlEnumValue("TVR")
-		TVR(Values.TYPE_TIMELINE_VOLUME_REPORT);
+		TVR(Values.TYPE_TIMELINE_VOLUME_REPORT),
+		@XmlEnumValue("TTNHR")
+		TTNHR(Values.TYPE_TIMELINE_TOP_N_HASHTAGS_REPORT);
 		private AnalyticsReportTypes(String type) {
 			
 		}
@@ -96,6 +100,7 @@ public final class Constants {
 			// Available server tasks
 			public static final String TYPE_TIMELINE_REPORT = "TR";
 			public static final String TYPE_TIMELINE_VOLUME_REPORT = "TVR";
+			public static final String TYPE_TIMELINE_TOP_N_HASHTAGS_REPORT = "TTNHR";
 		}
 	}
 	
@@ -197,6 +202,7 @@ public final class Constants {
 	public static final String INTERRUPT_SERVER_TASK_ENDPOINT="interruptServerTask";
 	public static final String CREATE_UPDATE_EXTRACTION_INDEF_SERVER_TASK_ENDPOINT="createServerTaskUpdateExtractionIndef";
 	public static final String CREATE_TIMELINE_VOLUME_REPORT_SERVER_TASK_ENDPOINT="createServerTaskTimelineVolumeReport";
+	public static final String CREATE_TIMELINE_TOP_N_HASHTAGS_REPORT_SERVER_TASK_ENDPOINT="createServerTaskTimelineTopNHashtagsReportImpl";
 	public static final String DELETE_SERVER_TASK_ENDPOINT="deleteServerTask";
 	public static final String LAUNCH_SERVER_TASK_ENDPOINT="launchServerTask";
 	public static final String GET_SERVER_STATUS_ENDPOINT="getServerStatus";

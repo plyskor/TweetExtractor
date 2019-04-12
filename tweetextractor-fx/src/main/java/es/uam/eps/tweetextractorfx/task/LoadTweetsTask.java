@@ -19,11 +19,12 @@ import es.uam.eps.tweetextractor.model.Tweet;
 public class LoadTweetsTask extends TwitterExtractorFXTask<Integer>{
 	private Extraction extraction;
 	/**
-	 * 
+	 * @param springContext the spring context to set
+	 * @param extraction the extraction to set
 	 */
-	public LoadTweetsTask(Extraction extraction,AnnotationConfigApplicationContext context) {
-		super(context);
-		this.setExtraction(extraction);
+	public LoadTweetsTask(AnnotationConfigApplicationContext springContext, Extraction extraction) {
+		super(springContext);
+		this.extraction = extraction;
 	}
 
 	@Override

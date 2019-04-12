@@ -21,12 +21,9 @@ public abstract class SpecificGraphicChartPreferencesController extends TweetExt
 	
 	private AnalyticsReportImage chart;
 	/**
-	 * 
-	 */
-	/**
-	 * @param chartTypeInput
-	 * @param reportInput
-	 * @param preferencesInput
+	 * @param chartTypeInput the chartTypeInput
+	 * @param reportInput the reportInput
+	 * @param preferencesInput the preferencesInput
 	 */
 	public SpecificGraphicChartPreferencesController(AnalyticsReportImageTypes chartTypeInput,
 			AnalyticsRepresentableReport reportInput, TweetExtractorChartGraphicPreferences preferencesInput) {

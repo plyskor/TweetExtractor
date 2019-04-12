@@ -1,15 +1,18 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.model.analytics.report;
+package es.uam.eps.tweetextractor.model.analytics.report.register;
 
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
+
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 
 /**
  * @author jose
@@ -17,7 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class TimelineReportRegister<T extends Serializable> extends AnalyticsReportRegister implements Serializable {
+public abstract class TimelineReportRegister<T extends Serializable> extends AnalyticsReportCategoryRegister implements Serializable {
 	@XmlTransient
 	@Transient
 	private static final long serialVersionUID = -1191008698226686168L;
@@ -27,6 +30,8 @@ public abstract class TimelineReportRegister<T extends Serializable> extends Ana
 	private int month;
 	@Column(name="day")
 	private int day;
+	@ManyToOne
+	private AnalyticsReportCategory category;
 	/**
 	 * 
 	 */
@@ -84,5 +89,19 @@ public abstract class TimelineReportRegister<T extends Serializable> extends Ana
 	 * @param value the value to set
 	 */
 	public abstract void setValue(T value);
+
+	/**
+	 * @return the category
+	 */
+	public AnalyticsReportCategory getCategory() {
+		return category;
+	}
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(AnalyticsReportCategory category) {
+		this.category = category;
+	}
 
 }

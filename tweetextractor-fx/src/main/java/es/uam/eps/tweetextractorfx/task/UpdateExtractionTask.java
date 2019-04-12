@@ -21,11 +21,16 @@ public class UpdateExtractionTask extends TwitterExtractorFXTask<UpdateStatus>{
 	private Extraction extraction;
 	private Logger logger = LoggerFactory.getLogger(UpdateExtractionTask.class);
 
-	public UpdateExtractionTask(TwitterExtractor twitter, Extraction extraction,AnnotationConfigApplicationContext context) {
-		super(context);
+	/**
+	 * @param springContext the springContext to set
+	 * @param twitter the extractor to set
+	 * @param extraction the extraction to set
+	 */
+	public UpdateExtractionTask(AnnotationConfigApplicationContext springContext, TwitterExtractor twitter,
+			Extraction extraction) {
+		super(springContext);
 		this.twitter = twitter;
 		this.extraction = extraction;
-		
 	}
 
 	@Override

@@ -40,8 +40,8 @@ public class LoginStatus {
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(Integer state) {
-		this.status = state;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }

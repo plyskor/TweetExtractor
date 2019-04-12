@@ -13,9 +13,10 @@ import es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei;
  *
  */
 public class DeleteServerTask extends TweetExtractorCXFService implements DeleteServerTaskSei {
-	DeleteServerTaskSei client;
+	private DeleteServerTaskSei client;
+	
 	/**
-	 * 
+	 * @param endpoint the server endpoint to set
 	 */
 	public DeleteServerTask(String endpoint) {
 		super(endpoint);

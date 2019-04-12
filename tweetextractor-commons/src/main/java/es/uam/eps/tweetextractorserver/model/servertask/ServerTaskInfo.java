@@ -31,18 +31,21 @@ public class ServerTaskInfo {
 	public ServerTaskInfo() {
 		super();
 	}
+	
 	/**
-	 * @param id
-	 * @param status
-	 * @param taskType
+	 * @param id the id to set
+	 * @param status the status to set
+	 * @param taskType the tasktype to set
+	 * @param extractionSummary the summary of the extraction to set
+	 * @param extractionId id ID of the extraction to set
 	 */
-	public ServerTaskInfo(int id, int status, TaskTypes taskType,String extractionSummary, int extractionId) {
+	public ServerTaskInfo(int id, int status, TaskTypes taskType, String extractionSummary, int extractionId) {
 		super();
 		this.id = id;
 		this.status = status;
 		this.taskType = taskType;
-		this.extractionSummary=extractionSummary;
-		this.extractionId=extractionId;
+		this.extractionSummary = extractionSummary;
+		this.extractionId = extractionId;
 	}
 	/**
 	 * @return the id

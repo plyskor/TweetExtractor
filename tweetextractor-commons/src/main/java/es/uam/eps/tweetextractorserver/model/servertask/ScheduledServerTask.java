@@ -37,8 +37,8 @@ public abstract class ScheduledServerTask extends ServerTask {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date scheduleDate;
 	/**
-	 * @param id
-	 * @param user
+	 * @param id the id to set
+	 * @param user the user to set
 	 */
 	public ScheduledServerTask(int id, User user) {
 		super(id, user);

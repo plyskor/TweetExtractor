@@ -15,7 +15,7 @@ import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Tweet;
 import es.uam.eps.tweetextractor.model.User;
-import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportVolumeRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
 
 /**
  * @author Jose Antonio García del Saz

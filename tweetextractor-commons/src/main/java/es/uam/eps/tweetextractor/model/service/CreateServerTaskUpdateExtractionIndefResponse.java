@@ -19,6 +19,10 @@ public class CreateServerTaskUpdateExtractionIndefResponse {
 	private String message;
 	@XmlElement(name="id")
 	private int id;
+	/*
+	* @param error the error to set
+	 * @param message the message to set
+	 * */
 	public CreateServerTaskUpdateExtractionIndefResponse(boolean error, String message) {
 		super();
 		this.error = error;

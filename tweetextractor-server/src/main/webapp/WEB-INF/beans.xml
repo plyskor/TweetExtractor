@@ -38,4 +38,8 @@
 	<jaxws:endpoint id="ScheduleServerTask"
 		implementor="es.uam.eps.tweetextractorserver.service.impl.ScheduleServerTaskImpl"
 		address="/scheduleServerTask" />
+	<jaxws:endpoint id="CreateServerTaskTimelineTopNHashtagsReport"
+		implementor="es.uam.eps.tweetextractorserver.service.impl.CreateServerTaskTimelineTopNHashtagsReportImpl"
+		address="/createServerTaskTimelineTopNHashtagsReportImpl" />
+		
 </beans>

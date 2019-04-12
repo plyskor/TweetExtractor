@@ -18,7 +18,7 @@ import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableRe
 public class TweetExtractorDatasetConstructor {
 	private AnalyticsRepresentableReport report;
 	/**
-	 * 
+	 * @param report the report to set
 	 */
 	public TweetExtractorDatasetConstructor(AnalyticsRepresentableReport report) {
 		super();

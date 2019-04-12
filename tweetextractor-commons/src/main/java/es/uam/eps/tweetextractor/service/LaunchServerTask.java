@@ -15,7 +15,7 @@ public class LaunchServerTask extends TweetExtractorCXFService implements Launch
 	private LaunchServerTaskSei client ;
 	
 	/**
-	 * 
+	 * @param endpoint the server endpoint to set
 	 */
 	public LaunchServerTask(String endpoint) {
 		super(endpoint);

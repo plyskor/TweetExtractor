@@ -29,12 +29,7 @@ public class AddCredentialsDialogControl extends TweetExtractorFXDialogControlle
 	public TextField getConsumerKeyField() {
 		return consumerKeyField;
 	}
-	/**
-	 * @param consumerKeyField the consumerKeyField to set
-	 *
-	public void setConsumerKeyField(TextField consumerKeyField) {
-		this.consumerKeyField = consumerKeyField;
-	}
+	
 	/**
 	 * @return the consumerSecretField
 	 */

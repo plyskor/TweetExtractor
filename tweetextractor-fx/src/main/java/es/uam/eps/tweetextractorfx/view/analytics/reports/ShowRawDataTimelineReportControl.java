@@ -3,8 +3,8 @@
  */
 package es.uam.eps.tweetextractorfx.view.analytics.reports;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReportRegister;
-import es.uam.eps.tweetextractor.model.analytics.report.TimelineReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.TimelineReportRegister;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Scene;
@@ -20,7 +20,7 @@ public abstract class ShowRawDataTimelineReportControl extends ShowRawDataContro
 	private TableColumn<AnalyticsReportRegister,Integer> monthColumn=new TableColumn<>();
 	private TableColumn<AnalyticsReportRegister,Integer> yearColumn=new TableColumn<>();
 	public ShowRawDataTimelineReportControl(Scene scene,AnalyticsReport report) {
-		super(scene,report);
+		super(report,scene);
 	}
 	
 	@Override

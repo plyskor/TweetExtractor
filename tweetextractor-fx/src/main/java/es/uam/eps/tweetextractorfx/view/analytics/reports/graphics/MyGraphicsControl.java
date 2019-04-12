@@ -142,7 +142,7 @@ public class MyGraphicsControl extends TweetExtractorFXController {
 		alert.showAndWait();
 		if (alert.getResult() == ButtonType.YES) {
 			selectedGraphic.getReport().getGraphics().remove(selectedGraphic);
-			DeleteChartTask deleteTask = new DeleteChartTask(selectedGraphic,this.getMainApplication().getSpringContext());
+			DeleteChartTask deleteTask = new DeleteChartTask(this.getMainApplication().getSpringContext(),selectedGraphic);
 			deleteTask.setOnSucceeded(e -> {
 				if (loadingDialog != null)
 					loadingDialog.close();

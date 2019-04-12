@@ -81,7 +81,8 @@ public class User implements Serializable {
 	private List<TweetExtractorChartGraphicPreferences> graphicsUserPreferencesList;
 	
 	/**
-	 * 
+	 * @param nickname the nickname
+	 * @param password the encrypted password
 	 */
 	public User(String nickname,String password) {
 			this.setNickname(nickname);

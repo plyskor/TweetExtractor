@@ -59,7 +59,7 @@ public abstract class ServerTask implements Runnable,Serializable {
 	@Column(name = "status")
 	private int status;
 	@XmlTransient
-	@Column(name = "task_type", length=5,nullable = false, insertable = false, updatable = false)
+	@Column(name = "task_type", length=6,nullable = false, insertable = false, updatable = false)
 	@Enumerated(EnumType.STRING)
 	public TaskTypes taskType;
 	@XmlTransient

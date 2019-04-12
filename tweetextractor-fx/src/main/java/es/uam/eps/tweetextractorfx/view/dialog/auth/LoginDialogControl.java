@@ -87,7 +87,7 @@ public class LoginDialogControl extends TweetExtractorFXDialogController{
 	@FXML
 	public void handleLogin() {
 		alertLogin=null;
-		LogInTask loginTask = new LogInTask(userField.getText().trim(), passField.getText(),getWelcomeScreenControl().getMainApplication().getSpringContext());
+		LogInTask loginTask = new LogInTask(getWelcomeScreenControl().getMainApplication().getSpringContext(),userField.getText().trim(), passField.getText());
 		loginTask.setOnSucceeded(e -> {
 			LoginStatus loginResult = loginTask.getValue();
 			if (loginResult == null) {

@@ -29,8 +29,8 @@ public class LaunchServerTaskResponse {
 	}
 	
 	/**
-	 * @param error
-	 * @param message
+	 * @param error the error to set
+	 * @param message the message to set
 	 */
 	public LaunchServerTaskResponse(boolean error, String message) {
 		super();

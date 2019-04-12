@@ -14,7 +14,7 @@ import es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei;
 public class GetServerTaskStatus extends TweetExtractorCXFService implements GetServerTaskStatusSei{
 	private GetServerTaskStatusSei client ;
 	/**
-	 * 
+	 * @param endpoint the server endpoint to set
 	 */
 	public GetServerTaskStatus(String endpoint) {
 		super(endpoint);

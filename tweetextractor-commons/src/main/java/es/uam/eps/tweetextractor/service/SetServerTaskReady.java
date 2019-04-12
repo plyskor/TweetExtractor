@@ -14,7 +14,7 @@ import es.uam.eps.tweetextractor.model.service.sei.SetServerTaskReadySei;
 public class SetServerTaskReady extends TweetExtractorCXFService implements SetServerTaskReadySei {
 	private SetServerTaskReadySei client;
 	/**
-	 * 
+	 * @param endpoint the server endpoint to set
 	 */
 	public SetServerTaskReady(String endpoint) {
 		super(endpoint);

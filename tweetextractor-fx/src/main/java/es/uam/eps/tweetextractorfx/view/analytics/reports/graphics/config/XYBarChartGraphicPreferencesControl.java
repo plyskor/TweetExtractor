@@ -62,9 +62,9 @@ public class XYBarChartGraphicPreferencesControl extends SpecificGraphicChartPre
 	}
 	
 	/**
-	 * @param chartTypeInput
-	 * @param reportInput
-	 * @param preferencesInput
+	 * @param chartTypeInput the chartTypeInput
+	 * @param reportInput the reportInput
+	 * @param preferencesInput the preferencesInput
 	 */
 	public XYBarChartGraphicPreferencesControl(AnalyticsReportImageTypes chartTypeInput,
 			AnalyticsRepresentableReport reportInput, TweetExtractorChartGraphicPreferences preferencesInput) {

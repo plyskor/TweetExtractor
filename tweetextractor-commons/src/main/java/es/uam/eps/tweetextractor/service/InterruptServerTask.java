@@ -14,7 +14,7 @@ import es.uam.eps.tweetextractor.model.service.sei.InterruptServerTaskSei;
 public class InterruptServerTask extends TweetExtractorCXFService implements InterruptServerTaskSei{
 	private InterruptServerTaskSei client ;
 	/**
-	 * 
+	 * @param endpoint the server endpoint to set
 	 */
 	public InterruptServerTask(String endpoint) {
 		super(endpoint);

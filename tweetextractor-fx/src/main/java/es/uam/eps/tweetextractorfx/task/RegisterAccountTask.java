@@ -24,14 +24,19 @@ public class RegisterAccountTask extends TwitterExtractorFXTask<RegisterStatus>{
 	private String password2;
 	private Logger logger = LoggerFactory.getLogger(RegisterAccountTask.class);
 	/**
-	 * 
+	 * @param springContext the spring context to set
+	 * @param username the username to set
+	 * @param password1 the password1 to set
+	 * @param password2 the password2 to set
 	 */
-	public RegisterAccountTask(String username,String password1,String password2,AnnotationConfigApplicationContext context) {
-		super(context);
-		this.username=username;
-		this.password1=password1;
-		this.password2=password2;
+	public RegisterAccountTask(AnnotationConfigApplicationContext springContext, String username, String password1,
+			String password2) {
+		super(springContext);
+		this.username = username;
+		this.password1 = password1;
+		this.password2 = password2;
 	}
+
 
 	@Override
 	protected RegisterStatus call() throws Exception {

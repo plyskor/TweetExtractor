@@ -1,13 +1,15 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.model.analytics.report;
+package es.uam.eps.tweetextractor.model.analytics.report.register.impl;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
+
+import es.uam.eps.tweetextractor.model.analytics.report.register.TimelineReportRegister;
 
 /**
  * @author jose
