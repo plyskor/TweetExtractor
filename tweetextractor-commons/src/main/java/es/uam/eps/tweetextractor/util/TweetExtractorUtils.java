@@ -22,7 +22,10 @@ import org.slf4j.LoggerFactory;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineTopNHashtagsReport;
 import javafx.scene.paint.Color;
 
 /**
@@ -47,10 +50,7 @@ public class TweetExtractorUtils {
 		// file.length returns long which is cast to int
 		byte[] bArray = new byte[(int) file.length()];
 		try(FileInputStream fis = new FileInputStream(file)) {
-			
 			fis.read(bArray);
-			fis.close();
-
 		} catch (IOException ioExp) {
 			ioExp.printStackTrace();
 		}
@@ -120,7 +120,13 @@ public class TweetExtractorUtils {
 			ret.add(nTweets);
 			nTweets.setChart(chart);
 			break;
-		case TR:
+		case TTNHR:
+			for(AnalyticsReportCategory category:((AnalyticsCategoryReport) report).getCategories()) {
+				PlotStrokeConfiguration categoryConf=new PlotStrokeConfiguration(Constants.STROKE_LINE, 0, "#E0FB00",
+					category.getCategoryName(), "#"+category.getCategoryName(), 1.0f, chart);
+				ret.add(categoryConf);
+				categoryConf.setChart(chart);
+			}
 			break;
 		default:
 			break;

@@ -111,6 +111,7 @@ public class XYChartGraphicPreferencesControl extends SpecificGraphicChartPrefer
 			this.setChart(chart);
 		}
 		switch(this.getReportInput().reportType) {
+		case TTNHR:
 		case TVR:
 			this.mainApplication.showSpecificGraphicChartConfiguration("view/analytics/reports/graphics/config/DatasetConfiguration.fxml", DatasetConfigurationControl.class, this.getChartTypeInput(), this.getReportInput(), preferences,this.getChart());
 			break;

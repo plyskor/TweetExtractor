@@ -79,7 +79,7 @@ public class CreateAnalyticsServerTaskSelectTypeDialogControl extends TweetExtra
     	if(taskTypeChoice.getValue()==null||taskTypeChoice.getValue().isEmpty()) {
     		ErrorDialog.showErrorSelectTaskType();
     	}else {
-    		setToReturn(taskTypeChoice.getValue());
+    		getResponse().setStringValue(taskTypeChoice.getValue());
     		this.dialogStage.close();
     	}
     }

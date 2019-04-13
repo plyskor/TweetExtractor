@@ -19,6 +19,8 @@ public class CreateTimelineReportServerTaskSelectTypeDialogControl extends Tweet
 	@FXML
 	private ToggleButton timelineVolumeReportButton;
 	@FXML
+	private ToggleButton timelineTopNHashtagsReportButton;
+	@FXML
 	private ToggleButton othersButton;
 	private ToggleGroup toggleGroup = new ToggleGroup();
 	private String toReturn;
@@ -34,6 +36,7 @@ public class CreateTimelineReportServerTaskSelectTypeDialogControl extends Tweet
 	public void setMainApplication(MainApplication mainApplication) {
 		super.setMainApplication(mainApplication);
 		timelineVolumeReportButton.setToggleGroup(toggleGroup);
+		timelineTopNHashtagsReportButton.setToggleGroup(toggleGroup);
 		othersButton.setToggleGroup(toggleGroup);
 	}
 
@@ -100,14 +103,33 @@ public class CreateTimelineReportServerTaskSelectTypeDialogControl extends Tweet
 	@FXML 
     public void onNext() {
     	if(toggleGroup.getSelectedToggle().equals(timelineVolumeReportButton)) {
-    		setToReturn(Constants.TWEET_VOLUME_TIMELINE_REPORT);
+    		getResponse().setStringValue(Constants.TWEET_VOLUME_TIMELINE_REPORT);
+    		this.dialogStage.close();
+    		return;
+    	}else if(toggleGroup.getSelectedToggle().equals(timelineTopNHashtagsReportButton)){
+    		getResponse().setStringValue(Constants.TOP_N_HASHTAGS_VOLUME_TIMELINE_REPORT);
     		this.dialogStage.close();
     		return;
     	}else if(toggleGroup.getSelectedToggle().equals(othersButton)) {
-    		setToReturn(Constants.OTHER_TIMELINE_REPORT);
+    		getResponse().setStringValue(Constants.OTHER_TIMELINE_REPORT);
     		this.dialogStage.close();
     		return;
     	}
     	ErrorDialog.showErrorSelectTaskType();
     }
+
+	/**
+	 * @return the timelineTopNHashtagsReportButton
+	 */
+	public ToggleButton getTimelineTopNHashtagsReportButton() {
+		return timelineTopNHashtagsReportButton;
+	}
+
+	/**
+	 * @param timelineTopNHashtagsReportButton the timelineTopNHashtagsReportButton to set
+	 */
+	public void setTimelineTopNHashtagsReportButton(ToggleButton timelineTopNHashtagsReportButton) {
+		this.timelineTopNHashtagsReportButton = timelineTopNHashtagsReportButton;
+	}
+	
 }

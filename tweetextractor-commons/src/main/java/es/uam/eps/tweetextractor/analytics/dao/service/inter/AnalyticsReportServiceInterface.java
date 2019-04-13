@@ -5,9 +5,10 @@ import java.util.List;
 import es.uam.eps.tweetextractor.dao.service.inter.GenericServiceInterface;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 
-public interface AnalyticsReportServiceInterface extends GenericServiceInterface<AnalyticsReport, Integer>{
-	public List<AnalyticsReport> findByUser(User user);
-	public List<AnalyticsReport> findByUserAndReportType(User user,List<AnalyticsReportTypes> types) ;
+public interface AnalyticsReportServiceInterface extends GenericServiceInterface<AnalyticsCategoryReport, Integer>{
+	public List<AnalyticsCategoryReport> findByUser(User user);
+	public List<AnalyticsCategoryReport> findByUserAndReportType(User user,List<AnalyticsReportTypes> types) ;
 }

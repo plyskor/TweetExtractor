@@ -68,7 +68,7 @@ public final class Constants {
 		@XmlEnumValue("TTVR")
 		TTVR(Values.TYPE_TASK_TIMELINE_VOLUME_REPORT),
 		@XmlEnumValue("TTTNHR")
-		TTTNHR(Values.TYPE_TASK_TIMELINE_TOP_N_HASHTAGS_REPORT),
+		TTNHR(Values.TYPE_TASK_TIMELINE_TOP_N_HASHTAGS_REPORT),
 		@XmlEnumValue("SCHT")
 		SCHT(Values.TYPE_SCHEDULED_TASK);
 		private TaskTypes(String type) {
@@ -81,7 +81,7 @@ public final class Constants {
 			public static final String TYPE_TASK_UPDATE_EXTRACTION_INDEF = "TUEI";
 			public static final String TYPE_TASK_TIMELINE_VOLUME_REPORT = "TTVR";
 			public static final String TYPE_SCHEDULED_TASK="SCHT";
-			public static final String TYPE_TASK_TIMELINE_TOP_N_HASHTAGS_REPORT="TTTNHR";
+			public static final String TYPE_TASK_TIMELINE_TOP_N_HASHTAGS_REPORT="TTNHR";
 		}
 	}
 	@XmlType(name = "analyticsReportType")
@@ -137,9 +137,9 @@ public final class Constants {
 	public static final String STROKE_DASH = "dash";
 	public static final String STROKE_DOT = "dot";
 	/*Analytics Report <-> Graphic Chart (Compatibility)*/
-	public static final ImmutableList<AnalyticsReportTypes> TIME_SERIES_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR);
-	public static final ImmutableList<AnalyticsReportTypes> XY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR);
-	public static final ImmutableList<AnalyticsReportTypes> CATEGORY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR);
+	public static final ImmutableList<AnalyticsReportTypes> TIME_SERIES_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR,AnalyticsReportTypes.TTNHR);
+	public static final ImmutableList<AnalyticsReportTypes> XY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR,AnalyticsReportTypes.TTNHR);
+	public static final ImmutableList<AnalyticsReportTypes> CATEGORY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR,AnalyticsReportTypes.TTNHR);
 	public static final ImmutableList<AnalyticsReportTypes> PIE_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
 	public static final ImmutableList<AnalyticsReportTypes> PIE_3D_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
 	public static final ImmutableList<AnalyticsReportTypes> WORD_CLOUD_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
@@ -299,6 +299,7 @@ public final class Constants {
 	 */
 	
 	public static final String TWEET_VOLUME_TIMELINE_REPORT="TVTR";
+	public static final String TOP_N_HASHTAGS_VOLUME_TIMELINE_REPORT="TTNHR";
     public static final String OTHER_TIMELINE_REPORT="OTR";
     /*
 	 * Types of scheduling for ServerTasks  

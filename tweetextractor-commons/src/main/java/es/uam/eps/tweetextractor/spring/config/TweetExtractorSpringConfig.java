@@ -26,6 +26,7 @@ import es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferen
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineTopNHashtagsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineVolumeReport;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
@@ -49,6 +50,7 @@ import es.uam.eps.tweetextractorserver.model.servertask.ExtractionServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.ScheduledServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTimelineVolumeReport;
+import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTopNHashtagsReport;
 import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskUpdateExtractionIndef;
 
 @Configuration
@@ -91,7 +93,7 @@ public class TweetExtractorSpringConfig {
 				ScheduledServerTask.class, AnalyticsReportRegister.class, TweetExtractorChartGraphicPreferences.class,
 				XYChartGraphicPreferences.class, PlotStrokeConfiguration.class,
 				CategoryBarChartGraphicPreferences.class, XYBarChartGraphicPreferences.class,AnalyticsReportCategory.class,
-				AnalyticsReportCategoryRegister.class);
+				AnalyticsReportCategoryRegister.class,ServerTaskTopNHashtagsReport.class,TimelineTopNHashtagsReport.class);
 		return factoryBean;
 	}
 

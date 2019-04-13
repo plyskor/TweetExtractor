@@ -48,5 +48,20 @@ public class TweetService extends GenericService<Tweet, Integer> implements Twee
 	public List<TimelineReportVolumeRegister> extractGlobalTimelineVolumeReport(User user) {
 		return tweetDAO.extractGlobalTimelineVolumeReport(user);
 	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<String> findTopNHashtags(int n) {
+		return tweetDAO.findTopNHashtags(n);
+	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<String> findTopNHashtagsFiltered(int n, List<String> filter) {
+		return tweetDAO.findTopNHashtagsFiltered(n, filter);
+	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<TimelineReportVolumeRegister> extractHashtagTimelineVolumeReport(User user,String hashtag){
+		return tweetDAO.extractHashtagTimelineVolumeReport(user, hashtag);
+	}
 
 }

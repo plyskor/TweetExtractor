@@ -20,7 +20,6 @@ public class CreateServerTaskSelectTaskTypeDialogControl extends TweetExtractorF
     @FXML
     private ChoiceBox<String> taskTypeChoice;
     private ObservableList<String> taskTypesList = FXCollections.observableArrayList();
-    private String toReturn;
     
 	/**
 	 * 
@@ -65,18 +64,6 @@ public class CreateServerTaskSelectTaskTypeDialogControl extends TweetExtractorF
 		this.taskTypesList = taskTypesList;
 	}
 	
-	/**
-	 * @return the toReturn
-	 */
-	public String getToReturn() {
-		return toReturn;
-	}
-	/**
-	 * @param toReturn the toReturn to set
-	 */
-	public void setToReturn(String toReturn) {
-		this.toReturn = toReturn;
-	}
 	public void initializeTaskTypeChoice() {
 		/*Initialize available types of tasks*/
 		taskTypesList.add(Constants.EXTRACTION_SERVER_TASK_TYPE);
@@ -91,7 +78,7 @@ public class CreateServerTaskSelectTaskTypeDialogControl extends TweetExtractorF
     	if(taskTypeChoice.getValue()==null||taskTypeChoice.getValue().isEmpty()) {
     		ErrorDialog.showErrorSelectTaskType();
     	}else {
-    		setToReturn(taskTypeChoice.getValue());
+    		this.getResponse().setStringValue(taskTypeChoice.getValue());
     		this.dialogStage.close();
     	}
     }

@@ -52,4 +52,15 @@ public abstract class AnalyticsCategoryReport extends AnalyticsRepresentableRepo
 	public void setCategories(List<AnalyticsReportCategory> categories) {
 		this.categories = categories;
 	}
+	public AnalyticsReportCategory getCategoryByName(String name) {
+		if(getCategories()==null) {
+			return null;
+		}
+		for(AnalyticsReportCategory category:getCategories()) {
+			if(category.getCategoryName().equals(name)) {
+				return category;
+			}
+		}
+		return null;
+	}
 }

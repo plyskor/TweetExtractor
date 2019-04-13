@@ -2,12 +2,11 @@
  * 
  */
 package es.uam.eps.tweetextractorserver.model.servertask.impl;
+import java.util.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -17,8 +16,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegisterServiceInterface;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
+import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineTopNHashtagsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineVolumeReport;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
 import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.response.ServerTaskResponse;
 import es.uam.eps.tweetextractorserver.model.servertask.response.TopNHashtagsResponse;
@@ -38,10 +42,10 @@ public class ServerTaskTopNHashtagsReport extends AnalyticsServerTask {
 	@Transient
 	private AnalyticsReportServiceInterface arServ;
 	@Transient
+	private TweetServiceInterface tServ;
+	@Transient
 	private AnalyticsReportRegisterServiceInterface regServ;
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(nullable=true)
-	private TimelineTopNHashtagsReport report;
+
 	
 	public ServerTaskTopNHashtagsReport() {
 		super();
@@ -55,24 +59,50 @@ public class ServerTaskTopNHashtagsReport extends AnalyticsServerTask {
 		this.springContext=context;
 		arServ=springContext.getBean(AnalyticsReportServiceInterface.class);
 		regServ=springContext.getBean(AnalyticsReportRegisterServiceInterface.class);
+		tServ=springContext.getBean(TweetServiceInterface.class);
 	}
 	@Override
 	public void implementation() {
 		Logger logger = LoggerFactory.getLogger(ServerTaskTopNHashtagsReport.class);
-		logger.info("Generating timeline Top "+report.getnHashtags()+" hashtags volume report...");
+		logger.info("Generating timeline Top "+((TimelineTopNHashtagsReport)report).getnHashtags()+" hashtags volume report...");
+		TimelineTopNHashtagsReport castedReport = (TimelineTopNHashtagsReport) getReport();
 		
+		boolean emptyReport=true;
+		permanentClearReport();
+		for(AnalyticsReportCategory category: castedReport.getCategories()) {
+			List<TimelineReportVolumeRegister> list = tServ.extractHashtagTimelineVolumeReport(this.getUser(), category.getCategoryName());
+			if(list==null) {
+				logger.warn("There was an error querying the database while generating the report.");
+				onInterrupt();
+				return;
+			}
+			if(!list.isEmpty()){
+				emptyReport=false;
+			}
+			category.getResult().clear();
+			for(TimelineReportVolumeRegister register: list) {
+				register.setCategory(category);
+				category.getResult().add(register);
+			}
+		}
+		if (emptyReport) {
+			logger.info("Server task "+this.getId()+" has generated an empty timeline volume report. It hasn't been saved.");
+			finish();
+			return;
+		}
+		report.setLastUpdatedDate(new Date());
+		arServ.update(castedReport);
+		logger.info("Timeline Top "+castedReport.getnHashtags()+" hashtags report succesfully saved to database with id: "+report.getId());
+		finish();
 	}
-	/**
-	 * @return the report
-	 */
-	public TimelineTopNHashtagsReport getReport() {
-		return report;
-	}
-	/**
-	 * @param report the report to set
-	 */
-	public void setReport(TimelineTopNHashtagsReport report) {
-		this.report = report;
+	private void permanentClearReport() {
+		if(report!=null) {
+			for(AnalyticsReportCategory category : ((TimelineTopNHashtagsReport)report).getCategories()) {
+				for(AnalyticsReportRegister register : category.getResult()) {
+					regServ.delete(register);
+				}
+			}
+		}
 	}
 	
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
@@ -99,7 +100,7 @@ public class ChartTypeSelectionControl extends TweetExtractorFXController {
 			ErrorDialog.showErrorNoSelectedChartType();
 			return;
 		}
-		List<AnalyticsReport> result;
+		List<AnalyticsCategoryReport> result;
 		if(selectedToggle.equals(timeSeriesChartToggleButton)) {
 			result = arServ.findByUserAndReportType(this.mainApplication.getCurrentUser(), Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(AnalyticsReportImageTypes.TSC));
 			if(result==null||result.isEmpty()) {

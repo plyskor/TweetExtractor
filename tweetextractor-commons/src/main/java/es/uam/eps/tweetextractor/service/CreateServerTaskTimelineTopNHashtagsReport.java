@@ -3,6 +3,8 @@
  */
 package es.uam.eps.tweetextractor.service;
 
+import java.util.List;
+
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTopNHashtagsReportResponse;
 import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTimelineTopNHashtagsReportSei;
@@ -22,9 +24,9 @@ public class CreateServerTaskTimelineTopNHashtagsReport extends TweetExtractorCX
 	private CreateServerTaskTimelineTopNHashtagsReportSei client ;
 
 	@Override
-	public CreateServerTaskTopNHashtagsReportResponse createServerTaskTopNHashtagsReport(int nHashtags, int userId) {
+	public CreateServerTaskTopNHashtagsReportResponse createServerTaskTopNHashtagsReport(int nHashtags, int userId, List<String> hashtagFilter) {
 		if(client!=null) {
-			return client.createServerTaskTopNHashtagsReport(nHashtags, userId);
+			return client.createServerTaskTopNHashtagsReport(nHashtags, userId, hashtagFilter);
 		}
 		return null;
 	}

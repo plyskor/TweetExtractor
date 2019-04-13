@@ -148,6 +148,7 @@ private TweetExtractorChartGraphicPreferencesServiceInterface prefsService;
 		}
 		switch(this.getReportInput().reportType) {
 		case TVR:
+		case TTNHR:
 			prefsService.saveOrUpdate(preferences);
 			this.mainApplication.showSpecificGraphicChartConfiguration("view/analytics/reports/graphics/config/DatasetConfiguration.fxml", DatasetConfigurationControl.class, this.getChartTypeInput(), this.getReportInput(), preferences,this.getChart());
 			break;

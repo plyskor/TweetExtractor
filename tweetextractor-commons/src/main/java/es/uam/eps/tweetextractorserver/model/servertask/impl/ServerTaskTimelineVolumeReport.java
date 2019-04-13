@@ -21,6 +21,7 @@ import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegi
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineVolumeReport;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
@@ -47,10 +48,7 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 	private AnalyticsReportServiceInterface arServ;
 	@Transient
 	private AnalyticsReportRegisterServiceInterface regServ;
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(nullable=true)
-	private TimelineVolumeReport report;
-
+	
 	public ServerTaskTimelineVolumeReport() {
 		super();
 	}
@@ -87,7 +85,7 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 			finish();
 			return;
 		}
-		AnalyticsReportCategory nTweetsCategory= report.getCategories().get(0);
+		AnalyticsReportCategory nTweetsCategory= ((TimelineVolumeReport)report).getCategories().get(0);
 		for(TimelineReportVolumeRegister register: list) {
 			register.setCategory(nTweetsCategory);
 		}
@@ -95,7 +93,7 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 		nTweetsCategory.getResult().clear();
 		nTweetsCategory.getResult().addAll(list);
 		report.setLastUpdatedDate(new Date());
-		arServ.update(report);
+		arServ.update((AnalyticsCategoryReport)report);
 		logger.info("Timeline tweet volume report succesfully saved to database with id: "+report.getId());
 		finish();
 	}
@@ -104,7 +102,7 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 
 	private void permanentClearReport() {
 		if(report!=null) {
-			for(AnalyticsReportCategory category : report.getCategories()) {
+			for(AnalyticsReportCategory category : ((TimelineVolumeReport)report).getCategories()) {
 				for(AnalyticsReportRegister register : category.getResult()) {
 					regServ.delete(register);
 				}
@@ -112,18 +110,5 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 		}
 	}
 
-	/**
-	 * @return the report
-	 */
-	public TimelineVolumeReport getReport() {
-		return report;
-	}
-
-	/**
-	 * @param report the report to set
-	 */
-	public void setReport(TimelineVolumeReport report) {
-		this.report = report;
-	}
 
 }

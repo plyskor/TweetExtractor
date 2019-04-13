@@ -4,6 +4,7 @@
 package es.uam.eps.tweetextractorfx.view.dialog;
 
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
+import es.uam.eps.tweetextractorfx.view.dialog.response.TweetExtractorFXDialogResponse;
 import javafx.stage.Stage;
 
 /**
@@ -12,12 +13,13 @@ import javafx.stage.Stage;
  */
 public abstract class TweetExtractorFXDialogController extends TweetExtractorFXController {
 	protected Stage dialogStage;
-
+	private TweetExtractorFXDialogResponse response;
 	/**
 	 * 
 	 */
 	public TweetExtractorFXDialogController() {
 		super();
+		response = new TweetExtractorFXDialogResponse();
 	}
 
 	/**
@@ -32,6 +34,20 @@ public abstract class TweetExtractorFXDialogController extends TweetExtractorFXC
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
+	}
+
+	/**
+	 * @return the response
+	 */
+	public TweetExtractorFXDialogResponse getResponse() {
+		return response;
+	}
+
+	/**
+	 * @param response the response to set
+	 */
+	public void setResponse(TweetExtractorFXDialogResponse response) {
+		this.response = response;
 	}
 
 }

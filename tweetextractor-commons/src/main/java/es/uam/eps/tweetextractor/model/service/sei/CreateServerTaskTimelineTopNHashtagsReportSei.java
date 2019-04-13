@@ -3,6 +3,8 @@
  */
 package es.uam.eps.tweetextractor.model.service.sei;
 
+import java.util.List;
+
 import javax.jws.WebService;
 
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTopNHashtagsReportResponse;
@@ -13,5 +15,5 @@ import es.uam.eps.tweetextractor.model.service.CreateServerTaskTopNHashtagsRepor
  */
 @WebService
 public interface CreateServerTaskTimelineTopNHashtagsReportSei {
-	public CreateServerTaskTopNHashtagsReportResponse createServerTaskTopNHashtagsReport(int nHashtags,int userId);
+	public CreateServerTaskTopNHashtagsReportResponse createServerTaskTopNHashtagsReport(int nHashtags,int userId,List<String> hashtagFilter);
 }

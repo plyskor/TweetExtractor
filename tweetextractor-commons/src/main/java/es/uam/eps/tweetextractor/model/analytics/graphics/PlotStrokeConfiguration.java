@@ -35,7 +35,7 @@ public class PlotStrokeConfiguration implements Serializable{
 	private int categoryIndex;
 	@Column(name = "hex_line_colour",length=8)
 	private String hexLineColour ;
-	@Column(name = "category_name",length=20)
+	@Column(name = "category_name",length=50)
 	private String categoryName;
 	@Column(name = "category_label",length=50)
 	private String categoryLabel;

@@ -3,24 +3,32 @@
  */
 package es.uam.eps.tweetextractorfx.view;
 
-import java.io.IOException;
+import java.lang.reflect.Method;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTimelineVolumeReportResponse;
+import es.uam.eps.tweetextractor.model.service.CreateServerTaskTopNHashtagsReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskUpdateExtractionIndefResponse;
+import es.uam.eps.tweetextractor.service.CreateServerTaskTimelineTopNHashtagsReport;
 import es.uam.eps.tweetextractor.service.CreateServerTaskTimelineVolumeReport;
 import es.uam.eps.tweetextractor.service.CreateServerTaskUpdateExtractionIndef;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.dialog.ServerPreferencesDialogControl;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
+import es.uam.eps.tweetextractorfx.view.dialog.response.CreateExtractionServerTaskSelectExtractionDialogResponse;
+import es.uam.eps.tweetextractorfx.view.dialog.response.CreateTimelineTopNHashtagsReportDialogResponse;
+import es.uam.eps.tweetextractorfx.view.dialog.response.TweetExtractorFXDialogResponse;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateAnalyticsServerTaskSelectTypeDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTaskSelectExtractionDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTaskSelectTaskTypeDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateServerTaskSelectTaskTypeDialogControl;
+import es.uam.eps.tweetextractorfx.view.server.dialog.CreateTImelineTopNHashtagsReportSelectNDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateTimelineReportServerTaskSelectTypeDialogControl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,7 +44,7 @@ import javafx.stage.Stage;
  * @author Jose Antonio García del Saz
  *
  */
-public class HomeScreenControl extends TweetExtractorFXController{
+public class HomeScreenControl extends TweetExtractorFXController {
 	@FXML
 	private ImageView logoView;
 	@FXML
@@ -106,139 +114,34 @@ public class HomeScreenControl extends TweetExtractorFXController{
 	/* DIALOGOS */
 
 	public void showAddCredentials() {
-		try {
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(HomeScreenControl.class.getResource("dialog/credentials/AddCredentialsDialog.fxml"));
-			AnchorPane page = loader.load();
-
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(mainApplication.getPrimaryStage());
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-
-			// Set the dialogStage to the controller.
-			AddCredentialsDialogControl controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setMainApplication(mainApplication);
-			// Show the dialog and wait until the user closes it, then add filter
-			dialogStage.showAndWait();
-
-		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
-		}
+		this.showDialogLoadFXML("dialog/credentials/AddCredentialsDialog.fxml", AddCredentialsDialogControl.class);
 	}
 
 	public void showManageServerPreferences() {
-		try {
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(HomeScreenControl.class.getResource("dialog/ServerPreferencesDialog.fxml"));
-			AnchorPane page = loader.load();
-
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(mainApplication.getPrimaryStage());
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-
-			// Set the dialogStage to the controller.
-			ServerPreferencesDialogControl controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setMainApplication(mainApplication);
-			// Show the dialog and wait until the user closes it, then add filter
-			dialogStage.showAndWait();
-
-		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
-
-		}
+		this.showDialogLoadFXML("dialog/ServerPreferencesDialog.fxml", ServerPreferencesDialogControl.class);
 	}
 
 	public String showCreateServerTaskSelectTypeDialog() {
-		try {
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(
-					HomeScreenControl.class.getResource("server/dialog/CreateServerTaskSelectTaskTypeDialog.fxml"));
-			AnchorPane page = loader.load();
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(mainApplication.getPrimaryStage());
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-			// Set the dialogStage to the controller.
-			CreateServerTaskSelectTaskTypeDialogControl controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setMainApplication(mainApplication);
-			// Show the dialog and wait until the user closes it, then add filter
-			dialogStage.showAndWait();
-			return controller.getToReturn();
-		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
-			return null;
+		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("server/dialog/CreateServerTaskSelectTaskTypeDialog.fxml", CreateServerTaskSelectTaskTypeDialogControl.class);
+		if(result!=null) {
+			return result.getStringValue();
 		}
+		return null;
 	}
-
 	public Extraction showCreateExtractionServerTaskSelectExtractionDialog() {
-		try {
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(HomeScreenControl.class
-					.getResource("server/dialog/CreateExtractionServerTaskSelectExtractionDialog.fxml"));
-			AnchorPane page = loader.load();
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(mainApplication.getPrimaryStage());
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-			// Set the dialogStage to the controller.
-			CreateExtractionServerTaskSelectExtractionDialogControl controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setMainApplication(mainApplication);
-			// Show the dialog and wait until the user closes it, then add filter
-			dialogStage.showAndWait();
-			return controller.getToReturn();
-		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
-			return null;
+		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("server/dialog/CreateExtractionServerTaskSelectExtractionDialog.fxml", CreateExtractionServerTaskSelectExtractionDialogControl.class);
+		if(result!=null) {
+			return ((CreateExtractionServerTaskSelectExtractionDialogResponse) result).getExtraction();
 		}
+		return null;
 	}
 
 	public String showCreateExtractionServerTaskSelectTypeDialog() {
-		try {
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(HomeScreenControl.class
-					.getResource("server/dialog/CreateExtractionServerTaskSelectTaskTypeDialog.fxml"));
-			AnchorPane page = loader.load();
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(mainApplication.getPrimaryStage());
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-			// Set the dialogStage to the controller.
-			CreateExtractionServerTaskSelectTaskTypeDialogControl controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setMainApplication(mainApplication);
-			// Show the dialog and wait until the user closes it, then add filter
-			dialogStage.showAndWait();
-			return controller.getToReturn();
-		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
-			return null;
+		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("server/dialog/CreateExtractionServerTaskSelectTaskTypeDialog.fxml", CreateExtractionServerTaskSelectTaskTypeDialogControl.class);
+		if(result!=null) {
+			return result.getStringValue();
 		}
+		return null;
 	}
 
 	@FXML
@@ -279,7 +182,7 @@ public class HomeScreenControl extends TweetExtractorFXController{
 			switch (selectedType) {
 			case (Constants.TIMELINE_REPORT_SERVER_TASK_TYPE):
 				String selectedTimelineReport = "";
-			    selectedTimelineReport = showCreateTimelineReportSelectTypeDialog();
+				selectedTimelineReport = showCreateTimelineReportSelectTypeDialog();
 				switch (selectedTimelineReport) {
 				case (Constants.TWEET_VOLUME_TIMELINE_REPORT):
 					CreateServerTaskTimelineVolumeReport service = new CreateServerTaskTimelineVolumeReport(
@@ -291,6 +194,9 @@ public class HomeScreenControl extends TweetExtractorFXController{
 					} else {
 						ErrorDialog.showSuccessCreateServerTask(reply.getId());
 					}
+					break;
+				case (Constants.TOP_N_HASHTAGS_VOLUME_TIMELINE_REPORT):
+					onCreateTopNHashtagsReport();
 					break;
 				case (Constants.OTHER_TIMELINE_REPORT):
 					ErrorDialog.showErrorNotAvailableYet();
@@ -306,39 +212,34 @@ public class HomeScreenControl extends TweetExtractorFXController{
 		}
 	}
 
-	private String showCreateTimelineReportSelectTypeDialog() {
-		try {
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(HomeScreenControl.class
-					.getResource("server/dialog/CreateTimelineReportServerTaskSelectTypeDialog.fxml"));
-			AnchorPane page = loader.load();
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(mainApplication.getPrimaryStage());
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-			// Set the dialogStage to the controller.
-			CreateTimelineReportServerTaskSelectTypeDialogControl controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setMainApplication(mainApplication);
-			// Show the dialog and wait until the user closes it, then add filter
-			dialogStage.showAndWait();
-			return controller.getToReturn();
-		} catch (IOException e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
-			logger.error(e.getMessage());
-			return "";
+	private void onCreateTopNHashtagsReport() {
+		CreateTimelineTopNHashtagsReportDialogResponse reply = showCreateTopNHashTagsReportSelectN();
+		if (reply==null||reply.getIntValue() == -1) {
+			return;
+		}
+		CreateServerTaskTimelineTopNHashtagsReport service = new CreateServerTaskTimelineTopNHashtagsReport(
+				TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		CreateServerTaskTopNHashtagsReportResponse servReply = service.createServerTaskTopNHashtagsReport(reply.getIntValue(),
+				this.getMainApplication().getCurrentUser().getIdDB(),reply.getFilterList());
+		if (servReply.isError()) {
+			ErrorDialog.showErrorCreateServerTask(servReply.getMessage());
+		} else {
+			ErrorDialog.showSuccessCreateServerTask(servReply.getId());
 		}
 	}
 
-	private String showCreateAnalyticsTaskSelectTypeDialog() {
+	private String showCreateTimelineReportSelectTypeDialog() {
+		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("server/dialog/CreateTimelineReportServerTaskSelectTypeDialog.fxml", CreateTimelineReportServerTaskSelectTypeDialogControl.class);
+		if(result!=null) {
+			return result.getStringValue();
+		}
+		return "";
+	}
+
+	private TweetExtractorFXDialogResponse showDialogLoadFXML(String fxmlPath, Class<?> clazz) {
 		try {
-			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(HomeScreenControl.class
-					.getResource("server/dialog/CreateAnalyticsServerTaskSelectTypeDialog.fxml"));
+			loader.setLocation(HomeScreenControl.class.getResource(fxmlPath));
 			AnchorPane page = loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -347,17 +248,35 @@ public class HomeScreenControl extends TweetExtractorFXController{
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 			// Set the dialogStage to the controller.
-			CreateAnalyticsServerTaskSelectTypeDialogControl controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setMainApplication(mainApplication);
+			TweetExtractorFXDialogController controller = loader.getController();
+			Method meth = clazz.getMethod("setDialogStage", Stage.class);
+			meth.invoke(controller, dialogStage);
+			meth = clazz.getMethod("setMainApplication", MainApplication.class);
+			meth.invoke(controller, this.getMainApplication());
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			return controller.getToReturn();
-		} catch (IOException e) {
+			return controller.getResponse();
+		} catch (Exception e) {
 			Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.error(e.getMessage());
 			return null;
 		}
+	}
+
+	private String showCreateAnalyticsTaskSelectTypeDialog() {
+		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("server/dialog/CreateAnalyticsServerTaskSelectTypeDialog.fxml", CreateAnalyticsServerTaskSelectTypeDialogControl.class);
+		if(result!=null) {
+			return result.getStringValue();
+		}
+		return null;
+	}
+
+	private CreateTimelineTopNHashtagsReportDialogResponse showCreateTopNHashTagsReportSelectN() {
+		TweetExtractorFXDialogResponse result = this.showDialogLoadFXML("server/dialog/CreateTImelineTopNHashtagsReportSelectNDialog.fxml", CreateTImelineTopNHashtagsReportSelectNDialogControl.class);
+		if(result!=null) {
+			return (CreateTimelineTopNHashtagsReportDialogResponse) result;
+		}
+		return null;
 	}
 
 	public void onCreateExtractionTask() {
@@ -401,11 +320,13 @@ public class HomeScreenControl extends TweetExtractorFXController{
 		showManageServerPreferences();
 
 	}
-	/*Analytics menu*/
+
+	/* Analytics menu */
 	@FXML
 	public void onMyReports() {
 		this.mainApplication.showScreenInCenterOfRootLayout("view/analytics/reports/MyReports.fxml");
 	}
+
 	@FXML
 	public void onGraphicsForAnalytics() {
 		this.mainApplication.showScreenInCenterOfRootLayout("view/analytics/reports/graphics/MyGraphics.fxml");

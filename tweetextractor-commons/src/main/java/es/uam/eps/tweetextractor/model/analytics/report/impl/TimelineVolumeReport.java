@@ -25,7 +25,6 @@ import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguratio
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReport;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
-import es.uam.eps.tweetextractorserver.model.servertask.response.TimelineVolumeReportResponse;
 
 /**
  * @author jose

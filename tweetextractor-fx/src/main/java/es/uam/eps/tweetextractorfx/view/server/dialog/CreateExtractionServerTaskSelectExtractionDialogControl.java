@@ -10,6 +10,7 @@ import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
+import es.uam.eps.tweetextractorfx.view.dialog.response.CreateExtractionServerTaskSelectExtractionDialogResponse;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +23,6 @@ import javafx.scene.control.TableView;
  *
  */
 public class CreateExtractionServerTaskSelectExtractionDialogControl extends TweetExtractorFXDialogController{
-    private Extraction toReturn;
     @FXML 
     private TableView<Extraction> extractionTableView;
     @FXML
@@ -50,19 +50,6 @@ public class CreateExtractionServerTaskSelectExtractionDialogControl extends Twe
 		this.extractionTableView.setItems(extractionList);
 		this.extractionList.addAll(this.mainApplication.getCurrentUser().getExtractionList());
 		
-	}
-
-	/**
-	 * @return the toReturn
-	 */
-	public Extraction getToReturn() {
-		return toReturn;
-	}
-	/**
-	 * @param toReturn the toReturn to set
-	 */
-	public void setToReturn(Extraction toReturn) {
-		this.toReturn = toReturn;
 	}
 
 	/**
@@ -156,7 +143,7 @@ public class CreateExtractionServerTaskSelectExtractionDialogControl extends Twe
 
 	@FXML
     public void onBack() {
-		this.setToReturn(null);
+		this.setResponse((null));
     	this.dialogStage.close();
     }
     @FXML 
@@ -164,7 +151,7 @@ public class CreateExtractionServerTaskSelectExtractionDialogControl extends Twe
     	if(selectedExtraction==null) {
     		ErrorDialog.showErrorNoSelectedExtraction();
     	}else {
-    		this.toReturn=selectedExtraction;
+    		this.setResponse(new CreateExtractionServerTaskSelectExtractionDialogResponse(selectedExtraction));
     		this.dialogStage.close();
     	}
     }

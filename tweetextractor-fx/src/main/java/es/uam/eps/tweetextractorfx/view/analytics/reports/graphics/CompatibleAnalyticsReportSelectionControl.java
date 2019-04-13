@@ -10,6 +10,7 @@ import java.util.List;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
 import es.uam.eps.tweetextractorfx.MainApplication;
@@ -30,17 +31,17 @@ import javafx.scene.control.TableView;
  */
 public class CompatibleAnalyticsReportSelectionControl extends TweetExtractorFXController {
 	@FXML
-	private TableView<AnalyticsReport> reportsTable;
+	private TableView<AnalyticsCategoryReport> reportsTable;
 	@FXML
-	private TableColumn<AnalyticsReport, Integer> idColumn;
+	private TableColumn<AnalyticsCategoryReport, Integer> idColumn;
 	@FXML
-	private TableColumn<AnalyticsReport, String> typeColumn;
+	private TableColumn<AnalyticsCategoryReport, String> typeColumn;
 	@FXML
-	private TableColumn<AnalyticsReport, LocalDate> createdOnColumn;
+	private TableColumn<AnalyticsCategoryReport, LocalDate> createdOnColumn;
 	@FXML
-	private TableColumn<AnalyticsReport, LocalDate> lastUpdatedColumn;
+	private TableColumn<AnalyticsCategoryReport, LocalDate> lastUpdatedColumn;
 	private AnalyticsReport selectedReport = null;
-	private ObservableList<AnalyticsReport> reportList = FXCollections.observableArrayList();
+	private ObservableList<AnalyticsCategoryReport> reportList = FXCollections.observableArrayList();
 	private AnalyticsReportServiceInterface arServ;
 	private AnalyticsReportImageTypes input;
 	private AnalyticsRepresentableReport toReturn;
@@ -78,7 +79,7 @@ public class CompatibleAnalyticsReportSelectionControl extends TweetExtractorFXC
 	public void refreshReportList() {
 		
 		if(arServ!=null) {
-			List<AnalyticsReport> result = arServ.findByUserAndReportType(this.getMainApplication().getCurrentUser(), Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(input));
+			List<AnalyticsCategoryReport> result = arServ.findByUserAndReportType(this.getMainApplication().getCurrentUser(), Constants.REPORT_CHART_TYPES_COMPATIBILITY.get(input));
 			reportList.clear();
 			reportList.addAll(result);
 		}
@@ -86,73 +87,79 @@ public class CompatibleAnalyticsReportSelectionControl extends TweetExtractorFXC
 	/**
 	 * @return the reportsTable
 	 */
-	public TableView<AnalyticsReport> getReportsTable() {
+	public TableView<AnalyticsCategoryReport> getReportsTable() {
 		return reportsTable;
 	}
 
 	/**
 	 * @param reportsTable the reportsTable to set
 	 */
-	public void setReportsTable(TableView<AnalyticsReport> reportsTable) {
+	public void setReportsTable(TableView<AnalyticsCategoryReport> reportsTable) {
 		this.reportsTable = reportsTable;
 	}
 
+	
+	
 	/**
 	 * @return the idColumn
 	 */
-	public TableColumn<AnalyticsReport, Integer> getIdColumn() {
+	public TableColumn<AnalyticsCategoryReport, Integer> getIdColumn() {
 		return idColumn;
 	}
-
 	/**
 	 * @param idColumn the idColumn to set
 	 */
-	public void setIdColumn(TableColumn<AnalyticsReport, Integer> idColumn) {
+	public void setIdColumn(TableColumn<AnalyticsCategoryReport, Integer> idColumn) {
 		this.idColumn = idColumn;
 	}
-
 	/**
 	 * @return the typeColumn
 	 */
-	public TableColumn<AnalyticsReport, String> getTypeColumn() {
+	public TableColumn<AnalyticsCategoryReport, String> getTypeColumn() {
 		return typeColumn;
 	}
-
 	/**
 	 * @param typeColumn the typeColumn to set
 	 */
-	public void setTypeColumn(TableColumn<AnalyticsReport, String> typeColumn) {
+	public void setTypeColumn(TableColumn<AnalyticsCategoryReport, String> typeColumn) {
 		this.typeColumn = typeColumn;
 	}
-
 	/**
 	 * @return the createdOnColumn
 	 */
-	public TableColumn<AnalyticsReport, LocalDate> getCreatedOnColumn() {
+	public TableColumn<AnalyticsCategoryReport, LocalDate> getCreatedOnColumn() {
 		return createdOnColumn;
 	}
-
 	/**
 	 * @param createdOnColumn the createdOnColumn to set
 	 */
-	public void setCreatedOnColumn(TableColumn<AnalyticsReport, LocalDate> createdOnColumn) {
+	public void setCreatedOnColumn(TableColumn<AnalyticsCategoryReport, LocalDate> createdOnColumn) {
 		this.createdOnColumn = createdOnColumn;
 	}
-
 	/**
 	 * @return the lastUpdatedColumn
 	 */
-	public TableColumn<AnalyticsReport, LocalDate> getLastUpdatedColumn() {
+	public TableColumn<AnalyticsCategoryReport, LocalDate> getLastUpdatedColumn() {
 		return lastUpdatedColumn;
 	}
-
 	/**
 	 * @param lastUpdatedColumn the lastUpdatedColumn to set
 	 */
-	public void setLastUpdatedColumn(TableColumn<AnalyticsReport, LocalDate> lastUpdatedColumn) {
+	public void setLastUpdatedColumn(TableColumn<AnalyticsCategoryReport, LocalDate> lastUpdatedColumn) {
 		this.lastUpdatedColumn = lastUpdatedColumn;
 	}
-
+	/**
+	 * @return the reportList
+	 */
+	public ObservableList<AnalyticsCategoryReport> getReportList() {
+		return reportList;
+	}
+	/**
+	 * @param reportList the reportList to set
+	 */
+	public void setReportList(ObservableList<AnalyticsCategoryReport> reportList) {
+		this.reportList = reportList;
+	}
 	/**
 	 * @return the selectedReport
 	 */
@@ -165,20 +172,6 @@ public class CompatibleAnalyticsReportSelectionControl extends TweetExtractorFXC
 	 */
 	public void setSelectedReport(AnalyticsReport selectedReport) {
 		this.selectedReport = selectedReport;
-	}
-
-	/**
-	 * @return the reportList
-	 */
-	public ObservableList<AnalyticsReport> getReportList() {
-		return reportList;
-	}
-
-	/**
-	 * @param reportList the reportList to set
-	 */
-	public void setReportList(ObservableList<AnalyticsReport> reportList) {
-		this.reportList = reportList;
 	}
 
 	/**

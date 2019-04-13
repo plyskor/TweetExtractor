@@ -71,6 +71,7 @@
                                                 <VBox spacing="5.0" StackPane.alignment="CENTER">
                                                    <children>
                                                       <RadioButton fx:id="timelineVolumeReportButton" mnemonicParsing="false" selected="true" text="Tweet volume" />
+                                                      <RadioButton fx:id="timelineTopNHashtagsReportButton" mnemonicParsing="false" selected="true" text="Top N Hashtags Volume" />
                                                       <RadioButton fx:id="othersButton" mnemonicParsing="false" text="Others to come..." />
                                                    </children>
                                                 </VBox>

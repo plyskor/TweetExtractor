@@ -130,6 +130,7 @@ public class XYBarChartGraphicPreferencesControl extends SpecificGraphicChartPre
 			this.setChart(chart);
 		}
 		switch(this.getReportInput().reportType) {
+		case TTNHR:
 		case TVR:
 			this.preferences.setDateAxis(true);
 			prefsService.saveOrUpdate(preferences);

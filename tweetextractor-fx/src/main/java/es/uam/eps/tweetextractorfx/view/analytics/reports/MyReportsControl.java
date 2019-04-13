@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.util.List;
 
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
@@ -172,7 +173,7 @@ public class MyReportsControl extends TweetExtractorFXController {
 	}
 	public void refreshReportList() {
 		if(arServ!=null) {
-			List<AnalyticsReport> result = arServ.findByUser(this.getMainApplication().getCurrentUser());
+			List<AnalyticsCategoryReport> result = arServ.findByUser(this.getMainApplication().getCurrentUser());
 			reportList.clear();
 			reportList.addAll(result);
 		}
