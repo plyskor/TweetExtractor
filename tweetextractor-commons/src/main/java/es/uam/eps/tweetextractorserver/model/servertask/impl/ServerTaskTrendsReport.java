@@ -1,0 +1,127 @@
+/**
+ * 
+ */
+package es.uam.eps.tweetextractorserver.model.servertask.impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Controller;
+
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegisterServiceInterface;
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
+import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
+import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
+import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
+import es.uam.eps.tweetextractor.model.Extraction;
+import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
+import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
+import es.uam.eps.tweetextractorserver.model.servertask.response.ServerTaskResponse;
+import es.uam.eps.tweetextractorserver.model.servertask.response.TrendsReportResponse;
+
+/**
+ * @author jose
+ *
+ */
+@Controller
+@Entity
+@DiscriminatorValue(value = TaskTypes.Values.TYPE_TASK_TRENDS_REPORT)
+@XmlRootElement(name = "serverTaskTrendsReport")
+public class ServerTaskTrendsReport extends AnalyticsServerTask {
+	@Transient
+	@XmlTransient
+	private static final long serialVersionUID = 5380977367340886500L;
+	@Transient
+	private TweetServiceInterface tServ;
+	@Transient
+	private AnalyticsReportServiceInterface arServ;
+	@Transient
+	private AnalyticsReportRegisterServiceInterface regServ;
+	@Transient
+	private ExtractionServiceInterface eServ;
+	@Override
+	public ServerTaskResponse call() {
+		return new TrendsReportResponse(super.call());
+	}
+	@Override
+	public void initialize(AnnotationConfigApplicationContext context) {
+		this.springContext=context;
+		tServ=springContext.getBean(TweetServiceInterface.class);
+		arServ=springContext.getBean(AnalyticsReportServiceInterface.class);
+		regServ=springContext.getBean(AnalyticsReportRegisterServiceInterface.class);
+		eServ=springContext.getBean(ExtractionServiceInterface.class);
+	}
+	/* (non-Javadoc)
+	 * @see es.uam.eps.tweetextractorserver.model.servertask.ServerTask#implementation()
+	 */
+	@Override
+	public void implementation() {
+		Logger logger = LoggerFactory.getLogger(ServerTaskTrendsReport.class);
+		logger.info("Generating trends report...");
+		TrendsReport trendsReport = (TrendsReport) getReport();
+		trendsReport.setExtractions(eServ.findListByReport(trendsReport));
+		trendsReport.setStringFilterList(arServ.findStringFilterListByReport(trendsReport));
+		List<Integer> extractionIDList= new ArrayList<>();
+		for(Extraction e : trendsReport.getExtractions()) {
+			extractionIDList.add(e.getIdDB());
+		}
+		boolean emptyReport=true;
+		String word="";
+		permanentClearReport();
+		switch (trendsReport.getReportType()) {
+		case TRHR:
+			word ="hashtags";
+			List<TrendingReportRegister> list = (trendsReport.getStringFilterList().isEmpty()) ? tServ.findTopNHashtagsByExtraction(trendsReport.getN(), extractionIDList):tServ.findTopNHashtagsByExtractionFiltered(trendsReport.getN(), trendsReport.getStringFilterList(), extractionIDList);
+			if(!list.isEmpty()) {
+				emptyReport=false;
+			}
+			for (TrendingReportRegister register : list) {
+				register.setCategory(trendsReport.getCategories().get(0));
+				trendsReport.getCategories().get(0).getResult().add(register);
+			}
+			break;
+		case TRUR:
+			word ="users";
+			break;
+		case TRUMR:
+			word ="user mentions";
+			break;
+		case TRWR:
+			word ="words";
+			break;
+		default:
+			break;
+		}
+		if (emptyReport) {
+			logger.info("Server task "+this.getId()+" has generated an empty trending report. It hasn't been saved.");
+			finish();
+			return;
+		}
+		report.setLastUpdatedDate(new Date());
+		arServ.update(trendsReport);
+		logger.info("Trending "+word+" report succesfully saved to database with id: "+report.getId());
+		finish();
+	}
+	private void permanentClearReport() {
+		if(report!=null) {
+			for(AnalyticsReportCategory category : ((TrendsReport)report).getCategories()) {
+				for(AnalyticsReportRegister register : category.getResult()) {
+					regServ.delete(register);
+				}
+			}
+		}
+	}
+}

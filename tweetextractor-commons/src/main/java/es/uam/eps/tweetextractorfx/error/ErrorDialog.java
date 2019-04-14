@@ -301,7 +301,14 @@ public class ErrorDialog {
 		alert.showAndWait();
 		
 	}
-
+	public static void showErrorNoSelectedExtractionForFilter() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No extraction selected");
+		alert.setContentText("Select at least one extraction to use on your report.");
+		alert.showAndWait();
+		
+	}
 	public static Alert showErrorTwitterExecution(String message) {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Twitter Error");
@@ -604,6 +611,14 @@ public class ErrorDialog {
 		alert.setTitle("Information");
 		alert.setHeaderText("Generation successful");
 		alert.setContentText("Your graphic chart has been successfully generated with id "+id+" and will now appear on your graphic charts list.");		
+		alert.showAndWait();
+	}
+
+	public static void showSuccessExportChart() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Chart succesfully exported");
+		alert.setContentText("You graphic chart has been succesfully exported.");		
 		alert.showAndWait();
 	}
 }

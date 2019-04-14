@@ -30,7 +30,6 @@ import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 @NamedQuery(name="findAnalyticsReportByUser", query="SELECT r from AnalyticsCategoryReport r where r.user=:user")
 @NamedQuery(name="findAnalyticsReportByUserAndReportType", query="SELECT r from AnalyticsCategoryReport r where r.reportType in (:reportTypeList) and r.user=:user")
-
 /**
  * @author jose
  *

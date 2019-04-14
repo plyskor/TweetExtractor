@@ -19,19 +19,26 @@ import es.uam.eps.tweetextractor.model.Tweet;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.CategoryBarChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.graphics.PieChartConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReport;
+import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineTopNHashtagsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineVolumeReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingHashtagsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingUserMentionsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingUsersReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingWordsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.TimelineReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
 import es.uam.eps.tweetextractor.model.filter.Filter;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterContains;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterContainsExact;
@@ -51,6 +58,7 @@ import es.uam.eps.tweetextractorserver.model.servertask.ScheduledServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTimelineVolumeReport;
 import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTopNHashtagsReport;
+import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTrendsReport;
 import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskUpdateExtractionIndef;
 
 @Configuration
@@ -93,7 +101,9 @@ public class TweetExtractorSpringConfig {
 				ScheduledServerTask.class, AnalyticsReportRegister.class, TweetExtractorChartGraphicPreferences.class,
 				XYChartGraphicPreferences.class, PlotStrokeConfiguration.class,
 				CategoryBarChartGraphicPreferences.class, XYBarChartGraphicPreferences.class,AnalyticsReportCategory.class,
-				AnalyticsReportCategoryRegister.class,ServerTaskTopNHashtagsReport.class,TimelineTopNHashtagsReport.class);
+				AnalyticsReportCategoryRegister.class,ServerTaskTopNHashtagsReport.class,TimelineTopNHashtagsReport.class,
+				TrendsReport.class,TrendingHashtagsReport.class,TrendingUsersReport.class,TrendingUserMentionsReport.class,
+				TrendingWordsReport.class,ServerTaskTrendsReport.class,TrendingReportRegister.class,PieChartConfiguration.class);
 		return factoryBean;
 	}
 

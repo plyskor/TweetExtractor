@@ -7,11 +7,15 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import es.uam.eps.tweetextractor.dao.inter.GenericDAOInterface;
+import es.uam.eps.tweetextractor.model.Extraction;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 
 /**
  * @author jose
@@ -97,4 +101,10 @@ public abstract class AbstractGenericDAO<V extends Serializable, K extends Seria
 			persist(entity);
 		}
 	}
+    @Override
+	public void initialize(Object lazyObject) {
+		Hibernate.initialize(lazyObject);
+	}
+
+
 }

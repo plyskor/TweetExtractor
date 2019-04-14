@@ -4,6 +4,8 @@
 package es.uam.eps.tweetextractorfx.view;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,18 +13,24 @@ import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTimelineVolumeReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTopNHashtagsReportResponse;
+import es.uam.eps.tweetextractor.model.service.CreateServerTaskTrendsReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskUpdateExtractionIndefResponse;
 import es.uam.eps.tweetextractor.service.CreateServerTaskTimelineTopNHashtagsReport;
 import es.uam.eps.tweetextractor.service.CreateServerTaskTimelineVolumeReport;
+import es.uam.eps.tweetextractor.service.CreateServerTaskTrendsReport;
 import es.uam.eps.tweetextractor.service.CreateServerTaskUpdateExtractionIndef;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.task.CreateTrendsReportTask;
+import es.uam.eps.tweetextractorfx.task.DeleteAccountTask;
 import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
 import es.uam.eps.tweetextractorfx.view.dialog.ServerPreferencesDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.response.CreateExtractionServerTaskSelectExtractionDialogResponse;
 import es.uam.eps.tweetextractorfx.view.dialog.response.CreateTimelineTopNHashtagsReportDialogResponse;
+import es.uam.eps.tweetextractorfx.view.dialog.response.CreateTrendsReportServerTaskPreferencesDialogResponse;
+import es.uam.eps.tweetextractorfx.view.dialog.response.SelectExtractionFilterDialogResponse;
 import es.uam.eps.tweetextractorfx.view.dialog.response.TweetExtractorFXDialogResponse;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateAnalyticsServerTaskSelectTypeDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTaskSelectExtractionDialogControl;
@@ -30,6 +38,8 @@ import es.uam.eps.tweetextractorfx.view.server.dialog.CreateExtractionServerTask
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateServerTaskSelectTaskTypeDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateTImelineTopNHashtagsReportSelectNDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.CreateTimelineReportServerTaskSelectTypeDialogControl;
+import es.uam.eps.tweetextractorfx.view.server.dialog.CreateTrendsReportServerTaskPreferencesDialogControl;
+import es.uam.eps.tweetextractorfx.view.server.dialog.SelectExtractionFilterDialogControl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -50,6 +60,8 @@ public class HomeScreenControl extends TweetExtractorFXController {
 	@FXML
 	private Text userView;
 
+	private Stage loadingDialog = null;
+	private CreateServerTaskTrendsReportResponse createServerTaskTrendsReportResponse;
 	/**
 	 * 
 	 */
@@ -205,10 +217,48 @@ public class HomeScreenControl extends TweetExtractorFXController {
 					break;
 				}
 				break;
+			case (Constants.TRENDS_TIMELINE_REPORT_SERVER_TASK_TYPE):
+				onCreateTrendsReport();
+				break;
 			default:
 				break;
 			}
 
+		}
+	}
+
+	private void onCreateTrendsReport() {
+		SelectExtractionFilterDialogResponse extractionFilterReply = showSelectExtractionFilterDialog();
+		if (extractionFilterReply==null||extractionFilterReply.getIntValue() == Constants.ERROR) {
+			return;
+		}
+		List<Integer> extractionIdList = new ArrayList<>();
+		for (Extraction e : extractionFilterReply.getFilter() ) {
+			extractionIdList.add(e.getIdDB());
+		}
+		CreateTrendsReportServerTaskPreferencesDialogResponse trendsReportReply = showCreateTrendsReportServerTaskPreferencesDialog();
+		if (trendsReportReply==null||trendsReportReply.getIntValue() ==Constants.ERROR) {
+			return;
+		}
+		CreateTrendsReportTask fxTask = new CreateTrendsReportTask(this.getMainApplication().getSpringContext(),this.getMainApplication().getCurrentUser().getIdDB(),trendsReportReply.getType(),trendsReportReply.getIntValue(),extractionIdList,trendsReportReply.getFilterList());
+		fxTask.setOnSucceeded(e -> {
+			createServerTaskTrendsReportResponse =fxTask.getValue(); 
+			if (loadingDialog != null)
+				loadingDialog.close();
+		});
+		fxTask.setOnFailed(e -> {
+			if (loadingDialog != null)
+				loadingDialog.close();
+		});
+		Thread thread = new Thread(fxTask);
+		thread.setName(fxTask.getClass().getCanonicalName());
+		thread.start();
+		loadingDialog = mainApplication.showLoadingDialog("Creating report and task...");
+		loadingDialog.showAndWait();
+		if (createServerTaskTrendsReportResponse.isError()) {
+			ErrorDialog.showErrorCreateServerTask(createServerTaskTrendsReportResponse.getMessage());
+		} else {
+			ErrorDialog.showSuccessCreateServerTask(createServerTaskTrendsReportResponse.getId());
 		}
 	}
 
@@ -258,6 +308,7 @@ public class HomeScreenControl extends TweetExtractorFXController {
 			return controller.getResponse();
 		} catch (Exception e) {
 			Logger logger = LoggerFactory.getLogger(this.getClass());
+			e.printStackTrace();
 			logger.error(e.getMessage());
 			return null;
 		}
@@ -278,7 +329,20 @@ public class HomeScreenControl extends TweetExtractorFXController {
 		}
 		return null;
 	}
-
+	private SelectExtractionFilterDialogResponse showSelectExtractionFilterDialog() {
+		TweetExtractorFXDialogResponse result = this.showDialogLoadFXML("server/dialog/SelectExtractionFilterDialog.fxml", SelectExtractionFilterDialogControl.class);
+		if(result!=null) {
+			return (SelectExtractionFilterDialogResponse) result;
+		}
+		return null;
+	}
+	private CreateTrendsReportServerTaskPreferencesDialogResponse showCreateTrendsReportServerTaskPreferencesDialog() {
+		TweetExtractorFXDialogResponse result = this.showDialogLoadFXML("server/dialog/CreateTrendsReportServerTaskPreferencesDialog.fxml", CreateTrendsReportServerTaskPreferencesDialogControl.class);
+		if(result!=null) {
+			return (CreateTrendsReportServerTaskPreferencesDialogResponse) result;
+		}
+		return null;
+	}
 	public void onCreateExtractionTask() {
 		Extraction selectedExtraction;
 		selectedExtraction = showCreateExtractionServerTaskSelectExtractionDialog();
@@ -330,6 +394,34 @@ public class HomeScreenControl extends TweetExtractorFXController {
 	@FXML
 	public void onGraphicsForAnalytics() {
 		this.mainApplication.showScreenInCenterOfRootLayout("view/analytics/reports/graphics/MyGraphics.fxml");
+	}
+
+	/**
+	 * @return the userView
+	 */
+	public Text getUserView() {
+		return userView;
+	}
+
+	/**
+	 * @param userView the userView to set
+	 */
+	public void setUserView(Text userView) {
+		this.userView = userView;
+	}
+
+	/**
+	 * @return the loadingDialog
+	 */
+	public Stage getLoadingDialog() {
+		return loadingDialog;
+	}
+
+	/**
+	 * @param loadingDialog the loadingDialog to set
+	 */
+	public void setLoadingDialog(Stage loadingDialog) {
+		this.loadingDialog = loadingDialog;
 	}
 
 }

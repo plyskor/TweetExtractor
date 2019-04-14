@@ -1,6 +1,7 @@
 package es.uam.eps.tweetextractor.analytics.dao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -16,6 +17,7 @@ import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
 
 @Repository
 public class AnalyticsReportDAO extends AbstractGenericDAO<AnalyticsCategoryReport,Integer> implements AnalyticsReportDAOInterface<AnalyticsCategoryReport> {
@@ -45,5 +47,21 @@ public class AnalyticsReportDAO extends AbstractGenericDAO<AnalyticsCategoryRepo
 	    	return new ArrayList<>();
 	    }
 	    return ret;
+	}
+	@Override
+	public List<String> findStringFilterListByReport(TrendsReport report) {
+		Query q = currentSession().createSQLQuery("SELECT filter_element\n" + 
+				"FROM perm_trend_report_filter_list\n" + 
+				"WHERE report=:id").setParameter("id", report.getId());
+		List<String>ret=null;
+		try {
+			ret=(List<String>)q.getResultList();
+		}catch(Exception e ) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.warn(e.getMessage());
+	    	logger.warn(Arrays.toString(e.getStackTrace()));
+	    	return ret;
+		}
+		return ret;
 	}
 }

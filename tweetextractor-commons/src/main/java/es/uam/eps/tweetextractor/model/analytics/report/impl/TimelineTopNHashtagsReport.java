@@ -7,12 +7,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.PieDataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -37,6 +39,7 @@ public class TimelineTopNHashtagsReport extends TimelineReport {
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = -2391668213402450134L;
+	@Column(name="n_hashtags")
 	private int nHashtags = 0;
 
 	public TimelineTopNHashtagsReport() {
@@ -130,6 +133,11 @@ public class TimelineTopNHashtagsReport extends TimelineReport {
 	 */
 	public void setnHashtags(int nHashtags) {
 		this.nHashtags = nHashtags;
+	}
+
+	@Override
+	public PieDataset constructPieDataset(List<PlotStrokeConfiguration> categories) {
+		return null;
 	}
 
 }

@@ -59,11 +59,9 @@ public class MyReportsControl extends TweetExtractorFXController {
 			return null;
 		}
 		});
-
 		// Listen for selection changes and show the person details when changed.
 		reportsTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> setSelectedReport(newValue));
-
 		selectedReport = null;
 	}
 

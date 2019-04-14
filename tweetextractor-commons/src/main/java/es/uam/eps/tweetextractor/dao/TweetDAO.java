@@ -22,6 +22,7 @@ import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Tweet;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
 
 /**
  * @author Jose Antonio García del Saz
@@ -121,7 +122,7 @@ public class TweetDAO extends AbstractGenericDAO<Tweet,Integer> implements Tweet
 		Query q = currentSession().createSQLQuery("Select hashtag from "
 				+ "(select hashtag_list as hashtag,\n" + 
 				"			count(*) as c \n" + 
-				"from te_op00.perm_hashtag_list\n" + 
+				"from perm_hashtag_list\n" + 
 				"group by (hashtag_list) \n" + 
 				"order by c desc) AS TOPHASHTAGS limit :n").setParameter("n", n);
 		List<String> resultList = null;
@@ -144,7 +145,7 @@ public class TweetDAO extends AbstractGenericDAO<Tweet,Integer> implements Tweet
 		Query q = currentSession().createSQLQuery("Select hashtag from "
 				+ "(select hashtag_list as hashtag,\n" + 
 				"			count(*) as c \n" + 
-				"from te_op00.perm_hashtag_list\n" + 
+				"from perm_hashtag_list\n" + 
 				"where hashtag_list not in (:filter)\n" + 
 				"group by (hashtag_list) \n" + 
 				"order by c desc) AS TOPHASHTAGS limit :n").setParameter("n", n).setParameterList("filter", filter);
@@ -156,6 +157,70 @@ public class TweetDAO extends AbstractGenericDAO<Tweet,Integer> implements Tweet
 	    	logger.warn(e.getMessage());
 	    	logger.warn(Arrays.toString(e.getStackTrace()));
 	    	return ret;
+		}
+		return ret;
+	}
+	@Override
+	public List<TrendingReportRegister> findTopNHashtagsByExtraction(int n, List<Integer> extractionIDList) {
+		if(extractionIDList==null||extractionIDList.isEmpty()) {
+			return new ArrayList<>();
+		}
+		Query q = currentSession().createSQLQuery("Select hashtag,c from "
+				+ "(select hashtag_list as hashtag,\n" + 
+				"			count(*) as c \n" + 
+				"from perm_hashtag_list hl\n" + 
+				"join perm_tweet t on hl.tweet=t.identifier \n" + 
+				"where t.extraction_identifier in (:extractions)\n" + 
+				"group by (hashtag_list) \n" + 
+				"order by c desc) AS TOPHASHTAGS limit :n").setParameter("n", n).setParameterList("extractions", extractionIDList);
+		List<Object[]> resultList;
+		List<TrendingReportRegister> ret = new ArrayList<>();		
+		try {
+			resultList=q.getResultList();
+		}catch(Exception e ) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.warn(e.getMessage());
+	    	logger.warn(Arrays.toString(e.getStackTrace()));
+	    	return ret;
+		}
+		for(Object [] row : resultList) {
+			TrendingReportRegister toadd = new TrendingReportRegister();
+			toadd.setLabel((String)row[0]);
+			toadd.setVolume(((BigInteger)row[1]).intValue());
+			ret.add(toadd);
+		}
+		return ret;
+	}
+	@Override
+	public List<TrendingReportRegister> findTopNHashtagsByExtractionFiltered(int n, List<String> filter,
+			List<Integer> extractionIDList) {
+		if(filter==null||filter.isEmpty()||extractionIDList==null||extractionIDList.isEmpty()) {
+			return new ArrayList<>();
+		}
+		Query q = currentSession().createSQLQuery("Select hashtag,c from "
+				+ "(select hashtag_list as hashtag,\n" + 
+				"			count(*) as c \n" + 
+				"from perm_hashtag_list hl\n" + 
+				"join perm_tweet t on hl.tweet=t.identifier \n" + 
+				"where hl.hashtag_list not in (:filter)\n" + 
+				"and t.extraction_identifier in (:extractions)\n" + 
+				"group by (hashtag_list) \n" + 
+				"order by c desc) AS TOPHASHTAGS limit :n").setParameter("n", n).setParameterList("filter", filter).setParameterList("extractions", extractionIDList);
+		List<Object[]> resultList;
+		List<TrendingReportRegister> ret = new ArrayList<>();		
+		try {
+			resultList=q.getResultList();
+		}catch(Exception e ) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.warn(e.getMessage());
+	    	logger.warn(Arrays.toString(e.getStackTrace()));
+	    	return ret;
+		}
+		for(Object [] row : resultList) {
+			TrendingReportRegister toadd = new TrendingReportRegister();
+			toadd.setLabel((String)row[0]);
+			toadd.setVolume(((BigInteger)row[1]).intValue());
+			ret.add(toadd);
 		}
 		return ret;
 	}

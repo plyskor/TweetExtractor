@@ -14,6 +14,8 @@ import java.util.List;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
@@ -21,6 +23,7 @@ import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.Dataset;
+import org.jfree.data.general.PieDataset;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.slf4j.Logger;
@@ -97,6 +100,10 @@ public class TweetExtractorChartConstructor {
 		case BARC:
 			this.setDataset(report.constructDefaultCategoryDataset(this.getReportImage().getPlotStrokeConfiguration()));
 			break;
+		case PCH:
+		case P3DCH:
+			this.setDataset(report.constructPieDataset(this.getReportImage().getPlotStrokeConfiguration()));
+			break;
 		default:
 			break;
 		}
@@ -112,6 +119,12 @@ public class TweetExtractorChartConstructor {
 			break;
 		case BARC:
 			chartObject = constructBarChart((CategoryBarChartGraphicPreferences)preferences,reportImage.getPlotStrokeConfiguration());
+			break;
+		case PCH:
+			chartObject = constructPieChart(preferences, reportImage.getPlotStrokeConfiguration());
+			break;
+		case P3DCH:
+			chartObject = constructPieChart3D(preferences, reportImage.getPlotStrokeConfiguration());
 			break;
 		default:
 			break;
@@ -245,6 +258,30 @@ public class TweetExtractorChartConstructor {
 			return null;
 		}
 	}
+	public JFreeChart constructPieChart(TweetExtractorChartGraphicPreferences config ,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+		try {
+			JFreeChart timeSeriesChart = ChartFactory.createPieChart(config.getChartTitle(), (PieDataset) this.dataset, config.isLegend(), config.isTooltips(), config.isUrls());
+			this.theme.apply(timeSeriesChart);
+			return setPreferencesPieChart(timeSeriesChart, config,plotStrokeConfiguration);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public JFreeChart constructPieChart3D(TweetExtractorChartGraphicPreferences config ,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+		try {
+			JFreeChart timeSeriesChart = ChartFactory.createPieChart3D(config.getChartTitle(), (PieDataset) this.dataset, config.isLegend(), config.isTooltips(), config.isUrls());
+			this.theme.apply(timeSeriesChart);
+			return setPreferencesPieChart(timeSeriesChart, config,plotStrokeConfiguration);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	
 
 	public JFreeChart constructXYBarChart(XYBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		try {
@@ -294,7 +331,16 @@ public class TweetExtractorChartConstructor {
 		chart.setAntiAlias(true);
 		return chart;
 	}
-
+	private JFreeChart setPreferencesPieChart(JFreeChart pieChart, TweetExtractorChartGraphicPreferences config,
+			List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+		PiePlot plot = (PiePlot) pieChart.getPlot();
+		for (PlotStrokeConfiguration plotConfig : plotStrokeConfiguration) {
+			plot.setSectionPaint(plotConfig.getCategoryName(),Color.decode(plotConfig.getHexLineColour()));
+			plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}:{1}"));
+			plot.setLabelBackgroundPaint(new Color(220, 220, 220));
+		}
+		return pieChart;
+	}
 	public JFreeChart setPreferencesCategoryBarChart(JFreeChart chart, CategoryBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		if (chart == null) {
 			return null;

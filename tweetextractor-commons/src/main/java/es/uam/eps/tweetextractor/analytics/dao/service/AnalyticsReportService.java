@@ -16,6 +16,7 @@ import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
 
 /**
  * @author jose
@@ -40,5 +41,10 @@ public class AnalyticsReportService extends GenericService<AnalyticsCategoryRepo
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<AnalyticsCategoryReport> findByUserAndReportType(User user,List<AnalyticsReportTypes> types) {
 		return analyticsReportDAO.findByUserAndReportType(user, types);
+	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<String> findStringFilterListByReport(TrendsReport report) {
+		return analyticsReportDAO.findStringFilterListByReport(report);
 	}
 }

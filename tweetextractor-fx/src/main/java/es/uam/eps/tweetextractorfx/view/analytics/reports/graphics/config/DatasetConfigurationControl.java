@@ -8,6 +8,8 @@ import java.text.DecimalFormat;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportImageServiceInterface;
 import es.uam.eps.tweetextractor.analytics.graphics.constructor.TweetExtractorChartConstructor;
 import es.uam.eps.tweetextractor.model.Constants;
+import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
+import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
@@ -90,6 +92,11 @@ public class DatasetConfigurationControl extends SpecificGraphicChartPreferences
 		widthText.setText("1.00");
 		plotTypeChoiceBox.getItems().setAll(Constants.STROKE_TYPE_MAP.values());
 		chartService= this.getMainApplication().getSpringContext().getBean(AnalyticsReportImageServiceInterface.class);
+		if(getChartTypeInput().equals(AnalyticsReportImageTypes.PCH)||getChartTypeInput().equals(AnalyticsReportImageTypes.P3DCH)) {
+			plotTypeChoiceBox.setDisable(true);
+			strokeWidthSlider.setVisible(false);
+			widthText.setVisible(false);
+		}
 	}
 
 	@FXML
@@ -107,6 +114,11 @@ public class DatasetConfigurationControl extends SpecificGraphicChartPreferences
 		case BARC:
 			nextFXMLscreen="view/analytics/reports/graphics/config/CategoryBarChartGraphicPreferences.fxml";
 			nextControllerClazz=CategoryBarChartGraphicPreferencesControl.class;
+			break;
+		case PCH:
+		case P3DCH:
+			nextFXMLscreen="view/analytics/reports/graphics/config/ChartGraphicPreferencesControl.fxml";
+			nextControllerClazz=ChartGraphicPreferencesControl.class;
 			break;
 		default:
 			break;

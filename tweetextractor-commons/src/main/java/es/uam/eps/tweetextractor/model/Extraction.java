@@ -36,6 +36,9 @@ import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.filter.Filter;
 import es.uam.eps.tweetextractor.util.DateAdapter;
 @NamedQuery(name="findExtractionsByUser", query="SELECT e from Extraction e WHERE e.user=:user")
+@NamedQuery(name="findExtractionListByID", query="SELECT e from Extraction e WHERE e.idDB in (:idList)")
+@NamedQuery(name="findListByReport", query="SELECT e from AnalyticsReport r JOIN r.extractions e WHERE r.id=:id")
+
 
 
 /**

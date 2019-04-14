@@ -10,7 +10,9 @@ import org.slf4j.LoggerFactory;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorChartGraphicPreferencesServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
+import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.CategoryBarChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.graphics.PieChartConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferences;
@@ -189,8 +191,10 @@ public class ChartGraphicPreferencesControl extends TweetExtractorFXController {
 				nextControllerClazz=XYChartGraphicPreferencesControl.class;
 				break;
 			case P3DCH:
-				break;
 			case PCH:
+				configClazz=PieChartConfiguration.class;
+				nextFXMLscreen="view/analytics/reports/graphics/config/DatasetConfiguration.fxml";
+				nextControllerClazz=DatasetConfigurationControl.class;
 				break;
 			case WCC:
 				break;
@@ -291,7 +295,19 @@ public class ChartGraphicPreferencesControl extends TweetExtractorFXController {
 		if(selectedPref!=null) {
 			updateConfiguration();
 			prefsService.saveOrUpdate(selectedPref);
-			this.getMainApplication().showSpecificGraphicChartConfiguration(nextFXMLscreen, nextControllerClazz, chartTypeInput, reportInput, selectedPref,null);
+			switch (getChartTypeInput()) {
+			case P3DCH:
+			case PCH:
+				AnalyticsReportImage chart = new AnalyticsReportImage();
+				chart.setReport(getReportInput());
+				chart.setPlotStrokeConfiguration(TweetExtractorUtils.initializePlotStrokeConfiguration(this.getReportInput(), chart));
+				this.getReportInput().getGraphics().add(chart);
+				this.getMainApplication().showSpecificGraphicChartConfiguration(nextFXMLscreen, nextControllerClazz, chartTypeInput, reportInput, selectedPref,chart);
+				break;
+			default:
+				this.getMainApplication().showSpecificGraphicChartConfiguration(nextFXMLscreen, nextControllerClazz, chartTypeInput, reportInput, selectedPref,null);
+				break;
+			}
 		}
 	}
 	@FXML

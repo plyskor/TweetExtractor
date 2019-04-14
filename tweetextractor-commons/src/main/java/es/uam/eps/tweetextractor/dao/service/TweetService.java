@@ -16,6 +16,7 @@ import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Tweet;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
 
 /**
  * @author Jose Antonio García del Saz
@@ -62,6 +63,17 @@ public class TweetService extends GenericService<Tweet, Integer> implements Twee
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<TimelineReportVolumeRegister> extractHashtagTimelineVolumeReport(User user,String hashtag){
 		return tweetDAO.extractHashtagTimelineVolumeReport(user, hashtag);
+	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<TrendingReportRegister> findTopNHashtagsByExtraction(int n, List<Integer> extractionIDList) {
+		return tweetDAO.findTopNHashtagsByExtraction(n, extractionIDList);
+	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<TrendingReportRegister> findTopNHashtagsByExtractionFiltered(int n, List<String> filter,
+			List<Integer> extractionIDList) {
+		return tweetDAO.findTopNHashtagsByExtractionFiltered(n, filter, extractionIDList);
 	}
 
 }

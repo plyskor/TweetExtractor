@@ -6,6 +6,7 @@ package es.uam.eps.tweetextractor.dao.service;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -51,6 +52,11 @@ public abstract class GenericService<V extends Serializable, K extends Serializa
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public void refresh(V entity) {
          genericDao.refresh(entity);
+    }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public void initialize(Object lazyObject) {
+        genericDao.initialize(lazyObject);
     }
     @Override
     @Transactional(propagation = Propagation.REQUIRED)

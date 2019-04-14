@@ -67,8 +67,10 @@ public final class Constants {
 		TUEI(Values.TYPE_TASK_UPDATE_EXTRACTION_INDEF),
 		@XmlEnumValue("TTVR")
 		TTVR(Values.TYPE_TASK_TIMELINE_VOLUME_REPORT),
-		@XmlEnumValue("TTTNHR")
+		@XmlEnumValue("TTNHR")
 		TTNHR(Values.TYPE_TASK_TIMELINE_TOP_N_HASHTAGS_REPORT),
+		@XmlEnumValue("TTTR")
+		TTTR(Values.TYPE_TASK_TRENDS_REPORT),
 		@XmlEnumValue("SCHT")
 		SCHT(Values.TYPE_SCHEDULED_TASK);
 		private TaskTypes(String type) {
@@ -82,6 +84,7 @@ public final class Constants {
 			public static final String TYPE_TASK_TIMELINE_VOLUME_REPORT = "TTVR";
 			public static final String TYPE_SCHEDULED_TASK="SCHT";
 			public static final String TYPE_TASK_TIMELINE_TOP_N_HASHTAGS_REPORT="TTNHR";
+			public static final String TYPE_TASK_TRENDS_REPORT="TTTR";
 		}
 	}
 	@XmlType(name = "analyticsReportType")
@@ -92,7 +95,15 @@ public final class Constants {
 		@XmlEnumValue("TVR")
 		TVR(Values.TYPE_TIMELINE_VOLUME_REPORT),
 		@XmlEnumValue("TTNHR")
-		TTNHR(Values.TYPE_TIMELINE_TOP_N_HASHTAGS_REPORT);
+		TTNHR(Values.TYPE_TIMELINE_TOP_N_HASHTAGS_REPORT),
+		@XmlEnumValue("TRHR")
+		TRHR(Values.TYPE_TRENDING_HASHTAGS_REPORT),
+		@XmlEnumValue("TRUR")
+		TRUR(Values.TYPE_TRENDING_USERS_REPORT),
+		@XmlEnumValue("TRUMR")
+		TRUMR(Values.TYPE_TRENDING_USERS_MENTION_REPORT),
+		@XmlEnumValue("TRWR")
+		TRWR(Values.TYPE_TRENDING_WORDS_REPORT);
 		private AnalyticsReportTypes(String type) {
 			
 		}
@@ -101,9 +112,15 @@ public final class Constants {
 			public static final String TYPE_TIMELINE_REPORT = "TR";
 			public static final String TYPE_TIMELINE_VOLUME_REPORT = "TVR";
 			public static final String TYPE_TIMELINE_TOP_N_HASHTAGS_REPORT = "TTNHR";
+			public static final String TYPE_TRENDING_HASHTAGS_REPORT = "TRHR";
+			public static final String TYPE_TRENDING_USERS_REPORT = "TRUR";
+			public static final String TYPE_TRENDING_USERS_MENTION_REPORT = "TRUMR";
+			public static final String TYPE_TRENDING_WORDS_REPORT = "TRWR";
+
 		}
 	}
-	
+	public static final ImmutableList<AnalyticsReportTypes> TRENDS_REPORT_TYPES= ImmutableList.of(AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR);
+
 	@XmlType(name = "chartType")
 	@XmlEnum
 	public enum AnalyticsReportImageTypes {
@@ -138,10 +155,10 @@ public final class Constants {
 	public static final String STROKE_DOT = "dot";
 	/*Analytics Report <-> Graphic Chart (Compatibility)*/
 	public static final ImmutableList<AnalyticsReportTypes> TIME_SERIES_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR,AnalyticsReportTypes.TTNHR);
-	public static final ImmutableList<AnalyticsReportTypes> XY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR,AnalyticsReportTypes.TTNHR);
-	public static final ImmutableList<AnalyticsReportTypes> CATEGORY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR,AnalyticsReportTypes.TTNHR);
-	public static final ImmutableList<AnalyticsReportTypes> PIE_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
-	public static final ImmutableList<AnalyticsReportTypes> PIE_3D_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
+	public static final ImmutableList<AnalyticsReportTypes> XY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR);
+	public static final ImmutableList<AnalyticsReportTypes> CATEGORY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR,AnalyticsReportTypes.TTNHR,AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR);
+	public static final ImmutableList<AnalyticsReportTypes> PIE_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR);
+	public static final ImmutableList<AnalyticsReportTypes> PIE_3D_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR);
 	public static final ImmutableList<AnalyticsReportTypes> WORD_CLOUD_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
 
 	public static final ImmutableMap<AnalyticsReportImageTypes, ImmutableList<AnalyticsReportTypes>> REPORT_CHART_TYPES_COMPATIBILITY =new ImmutableMap.Builder<AnalyticsReportImageTypes, ImmutableList<AnalyticsReportTypes>>()
@@ -202,6 +219,7 @@ public final class Constants {
 	public static final String INTERRUPT_SERVER_TASK_ENDPOINT="interruptServerTask";
 	public static final String CREATE_UPDATE_EXTRACTION_INDEF_SERVER_TASK_ENDPOINT="createServerTaskUpdateExtractionIndef";
 	public static final String CREATE_TIMELINE_VOLUME_REPORT_SERVER_TASK_ENDPOINT="createServerTaskTimelineVolumeReport";
+	public static final String CREATE_TRENDS_REPORT_SERVER_TASK_ENDPOINT="createServerTaskTrendsReport";
 	public static final String CREATE_TIMELINE_TOP_N_HASHTAGS_REPORT_SERVER_TASK_ENDPOINT="createServerTaskTimelineTopNHashtagsReportImpl";
 	public static final String DELETE_SERVER_TASK_ENDPOINT="deleteServerTask";
 	public static final String LAUNCH_SERVER_TASK_ENDPOINT="launchServerTask";
@@ -294,6 +312,8 @@ public final class Constants {
     public static final String ANALYTICS_SERVER_TASK_TYPE="Task for analytics";
 	public static final String UPDATE_EXTRACTION_INDEF_SERVER_TASK_TYPE = "Update an extraction indefinitely";
 	public static final String TIMELINE_REPORT_SERVER_TASK_TYPE = "Create a timeline report based on different criteria.";
+	public static final String TRENDS_TIMELINE_REPORT_SERVER_TASK_TYPE = "Create a report based on the trendings in your extractions.";
+
 	/*
 	 * Types of Timeline Reports Criteria 
 	 */

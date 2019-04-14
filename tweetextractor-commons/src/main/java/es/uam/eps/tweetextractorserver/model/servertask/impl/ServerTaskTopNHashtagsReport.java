@@ -66,7 +66,6 @@ public class ServerTaskTopNHashtagsReport extends AnalyticsServerTask {
 		Logger logger = LoggerFactory.getLogger(ServerTaskTopNHashtagsReport.class);
 		logger.info("Generating timeline Top "+((TimelineTopNHashtagsReport)report).getnHashtags()+" hashtags volume report...");
 		TimelineTopNHashtagsReport castedReport = (TimelineTopNHashtagsReport) getReport();
-		
 		boolean emptyReport=true;
 		permanentClearReport();
 		for(AnalyticsReportCategory category: castedReport.getCategories()) {

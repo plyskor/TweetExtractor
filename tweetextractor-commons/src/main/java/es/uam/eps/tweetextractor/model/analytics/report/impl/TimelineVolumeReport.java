@@ -14,6 +14,7 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.PieDataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -108,6 +109,11 @@ public class TimelineVolumeReport extends TimelineReport {
 			}
 			return dataset;
 		}
+		return null;
+	}
+
+	@Override
+	public PieDataset constructPieDataset(List<PlotStrokeConfiguration> categories) {
 		return null;
 	}
 }

@@ -13,6 +13,7 @@ import es.uam.eps.tweetextractor.dao.ExtractionDAO;
 import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 
 /**
  * @author Jose Antonio García del Saz
@@ -36,6 +37,16 @@ public class ExtractionService extends GenericService<Extraction, Integer> imple
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<Extraction> findByUser(User user) {
 		return extractionDAO.findByUser(user);
+	}
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<Extraction> findListById(List<Integer> extractions) {
+		return extractionDAO.findListById(extractions);
+	}
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<Extraction> findListByReport(AnalyticsReport report) {
+		return extractionDAO.findListByReport(report);
 	}
 
 }

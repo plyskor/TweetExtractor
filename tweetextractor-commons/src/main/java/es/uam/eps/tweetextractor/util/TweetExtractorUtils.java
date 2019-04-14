@@ -26,6 +26,8 @@ import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineTopNHashtagsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
 import javafx.scene.paint.Color;
 
 /**
@@ -42,7 +44,7 @@ public class TweetExtractorUtils {
 	}
 
 	public static String buildServerAdress(String serverHost, String serverAppName, int port) {
-		return "https://" + serverHost + ":" + port + "/" + serverAppName + "/";
+		return "http://" + serverHost + ":" + port + "/" + serverAppName + "/";
 	}
 
 	public static byte[] readFileToByteArray(File file) {
@@ -124,6 +126,25 @@ public class TweetExtractorUtils {
 			for(AnalyticsReportCategory category:((AnalyticsCategoryReport) report).getCategories()) {
 				PlotStrokeConfiguration categoryConf=new PlotStrokeConfiguration(Constants.STROKE_LINE, 0, "#E0FB00",
 					category.getCategoryName(), "#"+category.getCategoryName(), 1.0f, chart);
+				ret.add(categoryConf);
+				categoryConf.setChart(chart);
+			}
+			break;
+		case TRHR:
+			AnalyticsReportCategory trendingHashtags=((AnalyticsCategoryReport) report).getCategories().get(0);
+			for(AnalyticsReportCategoryRegister register : trendingHashtags.getResult()) {
+				TrendingReportRegister castedRegister = (TrendingReportRegister)register;
+				PlotStrokeConfiguration categoryConf=new PlotStrokeConfiguration(Constants.STROKE_LINE, 0, "#E0FB00",castedRegister.getLabel(),"#"+castedRegister.getLabel(),1.0f,chart);
+				ret.add(categoryConf);
+				categoryConf.setChart(chart);
+			}
+			break;
+		case TRUR:
+		case TRUMR:
+			AnalyticsReportCategory trendingUsers=((AnalyticsCategoryReport) report).getCategories().get(0);
+			for(AnalyticsReportCategoryRegister register : trendingUsers.getResult()) {
+				TrendingReportRegister castedRegister = (TrendingReportRegister)register;
+				PlotStrokeConfiguration categoryConf=new PlotStrokeConfiguration(Constants.STROKE_LINE, 0, "#E0FB00",castedRegister.getLabel(),"@"+castedRegister.getLabel(),1.0f,chart);
 				ret.add(categoryConf);
 				categoryConf.setChart(chart);
 			}

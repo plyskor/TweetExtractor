@@ -22,4 +22,5 @@ public interface GenericDAOInterface <V extends Serializable,K extends Serializa
 	void refresh(V entity);
 	void deleteAll();
 	void persistList(List<V> entityList);
+	void initialize(Object lazyObject);
 }

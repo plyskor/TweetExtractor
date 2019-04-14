@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.PieDataset;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.springframework.stereotype.Controller;
@@ -61,4 +62,5 @@ public abstract class AnalyticsRepresentableReport extends AnalyticsReport {
 	public abstract DefaultCategoryDataset constructDefaultCategoryDataset(List<PlotStrokeConfiguration> categories);
 	public abstract XYDataset constructXYDataset(List<PlotStrokeConfiguration> categories);
 	public abstract IntervalXYDataset constructIntervalXYDataset(List<PlotStrokeConfiguration> categories) ;
+	public abstract PieDataset constructPieDataset(List<PlotStrokeConfiguration> categories) ;
 }
