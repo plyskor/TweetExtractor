@@ -67,6 +67,7 @@ public class CreateTrendsReportServerTaskPreferencesDialogControl extends TweetE
 		userChoice.setToggleGroup(toggleGroup);
 		userMentionChoice.setToggleGroup(toggleGroup);
 		wordsChoice.setToggleGroup(toggleGroup);
+		hashtagChoice.setSelected(true);
 	}
 
 	@FXML

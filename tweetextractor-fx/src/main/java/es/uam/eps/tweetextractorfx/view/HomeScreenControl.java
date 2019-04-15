@@ -255,6 +255,9 @@ public class HomeScreenControl extends TweetExtractorFXController {
 		thread.start();
 		loadingDialog = mainApplication.showLoadingDialog("Creating report and task...");
 		loadingDialog.showAndWait();
+		if(createServerTaskTrendsReportResponse==null) {
+			return;
+		}
 		if (createServerTaskTrendsReportResponse.isError()) {
 			ErrorDialog.showErrorCreateServerTask(createServerTaskTrendsReportResponse.getMessage());
 		} else {
