@@ -26,4 +26,6 @@ public interface TweetServiceInterface extends GenericServiceInterface<Tweet, In
 	public List<TrendingReportRegister> findTopNHashtagsByExtractionFiltered(int n,List<String> filter,List<Integer> extractionIDList);
 	public List<TrendingReportRegister> findTopNUsersByExtraction(int n,List<Integer> extractionIDList);
 	public List<TrendingReportRegister> findTopNUsersByExtractionFiltered(int n,List<String> filter,List<Integer> extractionIDList);
+	public List<TrendingReportRegister> findTopNUserMentionsByExtraction(int n,List<Integer> extractionIDList);
+	public List<TrendingReportRegister> findTopNUserMentionsByExtractionFiltered(int n,List<String> filter,List<Integer> extractionIDList);
 }

@@ -259,9 +259,67 @@ public class TweetDAO extends AbstractGenericDAO<Tweet,Integer> implements Tweet
 				"			count(*) 	 as c \n" + 
 				"			FROM perm_tweet t\n" + 
 				"			where t.extraction_identifier in (:extractions)\n" + 
-				"			and user_screen_name no in (:filter)\n" + 
+				"			and user_screen_name not in (:filter)\n" + 
 				"			group by (user_screen_name) \n" + 
 				"			order by c desc) AS TOPUSERNAMES limit :n").setParameter("n", n).setParameterList("extractions", extractionIDList).setParameterList("filter", filter);
+		List<Object[]> resultList;
+		List<TrendingReportRegister> ret = new ArrayList<>();		
+		try {
+			resultList=q.getResultList();
+		}catch(Exception e ) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.warn(e.getMessage());
+	    	logger.warn(Arrays.toString(e.getStackTrace()));
+	    	return ret;
+		}
+		for(Object [] row : resultList) {
+			TrendingReportRegister toadd = new TrendingReportRegister();
+			toadd.setLabel((String)row[0]);
+			toadd.setVolume(((BigInteger)row[1]).intValue());
+			ret.add(toadd);
+		}
+		return ret;
+	}
+	@Override
+	public List<TrendingReportRegister> findTopNUserMentionsByExtraction(int n, List<Integer> extractionIDList) {
+		Query q = currentSession().createSQLQuery("Select mention,c from "
+				+ "(select user_mention_list as mention,\n" + 
+				"			count(*) as c \n" + 
+				"from perm_user_mention_list uml\n" + 
+				"join perm_tweet t on uml.tweet=t.identifier \n" + 
+				"where t.extraction_identifier in (:extractions)\n" + 
+				"group by (user_mention_list) \n" + 
+				"order by c desc) AS TOPUSERMENTIONS limit :n").setParameter("n", n).setParameterList("extractions", extractionIDList);
+		List<Object[]> resultList;
+		List<TrendingReportRegister> ret = new ArrayList<>();		
+		try {
+			resultList=q.getResultList();
+		}catch(Exception e ) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.warn(e.getMessage());
+	    	logger.warn(Arrays.toString(e.getStackTrace()));
+	    	return ret;
+		}
+		for(Object [] row : resultList) {
+			TrendingReportRegister toadd = new TrendingReportRegister();
+			toadd.setLabel((String)row[0]);
+			toadd.setVolume(((BigInteger)row[1]).intValue());
+			ret.add(toadd);
+		}
+		return ret;
+	}
+	@Override
+	public List<TrendingReportRegister> findTopNUserMentionsByExtractionFiltered(int n, List<String> filter,
+			List<Integer> extractionIDList) {
+		Query q = currentSession().createSQLQuery("Select mention,c from "
+				+ "(select user_mention_list as mention,\n" + 
+				"			count(*) as c \n" + 
+				"from perm_user_mention_list uml\n" + 
+				"join perm_tweet t on uml.tweet=t.identifier \n" + 
+				"where t.extraction_identifier in (:extractions)\n" + 
+				"and user_mention_list not in (:filter)\n" + 
+				"group by (user_mention_list) \n" + 
+				"order by c desc) AS TOPUSERMENTIONS limit :n").setParameter("n", n).setParameterList("extractions", extractionIDList).setParameterList("filter", filter);
 		List<Object[]> resultList;
 		List<TrendingReportRegister> ret = new ArrayList<>();		
 		try {

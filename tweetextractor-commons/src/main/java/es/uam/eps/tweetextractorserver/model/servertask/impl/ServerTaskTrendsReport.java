@@ -84,7 +84,7 @@ public class ServerTaskTrendsReport extends AnalyticsServerTask {
 			}
 			break;
 		case TRUR:
-			word ="hashtags";
+			word ="users";
 			List<TrendingReportRegister> listUsers = (trendsReport.getStringFilterList().isEmpty()) ? tServ.findTopNUsersByExtraction(trendsReport.getN(), extractionIDList):tServ.findTopNUsersByExtractionFiltered(trendsReport.getN(), trendsReport.getStringFilterList(), extractionIDList);
 			if(!listUsers.isEmpty()) {
 				emptyReport=false;
@@ -93,10 +93,17 @@ public class ServerTaskTrendsReport extends AnalyticsServerTask {
 				register.setCategory(trendsReport.getCategories().get(0));
 				trendsReport.getCategories().get(0).getResult().add(register);
 			}
-			word ="users";
 			break;
 		case TRUMR:
 			word ="user mentions";
+			List<TrendingReportRegister> listUserMentions = (trendsReport.getStringFilterList().isEmpty()) ? tServ.findTopNUserMentionsByExtraction(trendsReport.getN(), extractionIDList):tServ.findTopNUserMentionsByExtractionFiltered(trendsReport.getN(), trendsReport.getStringFilterList(), extractionIDList);
+			if(!listUserMentions.isEmpty()) {
+				emptyReport=false;
+			}
+			for (TrendingReportRegister register : listUserMentions) {
+				register.setCategory(trendsReport.getCategories().get(0));
+				trendsReport.getCategories().get(0).getResult().add(register);
+			}
 			break;
 		case TRWR:
 			word ="words";
