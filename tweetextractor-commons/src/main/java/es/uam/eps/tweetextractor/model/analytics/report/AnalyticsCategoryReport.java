@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
@@ -18,6 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.stereotype.Controller;
 
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+@NamedQuery(name="findCategoriesByReport", query="SELECT c from AnalyticsReportCategory c WHERE c.report.id=:id")
 
 /**
  * @author jose
@@ -62,5 +64,18 @@ public abstract class AnalyticsCategoryReport extends AnalyticsRepresentableRepo
 			}
 		}
 		return null;
+	}
+	@Override
+	public boolean isEmpty() {
+		boolean toReturn=true;
+		if(this.getCategories()==null||this.getCategories().isEmpty()) {
+			return toReturn;
+		}
+		for(AnalyticsReportCategory category: this.getCategories()) {
+			if(category.getResult()!=null&&!category.getResult().isEmpty()) {
+				toReturn=false;
+			}
+		}
+		return toReturn;
 	}
 }

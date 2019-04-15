@@ -9,7 +9,6 @@ import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServ
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;

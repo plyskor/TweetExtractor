@@ -621,4 +621,12 @@ public class ErrorDialog {
 		alert.setContentText("You graphic chart has been succesfully exported.");		
 		alert.showAndWait();
 	}
+
+	public static void showErrorEmptyReport() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Empty report");
+		alert.setContentText("You selected an empty report. Please add some data to it first manually or with an asynchronous task.");		
+		alert.showAndWait();
+	}
 }

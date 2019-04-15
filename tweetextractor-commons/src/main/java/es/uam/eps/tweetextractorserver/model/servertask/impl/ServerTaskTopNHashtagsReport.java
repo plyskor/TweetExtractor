@@ -20,8 +20,6 @@ import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineTopNHashtagsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineVolumeReport;
-import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
 import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.response.ServerTaskResponse;
@@ -39,14 +37,6 @@ public class ServerTaskTopNHashtagsReport extends AnalyticsServerTask {
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = -7958677688349963763L;
-	@Transient
-	private AnalyticsReportServiceInterface arServ;
-	@Transient
-	private TweetServiceInterface tServ;
-	@Transient
-	private AnalyticsReportRegisterServiceInterface regServ;
-
-	
 	public ServerTaskTopNHashtagsReport() {
 		super();
 	}
@@ -94,14 +84,5 @@ public class ServerTaskTopNHashtagsReport extends AnalyticsServerTask {
 		logger.info("Timeline Top "+castedReport.getnHashtags()+" hashtags report succesfully saved to database with id: "+report.getId());
 		finish();
 	}
-	private void permanentClearReport() {
-		if(report!=null) {
-			for(AnalyticsReportCategory category : ((TimelineTopNHashtagsReport)report).getCategories()) {
-				for(AnalyticsReportRegister register : category.getResult()) {
-					regServ.delete(register);
-				}
-			}
-		}
-	}
-	
+
 }

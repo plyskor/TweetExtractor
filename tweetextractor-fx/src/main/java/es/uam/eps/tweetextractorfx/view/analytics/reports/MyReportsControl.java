@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.util.List;
 
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
+import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractorfx.MainApplication;
@@ -50,7 +51,7 @@ public class MyReportsControl extends TweetExtractorFXController {
 	private void initialize() {
 		// Initialize the person table with the two columns.
 		idColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
-		typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClass().toString()));
+		typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Constants.REPORT_TYPES_GUI.get(cellData.getValue().getReportType())));
 		createdOnColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(cellData.getValue().getCreationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
 		lastUpdatedColumn.setCellValueFactory(cellData -> {
 		if(cellData.getValue().getLastUpdatedDate()!=null) {

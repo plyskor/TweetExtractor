@@ -9,7 +9,6 @@ import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportImag
 import es.uam.eps.tweetextractor.analytics.graphics.constructor.TweetExtractorChartConstructor;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
-import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.util.TweetExtractorUtils;

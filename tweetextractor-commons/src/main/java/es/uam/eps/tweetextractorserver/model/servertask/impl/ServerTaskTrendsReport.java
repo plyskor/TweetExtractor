@@ -25,8 +25,6 @@ import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
-import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
 import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.response.ServerTaskResponse;
@@ -44,14 +42,6 @@ public class ServerTaskTrendsReport extends AnalyticsServerTask {
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = 5380977367340886500L;
-	@Transient
-	private TweetServiceInterface tServ;
-	@Transient
-	private AnalyticsReportServiceInterface arServ;
-	@Transient
-	private AnalyticsReportRegisterServiceInterface regServ;
-	@Transient
-	private ExtractionServiceInterface eServ;
 	@Override
 	public ServerTaskResponse call() {
 		return new TrendsReportResponse(super.call());
@@ -84,16 +74,25 @@ public class ServerTaskTrendsReport extends AnalyticsServerTask {
 		switch (trendsReport.getReportType()) {
 		case TRHR:
 			word ="hashtags";
-			List<TrendingReportRegister> list = (trendsReport.getStringFilterList().isEmpty()) ? tServ.findTopNHashtagsByExtraction(trendsReport.getN(), extractionIDList):tServ.findTopNHashtagsByExtractionFiltered(trendsReport.getN(), trendsReport.getStringFilterList(), extractionIDList);
-			if(!list.isEmpty()) {
+			List<TrendingReportRegister> listHashtags = (trendsReport.getStringFilterList().isEmpty()) ? tServ.findTopNHashtagsByExtraction(trendsReport.getN(), extractionIDList):tServ.findTopNHashtagsByExtractionFiltered(trendsReport.getN(), trendsReport.getStringFilterList(), extractionIDList);
+			if(!listHashtags.isEmpty()) {
 				emptyReport=false;
 			}
-			for (TrendingReportRegister register : list) {
+			for (TrendingReportRegister register : listHashtags) {
 				register.setCategory(trendsReport.getCategories().get(0));
 				trendsReport.getCategories().get(0).getResult().add(register);
 			}
 			break;
 		case TRUR:
+			word ="hashtags";
+			List<TrendingReportRegister> listUsers = (trendsReport.getStringFilterList().isEmpty()) ? tServ.findTopNUsersByExtraction(trendsReport.getN(), extractionIDList):tServ.findTopNUsersByExtractionFiltered(trendsReport.getN(), trendsReport.getStringFilterList(), extractionIDList);
+			if(!listUsers.isEmpty()) {
+				emptyReport=false;
+			}
+			for (TrendingReportRegister register : listUsers) {
+				register.setCategory(trendsReport.getCategories().get(0));
+				trendsReport.getCategories().get(0).getResult().add(register);
+			}
 			word ="users";
 			break;
 		case TRUMR:
@@ -115,13 +114,5 @@ public class ServerTaskTrendsReport extends AnalyticsServerTask {
 		logger.info("Trending "+word+" report succesfully saved to database with id: "+report.getId());
 		finish();
 	}
-	private void permanentClearReport() {
-		if(report!=null) {
-			for(AnalyticsReportCategory category : ((TrendsReport)report).getCategories()) {
-				for(AnalyticsReportRegister register : category.getResult()) {
-					regServ.delete(register);
-				}
-			}
-		}
-	}
+
 }

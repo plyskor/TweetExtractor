@@ -31,6 +31,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.paint.Color;
 
@@ -94,6 +95,8 @@ public class ChartGraphicPreferencesControl extends TweetExtractorFXController {
 	private CheckBox toolTipsCheckBox;
 	@FXML
 	private CheckBox urlsCheckBox;
+	@FXML
+	private TextField titleTextField;
 
 	private Logger logger = LoggerFactory.getLogger(ChartGraphicPreferencesControl.class);
 
@@ -120,6 +123,7 @@ public class ChartGraphicPreferencesControl extends TweetExtractorFXController {
 	private void loadConfiguration(TweetExtractorChartGraphicPreferences selectedPref) {
 		if (selectedPref != null) {
 			/* Load font preferences */
+			
 			String currentFont = isFontAvailable(selectedPref.getFontName()) ? selectedPref.getFontName() : "Palatino";
 			fontNameChoiceBox.setValue(currentFont);
 			chartTitleFontSizeChoiceBox.setValue(selectedPref.getTitleFontSize());
@@ -147,6 +151,7 @@ public class ChartGraphicPreferencesControl extends TweetExtractorFXController {
 	private void updateConfiguration() {
 		if (selectedPref != null) {
 			/* Load font preferences */
+			selectedPref.setChartTitle(titleTextField.getText());
 			selectedPref.setFontName(fontNameChoiceBox.getValue());
 			selectedPref.setTitleFontSize(chartTitleFontSizeChoiceBox.getValue());
 			selectedPref.setTitleFontType(Constants.FONT_TYPES_MAP.get(chartTitleFontTypeChoiceBox.getValue()));
@@ -642,6 +647,21 @@ public class ChartGraphicPreferencesControl extends TweetExtractorFXController {
 	public void setReportInput(AnalyticsRepresentableReport reportInput) {
 		this.reportInput = reportInput;
 	}
+	
+	/**
+	 * @return the titleTextField
+	 */
+	public TextField getTitleTextField() {
+		return titleTextField;
+	}
+
+	/**
+	 * @param titleTextField the titleTextField to set
+	 */
+	public void setTitleTextField(TextField titleTextField) {
+		this.titleTextField = titleTextField;
+	}
+
 	/*Utils*/
 	public boolean isFontAvailable(String font) {
 		for (String availableFont : availablefonts) {

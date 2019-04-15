@@ -7,10 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+
+@NamedQuery(name="findAnalyticsReportCategoryRegisterByCategory", query="SELECT reg from AnalyticsReportCategoryRegister reg where reg.category.identifier=:id")
+
 
 /**
  * @author jose
@@ -33,6 +37,7 @@ public abstract class AnalyticsReportCategoryRegister extends AnalyticsReportReg
 	/**
 	 * @return the category
 	 */
+	@XmlTransient
 	public AnalyticsReportCategory getCategory() {
 		return category;
 	}

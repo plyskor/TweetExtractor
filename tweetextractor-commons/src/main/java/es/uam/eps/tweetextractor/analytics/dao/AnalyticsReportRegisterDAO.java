@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import es.uam.eps.tweetextractor.analytics.dao.inter.AnalyticsReportRegisterDAOInterface;
 import es.uam.eps.tweetextractor.dao.AbstractGenericDAO;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 
 /**
@@ -42,5 +44,23 @@ public class AnalyticsReportRegisterDAO extends AbstractGenericDAO<AnalyticsRepo
 	    	}
 	    return ret;
 	}
+
+	@Override
+	public List<AnalyticsReportCategoryRegister> findAnalyticsReportCategoryRegisterByCategory(AnalyticsReportCategory category) {
+		if(category == null) {
+			return new ArrayList<>();
+		}
+		Query<AnalyticsReportCategoryRegister> query = currentSession().createNamedQuery("findAnalyticsReportCategoryRegisterByCategory",AnalyticsReportCategoryRegister.class);
+	    query.setParameter("id", category.getIdentifier());
+	     List<AnalyticsReportCategoryRegister> ret= null;
+	    try {ret=query.getResultList();}catch(NoResultException e) {
+	    	Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.info("No registers found for categoryID: "+category.getIdentifier());
+	    	return new ArrayList<>();
+	    	}
+	    return ret;
+	}
+
+
 
 }

@@ -224,5 +224,61 @@ public class TweetDAO extends AbstractGenericDAO<Tweet,Integer> implements Tweet
 		}
 		return ret;
 	}
+	@Override
+	public List<TrendingReportRegister> findTopNUsersByExtraction(int n, List<Integer> extractionIDList) {
+		Query q = currentSession().createSQLQuery("Select username,c from \n" + 
+				"	(select user_screen_name as username,\n" + 
+				"			count(*) 	 as c \n" + 
+				"			FROM perm_tweet t\n" + 
+				"			where t.extraction_identifier in (:extractions)\n" + 
+				"			group by (user_screen_name) \n" + 
+				"			order by c desc) AS TOPUSERNAMES limit :n").setParameter("n", n).setParameterList("extractions", extractionIDList);
+		List<Object[]> resultList;
+		List<TrendingReportRegister> ret = new ArrayList<>();		
+		try {
+			resultList=q.getResultList();
+		}catch(Exception e ) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.warn(e.getMessage());
+	    	logger.warn(Arrays.toString(e.getStackTrace()));
+	    	return ret;
+		}
+		for(Object [] row : resultList) {
+			TrendingReportRegister toadd = new TrendingReportRegister();
+			toadd.setLabel((String)row[0]);
+			toadd.setVolume(((BigInteger)row[1]).intValue());
+			ret.add(toadd);
+		}
+		return ret;
+	}
+	@Override
+	public List<TrendingReportRegister> findTopNUsersByExtractionFiltered(int n, List<String> filter,
+			List<Integer> extractionIDList) {
+		Query q = currentSession().createSQLQuery("Select username,c from \n" + 
+				"	(select user_screen_name as username,\n" + 
+				"			count(*) 	 as c \n" + 
+				"			FROM perm_tweet t\n" + 
+				"			where t.extraction_identifier in (:extractions)\n" + 
+				"			and user_screen_name no in (:filter)\n" + 
+				"			group by (user_screen_name) \n" + 
+				"			order by c desc) AS TOPUSERNAMES limit :n").setParameter("n", n).setParameterList("extractions", extractionIDList).setParameterList("filter", filter);
+		List<Object[]> resultList;
+		List<TrendingReportRegister> ret = new ArrayList<>();		
+		try {
+			resultList=q.getResultList();
+		}catch(Exception e ) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.warn(e.getMessage());
+	    	logger.warn(Arrays.toString(e.getStackTrace()));
+	    	return ret;
+		}
+		for(Object [] row : resultList) {
+			TrendingReportRegister toadd = new TrendingReportRegister();
+			toadd.setLabel((String)row[0]);
+			toadd.setVolume(((BigInteger)row[1]).intValue());
+			ret.add(toadd);
+		}
+		return ret;
+	}
 	
 }

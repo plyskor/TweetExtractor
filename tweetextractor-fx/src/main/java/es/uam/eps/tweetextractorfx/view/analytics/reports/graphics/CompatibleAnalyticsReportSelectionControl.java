@@ -3,6 +3,7 @@
  */
 package es.uam.eps.tweetextractorfx.view.analytics.reports.graphics;
 
+import java.nio.channels.SeekableByteChannel;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
@@ -53,7 +54,7 @@ public class CompatibleAnalyticsReportSelectionControl extends TweetExtractorFXC
 	private void initialize() {
 		// Initialize the person table with the two columns.
 		idColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
-		typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClass().toString()));
+		typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Constants.REPORT_TYPES_GUI.get(cellData.getValue().getReportType())));
 		createdOnColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(cellData.getValue().getCreationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
 		lastUpdatedColumn.setCellValueFactory(cellData -> {
 		if(cellData.getValue().getLastUpdatedDate()!=null) {
@@ -219,6 +220,8 @@ public class CompatibleAnalyticsReportSelectionControl extends TweetExtractorFXC
 	public void onNext() {
 		if(selectedReport==null) {
 			ErrorDialog.showErrorNoSelectedReport();
+		}else if(selectedReport.isEmpty()){
+			ErrorDialog.showErrorEmptyReport();
 		}else {
 			this.mainApplication.showChartGraphicsPreferences(input,(AnalyticsRepresentableReport)selectedReport);
 		}

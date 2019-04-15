@@ -24,7 +24,6 @@ import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineVolumeReport;
-import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
 import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.response.ServerTaskResponse;
@@ -42,13 +41,7 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = 2360564182683128202L;
-	@Transient
-	private TweetServiceInterface tServ;
-	@Transient
-	private AnalyticsReportServiceInterface arServ;
-	@Transient
-	private AnalyticsReportRegisterServiceInterface regServ;
-	
+
 	public ServerTaskTimelineVolumeReport() {
 		super();
 	}
@@ -85,30 +78,19 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 			finish();
 			return;
 		}
+		permanentClearReport();
 		AnalyticsReportCategory nTweetsCategory= ((TimelineVolumeReport)report).getCategories().get(0);
 		for(TimelineReportVolumeRegister register: list) {
 			register.setCategory(nTweetsCategory);
 		}
-		permanentClearReport();
 		nTweetsCategory.getResult().clear();
 		nTweetsCategory.getResult().addAll(list);
 		report.setLastUpdatedDate(new Date());
-		arServ.update((AnalyticsCategoryReport)report);
+		arServ.saveOrUpdate((AnalyticsCategoryReport)report);
 		logger.info("Timeline tweet volume report succesfully saved to database with id: "+report.getId());
 		finish();
 	}
 
-	
-
-	private void permanentClearReport() {
-		if(report!=null) {
-			for(AnalyticsReportCategory category : ((TimelineVolumeReport)report).getCategories()) {
-				for(AnalyticsReportRegister register : category.getResult()) {
-					regServ.delete(register);
-				}
-			}
-		}
-	}
 
 
 }

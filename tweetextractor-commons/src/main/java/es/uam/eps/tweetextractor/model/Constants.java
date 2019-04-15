@@ -305,6 +305,24 @@ public final class Constants {
 		       .put(Constants.STROKE_DOT,"Dot")
 		       .put(Constants.STROKE_DASH,"Dash")
 		       .build();
+	public static final ImmutableMap<AnalyticsReportImageTypes,String > CHART_TYPES_GUI =
+		       new ImmutableMap.Builder<AnalyticsReportImageTypes, String>()
+		       .put(AnalyticsReportImageTypes.BARC,"3D Categoory Bar Chart" )
+		       .put(AnalyticsReportImageTypes.BXYC,"XY Bar Chart")
+		       .put(AnalyticsReportImageTypes.PCH,"Pie Chart")
+		       .put(AnalyticsReportImageTypes.P3DCH,"3D Pie Chart")
+		       .put(AnalyticsReportImageTypes.TSC,"Time Series Line Chart")
+		       .put(AnalyticsReportImageTypes.WCC,"Word Cloud")
+		       .build();
+	public static final ImmutableMap<AnalyticsReportTypes,String > REPORT_TYPES_GUI =
+		       new ImmutableMap.Builder<AnalyticsReportTypes, String>()
+		       .put(AnalyticsReportTypes.TVR,"Timeline Tweet Volume Report")
+		       .put(AnalyticsReportTypes.TRHR,"Trending Hashtags Reports")
+		       .put(AnalyticsReportTypes.TTNHR,"Timeline Top N Hashtags Report")
+		       .put(AnalyticsReportTypes.TRUMR,"Trending User Mentions Report")
+		       .put(AnalyticsReportTypes.TRUR,"Trending Users Report")
+		       .put(AnalyticsReportTypes.TRWR,"Trending Words Report")
+		       .build();
 	/*
 	*Types of task available
 	**/

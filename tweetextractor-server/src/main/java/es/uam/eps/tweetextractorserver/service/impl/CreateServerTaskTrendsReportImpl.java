@@ -129,6 +129,7 @@ public class CreateServerTaskTrendsReportImpl implements CreateServerTaskTrendsR
 			return reply;
 		}
 		task.setUser(u);
+		report.setReportType(reportType);
 		report.setUser(u);
 		report.setN(limit);
 		report.setExtractions(eServ.findListById(extractions));

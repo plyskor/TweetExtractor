@@ -11,6 +11,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportImageServiceInterface;
+import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
 import es.uam.eps.tweetextractorfx.MainApplication;
@@ -19,6 +20,7 @@ import es.uam.eps.tweetextractorfx.task.DeleteChartTask;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -56,7 +58,6 @@ public class MyGraphicsControl extends TweetExtractorFXController {
 	private ObservableList<AnalyticsReportImage> graphicsList = FXCollections.observableArrayList();
 	private AnalyticsReportImageServiceInterface ariServ;
 	private Stage loadingDialog = null;
-	private Alert alertExport;
 
 	/**
 	 * 
@@ -69,6 +70,10 @@ public class MyGraphicsControl extends TweetExtractorFXController {
 	private void initialize() {
 		graphicIDColumn
 				.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
+		graphicTypeColumn
+		.setCellValueFactory(cellData -> new SimpleStringProperty(Constants.CHART_TYPES_GUI.get(cellData.getValue().getChartType())));
+		reportTypeColumn
+		.setCellValueFactory(cellData -> new SimpleStringProperty(Constants.REPORT_TYPES_GUI.get(cellData.getValue().getReport().getReportType())));
 		reportIDColumn.setCellValueFactory(
 				cellData -> new SimpleIntegerProperty(cellData.getValue().getReport().getId()).asObject());
 		generatedOnColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(
@@ -142,7 +147,6 @@ public class MyGraphicsControl extends TweetExtractorFXController {
 	@FXML
 	public void onExportChart() {
 		if (selectedGraphic != null) {
-			alertExport = null;
 			FileChooser fileChooser = new FileChooser();
 			// Set extension filter
 			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JPEG files (*.jpeg)", "*.jpeg");

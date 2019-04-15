@@ -12,20 +12,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.imageio.ImageIO;
-
 import org.jfree.chart.JFreeChart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
-import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineTopNHashtagsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
 import javafx.scene.paint.Color;

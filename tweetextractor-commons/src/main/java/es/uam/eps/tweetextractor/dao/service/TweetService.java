@@ -75,5 +75,16 @@ public class TweetService extends GenericService<Tweet, Integer> implements Twee
 			List<Integer> extractionIDList) {
 		return tweetDAO.findTopNHashtagsByExtractionFiltered(n, filter, extractionIDList);
 	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<TrendingReportRegister> findTopNUsersByExtraction(int n, List<Integer> extractionIDList) {
+		return tweetDAO.findTopNUsersByExtraction(n, extractionIDList);
+	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<TrendingReportRegister> findTopNUsersByExtractionFiltered(int n, List<String> filter,
+			List<Integer> extractionIDList) {
+		return tweetDAO.findTopNUsersByExtractionFiltered(n, filter, extractionIDList);
+	}
 
 }

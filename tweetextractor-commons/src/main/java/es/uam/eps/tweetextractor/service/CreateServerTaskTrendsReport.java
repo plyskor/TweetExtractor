@@ -8,7 +8,6 @@ import java.util.List;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTrendsReportResponse;
-import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTimelineVolumeReportSei;
 import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTrendsReportSei;
 
 /**

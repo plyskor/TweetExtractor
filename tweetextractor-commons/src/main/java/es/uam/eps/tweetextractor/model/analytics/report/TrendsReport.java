@@ -19,9 +19,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+import org.jfree.data.xy.IntervalXYDataset;
+import org.jfree.data.xy.XYDataset;
 import org.springframework.stereotype.Controller;
 import javax.persistence.JoinColumn;
 import es.uam.eps.tweetextractor.model.Extraction;
+import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
 
 /**
  * @author jose
@@ -100,6 +108,45 @@ public abstract class TrendsReport extends AnalyticsCategoryReport {
 	 */
 	public void setStringFilterList(List<String> stringFilterList) {
 		this.stringFilterList = stringFilterList;
+	}
+	@Override
+	public PieDataset constructPieDataset(List<PlotStrokeConfiguration> categories) {
+        DefaultPieDataset pieDataset = new DefaultPieDataset();
+		if (this.getCategories() != null && categories != null) {
+			List<AnalyticsReportCategoryRegister> list = this.getCategories().get(0).getResult();
+			for(AnalyticsReportCategoryRegister register : list) {
+				TrendingReportRegister castedRegister = (TrendingReportRegister) register;
+				pieDataset.setValue(castedRegister.getLabel(), castedRegister.getVolume());
+			}
+		}
+		return pieDataset;
+	}
+	@Override
+	public DefaultCategoryDataset constructDefaultCategoryDataset(List<PlotStrokeConfiguration> categories) {
+		DefaultCategoryDataset ret = new DefaultCategoryDataset();
+		if (this.getCategories() != null && categories != null) {
+			List<AnalyticsReportCategoryRegister> list = this.getCategories().get(0).getResult();
+			for(AnalyticsReportCategoryRegister register : list) {
+				TrendingReportRegister castedRegister = (TrendingReportRegister) register;
+				ret.setValue(castedRegister.getVolume(), castedRegister.getLabel(), "Number of tweets");
+			}
+		}
+		return ret;
+	}
+	/* (non-Javadoc)
+	 * @see es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport#constructXYDataset(java.util.List)
+	 */
+	@Override
+	public XYDataset constructXYDataset(List<PlotStrokeConfiguration> categories) {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport#constructIntervalXYDataset(java.util.List)
+	 */
+	@Override
+	public IntervalXYDataset constructIntervalXYDataset(List<PlotStrokeConfiguration> categories) {
+		return null;
 	}
 
 	

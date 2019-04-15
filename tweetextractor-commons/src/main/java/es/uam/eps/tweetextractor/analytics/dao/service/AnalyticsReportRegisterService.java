@@ -14,6 +14,8 @@ import es.uam.eps.tweetextractor.analytics.dao.AnalyticsReportRegisterDAO;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegisterServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.GenericService;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 
 /**
@@ -35,6 +37,13 @@ public class AnalyticsReportRegisterService extends GenericService<AnalyticsRepo
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<AnalyticsReportRegister> findByReport(AnalyticsReport report) {
 		return analyticsReportRegisterDAO.findByReport(report);
+	}
+
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<AnalyticsReportCategoryRegister> findAnalyticsReportCategoryRegisterByCategory(
+			AnalyticsReportCategory category) {
+		return analyticsReportRegisterDAO.findAnalyticsReportCategoryRegisterByCategory(category);
 	}
 
 	

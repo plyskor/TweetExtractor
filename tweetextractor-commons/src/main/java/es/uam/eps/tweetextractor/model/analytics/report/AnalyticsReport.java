@@ -135,5 +135,6 @@ public abstract class AnalyticsReport implements Serializable{
 	public void setReportType(AnalyticsReportTypes reportType) {
 		this.reportType = reportType;
 	}
+	public abstract boolean isEmpty();
 
 }
