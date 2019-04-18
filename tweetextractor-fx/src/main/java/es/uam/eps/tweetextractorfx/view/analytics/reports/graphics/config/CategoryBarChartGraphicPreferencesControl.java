@@ -7,16 +7,12 @@ import java.text.DecimalFormat;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegisterServiceInterface;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorChartGraphicPreferencesServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.CategoryBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
-import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
-import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import javafx.fxml.FXML;
@@ -32,7 +28,6 @@ import javafx.scene.text.Text;
  *
  */
 public class CategoryBarChartGraphicPreferencesControl extends SpecificGraphicChartPreferencesController {
-	private AnalyticsReportRegisterServiceInterface regServ;
 	private TweetExtractorChartGraphicPreferencesServiceInterface prefsService;
 	
 	private CategoryBarChartGraphicPreferences preferences;
@@ -95,7 +90,6 @@ public class CategoryBarChartGraphicPreferencesControl extends SpecificGraphicCh
 		preferences = (CategoryBarChartGraphicPreferences) this.getPreferencesInput();
 		loadConfiguration();
 		prefsService = this.mainApplication.getSpringContext().getBean(TweetExtractorChartGraphicPreferencesServiceInterface.class);
-		regServ = this.mainApplication.getSpringContext().getBean(AnalyticsReportRegisterServiceInterface.class);
 		xShadowOffsetSlider.valueProperty()
 		.addListener((observable, oldValue, newValue) -> xShadowOffsetText.setText("X shadow offset: "+newValue.intValue()));
 		yShadowOffsetSlider.valueProperty()

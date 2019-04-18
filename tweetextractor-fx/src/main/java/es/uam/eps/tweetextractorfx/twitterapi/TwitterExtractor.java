@@ -3,16 +3,20 @@ package es.uam.eps.tweetextractorfx.twitterapi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.util.StringUtils;
+
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Credentials;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Tweet;
+import es.uam.eps.tweetextractor.model.reference.AvailableTwitterLanguage;
 import es.uam.eps.tweetextractor.model.task.status.UpdateStatus;
 import es.uam.eps.tweetextractor.util.FilterManager;
 import javafx.scene.control.Alert;
@@ -20,10 +24,12 @@ import javafx.scene.control.Alert.AlertType;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.RateLimitStatus;
+import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.api.HelpResources.Language;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterExtractor {
@@ -195,5 +201,21 @@ public class TwitterExtractor {
 	public void setUpdateStatus(Integer updateStatus) {
 		this.updateStatus = updateStatus;
 	}
-	
+	public List<AvailableTwitterLanguage> getSupportedLanguages(){
+		List<AvailableTwitterLanguage> ret = new ArrayList<>();
+		Locale english = new Locale("en");
+		try {
+			ResponseList<Language> result = twitter.getLanguages();
+			for(Language supportedLanguage : result) {
+				AvailableTwitterLanguage toAdd = new AvailableTwitterLanguage();
+				toAdd.setShortName(supportedLanguage.getCode());
+				Locale loc = new Locale(toAdd.getShortName());
+				toAdd.setLongName(StringUtils.capitalize(loc.getDisplayLanguage(english)));
+				ret.add(toAdd);
+			}
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
 }

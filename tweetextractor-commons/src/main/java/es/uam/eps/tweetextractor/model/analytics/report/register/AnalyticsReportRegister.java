@@ -12,10 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlTransient;
 @NamedQuery(name="findAnalyticsReportRegisterByReport", query="SELECT r from AnalyticsReportRegister r WHERE r.category.report=:report")
 
 /**

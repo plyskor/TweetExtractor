@@ -40,6 +40,15 @@
 				</includes>
 			</resource>
 			<resource>
+				<directory>resources/models</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>*.gz</include>
+					<include>*.ser</include>
+					<include>*.prop</include>
+				</includes>
+			</resource>
+			<resource>
 				<directory>resources/icon</directory>
 				<filtering>true</filtering>
 				<includes>

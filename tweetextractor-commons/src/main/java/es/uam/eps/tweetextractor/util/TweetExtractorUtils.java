@@ -38,7 +38,7 @@ public class TweetExtractorUtils {
 	private TweetExtractorUtils() {
 		super();
 	}
-
+	
 	public static String buildServerAdress(String serverHost, String serverAppName, int port) {
 		return "https://" + serverHost + ":" + port + "/" + serverAppName + "/";
 	}

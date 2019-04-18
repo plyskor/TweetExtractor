@@ -3,7 +3,6 @@
  */
 package es.uam.eps.tweetextractorfx.view.analytics.reports.graphics;
 
-import java.nio.channels.SeekableByteChannel;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;

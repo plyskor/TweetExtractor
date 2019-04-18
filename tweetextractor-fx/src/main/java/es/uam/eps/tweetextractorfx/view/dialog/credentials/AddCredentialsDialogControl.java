@@ -3,6 +3,7 @@ package es.uam.eps.tweetextractorfx.view.dialog.credentials;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractor.dao.service.inter.CredentialsServiceInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.util.TweetExtractorFXUtils;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractor.model.Credentials;
 import javafx.fxml.FXML;
@@ -117,6 +118,7 @@ public class AddCredentialsDialogControl extends TweetExtractorFXDialogControlle
 		try {
 			CredentialsServiceInterface credentialsService = mainApplication.getSpringContext().getBean(CredentialsServiceInterface.class);
 			credentialsService.persist(credentials);
+			TweetExtractorFXUtils.initializeReferenceTables(credentials,this.getMainApplication().getSpringContext());
 		} catch (Exception e) {
 			ErrorDialog.showErrorSaveCredentials(e.getMessage());
 			return;

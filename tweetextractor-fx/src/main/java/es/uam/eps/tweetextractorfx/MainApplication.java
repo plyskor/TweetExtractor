@@ -8,6 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import es.uam.eps.tweetextractor.analytics.TweetExtractorNaturalTextProcessor;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
@@ -28,6 +29,8 @@ import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.CompatibleAna
 import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.config.ChartGraphicPreferencesControl;
 import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.config.SpecificGraphicChartPreferencesController;
 import es.uam.eps.tweetextractorfx.view.dialog.LoadingDialogControl;
+import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
+import es.uam.eps.tweetextractorfx.view.dialog.response.TweetExtractorFXDialogResponse;
 import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -39,6 +42,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 
 public class MainApplication extends Application {
 	private Stage primaryStage;
@@ -63,31 +67,18 @@ public class MainApplication extends Application {
 		initRootLayout();
 		TweetExtractorFXPreferences.initializePreferences();
 		springContext = new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
-		//onBoot();
+		onBoot();
+		return;
 	}
 	
-/*
+
 	private void onBoot() {
-		AnalyticsReportServiceInterface inter;
-		inter=springContext.getBean(AnalyticsReportServiceInterface.class);
-		AnalyticsRepresentableReport report =(AnalyticsRepresentableReport)inter.findById(1);
-		int i =0;
-		for(AnalyticsReportImage reportImage : report.getGraphics()) {
-			File f = new File("image0"+i+".jpeg");
-			if(!f.exists()) {
-				try {
-					f.createNewFile();
-					TweetExtractorUtils.writeByteArrayToFile(f, reportImage.getImage());
-					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			i++;
-		}
+		TweetExtractorNaturalTextProcessor processor = new TweetExtractorNaturalTextProcessor(springContext);
+		processor.frequency();
+		/**/
+	
 	}
-*/
+
 	
 	/* Initialize the RootLayout */
 	public void initRootLayout() {
@@ -169,6 +160,7 @@ public class MainApplication extends Application {
 			controller.setMainApplication(this);
 		} catch (IOException e) {
 			logger.error(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	public void showReportRawDataInCenterOfRootLayout(String fxmlPath,Class<?> clazz,AnalyticsReport report) {
@@ -404,5 +396,31 @@ public class MainApplication extends Application {
 			logger.error(e.getMessage());
 		}
 	}
-
+	public TweetExtractorFXDialogResponse showDialogLoadFXML(String fxmlPath, Class<?> clazz) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource(fxmlPath));
+			AnchorPane page = loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(this.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			// Set the dialogStage to the controller.
+			TweetExtractorFXDialogController controller = loader.getController();
+			Method meth = clazz.getMethod("setDialogStage", Stage.class);
+			meth.invoke(controller, dialogStage);
+			meth = clazz.getMethod("setMainApplication", MainApplication.class);
+			meth.invoke(controller, this);
+			// Show the dialog and wait until the user closes it, then add filter
+			dialogStage.showAndWait();
+			return controller.getResponse();
+		} catch (Exception e) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			return null;
+		}
+	}
 }

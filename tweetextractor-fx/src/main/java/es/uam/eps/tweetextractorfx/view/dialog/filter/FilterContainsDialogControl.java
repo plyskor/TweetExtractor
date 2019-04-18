@@ -88,7 +88,7 @@ public class FilterContainsDialogControl extends TweetExtractorFXDialogControlle
 	}
 	@FXML
 	public void handleAddWord() {
-		if (wordToAdd.getText().trim().isEmpty()) {
+		if (wordToAdd.getText().trim().isBlank()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 	    	alert.setTitle("Información");
 	    	alert.setHeaderText("Ningúna palabra que añadir");

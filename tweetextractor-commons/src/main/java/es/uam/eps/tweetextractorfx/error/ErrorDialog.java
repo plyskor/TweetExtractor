@@ -629,4 +629,36 @@ public class ErrorDialog {
 		alert.setContentText("You selected an empty report. Please add some data to it first manually or with an asynchronous task.");		
 		alert.showAndWait();
 	}
+
+	public static void showErrorNoSelectedStopWordsList() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No list selected");
+		alert.setContentText("Please, select a custom stop words list first to perform that action.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorEmptyStopWordsListName() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No name given");
+		alert.setContentText("Please, give a name to your custom stop words list.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorCustomStopWordsListNameExists() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("List already exists");
+		alert.setContentText("You already have a list named like that for this language, please select another name.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorNoSelectedStopWord() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No word selected");
+		alert.setContentText("Please, select a stop word first to perform that action.");		
+		alert.showAndWait();
+	}
 }

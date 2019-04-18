@@ -149,6 +149,8 @@ public final class Constants {
 			public static final String TYPE_WORD_CLOUD_CHART = "WCC";
 		}
 	}
+	public static final ImmutableList<String> LANGUAGE_AVAILABLE_DEFAULT_STOP_SET= ImmutableList.of("English","Spanish","Arabic","French","Italian","German");
+
 	// Stroke choices
 	public static final String STROKE_LINE = "line";
 	public static final String STROKE_DASH = "dash";

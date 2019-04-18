@@ -48,7 +48,11 @@ public abstract class AbstractGenericDAO<V extends Serializable, K extends Seria
     public void persist(V entity) {
         currentSession().save(entity);
     }
-     
+    @Override
+    public boolean existsAny(K id) {
+    	V entity = find(id);
+    	return (entity==null) ? false : true;
+    }
     @Override
     public void saveOrUpdate(V entity) {
         currentSession().saveOrUpdate(entity);

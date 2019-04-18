@@ -15,6 +15,8 @@ public interface GenericServiceInterface<V extends Serializable, K extends Seria
 	    public List<V> findAll();
 	    public V findById(K id);
 	    public void persist(V entity);
+	    public void persistList(List<V> entityList);
+	    public boolean existsAny(K id);
 	    public void update(V entity);
 	    public void delete(V entity);
 	    public void merge(V entity);

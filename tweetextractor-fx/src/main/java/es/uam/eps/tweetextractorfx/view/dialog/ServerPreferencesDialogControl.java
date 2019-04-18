@@ -95,15 +95,15 @@ public class ServerPreferencesDialogControl extends TweetExtractorFXDialogContro
 	}
 	@FXML
 	public void onSave() {
-		if(serverHost.getText().isEmpty()||serverHost.getText().trim().equals("")) {
+		if(serverHost.getText().isBlank()||serverHost.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerHost();
 			
 		}
-		if(serverPort.getText().isEmpty()||serverPort.getText().trim().equals("")) {
+		if(serverPort.getText().isBlank()||serverPort.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerPort();
 			
 		}
-		if(serverAppName.getText().isEmpty()||serverAppName.getText().trim().equals("")) {
+		if(serverAppName.getText().isBlank()||serverAppName.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerAppName();
 			
 		}
@@ -136,15 +136,15 @@ public class ServerPreferencesDialogControl extends TweetExtractorFXDialogContro
 	}
 	@FXML
 	public void onTest() {
-		if(serverHost.getText().isEmpty()||serverHost.getText().trim().equals("")) {
+		if(serverHost.getText().isBlank()||serverHost.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerHost();
 			
 		}
-		if(serverPort.getText().isEmpty()||serverPort.getText().trim().equals("")) {
+		if(serverPort.getText().isBlank()||serverPort.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerPort();
 			
 		}
-		if(serverAppName.getText().isEmpty()||serverAppName.getText().trim().equals("")) {
+		if(serverAppName.getText().isBlank()||serverAppName.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerAppName();
 			
 		}

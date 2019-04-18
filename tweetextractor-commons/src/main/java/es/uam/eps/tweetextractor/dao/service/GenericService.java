@@ -6,7 +6,6 @@ package es.uam.eps.tweetextractor.dao.service;
 import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -65,6 +64,11 @@ public abstract class GenericService<V extends Serializable, K extends Serializa
     }
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
+    public void persistList(List<V> entityList) {
+        genericDao.persistList(entityList);
+    }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void merge(V entity) {
         genericDao.merge(entity);
     }
@@ -74,7 +78,13 @@ public abstract class GenericService<V extends Serializable, K extends Serializa
         genericDao.update(entity);
     }
  
-    @Override
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED)
+	public boolean existsAny(K id) {
+		return genericDao.existsAny(id);
+	}
+
+	@Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void delete(V entity) {
         genericDao.delete(entity);

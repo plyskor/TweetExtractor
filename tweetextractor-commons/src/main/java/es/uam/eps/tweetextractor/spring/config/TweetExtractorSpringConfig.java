@@ -52,6 +52,10 @@ import es.uam.eps.tweetextractor.model.filter.impl.FilterSince;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterTo;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterUntil;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterUrl;
+import es.uam.eps.tweetextractor.model.reference.AvailableTwitterLanguage;
+import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsList;
+import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsListID;
+import es.uam.eps.tweetextractor.model.reference.nlp.StopWord;
 import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.ExtractionServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.ScheduledServerTask;
@@ -103,7 +107,8 @@ public class TweetExtractorSpringConfig {
 				CategoryBarChartGraphicPreferences.class, XYBarChartGraphicPreferences.class,AnalyticsReportCategory.class,
 				AnalyticsReportCategoryRegister.class,ServerTaskTopNHashtagsReport.class,TimelineTopNHashtagsReport.class,
 				TrendsReport.class,TrendingHashtagsReport.class,TrendingUsersReport.class,TrendingUserMentionsReport.class,
-				TrendingWordsReport.class,ServerTaskTrendsReport.class,TrendingReportRegister.class,PieChartConfiguration.class);
+				TrendingWordsReport.class,ServerTaskTrendsReport.class,TrendingReportRegister.class,PieChartConfiguration.class,
+				AvailableTwitterLanguage.class,CustomStopWordsList.class,StopWord.class,CustomStopWordsListID.class);
 		return factoryBean;
 	}
 
