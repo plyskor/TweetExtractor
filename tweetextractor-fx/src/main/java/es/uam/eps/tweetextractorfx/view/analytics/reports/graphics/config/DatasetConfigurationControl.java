@@ -131,7 +131,7 @@ public class DatasetConfigurationControl extends SpecificGraphicChartPreferences
 		TweetExtractorChartConstructor constructor= new TweetExtractorChartConstructor(this.getReportInput(), this.getChart(), this.getChartTypeInput(), this.getPreferencesInput());
 		nextFXMLscreen="view/analytics/reports/graphics/MyGraphics.fxml";
 		nextControllerClazz=MyGraphicsControl.class;
-		constructor.constructChart();
+		constructor.constructJFreeChart();
 		getChart().setChartType(getChartTypeInput());
 		chartService.saveOrUpdate(getChart());
 		ErrorDialog.showSuccessCreateGraphicChart(getChart().getId());

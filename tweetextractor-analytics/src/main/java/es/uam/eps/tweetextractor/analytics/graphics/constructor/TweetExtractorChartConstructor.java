@@ -5,11 +5,14 @@ package es.uam.eps.tweetextractor.analytics.graphics.constructor;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -28,16 +31,28 @@ import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import com.kennycason.kumo.CollisionMode;
+import com.kennycason.kumo.WordCloud;
+import com.kennycason.kumo.WordFrequency;
+import com.kennycason.kumo.bg.CircleBackground;
+import com.kennycason.kumo.bg.PixelBoundryBackground;
+import com.kennycason.kumo.bg.RectangleBackground;
+import com.kennycason.kumo.font.scale.LinearFontScalar;
+import com.kennycason.kumo.nlp.FrequencyAnalyzer;
+import com.kennycason.kumo.palette.ColorPalette;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.CategoryBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.graphics.WorldCloudChartConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingWordsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingWordsReportRegister;
 import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
 
 /**
@@ -68,29 +83,42 @@ public class TweetExtractorChartConstructor {
 	/*
 		 * 
 		 */
-	public TweetExtractorChartConstructor(AnalyticsRepresentableReport report, AnalyticsReportImage chart, AnalyticsReportImageTypes chartType, TweetExtractorChartGraphicPreferences config) {
+
+	public TweetExtractorChartConstructor(AnalyticsRepresentableReport report, AnalyticsReportImage chart,
+			AnalyticsReportImageTypes chartType, TweetExtractorChartGraphicPreferences config) {
 		super();
-		this.report=report;
-		this.reportImage=chart;
-		this.chartType=chartType;
-		this.preferences=config;
-		constructDataset();
-		theme.setTitlePaint(Color.decode(preferences.getHexTitleColour()));
-		theme.setExtraLargeFont(new Font(preferences.getFontName(), preferences.getTitleFontType(), preferences.getTitleFontSize())); // title
-		theme.setLargeFont(
-				new Font(preferences.getFontName(), preferences.getAxisTitleFontType(), preferences.getAxisTitleFontSize())); // axis-title
-		theme.setRegularFont(new Font(preferences.getFontName(), preferences.getRegularFontType(), preferences.getRegularFontSize()));
-		theme.setRangeGridlinePaint(Color.decode(preferences.getHexRangeGridLineColour()));
-		theme.setPlotBackgroundPaint(Color.decode(preferences.getHexPlotBackgroundPaintColour()));
-		theme.setChartBackgroundPaint(Color.decode(preferences.getHexChartBackgroundPaintColour()));
-		theme.setGridBandPaint(Color.decode(preferences.getHexGridBandPaintColour()));
-		theme.setAxisOffset(new org.jfree.ui.RectangleInsets(0, 0, 0, 0));
-		theme.setBarPainter(new StandardBarPainter());
-		theme.setAxisLabelPaint(Color.decode(preferences.getHexAxisLabelColour()));
+		this.report = report;
+		this.reportImage = chart;
+		this.chartType = chartType;
+		this.preferences = config;
+		if (chartType != AnalyticsReportImageTypes.WCC) {
+			constructDataset();
+			theme.setTitlePaint(Color.decode(preferences.getHexTitleColour()));
+			theme.setExtraLargeFont(new Font(preferences.getFontName(), preferences.getTitleFontType(),
+					preferences.getTitleFontSize())); // title
+			theme.setLargeFont(new Font(preferences.getFontName(), preferences.getAxisTitleFontType(),
+					preferences.getAxisTitleFontSize())); // axis-title
+			theme.setRegularFont(new Font(preferences.getFontName(), preferences.getRegularFontType(),
+					preferences.getRegularFontSize()));
+			theme.setRangeGridlinePaint(Color.decode(preferences.getHexRangeGridLineColour()));
+			theme.setPlotBackgroundPaint(Color.decode(preferences.getHexPlotBackgroundPaintColour()));
+			theme.setChartBackgroundPaint(Color.decode(preferences.getHexChartBackgroundPaintColour()));
+			theme.setGridBandPaint(Color.decode(preferences.getHexGridBandPaintColour()));
+			theme.setAxisOffset(new org.jfree.ui.RectangleInsets(0, 0, 0, 0));
+			theme.setBarPainter(new StandardBarPainter());
+			theme.setAxisLabelPaint(Color.decode(preferences.getHexAxisLabelColour()));
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public TweetExtractorChartConstructor() {
+		super();
 	}
 
 	public void constructDataset() {
-		switch(chartType) {
+		switch (chartType) {
 		case TSC:
 			this.setDataset(report.constructIntervalXYDataset(this.getReportImage().getPlotStrokeConfiguration()));
 			break;
@@ -108,17 +136,24 @@ public class TweetExtractorChartConstructor {
 			break;
 		}
 	}
-	public void constructChart() {
+
+	public void constructJFreeChart() {
 		JFreeChart chartObject = null;
+		if (chartType.equals(AnalyticsReportImageTypes.WCC)) {
+			return;
+		}
 		switch (chartType) {
 		case TSC:
-			chartObject = constructTimeSeriesChart((XYChartGraphicPreferences)preferences, reportImage.getPlotStrokeConfiguration());
+			chartObject = constructTimeSeriesChart((XYChartGraphicPreferences) preferences,
+					reportImage.getPlotStrokeConfiguration());
 			break;
 		case BXYC:
-			chartObject = constructXYBarChart((XYBarChartGraphicPreferences)preferences,reportImage.getPlotStrokeConfiguration());
+			chartObject = constructXYBarChart((XYBarChartGraphicPreferences) preferences,
+					reportImage.getPlotStrokeConfiguration());
 			break;
 		case BARC:
-			chartObject = constructBarChart((CategoryBarChartGraphicPreferences)preferences,reportImage.getPlotStrokeConfiguration());
+			chartObject = constructBarChart((CategoryBarChartGraphicPreferences) preferences,
+					reportImage.getPlotStrokeConfiguration());
 			break;
 		case PCH:
 			chartObject = constructPieChart(preferences, reportImage.getPlotStrokeConfiguration());
@@ -129,9 +164,61 @@ public class TweetExtractorChartConstructor {
 		default:
 			break;
 		}
-		if(chartObject!=null) {
+		if (chartObject != null) {
 			this.getReportImage().setImage(TweetExtractorUtils.convertChartObjectToByteArray(chartObject));
 		}
+	}
+
+	public WordCloud constructWordCloudChartFromTrendingWordsReport(File pixelBoundaryFile) throws IOException {
+		WorldCloudChartConfiguration config = (WorldCloudChartConfiguration) preferences;
+		TrendingWordsReport trendingWordsReport = (TrendingWordsReport) getReport();
+		final FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
+		frequencyAnalyzer.setWordFrequenciesToReturn(config.getnWords());
+		frequencyAnalyzer.setMinWordLength(config.getMinWordLength());
+		List<WordFrequency> wordFrequencies = new ArrayList<>();
+		for (AnalyticsReportCategoryRegister register : trendingWordsReport.getCategories().get(0).getResult()) {
+			TrendingWordsReportRegister castedRegister = (TrendingWordsReportRegister) register;
+			WordFrequency newWord = new WordFrequency((String) castedRegister.getTerms().toArray()[0],
+					castedRegister.getFrequency());
+			wordFrequencies.add(newWord);
+		}
+		wordFrequencies = frequencyAnalyzer.loadWordFrequencies(wordFrequencies);
+		Dimension dimension = null;
+		WordCloud wordCloud = null;
+		switch (config.getType()) {
+		case Constants.WCC_CIRCULAR:
+			dimension = new Dimension(1080, 1080);
+			wordCloud = new WordCloud(dimension, CollisionMode.PIXEL_PERFECT);
+			wordCloud.setBackground(new CircleBackground(540));
+			break;
+		case Constants.WCC_PIXEL_BOUNDARY:
+			try {
+				dimension = new Dimension(1920, 1080);
+				wordCloud = new WordCloud(dimension, CollisionMode.PIXEL_PERFECT);
+				wordCloud.setBackground(new PixelBoundryBackground(pixelBoundaryFile));
+			} catch (IOException e) {
+				logger.warn("An exception has been thrown opening pixel boundary file: " + e.getMessage());
+			}
+			break;
+		case Constants.WCC_RECTANGULAR:
+			dimension = new Dimension(1920, 1080);
+			wordCloud = new WordCloud(dimension, CollisionMode.RECTANGLE);
+			wordCloud.setBackground(new RectangleBackground(dimension));
+			break;
+		default:
+			break;
+		}
+		if (wordCloud != null) {
+			wordCloud.setPadding(2);
+			wordCloud.setColorPalette(new ColorPalette(config.getAwtColorList()));
+			wordCloud.setFontScalar(new LinearFontScalar(config.getFontMin(), config.getFontMax()));
+			wordCloud.build(wordFrequencies);
+			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			wordCloud.writeToStreamAsPNG(byteArrayOutputStream);
+			final byte[] bytes = byteArrayOutputStream.toByteArray();
+			this.reportImage.setImage(bytes);
+		}
+		return wordCloud;
 	}
 
 	/**
@@ -246,34 +333,14 @@ public class TweetExtractorChartConstructor {
 		this.fontName = fontName;
 	}
 
-	public JFreeChart constructTimeSeriesChart(XYChartGraphicPreferences config ,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+	public JFreeChart constructTimeSeriesChart(XYChartGraphicPreferences config,
+			List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		try {
-			JFreeChart timeSeriesChart = ChartFactory.createTimeSeriesChart(config.getChartTitle(), config.getxAxisLabel(),
-					config.getyAxisLabel(), (XYDataset) this.dataset, config.isLegend(), config.isTooltips(), config.isUrls());
+			JFreeChart timeSeriesChart = ChartFactory.createTimeSeriesChart(config.getChartTitle(),
+					config.getxAxisLabel(), config.getyAxisLabel(), (XYDataset) this.dataset, config.isLegend(),
+					config.isTooltips(), config.isUrls());
 			this.theme.apply(timeSeriesChart);
-			return setPreferencesXYChart(timeSeriesChart, config,plotStrokeConfiguration);
-		} catch (Exception e) {
-			logger.warn(e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public JFreeChart constructPieChart(TweetExtractorChartGraphicPreferences config ,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
-		try {
-			JFreeChart timeSeriesChart = ChartFactory.createPieChart(config.getChartTitle(), (PieDataset) this.dataset, config.isLegend(), config.isTooltips(), config.isUrls());
-			this.theme.apply(timeSeriesChart);
-			return setPreferencesPieChart(timeSeriesChart, config,plotStrokeConfiguration);
-		} catch (Exception e) {
-			logger.warn(e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public JFreeChart constructPieChart3D(TweetExtractorChartGraphicPreferences config ,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
-		try {
-			JFreeChart timeSeriesChart = ChartFactory.createPieChart3D(config.getChartTitle(), (PieDataset) this.dataset, config.isLegend(), config.isTooltips(), config.isUrls());
-			this.theme.apply(timeSeriesChart);
-			return setPreferencesPieChart(timeSeriesChart, config,plotStrokeConfiguration);
+			return setPreferencesXYChart(timeSeriesChart, config, plotStrokeConfiguration);
 		} catch (Exception e) {
 			logger.warn(e.getMessage());
 			e.printStackTrace();
@@ -281,14 +348,41 @@ public class TweetExtractorChartConstructor {
 		}
 	}
 
-	
-
-	public JFreeChart constructXYBarChart(XYBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+	public JFreeChart constructPieChart(TweetExtractorChartGraphicPreferences config,
+			List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		try {
-			JFreeChart xyBarChart = ChartFactory.createXYBarChart(config.getChartTitle(), config.getxAxisLabel(), config.isDateAxis(),
-					config.getyAxisLabel(), (IntervalXYDataset) this.dataset);
+			JFreeChart timeSeriesChart = ChartFactory.createPieChart(config.getChartTitle(), (PieDataset) this.dataset,
+					config.isLegend(), config.isTooltips(), config.isUrls());
+			this.theme.apply(timeSeriesChart);
+			return setPreferencesPieChart(timeSeriesChart, config, plotStrokeConfiguration);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public JFreeChart constructPieChart3D(TweetExtractorChartGraphicPreferences config,
+			List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+		try {
+			JFreeChart timeSeriesChart = ChartFactory.createPieChart3D(config.getChartTitle(),
+					(PieDataset) this.dataset, config.isLegend(), config.isTooltips(), config.isUrls());
+			this.theme.apply(timeSeriesChart);
+			return setPreferencesPieChart(timeSeriesChart, config, plotStrokeConfiguration);
+		} catch (Exception e) {
+			logger.warn(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public JFreeChart constructXYBarChart(XYBarChartGraphicPreferences config,
+			List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+		try {
+			JFreeChart xyBarChart = ChartFactory.createXYBarChart(config.getChartTitle(), config.getxAxisLabel(),
+					config.isDateAxis(), config.getyAxisLabel(), (IntervalXYDataset) this.dataset);
 			this.theme.apply(xyBarChart);
-			return setPreferencesXYBarChart(xyBarChart, config,plotStrokeConfiguration);
+			return setPreferencesXYBarChart(xyBarChart, config, plotStrokeConfiguration);
 		} catch (Exception e) {
 			logger.warn(e.getMessage());
 			e.printStackTrace();
@@ -296,12 +390,13 @@ public class TweetExtractorChartConstructor {
 		}
 	}
 
-	public JFreeChart constructBarChart(CategoryBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+	public JFreeChart constructBarChart(CategoryBarChartGraphicPreferences config,
+			List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		try {
-			JFreeChart barChart = ChartFactory.createBarChart3D(config.getChartTitle(), config.getxAxisLabel(), config.getyAxisLabel(),
-					(CategoryDataset) this.dataset);
+			JFreeChart barChart = ChartFactory.createBarChart3D(config.getChartTitle(), config.getxAxisLabel(),
+					config.getyAxisLabel(), (CategoryDataset) this.dataset);
 			this.theme.apply(barChart);
-			return setPreferencesCategoryBarChart(barChart, config,plotStrokeConfiguration);
+			return setPreferencesCategoryBarChart(barChart, config, plotStrokeConfiguration);
 		} catch (Exception e) {
 			logger.warn(e.getMessage());
 			e.printStackTrace();
@@ -309,17 +404,18 @@ public class TweetExtractorChartConstructor {
 		}
 	}
 
-	public JFreeChart setPreferencesXYChart(JFreeChart chart, XYChartGraphicPreferences config, List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+	public JFreeChart setPreferencesXYChart(JFreeChart chart, XYChartGraphicPreferences config,
+			List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		if (chart == null) {
 			return null;
 		}
 		XYPlot xyPlot = chart.getXYPlot();
 		XYItemRenderer cir = xyPlot.getRenderer();
-		for (PlotStrokeConfiguration strokeToUse :plotStrokeConfiguration) {
+		for (PlotStrokeConfiguration strokeToUse : plotStrokeConfiguration) {
 			BasicStroke stroke = toStroke(strokeToUse);
 			cir.setSeriesStroke(strokeToUse.getCategoryIndex(), stroke); // series line style
 			chart.getXYPlot().getRenderer().setSeriesPaint(strokeToUse.getCategoryIndex(),
-			Color.decode(strokeToUse.getHexLineColour()));
+					Color.decode(strokeToUse.getHexLineColour()));
 		}
 		chart.getXYPlot().setOutlineVisible(config.isOutlineVisible());
 		chart.getXYPlot().getRangeAxis().setAxisLineVisible(config.isRangeAxisLineVisible());
@@ -331,17 +427,20 @@ public class TweetExtractorChartConstructor {
 		chart.setAntiAlias(true);
 		return chart;
 	}
+
 	private JFreeChart setPreferencesPieChart(JFreeChart pieChart, TweetExtractorChartGraphicPreferences config,
 			List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		PiePlot plot = (PiePlot) pieChart.getPlot();
 		for (PlotStrokeConfiguration plotConfig : plotStrokeConfiguration) {
-			plot.setSectionPaint(plotConfig.getCategoryName(),Color.decode(plotConfig.getHexLineColour()));
+			plot.setSectionPaint(plotConfig.getCategoryName(), Color.decode(plotConfig.getHexLineColour()));
 			plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}:{1}"));
 			plot.setLabelBackgroundPaint(new Color(220, 220, 220));
 		}
 		return pieChart;
 	}
-	public JFreeChart setPreferencesCategoryBarChart(JFreeChart chart, CategoryBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+
+	public JFreeChart setPreferencesCategoryBarChart(JFreeChart chart, CategoryBarChartGraphicPreferences config,
+			List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		if (chart == null) {
 			return null;
 		}
@@ -362,7 +461,8 @@ public class TweetExtractorChartConstructor {
 		return chart;
 	}
 
-	private JFreeChart setPreferencesXYBarChart(JFreeChart xyBarChart, XYBarChartGraphicPreferences config,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+	private JFreeChart setPreferencesXYBarChart(JFreeChart xyBarChart, XYBarChartGraphicPreferences config,
+			List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		if (xyBarChart == null) {
 			return null;
 		}
@@ -406,9 +506,11 @@ public class TweetExtractorChartConstructor {
 			if (category.getStrokeType().equalsIgnoreCase(Constants.STROKE_LINE)) {
 				result = new BasicStroke(category.getStrokeWidth());
 			} else if (category.getStrokeType().equalsIgnoreCase(Constants.STROKE_DASH)) {
-				result = new BasicStroke(category.getStrokeWidth(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+				result = new BasicStroke(category.getStrokeWidth(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f,
+						dash, 0.0f);
 			} else if (category.getStrokeType().equalsIgnoreCase(Constants.STROKE_DOT)) {
-				result = new BasicStroke(category.getStrokeWidth(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 2.0f, dot, 0.0f);
+				result = new BasicStroke(category.getStrokeWidth(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 2.0f,
+						dot, 0.0f);
 			}
 		}
 		return result;
@@ -490,6 +592,5 @@ public class TweetExtractorChartConstructor {
 	public void setChartType(AnalyticsReportImageTypes chartType) {
 		this.chartType = chartType;
 	}
-	
-	
+
 }

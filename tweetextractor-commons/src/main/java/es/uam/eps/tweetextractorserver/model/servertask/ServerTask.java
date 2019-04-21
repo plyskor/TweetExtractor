@@ -251,7 +251,7 @@ public abstract class ServerTask implements Runnable,Serializable {
 		this.lastExecutedDate = lastExecutedDate;
 	}
 	public abstract void initialize(AnnotationConfigApplicationContext context);
-	public abstract void implementation() ;
+	public abstract void implementation() throws Exception ;
 	/**
 	 * @return the runningScheduled
 	 */

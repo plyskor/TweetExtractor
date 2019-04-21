@@ -6,26 +6,26 @@ package es.uam.eps.tweetextractorserver.model.servertask.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
-
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegisterServiceInterface;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
+import es.uam.eps.tweetextractor.analytics.nlp.TweetExtractorNaturalTextProcessor;
 import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingWordsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingWordsReportRegister;
 import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.response.ServerTaskResponse;
 import es.uam.eps.tweetextractorserver.model.servertask.response.TrendsReportResponse;
@@ -58,7 +58,7 @@ public class ServerTaskTrendsReport extends AnalyticsServerTask {
 	 * @see es.uam.eps.tweetextractorserver.model.servertask.ServerTask#implementation()
 	 */
 	@Override
-	public void implementation() {
+	public void implementation () throws Exception {
 		Logger logger = LoggerFactory.getLogger(ServerTaskTrendsReport.class);
 		logger.info("Generating trends report...");
 		TrendsReport trendsReport = (TrendsReport) getReport();
@@ -107,6 +107,15 @@ public class ServerTaskTrendsReport extends AnalyticsServerTask {
 			break;
 		case TRWR:
 			word ="words";
+			TweetExtractorNaturalTextProcessor textProcessor = new TweetExtractorNaturalTextProcessor(springContext);
+			List<TrendingWordsReportRegister> listWords = textProcessor.createWordFrequencyReport((TrendingWordsReport) report);
+			if(!listWords.isEmpty()) {
+				emptyReport=false;
+			}
+			for(TrendingWordsReportRegister register : listWords) {
+				register.setCategory(trendsReport.getCategories().get(0));
+				trendsReport.getCategories().get(0).getResult().add(register);
+			}
 			break;
 		default:
 			break;

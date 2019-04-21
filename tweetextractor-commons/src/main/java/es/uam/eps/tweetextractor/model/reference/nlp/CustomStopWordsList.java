@@ -48,6 +48,7 @@ public class CustomStopWordsList implements Serializable{
 	/**
 	 * @return the identifier
 	 */
+	@XmlTransient
 	public CustomStopWordsListID getIdentifier() {
 		return identifier;
 	}
@@ -60,6 +61,7 @@ public class CustomStopWordsList implements Serializable{
 	/**
 	 * @return the list
 	 */
+	@XmlTransient
 	public List<StopWord> getList() {
 		return list;
 	}
@@ -73,15 +75,18 @@ public class CustomStopWordsList implements Serializable{
 	public void setUser(User user) {
 		this.identifier.setUser(user);
 	}
+	@XmlTransient
 	public User getUser() {
 		return this.identifier.getUser();
 	}
 	public void setLanguage(AvailableTwitterLanguage language) {
 		this.identifier.setLanguage(language);;
 	}
+	@XmlTransient
 	public AvailableTwitterLanguage getLanguage() {
 		return this.identifier.getLanguage();
 	}
+	@XmlTransient
 	public String getName() {
 		return this.identifier.getName();
 	}

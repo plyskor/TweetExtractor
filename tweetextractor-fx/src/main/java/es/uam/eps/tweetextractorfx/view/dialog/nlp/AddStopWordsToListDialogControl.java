@@ -3,6 +3,8 @@
  */
 package es.uam.eps.tweetextractorfx.view.dialog.nlp;
 
+import org.apache.commons.lang3.StringUtils;
+
 import es.uam.eps.tweetextractor.dao.service.inter.StopWordServiceInterface;
 import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsList;
 import es.uam.eps.tweetextractor.model.reference.nlp.StopWord;
@@ -43,7 +45,7 @@ public class AddStopWordsToListDialogControl extends TweetExtractorFXDialogContr
 	}
 	@FXML
 	public void onAddWordsToList() {
-		if (textField.getText().trim().isBlank()) {
+		if (StringUtils.isBlank(textField.getText().trim())) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 	    	alert.setTitle("Information");
 	    	alert.setHeaderText("No stop words given");

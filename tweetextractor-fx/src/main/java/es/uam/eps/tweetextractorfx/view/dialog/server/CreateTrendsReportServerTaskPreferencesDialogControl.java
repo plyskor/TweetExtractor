@@ -6,6 +6,8 @@ package es.uam.eps.tweetextractorfx.view.dialog.server;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
@@ -99,7 +101,7 @@ public class CreateTrendsReportServerTaskPreferencesDialogControl extends TweetE
 	}
 	@FXML
 	public void onAddToFilter(){
-		if(filterToAdd.getText()!=null&&!filterToAdd.getText().isBlank()) {
+		if(filterToAdd.getText()!=null&&!StringUtils.isBlank(filterToAdd.getText())) {
 			filterList.add(filterToAdd.getText());
 			filterToAdd.clear();
 		}

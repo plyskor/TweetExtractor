@@ -5,6 +5,9 @@ package es.uam.eps.tweetextractorfx.view.dialog;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.StringUtils;
+
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.service.GetServerStatus;
 import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
@@ -95,15 +98,15 @@ public class ServerPreferencesDialogControl extends TweetExtractorFXDialogContro
 	}
 	@FXML
 	public void onSave() {
-		if(serverHost.getText().isBlank()||serverHost.getText().trim().equals("")) {
+		if(StringUtils.isBlank(serverHost.getText())||serverHost.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerHost();
 			
 		}
-		if(serverPort.getText().isBlank()||serverPort.getText().trim().equals("")) {
+		if(StringUtils.isBlank(serverPort.getText())||serverPort.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerPort();
 			
 		}
-		if(serverAppName.getText().isBlank()||serverAppName.getText().trim().equals("")) {
+		if(StringUtils.isBlank(serverAppName.getText())||serverAppName.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerAppName();
 			
 		}
@@ -136,15 +139,15 @@ public class ServerPreferencesDialogControl extends TweetExtractorFXDialogContro
 	}
 	@FXML
 	public void onTest() {
-		if(serverHost.getText().isBlank()||serverHost.getText().trim().equals("")) {
+		if(StringUtils.isBlank(serverHost.getText())||serverHost.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerHost();
 			
 		}
-		if(serverPort.getText().isBlank()||serverPort.getText().trim().equals("")) {
+		if(StringUtils.isBlank(serverPort.getText())||serverPort.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerPort();
 			
 		}
-		if(serverAppName.getText().isBlank()||serverAppName.getText().trim().equals("")) {
+		if(StringUtils.isBlank(serverAppName.getText())||serverAppName.getText().trim().equals("")) {
 			ErrorDialog.showErrorEmptyServerAppName();
 			
 		}

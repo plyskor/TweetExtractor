@@ -30,9 +30,9 @@ public class CreateServerTaskTrendsReport extends TweetExtractorCXFService
 	 */
 	@Override
 	public CreateServerTaskTrendsReportResponse createServerTaskTrendsReport(int userId,
-			AnalyticsReportTypes reportType,int limit, List<Integer> extractions,List<String> filter) {
+			AnalyticsReportTypes reportType,int limit, List<Integer> extractions,List<String> filter,int languageID,String stopWordsListName) {
 		if(client!=null) {
-			return client.createServerTaskTrendsReport(userId, reportType,limit, extractions,filter);
+			return client.createServerTaskTrendsReport(userId, reportType,limit, extractions,filter,languageID,stopWordsListName);
 		}
 		return null;
 	}

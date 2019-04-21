@@ -4,6 +4,7 @@
 package es.uam.eps.tweetextractorfx.view.dialog.nlp;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.ar.ArabicAnalyzer;
 import org.apache.lucene.analysis.de.GermanAnalyzer;
@@ -57,7 +58,7 @@ public class CreateCustomStopWordsListDialogControl extends TweetExtractorFXDial
 	}
 	@FXML
 	private void onDone() {
-		if(listNameTextField==null||listNameTextField.getText().isBlank()) {
+		if(listNameTextField==null||StringUtils.isBlank(listNameTextField.getText())) {
 			ErrorDialog.showErrorEmptyStopWordsListName();
 		}else {
 			newList.setLanguage(language);

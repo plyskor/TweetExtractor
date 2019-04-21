@@ -606,12 +606,12 @@ public class ErrorDialog {
 		alert.showAndWait();
 	}
 
-	public static void showSuccessCreateGraphicChart(int id) {
+	public static Alert showSuccessCreateGraphicChart(int id) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("Generation successful");
 		alert.setContentText("Your graphic chart has been successfully generated with id "+id+" and will now appear on your graphic charts list.");		
-		alert.showAndWait();
+		return alert;
 	}
 
 	public static void showSuccessExportChart() {
@@ -660,5 +660,21 @@ public class ErrorDialog {
 		alert.setHeaderText("No word selected");
 		alert.setContentText("Please, select a stop word first to perform that action.");		
 		alert.showAndWait();
+	}
+
+	public static void showErrorNoSelectedPixelBoundary() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No image selected");
+		alert.setContentText("You need to open an image as the pixel boundary for your word cloud chart.\nIf you dont want to do so, you can allways select another type of word cloud chart.");		
+		alert.showAndWait();
+	}
+
+	public static Alert showErrorGeneratingWordCloud() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Unknown Error");
+		alert.setContentText("Sorry, but it seems that an unknown error has ocurred while generating your word cloud.");		
+		return alert;
 	}
 }

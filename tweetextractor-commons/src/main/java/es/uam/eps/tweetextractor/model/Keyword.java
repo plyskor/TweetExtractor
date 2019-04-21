@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.analytics.model;
+package es.uam.eps.tweetextractor.model;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -14,7 +14,7 @@ import java.util.Set;
 public class Keyword implements Comparable<Keyword> {
 
 	  private final String stem;
-	  private final Set<String> terms = new HashSet<String>();
+	  private final Set<String> terms = new HashSet<>();
 	  private int frequency = 0;
 
 	  public Keyword(String stem) {

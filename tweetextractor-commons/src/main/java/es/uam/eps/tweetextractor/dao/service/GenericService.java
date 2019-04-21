@@ -49,6 +49,16 @@ public abstract class GenericService<V extends Serializable, K extends Serializa
     }
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public void detach(V entity) {
+    	genericDao.detach(entity);
+    }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public void detachList(List<V> entityList) {
+		genericDao.detachList(entityList);
+    }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public void refresh(V entity) {
          genericDao.refresh(entity);
     }

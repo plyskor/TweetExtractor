@@ -149,6 +149,16 @@ public final class Constants {
 			public static final String TYPE_WORD_CLOUD_CHART = "WCC";
 		}
 	}
+	/*
+	 * WordCloud Types  
+	 */
+	public static final int WCC_PIXEL_BOUNDARY=0;
+	public static final int WCC_CIRCULAR=1;
+	public static final int WCC_RECTANGULAR=2;
+	
+	/*
+	 * Languages with default stop words set provided by lucene
+	 */
 	public static final ImmutableList<String> LANGUAGE_AVAILABLE_DEFAULT_STOP_SET= ImmutableList.of("English","Spanish","Arabic","French","Italian","German");
 
 	// Stroke choices
@@ -161,7 +171,7 @@ public final class Constants {
 	public static final ImmutableList<AnalyticsReportTypes> CATEGORY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR,AnalyticsReportTypes.TTNHR,AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR);
 	public static final ImmutableList<AnalyticsReportTypes> PIE_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR);
 	public static final ImmutableList<AnalyticsReportTypes> PIE_3D_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR);
-	public static final ImmutableList<AnalyticsReportTypes> WORD_CLOUD_CHART_COMPATIBLE_REPORTS= ImmutableList.of();
+	public static final ImmutableList<AnalyticsReportTypes> WORD_CLOUD_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TRWR);
 
 	public static final ImmutableMap<AnalyticsReportImageTypes, ImmutableList<AnalyticsReportTypes>> REPORT_CHART_TYPES_COMPATIBILITY =new ImmutableMap.Builder<AnalyticsReportImageTypes, ImmutableList<AnalyticsReportTypes>>()
 			.put(AnalyticsReportImageTypes.TSC,TIME_SERIES_CHART_COMPATIBLE_REPORTS)

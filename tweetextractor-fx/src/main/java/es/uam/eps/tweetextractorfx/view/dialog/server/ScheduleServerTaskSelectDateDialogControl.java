@@ -6,6 +6,9 @@ package es.uam.eps.tweetextractorfx.view.dialog.server;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
+
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
@@ -80,7 +83,7 @@ public class ScheduleServerTaskSelectDateDialogControl extends TweetExtractorFXD
 	}
 	@FXML
 	public void onDone() {
-		if(datePicker.getEditor().getText().isBlank()) {
+		if(StringUtils.isBlank(datePicker.getEditor().getText())) {
 			ErrorDialog.showErrorNoSelectedDateTime();
 			return;
 		}

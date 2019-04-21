@@ -14,11 +14,14 @@ import javax.persistence.Transient;
 import javax.servlet.ServletContext;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.stereotype.Controller;
 
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
+import es.uam.eps.tweetextractor.dao.service.inter.CustomStopWordsListServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
+import es.uam.eps.tweetextractor.dao.service.inter.ReferenceAvailableLanguagesServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
@@ -29,6 +32,8 @@ import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingHashtagsRep
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingUserMentionsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingUsersReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingWordsReport;
+
+import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsListID;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
@@ -56,6 +61,10 @@ public class CreateServerTaskTrendsReportImpl implements CreateServerTaskTrendsR
 	@Transient
 	private ServerTaskServiceInterface stServ;
 	@Transient
+	private ReferenceAvailableLanguagesServiceInterface languageServ;
+	@Transient
+	private CustomStopWordsListServiceInterface swlServ;
+	@Transient
 	private AnalyticsReportServiceInterface arServ;
 	/* (non-Javadoc)
 	 * @see es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTrendsReportSei#createServerTaskTrendsReport(int, es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes, java.util.List)
@@ -63,7 +72,7 @@ public class CreateServerTaskTrendsReportImpl implements CreateServerTaskTrendsR
 	@WebMethod(action="createServerTaskTrendsReport")
 	@Override
 	public CreateServerTaskTrendsReportResponse createServerTaskTrendsReport(@WebParam(name = "userId")int userId,
-			@WebParam(name = "reportType")AnalyticsReportTypes reportType,@WebParam(name = "limit")int limit,@WebParam(name = "extractions") List<Integer> extractions,@WebParam(name = "filter")List<String> filter) {
+			@WebParam(name = "reportType")AnalyticsReportTypes reportType,@WebParam(name = "limit")int limit,@WebParam(name = "extractions") List<Integer> extractions,@WebParam(name = "filter")List<String> filter,@WebParam(name = "languageID")int languageID,@WebParam(name = "stopWordsListName") String stopWordsListName) {
 		CreateServerTaskTrendsReportResponse reply = new CreateServerTaskTrendsReportResponse();
 		MessageContext msgCtx = svcCtx.getMessageContext();
 		ServletContext context = (ServletContext) 
@@ -79,9 +88,11 @@ public class CreateServerTaskTrendsReportImpl implements CreateServerTaskTrendsR
 	    arServ=server.getSpringContext().getBean(AnalyticsReportServiceInterface.class);
 	    tServ=server.getSpringContext().getBean(TweetServiceInterface.class);
 	    eServ=server.getSpringContext().getBean(ExtractionServiceInterface.class);
+	    languageServ=server.getSpringContext().getBean(ReferenceAvailableLanguagesServiceInterface.class);
+	    swlServ=server.getSpringContext().getBean(CustomStopWordsListServiceInterface.class);
 	    if (userId<=0) {
 			reply.setError(true);
-			reply.setMessage("ID is not valid");
+			reply.setMessage("User ID is not valid");
 			return reply;
 		}
 	    if(reportType==null||!Constants.TRENDS_REPORT_TYPES.contains(reportType)) {
@@ -89,9 +100,19 @@ public class CreateServerTaskTrendsReportImpl implements CreateServerTaskTrendsR
 			reply.setMessage("Report type is not valid");
 			return reply;
 	    }
-		if (limit<=0||limit>10) {
+		if (reportType!=AnalyticsReportTypes.TRWR&&(limit<=0||limit>10)) {
 			reply.setError(true);
 			reply.setMessage("Limit value must be an integer in [1,10]");
+			return reply;
+		}
+		if (reportType==AnalyticsReportTypes.TRWR&&languageID<=0) {
+			reply.setError(true);
+			reply.setMessage("Language ID is not valid");
+			return reply;
+		}
+		if (reportType==AnalyticsReportTypes.TRWR&&(stopWordsListName==null||StringUtils.isBlank(stopWordsListName))) {
+			reply.setError(true);
+			reply.setMessage("No stop words list name supllied");
 			return reply;
 		}
 	    User u = uServ.findById(userId);
@@ -118,6 +139,19 @@ public class CreateServerTaskTrendsReportImpl implements CreateServerTaskTrendsR
 				break;
 			case TRWR:
 				report = new TrendingWordsReport();
+				CustomStopWordsListID id = new CustomStopWordsListID(languageServ.findById(languageID), u, stopWordsListName);
+				((TrendingWordsReport) report).setStopWordsList(swlServ.findById(id));
+				((TrendingWordsReport) report).setLanguage(id.getLanguage());
+				if(((TrendingWordsReport) report).getLanguage()==null) {
+					reply.setError(true);
+					reply.setMessage("No language found for ID: "+languageID);
+					return reply;
+				}
+				if(((TrendingWordsReport) report).getStopWordsList()==null) {
+					reply.setError(true);
+					reply.setMessage("No stop words list found with name: "+stopWordsListName);
+					return reply;
+				}
 				word ="words";
 				break;
 			default:

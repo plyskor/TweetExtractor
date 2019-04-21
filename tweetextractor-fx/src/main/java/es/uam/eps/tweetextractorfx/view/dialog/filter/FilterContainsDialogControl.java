@@ -3,6 +3,8 @@
  */
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
+import org.apache.commons.lang3.StringUtils;
+
 import es.uam.eps.tweetextractor.model.filter.impl.FilterContains;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import javafx.collections.FXCollections;
@@ -88,7 +90,7 @@ public class FilterContainsDialogControl extends TweetExtractorFXDialogControlle
 	}
 	@FXML
 	public void handleAddWord() {
-		if (wordToAdd.getText().trim().isBlank()) {
+		if (StringUtils.isBlank(wordToAdd.getText())) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 	    	alert.setTitle("Información");
 	    	alert.setHeaderText("Ningúna palabra que añadir");

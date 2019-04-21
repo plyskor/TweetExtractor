@@ -68,6 +68,17 @@ public abstract class AbstractGenericDAO<V extends Serializable, K extends Seria
         currentSession().delete(entity);
     }
     @Override
+    public void detach(V entity) {
+        currentSession().detach(entity);
+    }
+    @Override
+    public void detachList(List<V> entityList) {
+		if(entityList==null)return;
+		for(V entity : entityList) {
+			currentSession().detach(entity);
+		}
+    }
+    @Override
     public void merge(V entity) {
         currentSession().merge(entity);
     }

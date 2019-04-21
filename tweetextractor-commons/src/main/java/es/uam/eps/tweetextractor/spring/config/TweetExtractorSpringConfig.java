@@ -22,6 +22,7 @@ import es.uam.eps.tweetextractor.model.analytics.graphics.CategoryBarChartGraphi
 import es.uam.eps.tweetextractor.model.analytics.graphics.PieChartConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.graphics.WorldCloudChartConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
@@ -39,6 +40,7 @@ import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReport
 import es.uam.eps.tweetextractor.model.analytics.report.register.TimelineReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingWordsReportRegister;
 import es.uam.eps.tweetextractor.model.filter.Filter;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterContains;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterContainsExact;
@@ -108,7 +110,8 @@ public class TweetExtractorSpringConfig {
 				AnalyticsReportCategoryRegister.class,ServerTaskTopNHashtagsReport.class,TimelineTopNHashtagsReport.class,
 				TrendsReport.class,TrendingHashtagsReport.class,TrendingUsersReport.class,TrendingUserMentionsReport.class,
 				TrendingWordsReport.class,ServerTaskTrendsReport.class,TrendingReportRegister.class,PieChartConfiguration.class,
-				AvailableTwitterLanguage.class,CustomStopWordsList.class,StopWord.class,CustomStopWordsListID.class);
+				AvailableTwitterLanguage.class,CustomStopWordsList.class,StopWord.class,CustomStopWordsListID.class,
+				TrendingWordsReportRegister.class,WorldCloudChartConfiguration.class);
 		return factoryBean;
 	}
 

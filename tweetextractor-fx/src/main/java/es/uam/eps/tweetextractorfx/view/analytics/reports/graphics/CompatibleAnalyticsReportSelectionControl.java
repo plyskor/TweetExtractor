@@ -222,7 +222,11 @@ public class CompatibleAnalyticsReportSelectionControl extends TweetExtractorFXC
 		}else if(selectedReport.isEmpty()){
 			ErrorDialog.showErrorEmptyReport();
 		}else {
-			this.mainApplication.showChartGraphicsPreferences(input,(AnalyticsRepresentableReport)selectedReport);
+			if (input.equals(AnalyticsReportImageTypes.WCC)) {
+				this.getMainApplication().showWordCloudChartPreferences((AnalyticsRepresentableReport)selectedReport);
+			}else {
+				this.mainApplication.showChartGraphicsPreferences(input,(AnalyticsRepresentableReport)selectedReport);
+			}
 		}
 	}
 }

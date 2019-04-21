@@ -292,7 +292,7 @@ public class ChartGraphicPreferencesControl extends TweetExtractorFXController {
 
 	@FXML
 	public void onBack() {
-		//
+		this.mainApplication.showCompatibleReportSelection(getChartTypeInput());
 	}
 
 	@FXML

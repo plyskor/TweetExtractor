@@ -6,6 +6,8 @@ package es.uam.eps.tweetextractorfx.view.dialog.server;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractorfx.view.dialog.response.CreateTimelineTopNHashtagsReportDialogResponse;
@@ -73,7 +75,7 @@ public class CreateTImelineTopNHashtagsReportSelectNDialogControl extends TweetE
 	}
 	@FXML
 	public void onAddHashtagToFilter() {
-		if(hashtagToAdd.getText()!=null&&!hashtagToAdd.getText().isBlank()) {
+		if(hashtagToAdd.getText()!=null&&!StringUtils.isBlank(hashtagToAdd.getText())) {
 			hashtagFilterList.add(hashtagToAdd.getText());
 			hashtagToAdd.clear();
 		}

@@ -150,6 +150,7 @@ public class MyGraphicsControl extends TweetExtractorFXController {
 			FileChooser fileChooser = new FileChooser();
 			// Set extension filter
 			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JPEG files (*.jpeg)", "*.jpeg");
+			
 			fileChooser.getExtensionFilters().add(extFilter);
 			// Show save file dialog
 			File file = fileChooser.showSaveDialog(this.mainApplication.getPrimaryStage());

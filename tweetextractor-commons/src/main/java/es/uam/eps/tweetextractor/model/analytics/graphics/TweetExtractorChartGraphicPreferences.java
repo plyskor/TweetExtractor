@@ -113,7 +113,23 @@ public abstract class TweetExtractorChartGraphicPreferences implements  Serializ
 		this.tooltips=false;
 		this.urls=false;
 	}
-	
+	public void clearJFreeAtribbutes() {
+		this.fontName=null;
+		this.hexTitleColour=null;
+		this.hexRangeGridLineColour= null;
+		this.hexPlotBackgroundPaintColour=null;
+		this.hexChartBackgroundPaintColour=null;
+		this.hexGridBandPaintColour=null;
+		this.titleFontType=-1;
+		this.titleFontSize=-1;
+		this.axisTitleFontType=-1;
+		this.axisTitleFontSize=-1;
+		this.regularFontType=-1;
+		this.regularFontSize=-1;
+		this.legend=false;
+		this.tooltips=false;
+		this.urls=false;
+	}
 	/**
 	 * 
 	 */

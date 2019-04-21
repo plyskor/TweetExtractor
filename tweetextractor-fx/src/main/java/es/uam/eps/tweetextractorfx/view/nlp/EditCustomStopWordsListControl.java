@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.apache.commons.lang3.StringUtils;
 import es.uam.eps.tweetextractor.dao.service.inter.CustomStopWordsListServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.StopWordServiceInterface;
 import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsList;
@@ -101,7 +101,7 @@ public class EditCustomStopWordsListControl extends TweetExtractorFXController {
 	}
 	@FXML
 	private void onSaveName () {
-		if(listNameTextField.getText().isBlank()) {
+		if(StringUtils.isBlank(listNameTextField.getText())) {
 			ErrorDialog.showErrorEmptyStopWordsListName();
 		}else {
 			CustomStopWordsListID backUpID = new CustomStopWordsListID(listInput.getLanguage(), listInput.getUser(), listInput.getName());

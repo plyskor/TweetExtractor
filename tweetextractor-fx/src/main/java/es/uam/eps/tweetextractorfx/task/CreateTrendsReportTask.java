@@ -23,6 +23,8 @@ public class CreateTrendsReportTask extends TwitterExtractorFXTask<CreateServerT
 	private int limit;
 	private List<Integer>extractions;
 	private List<String> filter;
+	private int languageID;
+	private String stopWordsListName;
 	public CreateTrendsReportTask(AnnotationConfigApplicationContext springContext) {
 		super(springContext);
 	}
@@ -51,7 +53,7 @@ public class CreateTrendsReportTask extends TwitterExtractorFXTask<CreateServerT
 			return null;
 		}
 		CreateServerTaskTrendsReport service = new CreateServerTaskTrendsReport(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
-		return service.createServerTaskTrendsReport(userId, reportType, limit, extractions, filter);
+		return service.createServerTaskTrendsReport(userId, reportType, limit, extractions, filter,languageID,stopWordsListName);
 	}
 
 	/**
@@ -122,6 +124,34 @@ public class CreateTrendsReportTask extends TwitterExtractorFXTask<CreateServerT
 	 */
 	public void setFilter(List<String> filter) {
 		this.filter = filter;
+	}
+
+	/**
+	 * @return the languageID
+	 */
+	public int getLanguageID() {
+		return languageID;
+	}
+
+	/**
+	 * @param languageID the languageID to set
+	 */
+	public void setLanguageID(int languageID) {
+		this.languageID = languageID;
+	}
+
+	/**
+	 * @return the stopWordsListName
+	 */
+	public String getStopWordsListName() {
+		return stopWordsListName;
+	}
+
+	/**
+	 * @param stopWordsListName the stopWordsListName to set
+	 */
+	public void setStopWordsListName(String stopWordsListName) {
+		this.stopWordsListName = stopWordsListName;
 	}
 
 }

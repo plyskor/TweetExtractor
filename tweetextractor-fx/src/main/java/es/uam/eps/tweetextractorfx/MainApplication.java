@@ -8,7 +8,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import es.uam.eps.tweetextractor.analytics.TweetExtractorNaturalTextProcessor;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
@@ -17,6 +16,7 @@ import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
+import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;
 import es.uam.eps.tweetextractor.service.GetServerStatus;
@@ -28,6 +28,7 @@ import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.ChartTypeSele
 import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.CompatibleAnalyticsReportSelectionControl;
 import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.config.ChartGraphicPreferencesControl;
 import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.config.SpecificGraphicChartPreferencesController;
+import es.uam.eps.tweetextractorfx.view.analytics.reports.graphics.config.WordCloudChartGraphicPreferencesControl;
 import es.uam.eps.tweetextractorfx.view.dialog.LoadingDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractorfx.view.dialog.response.TweetExtractorFXDialogResponse;
@@ -67,18 +68,7 @@ public class MainApplication extends Application {
 		initRootLayout();
 		TweetExtractorFXPreferences.initializePreferences();
 		springContext = new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
-		//onBoot();
-		return;
 	}
-	
-
-	private void onBoot() {
-		TweetExtractorNaturalTextProcessor processor = new TweetExtractorNaturalTextProcessor(springContext);
-		processor.frequency();
-		/**/
-	
-	}
-
 	
 	/* Initialize the RootLayout */
 	public void initRootLayout() {
@@ -364,6 +354,21 @@ public class MainApplication extends Application {
 			ChartGraphicPreferencesControl controller = loader.getController();
 			controller.setChartTypeInput(input);
 			controller.setReportInput(selectedReport);
+			controller.setMainApplication(this);
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+	}
+	public void showWordCloudChartPreferences(AnalyticsRepresentableReport selectedReport) {
+		try {	
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource("view/analytics/reports/graphics/config/WordCloudChartGraphicPreferences.fxml"));
+			Node rootNode = loader.load();
+			// Set query constructor into the center of root layout.
+			rootLayout.setCenter(rootNode);
+			// Give the controller access to the main app.
+			WordCloudChartGraphicPreferencesControl controller = loader.getController();
+			controller.setReportInput((TrendsReport) selectedReport);
 			controller.setMainApplication(this);
 		} catch (IOException e) {
 			logger.error(e.getMessage());

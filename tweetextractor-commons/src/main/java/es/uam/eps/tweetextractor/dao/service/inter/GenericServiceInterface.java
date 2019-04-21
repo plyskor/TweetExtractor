@@ -19,6 +19,8 @@ public interface GenericServiceInterface<V extends Serializable, K extends Seria
 	    public boolean existsAny(K id);
 	    public void update(V entity);
 	    public void delete(V entity);
+	    public void detach(V entity);
+	    public void detachList(List<V> entityList);
 	    public void merge(V entity);
 	    public void deleteById(K id);
 	    public void refresh(V entity);

@@ -14,6 +14,8 @@ import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 public class CreateTrendsReportServerTaskPreferencesDialogResponse extends TweetExtractorFXDialogResponse  {
 	private List<String> filterList;
 	private AnalyticsReportTypes type;
+	private int languageID;
+	private String customStopWordsListName;
 	/**
 	 * 
 	 */
@@ -54,6 +56,34 @@ public class CreateTrendsReportServerTaskPreferencesDialogResponse extends Tweet
 	 */
 	public void setType(AnalyticsReportTypes type) {
 		this.type = type;
+	}
+
+	/**
+	 * @return the languageID
+	 */
+	public int getLanguageID() {
+		return languageID;
+	}
+
+	/**
+	 * @param languageID the languageID to set
+	 */
+	public void setLanguageID(int languageID) {
+		this.languageID = languageID;
+	}
+
+	/**
+	 * @return the customStopWordsListName
+	 */
+	public String getCustomStopWordsListName() {
+		return customStopWordsListName;
+	}
+
+	/**
+	 * @param customStopWordsListName the customStopWordsListName to set
+	 */
+	public void setCustomStopWordsListName(String customStopWordsListName) {
+		this.customStopWordsListName = customStopWordsListName;
 	}
 	
 }

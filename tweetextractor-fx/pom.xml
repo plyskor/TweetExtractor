@@ -195,13 +195,6 @@
 			<artifactId>cxf-rt-bindings-soap</artifactId>
 			<version>3.2.7</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/commons-discovery/commons-discovery -->
-		<dependency>
-			<groupId>commons-discovery</groupId>
-			<artifactId>commons-discovery</artifactId>
-			<version>0.5</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/wsdl4j/wsdl4j -->
 		<dependency>
 			<groupId>wsdl4j</groupId>
