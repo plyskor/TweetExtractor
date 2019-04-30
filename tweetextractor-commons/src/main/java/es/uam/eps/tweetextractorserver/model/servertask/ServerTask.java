@@ -35,6 +35,7 @@ import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractorserver.model.servertask.response.ServerTaskResponse;
 @NamedQuery(name="findServerTasksByUser", query="SELECT s from ServerTask s WHERE s.user=:user")
+@NamedQuery(name="findServerTasksByReport", query="SELECT s from AnalyticsServerTask s WHERE s.report=:report")
 
 /**
  * @author jose

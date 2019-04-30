@@ -26,8 +26,7 @@ public class CreateTImelineTopNHashtagsReportSelectNDialogControl extends TweetE
 	private Slider nHashtagsSlider;
 	@FXML
 	private Text nHashtagsText;
-	
-	private int toReturn;
+
 	
 	private List<String> filter = new ArrayList<>();
 	@FXML
@@ -61,7 +60,7 @@ public class CreateTImelineTopNHashtagsReportSelectNDialogControl extends TweetE
 	}
 	@FXML
 	public void onCancel() {
-		setToReturn(-1);
+		getResponse().setIntValue(-1);
 		this.dialogStage.close();
 	}
 	@FXML
@@ -96,18 +95,7 @@ public class CreateTImelineTopNHashtagsReportSelectNDialogControl extends TweetE
 	public void setnHashtagsSlider(Slider nHashtagsSlider) {
 		this.nHashtagsSlider = nHashtagsSlider;
 	}
-	/**
-	 * @return the toReturn
-	 */
-	public int getToReturn() {
-		return toReturn;
-	}
-	/**
-	 * @param toReturn the toReturn to set
-	 */
-	public void setToReturn(int toReturn) {
-		this.toReturn = toReturn;
-	}
+
 	/**
 	 * @return the nHashtagsText
 	 */

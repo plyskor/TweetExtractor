@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import es.uam.eps.tweetextractor.dao.inter.ServerTaskDAOInterface;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
 @Repository
 public class ServerTaskDAO extends AbstractGenericDAO<ServerTask, Integer> implements ServerTaskDAOInterface<ServerTask> {
@@ -26,6 +27,19 @@ public class ServerTaskDAO extends AbstractGenericDAO<ServerTask, Integer> imple
 	    	Logger logger = LoggerFactory.getLogger(this.getClass());
 	    	logger.info("No server task found for userID: "+user.getIdDB());
 	    	return new ArrayList<>();
+	    	}
+	    return ret;
+	}
+
+	@Override
+	public List<ServerTask> findByReport(AnalyticsCategoryReport report) {
+		Query<ServerTask> query = currentSession().createNamedQuery("findServerTasksByReport",ServerTask.class);
+	    query.setParameter("report", report);
+	     List<ServerTask> ret= new ArrayList<>();
+	    try {ret=query.getResultList();}catch(NoResultException e) {
+	    	Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.info("No server task found for report with ID: "+report.getId());
+	    	return ret;
 	    	}
 	    return ret;
 	}

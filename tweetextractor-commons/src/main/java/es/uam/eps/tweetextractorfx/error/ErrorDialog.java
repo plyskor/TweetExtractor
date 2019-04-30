@@ -677,4 +677,44 @@ public class ErrorDialog {
 		alert.setContentText("Sorry, but it seems that an unknown error has ocurred while generating your word cloud.");		
 		return alert;
 	}
+
+	public static Alert showGenericMessageUpdateReport(String value) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Unknown Error");
+		alert.setContentText("Sorry, but it seems that an unknown error has ocurred while updating your report:\n\n"+value);		
+		return alert;
+	}
+
+	public static Alert showSuccessUpdateReport(int id) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Update succeded");
+		alert.setContentText("The report with id "+id + " has been succesfully updated.");		
+		return alert;
+	}
+
+	public static Alert showSuccessDeleteReport(int id) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Delete succeded");
+		alert.setContentText("The report with id "+id + " has been succesfully deleted.");		
+		return alert;
+	}
+
+	public static Alert showErrorDeleteReport() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Unknown Error");
+		alert.setContentText("Sorry, but it seems that an unknown error has ocurred while deleting your report.");		
+		return alert;
+	}
+
+	public static void showSuccessCreateNewReport(int id) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Report "+ id + " created");
+		alert.setContentText("Your new report has been successfully saved with id: "+id+".");		
+		alert.showAndWait();
+	}
 }

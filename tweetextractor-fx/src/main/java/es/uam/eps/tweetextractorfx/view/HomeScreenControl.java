@@ -123,14 +123,14 @@ public class HomeScreenControl extends TweetExtractorFXController {
 	}
 
 	public String showCreateServerTaskSelectTypeDialog() {
-		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("dialog/server/CreateServerTaskSelectTaskTypeDialog.fxml");
+		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("server/dialog/CreateServerTaskSelectTaskTypeDialog.fxml");
 		if(result!=null) {
 			return result.getStringValue();
 		}
 		return null;
 	}
 	public Extraction showCreateExtractionServerTaskSelectExtractionDialog() {
-		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("dialog/server/CreateExtractionServerTaskSelectExtractionDialog.fxml");
+		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("server/dialog/CreateExtractionServerTaskSelectExtractionDialog.fxml");
 		if(result!=null) {
 			return ((CreateExtractionServerTaskSelectExtractionDialogResponse) result).getExtraction();
 		}
@@ -138,7 +138,7 @@ public class HomeScreenControl extends TweetExtractorFXController {
 	}
 
 	public String showCreateExtractionServerTaskSelectTypeDialog() {
-		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("dialog/server/CreateExtractionServerTaskSelectTaskTypeDialog.fxml");
+		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("server/dialog/CreateExtractionServerTaskSelectTaskTypeDialog.fxml");
 		if(result!=null) {
 			return result.getStringValue();
 		}
@@ -275,7 +275,7 @@ public class HomeScreenControl extends TweetExtractorFXController {
 	}
 
 	private String showCreateTimelineReportSelectTypeDialog() {
-		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("dialog/server/CreateTimelineReportServerTaskSelectTypeDialog.fxml");
+		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("server/dialog/CreateTimelineReportServerTaskSelectTypeDialog.fxml");
 		if(result!=null) {
 			return result.getStringValue();
 		}
@@ -311,7 +311,7 @@ public class HomeScreenControl extends TweetExtractorFXController {
 	}
 
 	private String showCreateAnalyticsTaskSelectTypeDialog() {
-		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("dialog/server/CreateAnalyticsServerTaskSelectTypeDialog.fxml");
+		TweetExtractorFXDialogResponse result=this.showDialogLoadFXML("server/dialog/CreateAnalyticsServerTaskSelectTypeDialog.fxml");
 		if(result!=null) {
 			return result.getStringValue();
 		}
@@ -319,21 +319,21 @@ public class HomeScreenControl extends TweetExtractorFXController {
 	}
 
 	private CreateTimelineTopNHashtagsReportDialogResponse showCreateTopNHashTagsReportSelectN() {
-		TweetExtractorFXDialogResponse result = this.showDialogLoadFXML("dialog/server/CreateTImelineTopNHashtagsReportSelectNDialog.fxml");
+		TweetExtractorFXDialogResponse result = this.showDialogLoadFXML("server/dialog/CreateTImelineTopNHashtagsReportSelectNDialog.fxml");
 		if(result!=null) {
 			return (CreateTimelineTopNHashtagsReportDialogResponse) result;
 		}
 		return null;
 	}
 	private SelectExtractionFilterDialogResponse showSelectExtractionFilterDialog() {
-		TweetExtractorFXDialogResponse result = this.showDialogLoadFXML("dialog/server/SelectExtractionFilterDialog.fxml");
+		TweetExtractorFXDialogResponse result = this.showDialogLoadFXML("server/dialog/SelectExtractionFilterDialog.fxml");
 		if(result!=null) {
 			return (SelectExtractionFilterDialogResponse) result;
 		}
 		return null;
 	}
 	private CreateTrendsReportServerTaskPreferencesDialogResponse showCreateTrendsReportServerTaskPreferencesDialog() {
-		TweetExtractorFXDialogResponse result = this.showDialogLoadFXML("dialog/server/CreateTrendsReportServerTaskPreferencesDialog.fxml");
+		TweetExtractorFXDialogResponse result = this.showDialogLoadFXML("server/dialog/CreateTrendsReportServerTaskPreferencesDialog.fxml");
 		if(result!=null) {
 			return (CreateTrendsReportServerTaskPreferencesDialogResponse) result;
 		}

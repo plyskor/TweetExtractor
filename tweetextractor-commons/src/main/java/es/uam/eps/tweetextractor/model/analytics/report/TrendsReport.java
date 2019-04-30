@@ -45,7 +45,7 @@ public abstract class TrendsReport extends AnalyticsCategoryReport {
 	private static final long serialVersionUID = -5010570674578247720L;
 	@Column(name="n")
 	private int n;
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
 	   @JoinTable(name = "trends_report_extraction", 
 	         joinColumns = { @JoinColumn(name = "report_identifier") }, 
 	         inverseJoinColumns = { @JoinColumn(name = "extraction_identifier") })

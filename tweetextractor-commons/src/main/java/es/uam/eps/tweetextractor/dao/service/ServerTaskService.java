@@ -13,6 +13,7 @@ import es.uam.eps.tweetextractor.dao.AbstractGenericDAO;
 import es.uam.eps.tweetextractor.dao.ServerTaskDAO;
 import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
 
 /**
@@ -40,5 +41,10 @@ public class ServerTaskService extends GenericService<ServerTask, Integer> imple
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<ServerTask> findByUser(User user) {
 		return serverTaskDAO.findByUser(user);
+	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<ServerTask> findByReport(AnalyticsCategoryReport report) {
+		return serverTaskDAO.findByReport(report);
 	}
 }

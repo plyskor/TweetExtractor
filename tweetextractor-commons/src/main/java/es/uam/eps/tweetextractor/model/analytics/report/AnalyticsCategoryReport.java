@@ -20,7 +20,7 @@ import org.springframework.stereotype.Controller;
 
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 @NamedQuery(name="findCategoriesByReport", query="SELECT c from AnalyticsReportCategory c WHERE c.report.id=:id")
-
+//findServerTasksByReport
 /**
  * @author jose
  *

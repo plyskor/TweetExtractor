@@ -46,7 +46,7 @@ public class DeleteServerTaskImpl implements DeleteServerTaskSei{
 	    	return reply;
 	    }
 	    stServ=server.getSpringContext().getBean(ServerTaskServiceInterface.class);
-		if(id>=0) {
+		if(id<=0) {
 			reply.setError(true);
 			reply.setMessage("ID is not valid");
 			return reply;

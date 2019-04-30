@@ -39,7 +39,7 @@ public abstract class AnalyticsServerTask extends ScheduledServerTask {
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = 874178661084669884L;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
 	@JoinColumn(nullable = true)
 	protected AnalyticsCategoryReport report;
 	@Transient
