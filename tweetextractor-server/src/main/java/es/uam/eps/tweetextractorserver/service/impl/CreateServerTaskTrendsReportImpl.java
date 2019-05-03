@@ -15,25 +15,22 @@ import javax.servlet.ServletContext;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import org.apache.commons.lang3.StringUtils;
-
 import org.springframework.stereotype.Controller;
-
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
-import es.uam.eps.tweetextractor.dao.service.inter.CustomStopWordsListServiceInterface;
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.CustomStopWordsListServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ReferenceAvailableLanguagesServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ServerTaskServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.UserServiceInterface;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsListID;
 import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingHashtagsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingUserMentionsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingUsersReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingWordsReport;
-
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsListID;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;

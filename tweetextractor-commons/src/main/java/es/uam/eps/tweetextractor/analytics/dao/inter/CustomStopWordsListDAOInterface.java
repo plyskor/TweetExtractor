@@ -1,14 +1,15 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.dao.inter;
+package es.uam.eps.tweetextractor.analytics.dao.inter;
 
 import java.util.List;
 
+import es.uam.eps.tweetextractor.dao.inter.GenericDAOInterface;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsList;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsListID;
 import es.uam.eps.tweetextractor.model.reference.AvailableTwitterLanguage;
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsList;
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsListID;
 
 /**
  * @author joseantoniogarciadelsaz

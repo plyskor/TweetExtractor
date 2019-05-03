@@ -10,9 +10,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.stereotype.Controller;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsList;
 import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
 import es.uam.eps.tweetextractor.model.reference.AvailableTwitterLanguage;
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsList;
 
 /**
  * @author jose

@@ -25,6 +25,12 @@ import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGra
 import es.uam.eps.tweetextractor.model.analytics.graphics.WorldCloudChartConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsList;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsListID;
+import es.uam.eps.tweetextractor.model.analytics.nlp.StopWord;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERConfiguration;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNamedEntity;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorTopic;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
@@ -55,9 +61,6 @@ import es.uam.eps.tweetextractor.model.filter.impl.FilterTo;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterUntil;
 import es.uam.eps.tweetextractor.model.filter.impl.FilterUrl;
 import es.uam.eps.tweetextractor.model.reference.AvailableTwitterLanguage;
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsList;
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsListID;
-import es.uam.eps.tweetextractor.model.reference.nlp.StopWord;
 import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.ExtractionServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.ScheduledServerTask;
@@ -111,7 +114,8 @@ public class TweetExtractorSpringConfig {
 				TrendsReport.class,TrendingHashtagsReport.class,TrendingUsersReport.class,TrendingUserMentionsReport.class,
 				TrendingWordsReport.class,ServerTaskTrendsReport.class,TrendingReportRegister.class,PieChartConfiguration.class,
 				AvailableTwitterLanguage.class,CustomStopWordsList.class,StopWord.class,CustomStopWordsListID.class,
-				TrendingWordsReportRegister.class,WorldCloudChartConfiguration.class);
+				TrendingWordsReportRegister.class,WorldCloudChartConfiguration.class,TweetExtractorNamedEntity.class,
+				TweetExtractorTopic.class,TweetExtractorNERConfiguration.class);
 		return factoryBean;
 	}
 

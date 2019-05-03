@@ -1,0 +1,90 @@
+/**
+ * 
+ */
+package es.uam.eps.tweetextractor.model.analytics.nlp;
+
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlTransient;
+@NamedQuery(name="findByNamedEntity", query="SELECT t from TweetExtractorTopic t WHERE t.namedEntity.identifier=:id")
+
+/**
+ * @author jose
+ *
+ */
+@Entity
+@Table(name = "perm_topics")
+public class TweetExtractorTopic implements Serializable {
+	@XmlTransient
+	@Transient
+	private static final long serialVersionUID = 3881672550244055655L;
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "identifier")
+	private int identifier;
+	@Column(name = "name",length=75)
+	private String name;
+	@ManyToOne
+	private TweetExtractorNamedEntity namedEntity;
+	/**
+	 * 
+	 */
+	public TweetExtractorTopic() {
+		super();
+	}
+	
+	/**
+	 * @param name
+	 * @param namedEntity
+	 */
+	public TweetExtractorTopic(String name, TweetExtractorNamedEntity namedEntity) {
+		super();
+		this.name = name;
+		this.namedEntity = namedEntity;
+	}
+
+	/**
+	 * @return the identifier
+	 */
+	public int getIdentifier() {
+		return identifier;
+	}
+	/**
+	 * @param identifier the identifier to set
+	 */
+	public void setIdentifier(int identifier) {
+		this.identifier = identifier;
+	}
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	/**
+	 * @return the namedEntity
+	 */
+	public TweetExtractorNamedEntity getNamedEntity() {
+		return namedEntity;
+	}
+	/**
+	 * @param namedEntity the namedEntity to set
+	 */
+	public void setNamedEntity(TweetExtractorNamedEntity namedEntity) {
+		this.namedEntity = namedEntity;
+	}
+
+}

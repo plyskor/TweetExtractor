@@ -5,9 +5,9 @@ package es.uam.eps.tweetextractorfx.view.dialog.nlp;
 
 import org.apache.commons.lang3.StringUtils;
 
-import es.uam.eps.tweetextractor.dao.service.inter.StopWordServiceInterface;
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsList;
-import es.uam.eps.tweetextractor.model.reference.nlp.StopWord;
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.StopWordServiceInterface;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsList;
+import es.uam.eps.tweetextractor.model.analytics.nlp.StopWord;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import javafx.collections.FXCollections;

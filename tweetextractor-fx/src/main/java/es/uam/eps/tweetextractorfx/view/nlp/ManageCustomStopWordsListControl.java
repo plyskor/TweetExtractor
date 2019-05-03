@@ -10,10 +10,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.uam.eps.tweetextractor.dao.service.inter.CustomStopWordsListServiceInterface;
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.CustomStopWordsListServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ReferenceAvailableLanguagesServiceInterface;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsList;
 import es.uam.eps.tweetextractor.model.reference.AvailableTwitterLanguage;
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsList;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;

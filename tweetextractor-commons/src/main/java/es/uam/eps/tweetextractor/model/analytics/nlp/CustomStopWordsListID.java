@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.model.reference.nlp;
+package es.uam.eps.tweetextractor.model.analytics.nlp;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -95,8 +95,12 @@ public class CustomStopWordsListID implements Serializable{
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-        if (!(o instanceof CustomStopWordsListID)) return false;
+		if (this == o) {
+			return true;
+		}
+        if (!(o instanceof CustomStopWordsListID)) {
+        	return false;
+        }
         CustomStopWordsListID that = (CustomStopWordsListID) o;
         return Objects.equals(getLanguage().getShortName(), that.getLanguage().getShortName()) &&
          Objects.equals(getUser().getIdDB(), that.getUser().getIdDB())&&Objects.equals(getName(), that.getName()); 

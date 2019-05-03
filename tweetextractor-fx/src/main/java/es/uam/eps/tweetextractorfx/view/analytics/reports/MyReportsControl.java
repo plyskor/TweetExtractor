@@ -5,21 +5,16 @@ package es.uam.eps.tweetextractorfx.view.analytics.reports;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.Transient;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
-import es.uam.eps.tweetextractor.dao.service.inter.CustomStopWordsListServiceInterface;
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.CustomStopWordsListServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ReferenceAvailableLanguagesServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
-
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsListID;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
@@ -30,7 +25,6 @@ import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingHashtagsRep
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingUserMentionsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingUsersReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingWordsReport;
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsListID;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.task.DeleteAnalyticsReportTask;

@@ -13,11 +13,11 @@ import org.apache.lucene.analysis.es.SpanishAnalyzer;
 import org.apache.lucene.analysis.fr.FrenchAnalyzer;
 import org.apache.lucene.analysis.it.ItalianAnalyzer;
 
-import es.uam.eps.tweetextractor.dao.service.inter.CustomStopWordsListServiceInterface;
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.CustomStopWordsListServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsList;
+import es.uam.eps.tweetextractor.model.analytics.nlp.StopWord;
 import es.uam.eps.tweetextractor.model.reference.AvailableTwitterLanguage;
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsList;
-import es.uam.eps.tweetextractor.model.reference.nlp.StopWord;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;

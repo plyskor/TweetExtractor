@@ -1,11 +1,11 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.dao.inter;
+package es.uam.eps.tweetextractor.analytics.dao.inter;
 
 import java.util.List;
 
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsListID;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsListID;
 
 /**
  * @author joseantoniogarciadelsaz

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.model.reference.nlp;
+package es.uam.eps.tweetextractor.model.analytics.nlp;
 
 import java.io.Serializable;
 

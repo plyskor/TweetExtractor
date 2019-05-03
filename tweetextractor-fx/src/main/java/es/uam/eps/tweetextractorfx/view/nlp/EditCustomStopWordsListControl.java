@@ -8,11 +8,12 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.StringUtils;
-import es.uam.eps.tweetextractor.dao.service.inter.CustomStopWordsListServiceInterface;
-import es.uam.eps.tweetextractor.dao.service.inter.StopWordServiceInterface;
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsList;
-import es.uam.eps.tweetextractor.model.reference.nlp.CustomStopWordsListID;
-import es.uam.eps.tweetextractor.model.reference.nlp.StopWord;
+
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.CustomStopWordsListServiceInterface;
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.StopWordServiceInterface;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsList;
+import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsListID;
+import es.uam.eps.tweetextractor.model.analytics.nlp.StopWord;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;

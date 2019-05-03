@@ -28,9 +28,9 @@ import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Keyword;
 import es.uam.eps.tweetextractor.model.Tweet;
+import es.uam.eps.tweetextractor.model.analytics.nlp.StopWord;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingWordsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingWordsReportRegister;
-import es.uam.eps.tweetextractor.model.reference.nlp.StopWord;
 
 /**
  * @author jose
