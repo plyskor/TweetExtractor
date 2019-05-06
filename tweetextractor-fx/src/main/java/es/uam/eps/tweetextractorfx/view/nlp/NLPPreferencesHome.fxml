@@ -173,7 +173,7 @@
 															<children>
 																<AnchorPane prefHeight="200.0" prefWidth="200.0">
 																	<children>
-																		<Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" text="NER Configurations (Categories / Topics)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+																		<Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" onAction="#onManageNERPreferences" prefHeight="61.0" prefWidth="398.0" text="NER Configurations (Categories / Topics)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 																	</children>
 																</AnchorPane>
 																<AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">

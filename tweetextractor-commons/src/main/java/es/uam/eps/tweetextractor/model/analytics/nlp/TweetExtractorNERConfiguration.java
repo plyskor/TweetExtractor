@@ -9,13 +9,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
+@NamedQuery(name="findNERPreferencesByUserAndLanguage", query="SELECT p from TweetExtractorNERConfiguration p WHERE p.identifier.language=:language AND p.identifier.user=:user")
 /**
  * @author jose
  *
@@ -36,6 +37,7 @@ public class TweetExtractorNERConfiguration implements Serializable{
 	 */
 	public TweetExtractorNERConfiguration() {
 		super();
+		this.identifier=new TweetExtractorNERConfigurationID();
 	}
 	
 	/**

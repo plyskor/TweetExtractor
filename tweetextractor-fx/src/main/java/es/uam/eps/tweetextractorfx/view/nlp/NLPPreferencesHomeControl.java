@@ -48,6 +48,10 @@ public class NLPPreferencesHomeControl extends TweetExtractorFXController {
 		this.getMainApplication().showScreenInCenterOfRootLayout("view/nlp/ManageCustomStopWordsList.fxml");
 	}
 	@FXML
+	private void onManageNERPreferences() {
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/nlp/MyNERPreferences.fxml");
+	}
+	@FXML
 	private void onBack() {
 		this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml"); 
 	}

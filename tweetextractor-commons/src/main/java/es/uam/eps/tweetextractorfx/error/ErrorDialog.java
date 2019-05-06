@@ -717,4 +717,28 @@ public class ErrorDialog {
 		alert.setContentText("Your new report has been successfully saved with id: "+id+".");		
 		alert.showAndWait();
 	}
+
+	public static void showErrorEmptyNERPreferencesName() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No name given");
+		alert.setContentText("Please, give a name to your new NER preferences.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorNERPreferencesNameExists() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Name already exists");
+		alert.setContentText("You already have a preferences set named like that for this language, please select another name.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorNoSelectedNERPreferences() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No preferences selected");
+		alert.setContentText("Please, select a NER preferences set first to perform that action.");		
+		alert.showAndWait();
+	}
 }

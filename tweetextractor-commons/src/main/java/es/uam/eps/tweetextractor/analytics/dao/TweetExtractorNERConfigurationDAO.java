@@ -3,8 +3,14 @@
  */
 package es.uam.eps.tweetextractor.analytics.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
+import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import es.uam.eps.tweetextractor.analytics.dao.inter.TweetExtractorNERConfigurationDAOInterface;
@@ -24,7 +30,16 @@ public class TweetExtractorNERConfigurationDAO extends AbstractGenericDAO<TweetE
 
 	@Override
 	public List<TweetExtractorNERConfiguration> findByUserAndLanguage(User user, AvailableTwitterLanguage language) {
-		return null;
+		Query<TweetExtractorNERConfiguration> query = currentSession().createNamedQuery("findNERPreferencesByUserAndLanguage",TweetExtractorNERConfiguration.class);
+	    query.setParameter("user", user);
+	    query.setParameter("language", language);
+	     List<TweetExtractorNERConfiguration> ret= null;
+	    try {ret=query.getResultList();}catch(NoResultException e) {
+	    	Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.info("No NER preferences found for userID: "+user.getIdDB()+" and language: "+language.getLongName());
+	    	return new ArrayList<>();
+	    	}
+	    return ret;
 	}
 
 }
