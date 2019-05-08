@@ -29,6 +29,9 @@ import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsList;
 import es.uam.eps.tweetextractor.model.analytics.nlp.CustomStopWordsListID;
 import es.uam.eps.tweetextractor.model.analytics.nlp.StopWord;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERConfiguration;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERToken;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERTokenSet;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERTokenSetID;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNamedEntity;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorTopic;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
@@ -115,7 +118,8 @@ public class TweetExtractorSpringConfig {
 				TrendingWordsReport.class,ServerTaskTrendsReport.class,TrendingReportRegister.class,PieChartConfiguration.class,
 				AvailableTwitterLanguage.class,CustomStopWordsList.class,StopWord.class,CustomStopWordsListID.class,
 				TrendingWordsReportRegister.class,WorldCloudChartConfiguration.class,TweetExtractorNamedEntity.class,
-				TweetExtractorTopic.class,TweetExtractorNERConfiguration.class);
+				TweetExtractorTopic.class,TweetExtractorNERConfiguration.class,TweetExtractorNERToken.class,TweetExtractorNERTokenSet.class,
+				TweetExtractorNERTokenSetID.class);
 		return factoryBean;
 	}
 
