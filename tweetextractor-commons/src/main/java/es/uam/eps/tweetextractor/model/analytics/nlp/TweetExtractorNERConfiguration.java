@@ -72,5 +72,12 @@ public class TweetExtractorNERConfiguration implements Serializable{
 	public void setNamedEntities(List<TweetExtractorNamedEntity> namedEntities) {
 		this.namedEntities = namedEntities;
 	}
-	
+	public boolean containsNamedEntity(String name) {
+		for(TweetExtractorNamedEntity namedEntity : namedEntities) {
+			if(namedEntity.getName().equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

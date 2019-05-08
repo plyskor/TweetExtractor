@@ -14,6 +14,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
+
+import es.uam.eps.tweetextractor.model.Constants;
 @NamedQuery(name="findByNamedEntity", query="SELECT t from TweetExtractorTopic t WHERE t.namedEntity.identifier=:id")
 
 /**
@@ -29,7 +31,7 @@ public class TweetExtractorTopic implements Serializable {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "identifier")
 	private int identifier;
-	@Column(name = "name",length=75)
+	@Column(name = "name",nullable=false,length=Constants.MAX_CHARS_TOPIC_NAME)
 	private String name;
 	@ManyToOne
 	private TweetExtractorNamedEntity namedEntity;

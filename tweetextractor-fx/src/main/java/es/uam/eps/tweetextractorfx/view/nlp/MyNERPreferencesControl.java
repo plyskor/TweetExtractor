@@ -24,6 +24,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -48,7 +49,6 @@ public class MyNERPreferencesControl extends TweetExtractorFXController {
 	private ChoiceBox<String> languageChoiceBox;
 	private ObservableList<TweetExtractorNERConfiguration> tableList = FXCollections.observableArrayList();
 	private TweetExtractorNERConfiguration selectedPreferences = null;
-	private ReferenceAvailableLanguagesServiceInterface languageServ;
 	private TweetExtractorNERConfigurationServiceInterface pServ;
 	private List<AvailableTwitterLanguage> availableLanguagesList = new ArrayList<>();
 	private AvailableTwitterLanguage selectedAvailableTwitterLanguage = null;
@@ -64,7 +64,7 @@ public class MyNERPreferencesControl extends TweetExtractorFXController {
 	public void setMainApplication(MainApplication mainApplication) {
 		super.setMainApplication(mainApplication);
 		preferencesTable.setItems(tableList);
-		languageServ = this.getMainApplication().getSpringContext()
+		ReferenceAvailableLanguagesServiceInterface languageServ = this.getMainApplication().getSpringContext()
 				.getBean(ReferenceAvailableLanguagesServiceInterface.class);
 		pServ=this.getMainApplication().getSpringContext()
 				.getBean(TweetExtractorNERConfigurationServiceInterface.class);
@@ -93,6 +93,8 @@ public class MyNERPreferencesControl extends TweetExtractorFXController {
 				tableList.addAll(list);
 			}
 		}
+		 preferencesTable.getColumns().get(0).setVisible(false);
+		 preferencesTable.getColumns().get(0).setVisible(true);
 	}
 	@FXML
 	private void initialize() {
@@ -106,6 +108,15 @@ public class MyNERPreferencesControl extends TweetExtractorFXController {
 	private void onDone() {
 		this.getMainApplication().showScreenInCenterOfRootLayout("view/nlp/NLPPreferencesHome.fxml");
 	}
+	@FXML
+	private void onEdit() {
+		if (selectedPreferences == null) {
+			ErrorDialog.showErrorNoSelectedNERPreferences();
+		} else {
+			showEditNERPreferences();
+		}
+	}
+	
 	@FXML
 	private void onNew() {
 		showCreateNewNERPreferencesDialog();
@@ -263,6 +274,22 @@ public class MyNERPreferencesControl extends TweetExtractorFXController {
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 			return null;
+		}
+	}
+	private void showEditNERPreferences() {
+		try {	
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource("view/nlp/EditNERPreferences.fxml"));
+			Node rootNode = loader.load();
+			// Set query constructor into the center of root layout.
+			this.getMainApplication().getRootLayout().setCenter(rootNode);
+			// Give the controller access to the main app.
+			EditNERPreferencesControl controller = loader.getController();
+			controller.setMainApplication(this.getMainApplication());
+			controller.setPreferences(selectedPreferences);
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	private AvailableTwitterLanguage findLanguageByLongName(String longName) {

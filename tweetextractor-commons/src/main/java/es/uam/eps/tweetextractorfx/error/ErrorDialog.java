@@ -741,4 +741,51 @@ public class ErrorDialog {
 		alert.setContentText("Please, select a NER preferences set first to perform that action.");		
 		alert.showAndWait();
 	}
+
+	public static void showErrorNoSelectedNamedEntity() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No named entity selected");
+		alert.setContentText("Please, select a named entity first to perform that action.");		
+		alert.showAndWait();		
+	}
+
+	public static void showErrorNoSelectedTopic() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No topic selected");
+		alert.setContentText("Please, select a topic first to perform that action.");		
+		alert.showAndWait();		
+	}
+
+	public static void showErrorEmptyName(String nameHolder) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No name given");
+		alert.setContentText("Please, give a name to your "+nameHolder);		
+		alert.showAndWait();
+	}
+
+	public static void showErrorNameTooLong(int maxChars) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Name is too long");
+		alert.setContentText("The maximum length permitted for this name is "+maxChars+".\nPlease give a shorter name.");		
+		alert.showAndWait();
+	}
+
+	public static void showErrorNamedEntityAlreadyExists() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Named Entity Exists");
+		alert.setContentText("You already have a named entity named like that. Please select a different name.");		
+		alert.showAndWait();		
+	}
+
+	public static void showErrorTopicAlreadyExists() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Topic Already Exists");
+		alert.setContentText("You already have a topic named like that. Please select a different name.");		
+		alert.showAndWait();			}
 }

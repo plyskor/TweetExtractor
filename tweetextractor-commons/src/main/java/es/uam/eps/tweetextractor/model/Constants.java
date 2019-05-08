@@ -244,6 +244,11 @@ public final class Constants {
 	public static final int SUCCESS=0;
 	public static final int ERROR=-1;
 	/*
+	 * Limits 
+	 */
+	public static final int MAX_CHARS_TOPIC_NAME=55;
+	public static final int MAX_CHARS_NAMED_ENTITY_NAME=55;
+	/*
 	 * Login Status
 	 */
 	public static final int SUCCESS_LOGIN=0;

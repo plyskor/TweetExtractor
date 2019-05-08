@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+
+import es.uam.eps.tweetextractor.model.Constants;
 @NamedQuery(name="findByConfiguration", query="SELECT e from TweetExtractorNamedEntity e WHERE e.configuration.identifier=:fk")
 
 /**
@@ -35,7 +37,7 @@ public class TweetExtractorNamedEntity implements Serializable {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "identifier")
 	private int identifier;
-	@Column(name = "name",length=75)
+	@Column(name = "name",nullable=false,length=Constants.MAX_CHARS_NAMED_ENTITY_NAME)
 	private String name;
 	@OneToMany(cascade = {CascadeType.ALL},mappedBy="namedEntity")
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -108,6 +110,15 @@ public class TweetExtractorNamedEntity implements Serializable {
 	 */
 	public void setConfiguration(TweetExtractorNERConfiguration configuration) {
 		this.configuration = configuration;
+	}
+
+	public boolean containsTopic(String topicName) {
+		for(TweetExtractorTopic topic : topics) {
+			if(topic.getName().equals(topicName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

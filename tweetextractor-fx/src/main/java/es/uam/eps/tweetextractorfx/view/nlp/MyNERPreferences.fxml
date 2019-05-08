@@ -128,7 +128,7 @@
                                                    <children>
                                                       <StackPane prefHeight="147.0" prefWidth="225.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" text="Edit ..." />
+                                                            <Button mnemonicParsing="false" onAction="#onEdit" text="Edit ..." />
                                                          </children>
                                                       </StackPane>
                                                    </children>

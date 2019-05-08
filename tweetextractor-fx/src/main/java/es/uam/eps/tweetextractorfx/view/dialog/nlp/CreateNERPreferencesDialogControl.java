@@ -6,7 +6,11 @@ package es.uam.eps.tweetextractorfx.view.dialog.nlp;
 import org.apache.commons.lang3.StringUtils;
 
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorNERConfigurationServiceInterface;
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorNamedEntityServiceInterface;
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorTopicServiceInterface;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERConfiguration;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNamedEntity;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorTopic;
 import es.uam.eps.tweetextractor.model.reference.AvailableTwitterLanguage;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
@@ -24,6 +28,8 @@ public class CreateNERPreferencesDialogControl extends TweetExtractorFXDialogCon
 	private AvailableTwitterLanguage language;
 	private TweetExtractorNERConfigurationServiceInterface pServ;
 	private TweetExtractorNERConfiguration newPreferences = new TweetExtractorNERConfiguration();
+	private TweetExtractorTopicServiceInterface topicService;
+	private TweetExtractorNamedEntityServiceInterface namedEntityService;
 	/**
 	 * 
 	 */
@@ -37,6 +43,17 @@ public class CreateNERPreferencesDialogControl extends TweetExtractorFXDialogCon
 	public void setMainApplication(MainApplication mainApplication) {
 		super.setMainApplication(mainApplication);
 		pServ=this.getMainApplication().getSpringContext().getBean(TweetExtractorNERConfigurationServiceInterface.class);
+		topicService=this.getMainApplication().getSpringContext().getBean(TweetExtractorTopicServiceInterface.class);
+		namedEntityService=this.getMainApplication().getSpringContext().getBean(TweetExtractorNamedEntityServiceInterface.class);
+	}
+	private void initializeNewPreferences() {
+		TweetExtractorNamedEntity nilEntity = new TweetExtractorNamedEntity("NIL Category");
+		TweetExtractorTopic nilTopic= new TweetExtractorTopic("Ignored Words", nilEntity);
+		nilEntity.getTopics().add(nilTopic);
+		nilEntity.setConfiguration(newPreferences);
+		newPreferences.getNamedEntities().add(nilEntity);
+		namedEntityService.saveOrUpdate(nilEntity);
+		topicService.saveOrUpdate(nilTopic);
 	}
 	@FXML
 	private void onCancel() {
@@ -55,6 +72,7 @@ public class CreateNERPreferencesDialogControl extends TweetExtractorFXDialogCon
 				return;
 			}
 			pServ.persist(newPreferences);
+			initializeNewPreferences();
 			this.dialogStage.close();
 		}
 	}
