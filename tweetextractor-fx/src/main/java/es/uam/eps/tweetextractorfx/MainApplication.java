@@ -422,7 +422,6 @@ public class MainApplication extends Application {
 			dialogStage.showAndWait();
 			return controller.getResponse();
 		} catch (Exception e) {
-			Logger logger = LoggerFactory.getLogger(this.getClass());
 			e.printStackTrace();
 			logger.error(e.getMessage());
 			return null;

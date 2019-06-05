@@ -113,5 +113,5 @@ public class TweetExtractorNERTokenSet implements Serializable{
 	public void setLastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
-
+	
 }

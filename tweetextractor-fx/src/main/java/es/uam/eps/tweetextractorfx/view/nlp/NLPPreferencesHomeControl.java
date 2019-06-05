@@ -52,6 +52,10 @@ public class NLPPreferencesHomeControl extends TweetExtractorFXController {
 		this.getMainApplication().showScreenInCenterOfRootLayout("view/nlp/MyNERPreferences.fxml");
 	}
 	@FXML
+	private void onManageTokenSets() {
+		this.getMainApplication().showScreenInCenterOfRootLayout("view/nlp/ManageTokenSets.fxml");
+	}
+	@FXML
 	private void onBack() {
 		this.getMainApplication().showScreenInCenterOfRootLayout("view/HomeScreen.fxml"); 
 	}

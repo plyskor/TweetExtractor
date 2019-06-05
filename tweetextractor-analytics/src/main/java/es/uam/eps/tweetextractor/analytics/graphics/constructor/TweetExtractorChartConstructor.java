@@ -354,7 +354,7 @@ public class TweetExtractorChartConstructor {
 			JFreeChart timeSeriesChart = ChartFactory.createPieChart(config.getChartTitle(), (PieDataset) this.dataset,
 					config.isLegend(), config.isTooltips(), config.isUrls());
 			this.theme.apply(timeSeriesChart);
-			return setPreferencesPieChart(timeSeriesChart, config, plotStrokeConfiguration);
+			return setPreferencesPieChart(timeSeriesChart, plotStrokeConfiguration);
 		} catch (Exception e) {
 			logger.warn(e.getMessage());
 			e.printStackTrace();
@@ -368,7 +368,7 @@ public class TweetExtractorChartConstructor {
 			JFreeChart timeSeriesChart = ChartFactory.createPieChart3D(config.getChartTitle(),
 					(PieDataset) this.dataset, config.isLegend(), config.isTooltips(), config.isUrls());
 			this.theme.apply(timeSeriesChart);
-			return setPreferencesPieChart(timeSeriesChart, config, plotStrokeConfiguration);
+			return setPreferencesPieChart(timeSeriesChart, plotStrokeConfiguration);
 		} catch (Exception e) {
 			logger.warn(e.getMessage());
 			e.printStackTrace();
@@ -428,8 +428,7 @@ public class TweetExtractorChartConstructor {
 		return chart;
 	}
 
-	private JFreeChart setPreferencesPieChart(JFreeChart pieChart, TweetExtractorChartGraphicPreferences config,
-			List<PlotStrokeConfiguration> plotStrokeConfiguration) {
+	private JFreeChart setPreferencesPieChart(JFreeChart pieChart,List<PlotStrokeConfiguration> plotStrokeConfiguration) {
 		PiePlot plot = (PiePlot) pieChart.getPlot();
 		for (PlotStrokeConfiguration plotConfig : plotStrokeConfiguration) {
 			plot.setSectionPaint(plotConfig.getCategoryName(), Color.decode(plotConfig.getHexLineColour()));
@@ -478,7 +477,7 @@ public class TweetExtractorChartConstructor {
 			xyBarChart.getXYPlot().getRenderer().setSeriesPaint(strokeToUse.getCategoryIndex(),
 					Color.decode(strokeToUse.getHexLineColour()));
 		}
-		setPreferencesRendererXYBarChart(xyBarChart, config);
+		setPreferencesRendererXYBarChart(xyBarChart);
 		return xyBarChart;
 	}
 
@@ -491,7 +490,7 @@ public class TweetExtractorChartConstructor {
 		rend.setMaximumBarWidth(config.getMaximumBarWidth());
 	}
 
-	private void setPreferencesRendererXYBarChart(JFreeChart xyBarChart, XYBarChartGraphicPreferences config) {
+	private void setPreferencesRendererXYBarChart(JFreeChart xyBarChart) {
 		XYBarRenderer rend = (XYBarRenderer) xyBarChart.getXYPlot().getRenderer();
 		rend.setShadowVisible(true);
 		rend.setShadowXOffset(2);

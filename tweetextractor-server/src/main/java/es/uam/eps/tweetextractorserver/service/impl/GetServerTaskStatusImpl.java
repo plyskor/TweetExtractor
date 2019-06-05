@@ -9,12 +9,10 @@ import javax.jws.WebService;
 import javax.servlet.ServletContext;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-
 import es.uam.eps.tweetextractor.model.service.GetServerTaskStatusResponse;
 import es.uam.eps.tweetextractor.model.service.sei.GetServerTaskStatusSei;
 import es.uam.eps.tweetextractorserver.TweetExtractorServer;
 import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
-
 import javax.annotation.Resource;
 
 
