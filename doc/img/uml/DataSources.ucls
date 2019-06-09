@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.3" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="es.uam.eps.tweetextractor.analytics.dao.AnalyticsReportImageDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/AnalyticsReportImageDAO.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3369" y="-100"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="es.uam.eps.tweetextractor.analytics.dao.AnalyticsReportRegisterDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/AnalyticsReportRegisterDAO.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="8341" y="138"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="3" language="java" name="es.uam.eps.tweetextractor.analytics.dao.inter.CustomStopWordsListDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/inter/CustomStopWordsListDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5456" y="560"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="4" language="java" name="es.uam.eps.tweetextractor.analytics.dao.inter.StopWordDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/inter/StopWordDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1680" y="394"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="5" language="java" name="es.uam.eps.tweetextractor.analytics.dao.service.TweetExtractorNERTokenSetService" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/TweetExtractorNERTokenSetService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2324" y="329"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="es.uam.eps.tweetextractor.analytics.dao.StopWordDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/StopWordDAO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1909" y="189"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="es.uam.eps.tweetextractor.analytics.dao.service.TweetExtractorNamedEntityService" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/TweetExtractorNamedEntityService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2324" y="-174"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="8" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.inter.CustomStopWordsListServiceInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/inter/CustomStopWordsListServiceInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4786" y="243"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="9" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.inter.AnalyticsReportRegisterDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/inter/AnalyticsReportRegisterDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="8338" y="324"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="10" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorNamedEntityServiceInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/inter/TweetExtractorNamedEntityServiceInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2315" y="-362"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="11" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorNERConfigurationServiceInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/inter/TweetExtractorNERConfigurationServiceInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6860" y="547"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="12" language="java" name="es.uam.eps.tweetextractor.analytics.dao.TweetExtractorChartGraphicPreferencesDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/TweetExtractorChartGraphicPreferencesDAO.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6369" y="-261"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="13" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportImageServiceInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/inter/AnalyticsReportImageServiceInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2864" y="-338"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="14" language="java" name="es.uam.eps.tweetextractor.analytics.dao.service.AnalyticsReportImageService" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/AnalyticsReportImageService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3253" y="-355"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="es.uam.eps.tweetextractor.analytics.dao.service.StopWordService" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/StopWordService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1413" y="180"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="es.uam.eps.tweetextractor.analytics.dao.AnalyticsReportDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/AnalyticsReportDAO.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4909" y="-386"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="17" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.inter.TweetExtractorTopicDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/inter/TweetExtractorTopicDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7187" y="54"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="18" language="java" name="es.uam.eps.tweetextractor.analytics.dao.TweetExtractorNERConfigurationDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/TweetExtractorNERConfigurationDAO.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6245" y="256"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="es.uam.eps.tweetextractor.analytics.dao.service.CustomStopWordsListService" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/CustomStopWordsListService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4790" y="400"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="20" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegisterServiceInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/inter/AnalyticsReportRegisterServiceInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="8698" y="-291"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="21" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/inter/AnalyticsReportServiceInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4061" y="-460"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="22" language="java" name="es.uam.eps.tweetextractor.analytics.dao.service.AnalyticsReportService" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/AnalyticsReportService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4141" y="-210"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="es.uam.eps.tweetextractor.dao.AbstractGenericDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/dao/AbstractGenericDAO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="683" width="452" x="5386" y="-425"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="es.uam.eps.tweetextractor.analytics.dao.service.TweetExtractorNERTokenService" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/TweetExtractorNERTokenService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="8071" y="-314"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="es.uam.eps.tweetextractor.analytics.dao.TweetExtractorNERTokenDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/TweetExtractorNERTokenDAO.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7540" y="-85"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="es.uam.eps.tweetextractor.analytics.dao.CustomStopWordsListDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/CustomStopWordsListDAO.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5445" y="381"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.TweetExtractorChartGraphicPreferencesService" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/TweetExtractorChartGraphicPreferencesService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7291" y="-276"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="28" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorNERTokenSetServiceInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/inter/TweetExtractorNERTokenSetServiceInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2311" y="498"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="29" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.inter.TweetExtractorNERTokenDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/inter/TweetExtractorNERTokenDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="8081" y="-78"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="30" language="java" name="es.uam.eps.tweetextractor.analytics.dao.TweetExtractorNERTokenSetDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/TweetExtractorNERTokenSetDAO.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3577" y="320"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="31" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.inter.TweetExtractorNERConfigurationDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/inter/TweetExtractorNERConfigurationDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6238" y="487"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="32" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.inter.TweetExtractorNERTokenSetDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/inter/TweetExtractorNERTokenSetDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3584" y="177"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="33" language="java" name="es.uam.eps.tweetextractor.analytics.dao.TweetExtractorTopicDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/TweetExtractorTopicDAO.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7192" y="239"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="es.uam.eps.tweetextractor.analytics.dao.service.TweetExtractorTopicService" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/TweetExtractorTopicService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7667" y="301"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="35" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.inter.TweetExtractorNamedEntityDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/inter/TweetExtractorNamedEntityDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1736" y="-164"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="36" language="java" name="es.uam.eps.tweetextractor.analytics.dao.service.AnalyticsReportRegisterService" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/AnalyticsReportRegisterService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="8697" y="-119"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="es.uam.eps.tweetextractor.analytics.dao.TweetExtractorNamedEntityDAO" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/TweetExtractorNamedEntityDAO.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2336" y="19"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="38" language="java" name="es.uam.eps.tweetextractor.dao.inter.GenericDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/dao/inter/GenericDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5867" y="526"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="39" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.inter.StopWordServiceInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/inter/StopWordServiceInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1294" y="24"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="40" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorNERTokenServiceInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/inter/TweetExtractorNERTokenServiceInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="8075" y="-468"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="41" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorTopicServiceInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/inter/TweetExtractorTopicServiceInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7672" y="161"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="42" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.TweetExtractorNERConfigurationService" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/TweetExtractorNERConfigurationService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6855" y="374"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="43" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.inter.TweetExtractorChartGraphicPreferencesDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/inter/TweetExtractorChartGraphicPreferencesDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6380" y="-421"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="44" language="java" name="es.uam.eps.tweetextractor.analytics.dao.inter.AnalyticsReportDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/inter/AnalyticsReportDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4907" y="-193"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="45" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.inter.AnalyticsReportImageDAOInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/inter/AnalyticsReportImageDAOInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2958" y="-126"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="46" language="java" 
+    name="es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorChartGraphicPreferencesServiceInterface" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/analytics/dao/service/inter/TweetExtractorChartGraphicPreferencesServiceInterface.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7300" y="-445"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <generalization id="47">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <association id="48">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="49" name="customStopWordsListDAO"/>      
+      <multiplicity id="50" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="51">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="39"/>  
+  </realization>  
+  <generalization id="52">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="53">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="20"/>  
+  </realization>  
+  <association id="54">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="55" name="tweetExtractorNamedEntityDAO"/>      
+      <multiplicity id="56" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="57">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="43"/>  
+  </realization>  
+  <realization id="58">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="40"/>  
+  </realization>  
+  <association id="59">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="60" name="analyticsReportDAO"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="62">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="63">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="64">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <generalization id="65">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="38"/>  
+  </generalization>  
+  <realization id="66">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="29"/>  
+  </realization>  
+  <realization id="67">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="17"/>  
+  </realization>  
+  <association id="68">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="69" name="analyticsReportRegisterDAO"/>      
+      <multiplicity id="70" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="71">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <realization id="72">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="45"/>  
+  </realization>  
+  <generalization id="73">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="74">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <generalization id="75">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <association id="76">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="77" name="tweetExtractorNERTokenDAO"/>      
+      <multiplicity id="78" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="79">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="80" name="tweetExtractorChartGraphicPreferencesDAO"/>      
+      <multiplicity id="81" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="82">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="44"/>  
+  </realization>  
+  <realization id="83">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="38"/>  
+  </realization>  
+  <realization id="84">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <realization id="85">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <generalization id="86">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="87">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="38"/>  
+  </generalization>  
+  <association id="88">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="89" name="tweetExtractorNERTokenSetDAO"/>      
+      <multiplicity id="90" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="92" name="tweetExtractorNERConfigurationDAO"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="94">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="31"/>  
+  </realization>  
+  <association id="95">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="96" name="tweetExtractorTopicDAO"/>      
+      <multiplicity id="97" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="98">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="99" name="stopWordDAO"/>      
+      <multiplicity id="100" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="101">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="32"/>  
+  </realization>  
+  <generalization id="102">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="103">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="35"/>  
+  </realization>  
+  <realization id="104">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="21"/>  
+  </realization>  
+  <generalization id="105">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="106">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <association id="107">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="108" name="analyticsReportImageDAO"/>      
+      <multiplicity id="109" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="110">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="111">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="112">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <realization id="113">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="41"/>  
+  </realization>  
+  <realization id="114">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <realization id="115">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="46"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
