@@ -154,6 +154,11 @@ public class ClassifyTokensFromSetControl extends TweetExtractorFXController{
 		}
 		loadAvailableTopics();
 		currentToken=tokenList.get(0);
+		tokenService.refresh(currentToken);
+		if(currentToken.isClassified()) {
+			classifyNextToken();
+			return;
+		}
 		currentTokenText.setText(buildTopicText(currentToken));
 	}
 	private String buildTopicText(TweetExtractorNERToken token) {
