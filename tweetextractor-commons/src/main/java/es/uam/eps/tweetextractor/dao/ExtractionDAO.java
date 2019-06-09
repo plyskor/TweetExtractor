@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import es.uam.eps.tweetextractor.dao.inter.ExtractionDAOInterface;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERTokenSet;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 
 @Repository
@@ -55,5 +56,16 @@ public class ExtractionDAO extends AbstractGenericDAO<Extraction,Integer> implem
 	    	}
 	    return ret;
 	}
-
+	@Override
+	public List<Extraction> findListByNERTokenSet(TweetExtractorNERTokenSet tokenSet) {
+		Query<Extraction> query = currentSession().createNamedQuery("findListByNERTokenSet",Extraction.class);
+	    query.setParameter("id", tokenSet.getIdentifier());
+	     List<Extraction> ret= null;
+	    try {ret=query.getResultList();}catch(NoResultException e) {
+	    	Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.info("No extraction found for provided token set");
+	    	return new ArrayList<>();
+	    	}
+	    return ret;
+	}
 }

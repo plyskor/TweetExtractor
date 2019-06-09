@@ -13,6 +13,7 @@ import es.uam.eps.tweetextractor.dao.ExtractionDAO;
 import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERTokenSet;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 
 /**
@@ -47,6 +48,11 @@ public class ExtractionService extends GenericService<Extraction, Integer> imple
     @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
 	public List<Extraction> findListByReport(AnalyticsReport report) {
 		return extractionDAO.findListByReport(report);
+	}
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<Extraction> findListByNERTokenSet(TweetExtractorNERTokenSet tokenSet) {
+		return extractionDAO.findListByNERTokenSet(tokenSet);
 	}
 
 }

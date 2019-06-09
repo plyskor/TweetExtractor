@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 @NamedQuery(name="findNERTokenBySet", query="SELECT t from TweetExtractorNERToken t WHERE t.set.identifier=:setID")
+@NamedQuery(name="findNotClassifiedNERTokenBySet", query="SELECT t from TweetExtractorNERToken t WHERE t.set.identifier=:setID AND t.classified=false")
 
 /**
  * @author jose
@@ -29,7 +30,7 @@ import org.hibernate.annotations.LazyCollectionOption;
  */
 @Entity
 @Table(name = "perm_ner_token")
-public class TweetExtractorNERToken implements Serializable {
+public class TweetExtractorNERToken implements Serializable,Comparable<TweetExtractorNERToken> {
 	@XmlTransient
 	@Transient
 	private static final long serialVersionUID = -4047810742371988250L;
@@ -47,6 +48,8 @@ public class TweetExtractorNERToken implements Serializable {
 	private int frequency = 0;
 	@ManyToOne
 	private TweetExtractorNERTokenSet set;
+	@Column(name="classified")
+	private boolean classified = false;
 	
 	/**
 	 * 
@@ -114,5 +117,22 @@ public class TweetExtractorNERToken implements Serializable {
 	public void setSet(TweetExtractorNERTokenSet set) {
 		this.set = set;
 	}
-
+	/**
+	 * @return the classified
+	 */
+	public boolean isClassified() {
+		return classified;
+	}
+	/**
+	 * @param classified the classified to set
+	 */
+	public void setClassified(boolean classified) {
+		this.classified = classified;
+	}
+	@Override
+	public int compareTo(TweetExtractorNERToken token) {
+		return token.getFrequency()-frequency;
+	}
+	
+	
 }

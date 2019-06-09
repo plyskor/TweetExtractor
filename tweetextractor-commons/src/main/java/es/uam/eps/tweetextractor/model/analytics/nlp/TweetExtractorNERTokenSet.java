@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,16 +41,21 @@ public class TweetExtractorNERTokenSet implements Serializable{
 	@EmbeddedId
 	private TweetExtractorNERTokenSetID identifier;
 	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "set")
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<TweetExtractorNERToken> tokenList = new ArrayList<>();
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "token_set_extraction", 
 		joinColumns = {@JoinColumn(name = "token_set_language_identifier",referencedColumnName="language_identifier"),@JoinColumn(name = "token_set_user_identifier",referencedColumnName="user_identifier"),@JoinColumn(name = "token_set_name",referencedColumnName="name") }, 
 		inverseJoinColumns = {@JoinColumn(name = "extraction_identifier") })
 	private List<Extraction> extractions = new ArrayList<>();
+	@OneToOne
+	private CustomStopWordsList stopWordsList;
 	@Column(name = "last_updated")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdated;
+	@Column(name = "n_tokens")
+	private int nTokens=0;
+
 	/**
 	 * 
 	 */
@@ -112,6 +118,34 @@ public class TweetExtractorNERTokenSet implements Serializable{
 	 */
 	public void setLastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
+	}
+
+	/**
+	 * @return the stopWordsList
+	 */
+	public CustomStopWordsList getStopWordsList() {
+		return stopWordsList;
+	}
+
+	/**
+	 * @param stopWordsList the stopWordsList to set
+	 */
+	public void setStopWordsList(CustomStopWordsList stopWordsList) {
+		this.stopWordsList = stopWordsList;
+	}
+
+	/**
+	 * @return the nTokens
+	 */
+	public int getnTokens() {
+		return nTokens;
+	}
+
+	/**
+	 * @param nTokens the nTokens to set
+	 */
+	public void setnTokens(int nTokens) {
+		this.nTokens = nTokens;
 	}
 	
 }

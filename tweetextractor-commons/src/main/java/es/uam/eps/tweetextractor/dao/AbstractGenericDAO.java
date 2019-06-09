@@ -115,6 +115,13 @@ public abstract class AbstractGenericDAO<V extends Serializable, K extends Seria
 		}
 	}
     @Override
+    public void deleteList(List<V> entityList) {
+		if(entityList==null)return;
+		for(V entity : entityList) {
+			delete(entity);
+		}
+	}
+    @Override
 	public void initialize(Object lazyObject) {
 		Hibernate.initialize(lazyObject);
 	}

@@ -72,6 +72,7 @@ public class TweetExtractorNERConfiguration implements Serializable{
 	public void setNamedEntities(List<TweetExtractorNamedEntity> namedEntities) {
 		this.namedEntities = namedEntities;
 	}
+	
 	public boolean containsNamedEntity(String name) {
 		for(TweetExtractorNamedEntity namedEntity : namedEntities) {
 			if(namedEntity.getName().equals(name)) {
@@ -80,4 +81,14 @@ public class TweetExtractorNERConfiguration implements Serializable{
 		}
 		return false;
 	}
+	
+	public TweetExtractorNamedEntity findByName(String name) {
+		for(TweetExtractorNamedEntity namedEntity : namedEntities) {
+			if(namedEntity.getName().equals(name)) {
+				return namedEntity;
+			}
+		}
+		return null;
+	}
+	
 }

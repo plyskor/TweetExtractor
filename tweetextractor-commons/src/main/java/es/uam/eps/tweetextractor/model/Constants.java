@@ -239,7 +239,7 @@ public final class Constants {
 	public static final String GET_USER_SERVER_TASKS_ENDPOINT="getUserServerTasks";
 	public static final String SET_SERVER_TASK_READY_ENDPOINT="setServerTaskReady";
 	public static final String SCHEDULE_SERVER_TASK_ENDPOINT="scheduleServerTask";
-
+	public static final double MIN_FREQUNCY_TOKENIZER_RATIO=0;
 	public static final int MAX_SCHEDULED_SERVER_TASKS=250;
 	public static final int SUCCESS=0;
 	public static final int ERROR=-1;

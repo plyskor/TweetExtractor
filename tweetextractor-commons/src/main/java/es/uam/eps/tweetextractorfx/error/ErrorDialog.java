@@ -787,5 +787,50 @@ public class ErrorDialog {
 		alert.setTitle("Information");
 		alert.setHeaderText("Topic Already Exists");
 		alert.setContentText("You already have a topic named like that. Please select a different name.");		
-		alert.showAndWait();			}
+		alert.showAndWait();			
+	}
+
+	public static void showNoMoreTokensToClassify() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No more tokens to classify");
+		alert.setContentText("You already classified every token from this set, pick another one or start classifying some tweets.");		
+		alert.showAndWait();		
+	}
+
+	public static void showErrorNoTokenSetsAvailable() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No token sets available");
+		alert.setContentText("You have no populated token sets for this selected language. Please create and populate (tokenize) a token set first.");		
+		alert.showAndWait();				
+	}
+
+	public static void showErrorNoSelectedTokenSet() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No token set selected");
+		alert.setContentText("Please, select a token set first to perform that action.");		
+		alert.showAndWait();
+	}
+
+	public static Alert showErrorTokenizeTask(Exception exception) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Error occurred while tokenizing");
+		if(exception==null) {
+			alert.setContentText("An unknown error has occurred tokenizing your extractions. See the logs for further information.");
+		}else {
+			alert.setContentText("An exception has been thrown tokenizing your extractions:\n\n"+exception.getMessage());
+		}
+		return alert;
+	}
+
+	public static void showSuccessTokenize(int nTokens) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Tokens succesfully extracted");
+		alert.setContentText("You succesfully populated your token set with "+nTokens+" tokens");		
+		alert.showAndWait();		
+	}
 }

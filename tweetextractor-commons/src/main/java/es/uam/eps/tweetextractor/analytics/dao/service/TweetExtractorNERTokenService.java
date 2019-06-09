@@ -37,5 +37,11 @@ public class TweetExtractorNERTokenService extends GenericService<TweetExtractor
 		return tweetExtractorNERTokenDAO.findBySet(setID);
 	}
 
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<TweetExtractorNERToken> findNotClassifiedBySet(TweetExtractorNERTokenSetID setID) {
+		return tweetExtractorNERTokenDAO.findNotClassifiedBySet(setID);
+	}
+
 	
 }

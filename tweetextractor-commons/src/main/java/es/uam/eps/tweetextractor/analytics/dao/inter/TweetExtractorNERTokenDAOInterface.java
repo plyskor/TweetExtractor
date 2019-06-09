@@ -13,4 +13,5 @@ import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERTokenSetID
  */
 public interface TweetExtractorNERTokenDAOInterface<T> {
 	public List<T> findBySet(TweetExtractorNERTokenSetID setID);
+	public List<T> findNotClassifiedBySet(TweetExtractorNERTokenSetID setID);
 }

@@ -38,6 +38,7 @@ import es.uam.eps.tweetextractor.util.DateAdapter;
 @NamedQuery(name="findExtractionsByUser", query="SELECT e from Extraction e WHERE e.user=:user")
 @NamedQuery(name="findExtractionListByID", query="SELECT e from Extraction e WHERE e.idDB in (:idList)")
 @NamedQuery(name="findListByReport", query="SELECT e from AnalyticsReport r JOIN r.extractions e WHERE r.id=:id")
+@NamedQuery(name="findListByNERTokenSet", query="SELECT e from TweetExtractorNERTokenSet s JOIN s.extractions e WHERE s.id=:id")
 
 
 

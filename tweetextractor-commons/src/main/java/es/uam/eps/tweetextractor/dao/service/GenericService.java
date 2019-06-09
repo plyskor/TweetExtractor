@@ -79,6 +79,11 @@ public abstract class GenericService<V extends Serializable, K extends Serializa
     }
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteList(List<V> entityList) {
+        genericDao.deleteList(entityList);
+    }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void merge(V entity) {
         genericDao.merge(entity);
     }

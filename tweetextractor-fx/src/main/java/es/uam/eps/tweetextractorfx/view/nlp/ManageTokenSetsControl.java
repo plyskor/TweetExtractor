@@ -6,20 +6,31 @@ package es.uam.eps.tweetextractorfx.view.nlp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorNERTokenServiceInterface;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorNERTokenSetServiceInterface;
+import es.uam.eps.tweetextractor.analytics.nlp.TweetExtractorNaturalTextProcessor;
+import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ReferenceAvailableLanguagesServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERToken;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERTokenSet;
 import es.uam.eps.tweetextractor.model.reference.AvailableTwitterLanguage;
+import es.uam.eps.tweetextractor.model.task.status.LoginStatus;
+import es.uam.eps.tweetextractor.model.task.status.TokenizeStatus;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.task.TokenizeExtractionsTask;
 import es.uam.eps.tweetextractorfx.view.dialog.TweetExtractorFXDialogController;
 import es.uam.eps.tweetextractorfx.view.dialog.nlp.CreateTokenSetSelectNameDialogControl;
+import es.uam.eps.tweetextractorfx.view.dialog.response.CreateTokenSetSelectCustomStopWordsListDialogResponse;
 import es.uam.eps.tweetextractorfx.view.dialog.response.SelectExtractionFilterDialogResponse;
 import es.uam.eps.tweetextractorfx.view.dialog.response.TweetExtractorFXDialogResponse;
+import es.uam.eps.tweetextractorfx.view.server.dialog.CreateTokenSetSelectCustomStopWordsListDialogControl;
 import es.uam.eps.tweetextractorfx.view.server.dialog.SelectExtractionFilterDialogControl;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -57,11 +68,15 @@ public class ManageTokenSetsControl extends TweetExtractorFXDialogController {
 	private ChoiceBox<String> languageChoiceBox;
 	private ObservableList<TweetExtractorNERTokenSet> tableList = FXCollections.observableArrayList();
 	private TweetExtractorNERTokenSet selectedTokenSet = null;
+	private ExtractionServiceInterface eServ;
 	private ReferenceAvailableLanguagesServiceInterface languageServ;
 	private TweetExtractorNERTokenSetServiceInterface tsServ;
+	private TweetExtractorNERTokenServiceInterface tokenService;
 	private List<AvailableTwitterLanguage> availableLanguagesList = new ArrayList<>();
 	private AvailableTwitterLanguage selectedAvailableTwitterLanguage = null;
 	private Logger logger = LoggerFactory.getLogger(ManageTokenSetsControl.class);
+	private Stage loadingDialog = null;
+	private Alert alertTokenize = null;
 
 	public ManageTokenSetsControl() {
 		super();
@@ -69,15 +84,19 @@ public class ManageTokenSetsControl extends TweetExtractorFXDialogController {
 
 	@FXML
 	public void initialize() {
-		tokenSetNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdentifier().getName()));
-		tokenSetWordsNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getTokenList().size()).asObject());
+		tokenSetNameColumn.setCellValueFactory(
+				cellData -> new SimpleStringProperty(cellData.getValue().getIdentifier().getName()));
+		tokenSetWordsNumberColumn.setCellValueFactory(
+				cellData -> new SimpleIntegerProperty(cellData.getValue().getnTokens()).asObject());
 		tokenSetLastUpdatedColumn.setCellValueFactory(cellData -> {
-			if(cellData.getValue().getLastUpdated()!=null) {
-				return new SimpleObjectProperty<LocalDate>(cellData.getValue().getLastUpdated().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+			if (cellData.getValue().getLastUpdated() != null) {
+				return new SimpleObjectProperty<LocalDate>(
+						cellData.getValue().getLastUpdated().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 			}
 			return new SimpleObjectProperty<LocalDate>();
 		});
-		tokenSetListTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> setSelectedTokenSet(newValue));
+		tokenSetListTable.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> setSelectedTokenSet(newValue));
 		setSelectedTokenSet(null);
 	}
 
@@ -85,9 +104,12 @@ public class ManageTokenSetsControl extends TweetExtractorFXDialogController {
 	public void setMainApplication(MainApplication mainApplication) {
 		super.setMainApplication(mainApplication);
 		tokenSetListTable.setItems(tableList);
-		languageServ = this.mainApplication.getSpringContext().getBean(ReferenceAvailableLanguagesServiceInterface.class);
+		languageServ = this.mainApplication.getSpringContext()
+				.getBean(ReferenceAvailableLanguagesServiceInterface.class);
 		availableLanguagesList.addAll(languageServ.findAll());
 		tsServ = this.mainApplication.getSpringContext().getBean(TweetExtractorNERTokenSetServiceInterface.class);
+		eServ = this.mainApplication.getSpringContext().getBean(ExtractionServiceInterface.class);
+		tokenService = this.mainApplication.getSpringContext().getBean(TweetExtractorNERTokenServiceInterface.class);
 		initializeLanguageChoiceBox();
 	}
 
@@ -122,37 +144,85 @@ public class ManageTokenSetsControl extends TweetExtractorFXDialogController {
 			tableList.addAll(result);
 		}
 	}
+
 	@FXML
 	public void onDone() {
 		this.getMainApplication().showScreenInCenterOfRootLayout("view/nlp/NLPPreferencesHome.fxml");
 	}
+
 	@FXML
 	public void onNew() {
 		SelectExtractionFilterDialogResponse extractionsChoice = showSelectExtractionFilterDialog();
-		TweetExtractorFXDialogResponse nameChoice = showCreateTokenSetSelectNameDialog(selectedAvailableTwitterLanguage);
-		if(extractionsChoice!=null&&nameChoice!=null&&extractionsChoice.getIntValue()==Constants.SUCCESS&&nameChoice.getIntValue()==Constants.SUCCESS) {
-			TweetExtractorNERTokenSet newTokenSet = new TweetExtractorNERTokenSet();
-			newTokenSet.getExtractions().addAll(extractionsChoice.getFilter());
-			newTokenSet.getIdentifier().setUser(this.getMainApplication().getCurrentUser());
-			newTokenSet.getIdentifier().setLanguage(selectedAvailableTwitterLanguage);
-			newTokenSet.getIdentifier().setName(nameChoice.getStringValue());
-			tsServ.persist(newTokenSet);
-			loadTokenSetsList();
+		if (extractionsChoice != null && extractionsChoice.getIntValue() == Constants.SUCCESS) {
+			CreateTokenSetSelectCustomStopWordsListDialogResponse stopWordsChoice = showSelectCustomWordsList(
+					selectedAvailableTwitterLanguage);
+			if (stopWordsChoice != null && stopWordsChoice.getIntValue() == Constants.SUCCESS) {
+				TweetExtractorFXDialogResponse nameChoice = showCreateTokenSetSelectNameDialog(
+						selectedAvailableTwitterLanguage);
+				if (nameChoice != null && nameChoice.getIntValue() == Constants.SUCCESS) {
+					TweetExtractorNERTokenSet newTokenSet = new TweetExtractorNERTokenSet();
+					newTokenSet.getExtractions().addAll(extractionsChoice.getFilter());
+					newTokenSet.getIdentifier().setUser(this.getMainApplication().getCurrentUser());
+					newTokenSet.getIdentifier().setLanguage(selectedAvailableTwitterLanguage);
+					newTokenSet.getIdentifier().setName(nameChoice.getStringValue());
+					newTokenSet.setStopWordsList(stopWordsChoice.getStopWordsList());
+					tsServ.persist(newTokenSet);
+					loadTokenSetsList();
+				}
+			}
 		}
-		
 	}
 
 	@FXML
 	public void onTokenize() {
-		
+		if (selectedTokenSet == null) {
+			ErrorDialog.showErrorNoSelectedTokenSet();
+			return;
+		}
+		alertTokenize = null;
+		TokenizeExtractionsTask tokenizeTask = new TokenizeExtractionsTask(this.mainApplication.getSpringContext());
+		tokenizeTask.setTokenSet(selectedTokenSet);
+		tokenizeTask.setOnSucceeded(e -> {
+			TokenizeStatus tokenizeResult = tokenizeTask.getValue();
+			loadingDialog.close();
+			switch (tokenizeResult.getStatus()) {
+			case Constants.SUCCESS:
+				alertTokenize = null;
+				break;
+			case Constants.ERROR:
+				alertTokenize = ErrorDialog.showErrorTokenizeTask(tokenizeResult.getException());
+				break;
+			default:
+				break;
+			}
+		});
+		tokenizeTask.setOnFailed(e -> {
+			if (loadingDialog != null) {
+				loadingDialog.close();
+			}
+			alertTokenize = ErrorDialog.showErrorTokenizeTask(null);
+		});
+		Thread thread = new Thread(tokenizeTask);
+		thread.setName(tokenizeTask.getClass().getCanonicalName());
+		thread.start();
+		loadingDialog = this.getMainApplication().showLoadingDialog("Tokenizing extractions...");
+		loadingDialog.showAndWait();
+		if (alertTokenize != null) {
+			alertTokenize.showAndWait();
+		} else {
+			ErrorDialog.showSuccessTokenize(selectedTokenSet.getnTokens());
+			loadTokenSetsList();
+		}
 	}
+
 	@FXML
 	public void onDelete() {
 		if (selectedTokenSet == null) {
-			ErrorDialog.showErrorNoSelectedStopWordsList();
+			ErrorDialog.showErrorNoSelectedTokenSet();
 		} else {
 			Alert alert = new Alert(AlertType.CONFIRMATION,
-					"This action will delete the token set " + selectedTokenSet.getIdentifier().getName() + "("+selectedAvailableTwitterLanguage.getShortName()+")" 
+					"This action will delete the token set " + selectedTokenSet.getIdentifier().getName() + "("
+							+ selectedAvailableTwitterLanguage.getShortName() + ")"
 							+ ", and also all its content. Are you sure you want to continue?",
 					ButtonType.YES, ButtonType.NO);
 			alert.showAndWait();
@@ -162,6 +232,7 @@ public class ManageTokenSetsControl extends TweetExtractorFXDialogController {
 			}
 		}
 	}
+
 	public TableView<TweetExtractorNERTokenSet> getTokenSetListTable() {
 		return tokenSetListTable;
 	}
@@ -259,17 +330,21 @@ public class ManageTokenSetsControl extends TweetExtractorFXDialogController {
 	public void setLogger(Logger logger) {
 		this.logger = logger;
 	}
+
 	private SelectExtractionFilterDialogResponse showSelectExtractionFilterDialog() {
-		TweetExtractorFXDialogResponse result = this.mainApplication.showDialogLoadFXML("view/server/dialog/SelectExtractionFilterDialog.fxml",SelectExtractionFilterDialogControl.class);
-		if(result!=null) {
+		TweetExtractorFXDialogResponse result = this.mainApplication.showDialogLoadFXML(
+				"view/server/dialog/SelectExtractionFilterDialog.fxml", SelectExtractionFilterDialogControl.class);
+		if (result != null) {
 			return (SelectExtractionFilterDialogResponse) result;
 		}
 		return null;
 	}
+
 	private TweetExtractorFXDialogResponse showCreateTokenSetSelectNameDialog(AvailableTwitterLanguage language) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource("view/dialog/nlp/CreateTokenSetSelectNameDialog.fxml"));
+			loader.setLocation(
+					MainApplication.class.getResource("view/dialog/nlp/CreateTokenSetSelectNameDialog.fxml"));
 			AnchorPane page = loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -285,6 +360,34 @@ public class ManageTokenSetsControl extends TweetExtractorFXDialogController {
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			return controller.getResponse();
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			return null;
+		}
+	}
+
+	private CreateTokenSetSelectCustomStopWordsListDialogResponse showSelectCustomWordsList(
+			AvailableTwitterLanguage language) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class
+					.getResource("view/server/dialog/CreateTokenSetSelectCustomStopWordsListDialog.fxml"));
+			AnchorPane page = loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(this.getMainApplication().getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			// Set the dialogStage to the controller.
+			CreateTokenSetSelectCustomStopWordsListDialogControl controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setMainApplication(this.getMainApplication());
+			controller.setLanguage(language);
+			// Show the dialog and wait until the user closes it, then add filter
+			dialogStage.showAndWait();
+			return (CreateTokenSetSelectCustomStopWordsListDialogResponse) controller.getResponse();
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage());

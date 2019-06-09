@@ -14,4 +14,5 @@ import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERTokenSetID
  */
 public interface TweetExtractorNERTokenServiceInterface extends GenericServiceInterface<TweetExtractorNERToken, Integer> {
 	public List<TweetExtractorNERToken> findBySet(TweetExtractorNERTokenSetID setID);
+	public List<TweetExtractorNERToken> findNotClassifiedBySet(TweetExtractorNERTokenSetID setID);
 }

@@ -43,4 +43,17 @@ public class TweetExtractorNERTokenDAO extends AbstractGenericDAO<TweetExtractor
 	    return ret;
 	}
 
+	@Override
+	public List<TweetExtractorNERToken> findNotClassifiedBySet(TweetExtractorNERTokenSetID setID) {
+		Query<TweetExtractorNERToken> query = currentSession().createNamedQuery("findNotClassifiedNERTokenBySet",TweetExtractorNERToken.class);
+	    query.setParameter("setID", setID);
+	     List<TweetExtractorNERToken> ret= null;
+	    try {ret=query.getResultList();}catch(NoResultException e) {
+	    	Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.info("No NER tokens found for userID: "+setID.getUser().getIdDB()+" and language: "+setID.getLanguage().getLongName());
+	    	return new ArrayList<>();
+	    	}
+	    return ret;
+	}
+
 }

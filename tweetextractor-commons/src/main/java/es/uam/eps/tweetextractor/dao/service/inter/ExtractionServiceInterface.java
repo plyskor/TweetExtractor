@@ -7,6 +7,7 @@ import java.util.List;
 
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERTokenSet;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 
 /**
@@ -18,4 +19,5 @@ public interface ExtractionServiceInterface extends GenericServiceInterface<Extr
 	public List<Extraction> findByUser(User user);
 	public List<Extraction> findListById(List<Integer> extractions);
 	public List<Extraction> findListByReport(AnalyticsReport report);
+	public List<Extraction> findListByNERTokenSet(TweetExtractorNERTokenSet tokenSet);	
 }
