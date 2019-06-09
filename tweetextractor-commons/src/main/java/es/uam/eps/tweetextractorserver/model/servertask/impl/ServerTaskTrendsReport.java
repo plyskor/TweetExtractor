@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -22,6 +21,7 @@ import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
+import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingWordsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
@@ -42,6 +42,22 @@ public class ServerTaskTrendsReport extends AnalyticsServerTask {
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = 5380977367340886500L;
+	
+	/**
+	 * 
+	 */
+	public ServerTaskTrendsReport() {
+		super();
+		setLogger(LoggerFactory.getLogger(ServerTaskTrendsReport.class));
+	}
+	/**
+	 * @param id
+	 * @param user
+	 */
+	public ServerTaskTrendsReport(int id, User user) {
+		super(id, user);
+		setLogger(LoggerFactory.getLogger(ServerTaskTrendsReport.class));
+	}
 	@Override
 	public ServerTaskResponse call() {
 		return new TrendsReportResponse(super.call());
@@ -59,8 +75,7 @@ public class ServerTaskTrendsReport extends AnalyticsServerTask {
 	 */
 	@Override
 	public void implementation () throws Exception {
-		Logger logger = LoggerFactory.getLogger(ServerTaskTrendsReport.class);
-		logger.info("Generating trends report...");
+		getLogger().info("Generating trends report...");
 		TrendsReport trendsReport = (TrendsReport) getReport();
 		trendsReport.setExtractions(eServ.findListByReport(trendsReport));
 		trendsReport.setStringFilterList(arServ.findStringFilterListByReport(trendsReport));
@@ -121,13 +136,13 @@ public class ServerTaskTrendsReport extends AnalyticsServerTask {
 			break;
 		}
 		if (emptyReport) {
-			logger.info("Server task "+this.getId()+" has generated an empty trending report. It hasn't been saved.");
+			getLogger().info("Server task "+this.getId()+" has generated an empty trending report. It hasn't been saved.");
 			finish();
 			return;
 		}
 		report.setLastUpdatedDate(new Date());
 		arServ.update(trendsReport);
-		logger.info("Trending "+word+" report succesfully saved to database with id: "+report.getId());
+		getLogger().info("Trending "+word+" report succesfully saved to database with id: "+report.getId());
 		finish();
 	}
 

@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -41,6 +40,7 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 
 	public ServerTaskTimelineVolumeReport() {
 		super();
+		setLogger(LoggerFactory.getLogger(ServerTaskTimelineVolumeReport.class));
 	}
 
 	@Override
@@ -58,20 +58,19 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 
 	@Override
 	public void implementation() {
-		Logger logger = LoggerFactory.getLogger(ServerTaskTimelineVolumeReport.class);
-		logger.info("Generating timeline tweet volume report...");
+		getLogger().info("Generating timeline tweet volume report...");
 		if(this.report==null) {
 			this.report=new TimelineVolumeReport();
 			report.setUser(getUser());
 		}
 		List<TimelineReportVolumeRegister> list=tServ.extractGlobalTimelineVolumeReport(this.getUser());
 		if(list==null) {
-			logger.warn("There was an error querying the database while generating the report.");
+			getLogger().warn("There was an error querying the database while generating the report.");
 			onInterrupt();
 			return;
 		}
 		if (list.isEmpty()) {
-			logger.info("Server task "+this.getId()+" has generated an empty timeline volume report. It hasn't been saved.");
+			getLogger().info("Server task "+this.getId()+" has generated an empty timeline volume report. It hasn't been saved.");
 			finish();
 			return;
 		}
@@ -84,7 +83,7 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 		nTweetsCategory.getResult().addAll(list);
 		report.setLastUpdatedDate(new Date());
 		arServ.saveOrUpdate((AnalyticsCategoryReport)report);
-		logger.info("Timeline tweet volume report succesfully saved to database with id: "+report.getId());
+		getLogger().info("Timeline tweet volume report succesfully saved to database with id: "+report.getId());
 		finish();
 	}
 

@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -39,6 +38,7 @@ public class ServerTaskTopNHashtagsReport extends AnalyticsServerTask {
 	private static final long serialVersionUID = -7958677688349963763L;
 	public ServerTaskTopNHashtagsReport() {
 		super();
+		setLogger(LoggerFactory.getLogger(ServerTaskTopNHashtagsReport.class));
 	}
 	@Override
 	public ServerTaskResponse call() {
@@ -53,15 +53,14 @@ public class ServerTaskTopNHashtagsReport extends AnalyticsServerTask {
 	}
 	@Override
 	public void implementation() {
-		Logger logger = LoggerFactory.getLogger(ServerTaskTopNHashtagsReport.class);
-		logger.info("Generating timeline Top "+((TimelineTopNHashtagsReport)report).getnHashtags()+" hashtags volume report...");
+		getLogger().info("Generating timeline Top "+((TimelineTopNHashtagsReport)report).getnHashtags()+" hashtags volume report...");
 		TimelineTopNHashtagsReport castedReport = (TimelineTopNHashtagsReport) getReport();
 		boolean emptyReport=true;
 		permanentClearReport();
 		for(AnalyticsReportCategory category: castedReport.getCategories()) {
 			List<TimelineReportVolumeRegister> list = tServ.extractHashtagTimelineVolumeReport(this.getUser(), category.getCategoryName());
 			if(list==null) {
-				logger.warn("There was an error querying the database while generating the report.");
+				getLogger().warn("There was an error querying the database while generating the report.");
 				onInterrupt();
 				return;
 			}
@@ -75,13 +74,13 @@ public class ServerTaskTopNHashtagsReport extends AnalyticsServerTask {
 			}
 		}
 		if (emptyReport) {
-			logger.info("Server task "+this.getId()+" has generated an empty timeline volume report. It hasn't been saved.");
+			getLogger().info("Server task "+this.getId()+" has generated an empty timeline volume report. It hasn't been saved.");
 			finish();
 			return;
 		}
 		report.setLastUpdatedDate(new Date());
 		arServ.update(castedReport);
-		logger.info("Timeline Top "+castedReport.getnHashtags()+" hashtags report succesfully saved to database with id: "+report.getId());
+		getLogger().info("Timeline Top "+castedReport.getnHashtags()+" hashtags report succesfully saved to database with id: "+report.getId());
 		finish();
 	}
 

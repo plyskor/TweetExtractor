@@ -6,21 +6,14 @@ package es.uam.eps.tweetextractorfx.view.nlp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorNERTokenServiceInterface;
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.TweetExtractorNERTokenSetServiceInterface;
-import es.uam.eps.tweetextractor.analytics.nlp.TweetExtractorNaturalTextProcessor;
-import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
 import es.uam.eps.tweetextractor.dao.service.inter.ReferenceAvailableLanguagesServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
-import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERToken;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERTokenSet;
 import es.uam.eps.tweetextractor.model.reference.AvailableTwitterLanguage;
-import es.uam.eps.tweetextractor.model.task.status.LoginStatus;
 import es.uam.eps.tweetextractor.model.task.status.TokenizeStatus;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
@@ -68,10 +61,8 @@ public class ManageTokenSetsControl extends TweetExtractorFXDialogController {
 	private ChoiceBox<String> languageChoiceBox;
 	private ObservableList<TweetExtractorNERTokenSet> tableList = FXCollections.observableArrayList();
 	private TweetExtractorNERTokenSet selectedTokenSet = null;
-	private ExtractionServiceInterface eServ;
 	private ReferenceAvailableLanguagesServiceInterface languageServ;
 	private TweetExtractorNERTokenSetServiceInterface tsServ;
-	private TweetExtractorNERTokenServiceInterface tokenService;
 	private List<AvailableTwitterLanguage> availableLanguagesList = new ArrayList<>();
 	private AvailableTwitterLanguage selectedAvailableTwitterLanguage = null;
 	private Logger logger = LoggerFactory.getLogger(ManageTokenSetsControl.class);
@@ -108,8 +99,6 @@ public class ManageTokenSetsControl extends TweetExtractorFXDialogController {
 				.getBean(ReferenceAvailableLanguagesServiceInterface.class);
 		availableLanguagesList.addAll(languageServ.findAll());
 		tsServ = this.mainApplication.getSpringContext().getBean(TweetExtractorNERTokenSetServiceInterface.class);
-		eServ = this.mainApplication.getSpringContext().getBean(ExtractionServiceInterface.class);
-		tokenService = this.mainApplication.getSpringContext().getBean(TweetExtractorNERTokenServiceInterface.class);
 		initializeLanguageChoiceBox();
 	}
 

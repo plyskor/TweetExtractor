@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,7 +117,7 @@ public class TweetExtractorServer {
 		if (task != null && task.getStatus() == Constants.ST_RUNNING) {
 			logger.info("Trying to interrupt task with id " + task.getId() + " ...");
 			task.getThread().interrupt();
-			if (!task.isRunningScheduled()) {
+			if (task instanceof ScheduledServerTask&&!((ScheduledServerTask) task).isRunningScheduled()) {
 				try {
 					task.getThread().join();
 				} catch (InterruptedException e) {
@@ -124,7 +125,9 @@ public class TweetExtractorServer {
 					Thread.currentThread().interrupt();
 				}
 			} else {
-				task.setRunningScheduled(false);
+				if(task instanceof ScheduledServerTask) {
+					((ScheduledServerTask) task).setRunningScheduled(false);
+				}
 				stServ.update(task);
 			}
 		}
@@ -133,7 +136,7 @@ public class TweetExtractorServer {
 	public void haltTask(ServerTask task) {
 		if (task != null && task.getStatus() == Constants.ST_RUNNING) {
 			task.getThread().interrupt();
-			if (!task.isRunningScheduled()) {
+			if (task instanceof ScheduledServerTask&&!((ScheduledServerTask) task).isRunningScheduled()) {
 				try {
 					task.getThread().join();
 					task.setStatus(Constants.ST_HALT);
@@ -144,7 +147,9 @@ public class TweetExtractorServer {
 				}
 			} else {
 				task.setStatus(Constants.ST_HALT);
-				task.setRunningScheduled(false);
+				if(task instanceof ScheduledServerTask) {
+					((ScheduledServerTask) task).setRunningScheduled(false);
+				}
 				stServ.update(task);
 			}
 		}
@@ -296,9 +301,10 @@ public class TweetExtractorServer {
 			return reply;
 		}
 		try {
-			scheduler.schedule(sTask, delay, TimeUnit.MILLISECONDS);
+			ScheduledFuture<?> future = scheduler.schedule(sTask, delay, TimeUnit.MILLISECONDS);
 			sTask.setScheduleDate(date);
 			sTask.setRunningScheduled(true);
+			sTask.setFuture(future);
 			sTask.onSchedule();
 			logger.info("Task with id "+task.getId()+" has been scheduled on "+date.toString());
 			reply.setError(false);

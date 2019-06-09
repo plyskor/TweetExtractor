@@ -251,7 +251,6 @@ public class TweetExtractorNaturalTextProcessor {
 			}
 			// reverse sort by frequency
 			Collections.sort(keywords);
-			int nWords=0;
 			for (Keyword word : keywords) {
 				boolean discardWord=false;
 				for(String term: word.getTerms()) {
@@ -261,7 +260,6 @@ public class TweetExtractorNaturalTextProcessor {
 					}
 				}
 				if(!discardWord) {
-					nWords++;
 					TweetExtractorNERToken newToken = new TweetExtractorNERToken();
 					newToken.setFrequency(word.getFrequency());
 					newToken.setRoot(word.getStem());

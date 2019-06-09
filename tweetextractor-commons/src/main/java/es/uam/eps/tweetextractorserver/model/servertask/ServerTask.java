@@ -26,6 +26,7 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Polymorphism;
 import org.hibernate.annotations.PolymorphismType;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -75,8 +76,9 @@ public abstract class ServerTask implements Runnable,Serializable {
 	@XmlTransient
 	@Transient
 	private transient Thread thread = new Thread(this);
-	@Column(name = "running_scheduled")
-	private boolean runningScheduled;
+	@XmlTransient
+	@Transient
+	private Logger logger;
 	@Transient
 	@XmlTransient
 	protected transient AnnotationConfigApplicationContext springContext;
@@ -85,7 +87,6 @@ public abstract class ServerTask implements Runnable,Serializable {
 		super();
 		this.id = id;
 		this.status = Constants.ST_NEW;
-		this.runningScheduled=false;
 		this.user = user;
 		this.creationDate=new Date();
 	}
@@ -132,9 +133,6 @@ public abstract class ServerTask implements Runnable,Serializable {
 	public void goReady() {
 		sServ=springContext.getBean(ServerTaskServiceInterface.class);
 		if(this.status!=Constants.ST_RUNNING) {
-			if(this.isRunningScheduled()) {
-				this.setRunningScheduled(false);
-			}
 			this.status=Constants.ST_READY;
 			sServ.update(this);
 		}
@@ -162,9 +160,6 @@ public abstract class ServerTask implements Runnable,Serializable {
 		sServ=springContext.getBean(ServerTaskServiceInterface.class);
 		if(this.status==Constants.ST_READY||this.status==Constants.ST_SCHEDULED) {
 			this.status=Constants.ST_RUNNING;
-			if(this.isRunningScheduled()) {
-				this.setThread(Thread.currentThread());
-			}
 			sServ.update(this);
 		}
 	}
@@ -254,16 +249,16 @@ public abstract class ServerTask implements Runnable,Serializable {
 	public abstract void initialize(AnnotationConfigApplicationContext context);
 	public abstract void implementation() throws Exception ;
 	/**
-	 * @return the runningScheduled
+	 * @return the logger
 	 */
-	public boolean isRunningScheduled() {
-		return runningScheduled;
+	public Logger getLogger() {
+		return logger;
 	}
 	/**
-	 * @param runningScheduled the runningScheduled to set
+	 * @param logger the logger to set
 	 */
-	public void setRunningScheduled(boolean runningScheduled) {
-		this.runningScheduled = runningScheduled;
+	public void setLogger(Logger logger) {
+		this.logger = logger;
 	}
-	
+
 }

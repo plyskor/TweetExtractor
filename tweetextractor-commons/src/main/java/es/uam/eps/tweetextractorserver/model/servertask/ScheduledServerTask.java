@@ -4,6 +4,7 @@
 package es.uam.eps.tweetextractorserver.model.servertask;
 
 import java.util.Date;
+import java.util.concurrent.ScheduledFuture;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -36,12 +37,18 @@ public abstract class ScheduledServerTask extends ServerTask {
 	@Column(name = "schedule_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date scheduleDate;
+	@Transient
+	@XmlTransient
+	private ScheduledFuture<?> future=null;
+	@Column(name = "running_scheduled")
+	private boolean runningScheduled;
 	/**
 	 * @param id the id to set
 	 * @param user the user to set
 	 */
 	public ScheduledServerTask(int id, User user) {
 		super(id, user);
+		this.runningScheduled=false;
 	}
 
 	/**
@@ -49,6 +56,7 @@ public abstract class ScheduledServerTask extends ServerTask {
 	 */
 	public ScheduledServerTask() {
 		super();
+		this.runningScheduled=false;
 	}
 
 
@@ -59,7 +67,21 @@ public abstract class ScheduledServerTask extends ServerTask {
 	public void initialize(AnnotationConfigApplicationContext context) {
 
 	}
-
+	@Override
+	public void goReady() {
+		sServ=springContext.getBean(ServerTaskServiceInterface.class);
+		if(this.getStatus()!=Constants.ST_RUNNING) {
+			if(this.isRunningScheduled()) {
+				this.setRunningScheduled(false);
+				if(this.getFuture()!=null) {
+					this.getFuture().cancel(true);
+					this.getLogger().info("The task with id "+this.getId()+" is no longer scheduled to run.");
+				}
+			}
+			this.setStatus(Constants.ST_READY);
+			sServ.update(this);
+		}
+	}
 	/**
 	 * @return the scheduleDate
 	 */
@@ -99,6 +121,34 @@ public abstract class ScheduledServerTask extends ServerTask {
 			}
 			sServ.update(this);
 		}
+	}
+
+	/**
+	 * @return the future
+	 */
+	public ScheduledFuture<?> getFuture() {
+		return future;
+	}
+
+	/**
+	 * @param future the future to set
+	 */
+	public void setFuture(ScheduledFuture<?> future) {
+		this.future = future;
+	}
+
+	/**
+	 * @return the runningScheduled
+	 */
+	public boolean isRunningScheduled() {
+		return runningScheduled;
+	}
+
+	/**
+	 * @param runningScheduled the runningScheduled to set
+	 */
+	public void setRunningScheduled(boolean runningScheduled) {
+		this.runningScheduled = runningScheduled;
 	}
 
 }
