@@ -1,11 +1,19 @@
 \begin{table}[Tecnologías utilizadas]{TB:TECNOLOGIAS}{En esta tabla se citan las tecnologías utilizadas en el proyecto.}
-  \begin{tabular}{|c|c|p{12cm}|}
+  \begin{tabular}{|c|c|p{11cm}|}
     \hline
     \textbf{Nombre} & \textbf{Versión} & \textbf{Objetivos} \\
     \hline \hline
     Twitter API & v4.0 &Esta API REST nos la proporciona Twitter para acceder a sus datos. Con ella realizaremos consultas que nos permitirán obtener los datos que son sujeto de nuestro análisis \\
-    OpenJDK& v12.0.1 &La versión OpenSource del más que conocido Java Developpement Kit. Nuestra aplicación se desarrollará en Java y el entorno gráfico lo gestionará JavaFX \\
-    8.3 & 1.56 & 2.78 \\
+    OpenJDK& v12.0.1 &La versión OpenSource del más que conocido Java Developpement Kit. Nuestra aplicación se desarrollará en Java y el entorno gráfico lo gestionará JavaFX. El servidor es un proyecto Java EE\\
+    Twitter4J & v4.0.7 & Una librería Java que ofrece métodos y clases para la explotación de la API de Twitter en el código Java\\
+    Spring Framework & v5.1.7 & Framework de código abierto para el desarrollo de aplicaciones y contenedor de inversión de control. Nos permitirá compartir recursos entre los diferentes puntos de la aplicación a través de contextos. \\
+	Hibernate & v5.4.3 & Herramienta de mapeo objeto-relacional que se apoyará sobre el driver jdbc para conectar los módulos de nuestra aplicación al servidor de bases de datos. \\
+	PostgreSQL Server & v11.3 & Servidor de bases de datos que guardará y gestionará todos nuestros datos.\\
+	Apache Tomcat & v8.5.41  & Servidor de aplicaciones Java donde estará desplegado el módulo servidor de nuestra aplicación. \\
+	Kumo API & v1.17 & Librería Java que nos permite crear Word Clouds muy configurables a partir de palabras.\\
+	JFreeChart & v1.0.19 & Librería para generar gráficos de distintos tipos en código Java. Se usará para mostrar resultados de los análisis. \\
+	Apache Lucene & v8.0.0 & Librería para la recuperación de información desde texto y web para el código Java. Se usará para la tokenización y tratamiento de textos.\\
+	SSL/TLS & v1.2 & Protocolo criptográfico que garantiza las conexiones seguras en la red. Se implementará en todas y cada una de las comunicaciones que se realicen entre cada módulo de nuestra aplicación.\\
     \hline
   \end{tabular}
 \end{table}

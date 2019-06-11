@@ -1,9 +1,25 @@
 \babel@toc {spanish}{}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Consul en Espa\IeC {\~n}a y el mundo}}{3}{figure.caption.15}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{3}{figure.caption.15}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{3}{figure.caption.15}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Ciclo de vida de una tarea as\IeC {\'\i }ncrona}}{23}{figure.caption.22}
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Diagrama UML Principal}}{24}{figure.caption.23}
+\contentsline {figure}{\numberline {A.3}{\ignorespaces Diagrama UML Reportes An\IeC {\'a}lisis}}{25}{figure.caption.24}
+\contentsline {figure}{\numberline {A.4}{\ignorespaces Diagrama UML Tareas As\IeC {\'\i }ncronas}}{26}{figure.caption.25}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {B.1}{\ignorespaces Pantalla inicial}}{27}{figure.caption.26}
+\contentsline {figure}{\numberline {B.2}{\ignorespaces Registro e inicio de sesi\IeC {\'o}n}}{27}{figure.caption.27}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{27}{figure.caption.27}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{27}{figure.caption.27}
+\contentsline {figure}{\numberline {B.3}{\ignorespaces Pantalla de bienvenida}}{28}{figure.caption.28}
+\contentsline {figure}{\numberline {B.4}{\ignorespaces Constructor de consultas}}{28}{figure.caption.29}
+\contentsline {figure}{\numberline {B.5}{\ignorespaces Edici\IeC {\'o}n de credenciales}}{29}{figure.caption.30}
+\contentsline {figure}{\numberline {B.6}{\ignorespaces Tarea en segundo plano}}{29}{figure.caption.31}
