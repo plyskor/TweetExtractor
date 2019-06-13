@@ -40,7 +40,7 @@ public class TweetExtractorUtils {
 	}
 	
 	public static String buildServerAdress(String serverHost, String serverAppName, int port) {
-		return "https://" + serverHost + ":" + port + "/" + serverAppName + "/";
+		return "http://" + serverHost + ":" + port + "/" + serverAppName + "/";
 	}
 
 	public static byte[] readFileToByteArray(File file) {

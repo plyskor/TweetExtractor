@@ -34,6 +34,7 @@ public class CreateAnalyticsServerTaskSelectTypeDialogControl extends TweetExtra
 		/*Initialize available types of tasks*/
 		taskTypesList.add(Constants.TIMELINE_REPORT_SERVER_TASK_TYPE);		
 		taskTypesList.add(Constants.TRENDS_TIMELINE_REPORT_SERVER_TASK_TYPE);
+		taskTypesList.add(Constants.NAMED_ENTITIES_VOLUME_SERVER_TASK_TYPE);
 	}
 	/**
 	 * @return the taskTypeChoice

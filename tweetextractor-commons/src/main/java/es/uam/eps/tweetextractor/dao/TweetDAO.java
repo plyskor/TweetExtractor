@@ -338,5 +338,23 @@ public class TweetDAO extends AbstractGenericDAO<Tweet,Integer> implements Tweet
 		}
 		return ret;
 	}
+	@Override
+	public List<Integer> getTweetIDsContainingTermInExtractions(String term,List<Integer> extractionIDList){
+		List<Integer> ret= new ArrayList<>();
+		Query q = currentSession().createSQLQuery("SELECT identifier "
+				+ "FROM perm_tweet "
+				+ "WHERE extraction_identifier IN (:extractions) "
+				+ "AND lower(text) like :term"
+				+ "").setParameterList("extractions", extractionIDList).setParameter("term", "%"+term+"%");
+		try {
+		 ret = q.getResultList();
+		}catch(Exception e) {
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+	    	logger.warn(e.getMessage());
+	    	logger.warn(Arrays.toString(e.getStackTrace()));
+	    	return ret;
+		}
+		return ret;
+	}
 	
 }

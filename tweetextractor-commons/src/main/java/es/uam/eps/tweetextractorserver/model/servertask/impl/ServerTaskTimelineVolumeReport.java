@@ -49,14 +49,6 @@ public class ServerTaskTimelineVolumeReport extends AnalyticsServerTask {
 	}
 
 	@Override
-	public void initialize(AnnotationConfigApplicationContext context) {
-		this.springContext=context;
-		tServ=springContext.getBean(TweetServiceInterface.class);
-		arServ=springContext.getBean(AnalyticsReportServiceInterface.class);
-		regServ=springContext.getBean(AnalyticsReportRegisterServiceInterface.class);
-	}
-
-	@Override
 	public void implementation() {
 		getLogger().info("Generating timeline tweet volume report...");
 		if(this.report==null) {

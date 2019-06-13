@@ -44,13 +44,7 @@ public class ServerTaskTopNHashtagsReport extends AnalyticsServerTask {
 	public ServerTaskResponse call() {
 		return new TopNHashtagsResponse(super.call());
 	}
-	@Override
-	public void initialize(AnnotationConfigApplicationContext context) {
-		this.springContext=context;
-		arServ=springContext.getBean(AnalyticsReportServiceInterface.class);
-		regServ=springContext.getBean(AnalyticsReportRegisterServiceInterface.class);
-		tServ=springContext.getBean(TweetServiceInterface.class);
-	}
+
 	@Override
 	public void implementation() {
 		getLogger().info("Generating timeline Top "+((TimelineTopNHashtagsReport)report).getnHashtags()+" hashtags volume report...");

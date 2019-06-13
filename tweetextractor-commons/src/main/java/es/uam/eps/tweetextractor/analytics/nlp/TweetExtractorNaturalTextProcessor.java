@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.TokenStream;
@@ -263,7 +264,9 @@ public class TweetExtractorNaturalTextProcessor {
 					TweetExtractorNERToken newToken = new TweetExtractorNERToken();
 					newToken.setFrequency(word.getFrequency());
 					newToken.setRoot(word.getStem());
-					newToken.getTerms().addAll(word.getTerms());
+					for (String term :word.getTerms()) {
+						newToken.getTerms().add(term.toLowerCase(Locale.forLanguageTag(tokenSet.getIdentifier().getLanguage().getShortName())));
+					}
 					newToken.setSet(tokenSet);
 					toReturn.add(newToken);
 				}

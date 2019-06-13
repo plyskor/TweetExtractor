@@ -5,8 +5,6 @@ package es.uam.eps.tweetextractor.model.analytics.report;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -14,11 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
-
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -26,7 +21,6 @@ import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.springframework.stereotype.Controller;
 import javax.persistence.JoinColumn;
-import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
@@ -45,11 +39,6 @@ public abstract class TrendsReport extends AnalyticsCategoryReport {
 	private static final long serialVersionUID = -5010570674578247720L;
 	@Column(name="n")
 	private int n;
-	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
-	   @JoinTable(name = "trends_report_extraction", 
-	         joinColumns = { @JoinColumn(name = "report_identifier") }, 
-	         inverseJoinColumns = { @JoinColumn(name = "extraction_identifier") })
-    private List<Extraction> extractions = new ArrayList<>();
 	@ElementCollection(fetch=FetchType.LAZY)
 	@CollectionTable(name="perm_trend_report_filter_list", joinColumns=@JoinColumn(name="report"))
 	@Column(name="filter_element")
@@ -80,20 +69,6 @@ public abstract class TrendsReport extends AnalyticsCategoryReport {
 	 */
 	public void setN(int n) {
 		this.n = n;
-	}
-
-	/**
-	 * @return the extractions
-	 */
-	public List<Extraction> getExtractions() {
-		return extractions;
-	}
-
-	/**
-	 * @param extractions the extractions to set
-	 */
-	public void setExtractions(List<Extraction> extractions) {
-		this.extractions = extractions;
 	}
 
 	/**

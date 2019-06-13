@@ -15,9 +15,12 @@ import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTimelineVolumeReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTopNHashtagsReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTrendsReportResponse;
+import es.uam.eps.tweetextractor.model.service.CreateServerTaskTweetVolumeByNamedEntityReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskUpdateExtractionIndefResponse;
+import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTweetVolumeByNamedEntityReportSei;
 import es.uam.eps.tweetextractor.service.CreateServerTaskTimelineTopNHashtagsReport;
 import es.uam.eps.tweetextractor.service.CreateServerTaskTimelineVolumeReport;
+import es.uam.eps.tweetextractor.service.CreateServerTaskTweetVolumeByNamedEntityReport;
 import es.uam.eps.tweetextractor.service.CreateServerTaskUpdateExtractionIndef;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
@@ -28,6 +31,7 @@ import es.uam.eps.tweetextractorfx.view.dialog.response.CreateExtractionServerTa
 import es.uam.eps.tweetextractorfx.view.dialog.response.CreateTimelineTopNHashtagsReportDialogResponse;
 import es.uam.eps.tweetextractorfx.view.dialog.response.CreateTrendsReportServerTaskPreferencesDialogResponse;
 import es.uam.eps.tweetextractorfx.view.dialog.response.SelectExtractionFilterDialogResponse;
+import es.uam.eps.tweetextractorfx.view.dialog.response.SelectNERPreferencesDialogControlResponse;
 import es.uam.eps.tweetextractorfx.view.dialog.response.TweetExtractorFXDialogResponse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -209,12 +213,39 @@ public class HomeScreenControl extends TweetExtractorFXController {
 			case (Constants.TRENDS_TIMELINE_REPORT_SERVER_TASK_TYPE):
 				onCreateTrendsReport();
 				break;
+			case (Constants.NAMED_ENTITIES_VOLUME_SERVER_TASK_TYPE):
+				onCreateNamedEntitiesVolumeServerTaskType();
+			break;
 			default:
 				break;
 			}
 
 		}
 	}
+
+	private void onCreateNamedEntitiesVolumeServerTaskType() {
+		SelectExtractionFilterDialogResponse extractionFilterReply = showSelectExtractionFilterDialog();
+		if (extractionFilterReply==null||extractionFilterReply.getIntValue() == Constants.ERROR) {
+			return;
+		}
+		List<Integer> extractionIdList = new ArrayList<>();
+		for (Extraction e : extractionFilterReply.getFilter() ) {
+			extractionIdList.add(e.getIdDB());
+		}
+		SelectNERPreferencesDialogControlResponse nerPreferencesChoice = showSelectNERPreferencesDialog();
+		if (nerPreferencesChoice==null||nerPreferencesChoice.getIntValue() == Constants.ERROR) {
+			return;
+		}
+		CreateServerTaskTweetVolumeByNamedEntityReport service = new CreateServerTaskTweetVolumeByNamedEntityReport(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		CreateServerTaskTweetVolumeByNamedEntityReportResponse reply = service.createServerTaskTweetVolumeByNamedEntityReport(this.getMainApplication().getCurrentUser().getIdDB(), extractionIdList, nerPreferencesChoice.getPreferences().getIdentifier().getLanguage().getIdentifier(), nerPreferencesChoice.getPreferences().getIdentifier().getName());
+		if (reply.isError()) {
+			ErrorDialog.showErrorCreateServerTask(reply.getMessage());
+		} else {
+			ErrorDialog.showSuccessCreateServerTask(reply.getId());
+		}
+	}
+
+	
 
 	private void onCreateTrendsReport() {
 		SelectExtractionFilterDialogResponse extractionFilterReply = showSelectExtractionFilterDialog();
@@ -329,6 +360,13 @@ public class HomeScreenControl extends TweetExtractorFXController {
 		TweetExtractorFXDialogResponse result = this.showDialogLoadFXML("server/dialog/SelectExtractionFilterDialog.fxml");
 		if(result!=null) {
 			return (SelectExtractionFilterDialogResponse) result;
+		}
+		return null;
+	}
+	private SelectNERPreferencesDialogControlResponse showSelectNERPreferencesDialog() {
+		TweetExtractorFXDialogResponse result = this.showDialogLoadFXML("server/dialog/SelectNERPreferencesDialog.fxml");
+		if(result!=null) {
+			return  (SelectNERPreferencesDialogControlResponse) result;
 		}
 		return null;
 	}

@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegisterServiceInterface;
@@ -69,7 +70,14 @@ public abstract class AnalyticsServerTask extends ScheduledServerTask {
 	public AnalyticsServerTask() {
 		super();
 	}
-
+	@Override
+	public void initialize(AnnotationConfigApplicationContext context) {
+		this.springContext=context;
+		tServ=springContext.getBean(TweetServiceInterface.class);
+		arServ=springContext.getBean(AnalyticsReportServiceInterface.class);
+		regServ=springContext.getBean(AnalyticsReportRegisterServiceInterface.class);
+		eServ=springContext.getBean(ExtractionServiceInterface.class);
+	}
 	/*
 	 * (non-Javadoc)
 	 * 

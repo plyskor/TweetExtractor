@@ -97,5 +97,10 @@ public class TweetService extends GenericService<Tweet, Integer> implements Twee
 			List<Integer> extractionIDList) {
 		return tweetDAO.findTopNUserMentionsByExtractionFiltered(n, filter, extractionIDList);
 	}
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly=true)
+	public List<Integer> getTweetIDsContainingTermInExtractions(String term,List<Integer> extractionIDList){
+		return tweetDAO.getTweetIDsContainingTermInExtractions(term, extractionIDList);
+	}
 
 }

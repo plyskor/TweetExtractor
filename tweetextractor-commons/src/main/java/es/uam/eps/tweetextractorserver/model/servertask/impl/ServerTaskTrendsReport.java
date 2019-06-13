@@ -12,13 +12,8 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
-import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportRegisterServiceInterface;
-import es.uam.eps.tweetextractor.analytics.dao.service.inter.AnalyticsReportServiceInterface;
 import es.uam.eps.tweetextractor.analytics.nlp.TweetExtractorNaturalTextProcessor;
-import es.uam.eps.tweetextractor.dao.service.inter.ExtractionServiceInterface;
-import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
@@ -62,14 +57,7 @@ public class ServerTaskTrendsReport extends AnalyticsServerTask {
 	public ServerTaskResponse call() {
 		return new TrendsReportResponse(super.call());
 	}
-	@Override
-	public void initialize(AnnotationConfigApplicationContext context) {
-		this.springContext=context;
-		tServ=springContext.getBean(TweetServiceInterface.class);
-		arServ=springContext.getBean(AnalyticsReportServiceInterface.class);
-		regServ=springContext.getBean(AnalyticsReportRegisterServiceInterface.class);
-		eServ=springContext.getBean(ExtractionServiceInterface.class);
-	}
+	
 	/* (non-Javadoc)
 	 * @see es.uam.eps.tweetextractorserver.model.servertask.ServerTask#implementation()
 	 */

@@ -1,0 +1,121 @@
+/**
+ * 
+ */
+package es.uam.eps.tweetextractorserver.model.servertask.impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
+import es.uam.eps.tweetextractor.model.Extraction;
+import es.uam.eps.tweetextractor.model.Tweet;
+import es.uam.eps.tweetextractor.model.User;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERToken;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNamedEntity;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorTopic;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsTweetVolumeByNamedEntitiesReport;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNamedEntitiesReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNamedEntitiesReportTopicRegister;
+import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
+
+/**
+ * @author jgarciadelsaz
+ *
+ */
+@Controller
+@Entity
+@DiscriminatorValue(value = TaskTypes.Values.TYPE_TASK_VOLUME_BY_NAMED_ENTITY)
+@XmlRootElement(name = "serverTaskTweetVolumeByNamedEntityReport")
+public class ServerTaskTweetVolumeByNamedEntityReport extends AnalyticsServerTask {
+	@XmlTransient
+	@Transient
+	private static final long serialVersionUID = -1229771433115959018L;
+
+	public ServerTaskTweetVolumeByNamedEntityReport() {
+		super();
+		setLogger(LoggerFactory.getLogger(ServerTaskTweetVolumeByNamedEntityReport.class));
+	}
+
+	public ServerTaskTweetVolumeByNamedEntityReport(int id, User user) {
+		super(id, user);
+		setLogger(LoggerFactory.getLogger(ServerTaskTweetVolumeByNamedEntityReport.class));
+	}
+
+	@Override
+	public void implementation() throws Exception {
+		getLogger().info("Generating tweet volume by named entities report...");
+		AnalyticsTweetVolumeByNamedEntitiesReport report = (AnalyticsTweetVolumeByNamedEntitiesReport) getReport();
+		report.setExtractions(eServ.findListByReport(report));
+		permanentClearReport();
+		List<Integer> extractionIDList = new ArrayList<>();
+		for (Extraction e : report.getExtractions()) {
+			extractionIDList.add(e.getIdDB());
+		}
+		List<Tweet> tweetList = new ArrayList<>();
+		/* Select tweets by language */
+		for (Extraction e : report.getExtractions()) {
+			e.setTweetList(tServ.findByExtraction(e));
+			for (Tweet t : e.getTweetList()) {
+				if (report.getPreferences().getIdentifier().getLanguage().getShortName().equals(t.getLang())&&!containsTweet(tweetList,t.getId())) {
+						tweetList.add(t);
+				}
+			}
+		}
+		if (tweetList.isEmpty()) {
+			getLogger().info("These extractions contain no tweets in language "
+					+ report.getPreferences().getIdentifier().getLanguage().getLongName());
+			arServ.saveOrUpdate(report);
+			return;
+		}
+		for (TweetExtractorNamedEntity ne : report.getPreferences().getNamedEntities()) {
+			AnalyticsReportCategory category = report.getCategoryByName(ne.getName());
+			AnalyticsTweetVolumeByNamedEntitiesReportRegister register = new AnalyticsTweetVolumeByNamedEntitiesReportRegister();
+			register.setCategory(category);
+			category.getResult().add(register);
+			category.setReport(report);
+			for (TweetExtractorTopic topic : ne.getTopics()) {
+				AnalyticsTweetVolumeByNamedEntitiesReportTopicRegister topicRegister = new AnalyticsTweetVolumeByNamedEntitiesReportTopicRegister();
+				topicRegister.setTopicLabel(topic.getName());
+				Set<Integer> markedTweets = new HashSet<>();
+				register.getTopicsVolumeList().add(topicRegister);
+				for (TweetExtractorNERToken token : topic.getLinkedTokens()) {
+					for (String term : token.getTerms()) {
+						markedTweets.addAll(tServ.getTweetIDsContainingTermInExtractions(term, extractionIDList));
+						if (true)
+							break;
+					}
+				}
+				topicRegister.setValue(markedTweets.size());
+			}
+			regServ.saveOrUpdate(register);
+		}
+		report.setLastUpdatedDate(new Date());
+		arServ.update(report);
+		getLogger().info("Tweet volume by named entity report saved to database with id:" + report.getId());
+		finish();
+	}
+
+	public boolean containsTweet(List<Tweet> list, long id) {
+		boolean ret = false;
+		if (list != null && id > 0) {
+			for (Tweet t : list) {
+				if (t.getId() == id) {
+					ret = true;
+				}
+			}
+		}
+		return ret;
+	}
+
+}

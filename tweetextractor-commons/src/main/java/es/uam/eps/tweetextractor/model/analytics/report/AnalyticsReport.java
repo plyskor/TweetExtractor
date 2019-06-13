@@ -4,18 +4,26 @@
 package es.uam.eps.tweetextractor.model.analytics.report;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -26,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Polymorphism;
 import org.hibernate.annotations.PolymorphismType;
 import org.springframework.stereotype.Controller;
+import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportTypes;
 @NamedQuery(name="findAnalyticsReportByUser", query="SELECT r from AnalyticsCategoryReport r where r.user=:user")
@@ -60,6 +69,11 @@ public abstract class AnalyticsReport implements Serializable{
 	@Column(name = "report_type", length=6 ,nullable = false, insertable = false, updatable = false)
 	@Enumerated(EnumType.STRING)
 	public AnalyticsReportTypes reportType;
+	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
+	   @JoinTable(name = "analytics_report_extraction", 
+	         joinColumns = { @JoinColumn(name = "report_identifier") }, 
+	         inverseJoinColumns = { @JoinColumn(name = "extraction_identifier") })
+	private List<Extraction> extractions = new ArrayList<>();
 
 	/**
 	 * 
@@ -129,6 +143,19 @@ public abstract class AnalyticsReport implements Serializable{
 	public AnalyticsReportTypes getReportType() {
 		return reportType;
 	}
+	
+	/**
+	 * @return the extractions
+	 */
+	public List<Extraction> getExtractions() {
+		return extractions;
+	}
+	/**
+	 * @param extractions the extractions to set
+	 */
+	public void setExtractions(List<Extraction> extractions) {
+		this.extractions = extractions;
+	}
 	/**
 	 * @param reportType the reportType to set
 	 */
@@ -136,5 +163,6 @@ public abstract class AnalyticsReport implements Serializable{
 		this.reportType = reportType;
 	}
 	public abstract boolean isEmpty();
+	
 
 }
