@@ -14,9 +14,9 @@ import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
-import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
 import es.uam.eps.tweetextractor.model.filter.*;
 import es.uam.eps.tweetextractor.model.filter.impl.*;
 import es.uam.eps.tweetextractor.service.GetServerStatus;
@@ -368,7 +368,7 @@ public class MainApplication extends Application {
 			rootLayout.setCenter(rootNode);
 			// Give the controller access to the main app.
 			WordCloudChartGraphicPreferencesControl controller = loader.getController();
-			controller.setReportInput((TrendsReport) selectedReport);
+			controller.setReportInput((AnalyticsCategoryReport) selectedReport);
 			controller.setMainApplication(this);
 		} catch (IOException e) {
 			logger.error(e.getMessage());

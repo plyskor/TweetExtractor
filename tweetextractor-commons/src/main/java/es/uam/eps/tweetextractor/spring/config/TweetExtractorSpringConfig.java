@@ -101,7 +101,7 @@ public class TweetExtractorSpringConfig {
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 		factoryBean.setDataSource(getDataSource());
 		Properties props = new Properties();
-		props.put("hibernate.show_sql", "true");
+		props.put("hibernate.show_sql", "false");
 		props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		props.put("connection.provider_class", "org.hibernate.connection.C3P0ConnectionProvider");
 		props.put("transaction.auto_close_session", "true");

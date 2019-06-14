@@ -49,9 +49,12 @@ import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGra
 import es.uam.eps.tweetextractor.model.analytics.graphics.WorldCloudChartConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYBarChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferences;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsNLPReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingWordsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNLPReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingWordsReportRegister;
 import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
 
@@ -220,7 +223,59 @@ public class TweetExtractorChartConstructor {
 		}
 		return wordCloud;
 	}
-
+	public WordCloud constructWordCloudChartFromNLPReport(File pixelBoundaryFile) throws IOException {
+		WorldCloudChartConfiguration config = (WorldCloudChartConfiguration) preferences;
+		AnalyticsNLPReport nlpReport = (AnalyticsNLPReport) getReport();
+		final FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
+		frequencyAnalyzer.setWordFrequenciesToReturn(config.getnWords());
+		frequencyAnalyzer.setMinWordLength(2);
+		List<WordFrequency> wordFrequencies = new ArrayList<>();
+		for(AnalyticsReportCategory category : nlpReport.getCategories()) {
+			for (AnalyticsReportCategoryRegister register : category.getResult()) {
+				AnalyticsTweetVolumeByNLPReportRegister castedRegister = (AnalyticsTweetVolumeByNLPReportRegister) register;
+				WordFrequency newWord = new WordFrequency(category.getCategoryName().substring(0, 1).toUpperCase() + category.getCategoryName().substring(1),
+						castedRegister.getValue());
+				wordFrequencies.add(newWord);
+			}
+		}
+		wordFrequencies = frequencyAnalyzer.loadWordFrequencies(wordFrequencies);
+		Dimension dimension = null;
+		WordCloud wordCloud = null;
+		switch (config.getType()) {
+		case Constants.WCC_CIRCULAR:
+			dimension = new Dimension(1080, 1080);
+			wordCloud = new WordCloud(dimension, CollisionMode.PIXEL_PERFECT);
+			wordCloud.setBackground(new CircleBackground(540));
+			break;
+		case Constants.WCC_PIXEL_BOUNDARY:
+			try {
+				dimension = new Dimension(1920, 1080);
+				wordCloud = new WordCloud(dimension, CollisionMode.PIXEL_PERFECT);
+				wordCloud.setBackground(new PixelBoundryBackground(pixelBoundaryFile));
+			} catch (IOException e) {
+				logger.warn("An exception has been thrown opening pixel boundary file: " + e.getMessage());
+			}
+			break;
+		case Constants.WCC_RECTANGULAR:
+			dimension = new Dimension(1920, 1080);
+			wordCloud = new WordCloud(dimension, CollisionMode.RECTANGLE);
+			wordCloud.setBackground(new RectangleBackground(dimension));
+			break;
+		default:
+			break;
+		}
+		if (wordCloud != null) {
+			wordCloud.setPadding(2);
+			wordCloud.setColorPalette(new ColorPalette(config.getAwtColorList()));
+			wordCloud.setFontScalar(new LinearFontScalar(config.getFontMin(), config.getFontMax()));
+			wordCloud.build(wordFrequencies);
+			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			wordCloud.writeToStreamAsPNG(byteArrayOutputStream);
+			final byte[] bytes = byteArrayOutputStream.toByteArray();
+			this.reportImage.setImage(bytes);
+		}
+		return wordCloud;
+	}
 	/**
 	 * @return the dataset
 	 */

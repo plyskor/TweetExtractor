@@ -22,7 +22,10 @@ import es.uam.eps.tweetextractor.model.analytics.graphics.PlotStrokeConfiguratio
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsTweetVolumeByNERTopicsReport;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsTweetVolumeByNamedEntitiesReport;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNLPReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
 import javafx.scene.paint.Color;
 
@@ -73,7 +76,13 @@ public class TweetExtractorUtils {
 		}
 		return null;
 	}
-
+	public final static String awtColorToHex(java.awt.Color colour) throws NullPointerException {
+		  String hexColour = Integer.toHexString(colour.getRGB() & 0xffffff);
+		  if (hexColour.length() < 6) {
+		    hexColour = "000000".substring(0, 6 - hexColour.length()) + hexColour;
+		  }
+		  return "#" + hexColour;
+		}
 	public static String colorToHex(Color color) {
 		String hex1;
 		String hex2;
@@ -111,6 +120,7 @@ public class TweetExtractorUtils {
 		if (report == null) {
 			return new ArrayList<>();
 		}
+		int colorIndex =0;
 		switch (report.reportType) {
 		case TVR:
 			PlotStrokeConfiguration nTweets = new PlotStrokeConfiguration(Constants.STROKE_LINE, 0, "#E0FB00",
@@ -143,6 +153,30 @@ public class TweetExtractorUtils {
 				PlotStrokeConfiguration categoryConf=new PlotStrokeConfiguration(Constants.STROKE_LINE, 0, "#E0FB00",castedRegister.getLabel(),"@"+castedRegister.getLabel(),1.0f,chart);
 				ret.add(categoryConf);
 				categoryConf.setChart(chart);
+			}
+			break;
+		case TVNE:
+			for(AnalyticsReportCategory category : ((AnalyticsCategoryReport) report).getCategories()) {
+				if(category.getResult()!=null&&!category.getResult().isEmpty()&&((AnalyticsTweetVolumeByNLPReportRegister) category.getResult().get(0)).getValue()==0){
+					continue;
+				}
+				java.awt.Color c = new  java.awt.Color( java.awt.Color.HSBtoRGB((float)colorIndex/((AnalyticsTweetVolumeByNamedEntitiesReport) report).getSizePositiveValue(), 1.0f, 1.0f));
+				PlotStrokeConfiguration categoryConf=new PlotStrokeConfiguration(Constants.STROKE_LINE, 0,awtColorToHex(c),category.getCategoryName(),category.getCategoryName().substring(0, 1).toUpperCase() + category.getCategoryName().substring(1),1.0f,chart);
+				ret.add(categoryConf);
+				categoryConf.setChart(chart);
+				colorIndex++;
+			}
+			break;
+		case TVT:
+			for(AnalyticsReportCategory category : ((AnalyticsCategoryReport) report).getCategories()) {
+				if(category.getResult()!=null&&!category.getResult().isEmpty()&&((AnalyticsTweetVolumeByNLPReportRegister) category.getResult().get(0)).getValue()==0){
+					continue;
+				}
+				java.awt.Color c = new  java.awt.Color( java.awt.Color.HSBtoRGB((float)colorIndex/((AnalyticsTweetVolumeByNERTopicsReport) report).getSizePositiveValue(), 1.0f, 1.0f));
+				PlotStrokeConfiguration categoryConf=new PlotStrokeConfiguration(Constants.STROKE_LINE, 0,awtColorToHex(c),category.getCategoryName(),category.getCategoryName().substring(0, 1).toUpperCase() + category.getCategoryName().substring(1),1.0f,chart);
+				ret.add(categoryConf);
+				categoryConf.setChart(chart);
+				colorIndex++;
 			}
 			break;
 		default:

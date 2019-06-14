@@ -12,6 +12,8 @@ import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
 import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
 import es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences;
 import es.uam.eps.tweetextractor.model.analytics.graphics.WorldCloudChartConfiguration;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsNLPReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
 import es.uam.eps.tweetextractor.util.TweetExtractorUtils;
 import es.uam.eps.tweetextractorfx.MainApplication;
@@ -73,7 +75,7 @@ public class WordCloudChartGraphicPreferencesControl extends TweetExtractorFXCon
 	@FXML
 	private ColorPicker colorPicker;
 	private WorldCloudChartConfiguration preferences;
-	private TrendsReport reportInput;
+	private AnalyticsCategoryReport reportInput;
 	private AnalyticsReportImage chart;
 	private Stage loadingDialog = null;
 	private Alert alertGeneration=null; 
@@ -101,12 +103,42 @@ public class WordCloudChartGraphicPreferencesControl extends TweetExtractorFXCon
 				.findByUserAndChartType(this.getMainApplication().getCurrentUser(), AnalyticsReportImageTypes.WCC);
 		if (existingPrefs == null || existingPrefs.isEmpty()) {
 			preferences = new WorldCloudChartConfiguration();
-			preferences.setnWords(reportInput.getN());
+			switch(reportInput.getReportType()) {
+			case TRWR:
+				TrendsReport trendsReport = (TrendsReport) reportInput;
+				preferences.setnWords(trendsReport.getN());
+				break;
+			case TVT:
+			case TVNE:
+				AnalyticsNLPReport nlpReport = (AnalyticsNLPReport)reportInput;
+				preferences.setnWords(nlpReport.getSizePositiveValue());
+				preferences.setMinWordLength(2);
+				numberOfWordsSlider.setDisable(true);
+				minimumWordLengthSlider.setDisable(true);
+				break;
+			default:
+				break;
+			}
 		} else {
 			preferences = new WorldCloudChartConfiguration();
 			preferences.setUser(this.mainApplication.getCurrentUser());
 			preferences.setChartType(AnalyticsReportImageTypes.WCC);
-			preferences.setnWords(reportInput.getN());
+			switch(reportInput.getReportType()) {
+				case TRWR:
+					TrendsReport trendsReport = (TrendsReport) reportInput;
+					preferences.setnWords(trendsReport.getN());
+					break;
+				case TVT:
+				case TVNE:
+					AnalyticsNLPReport nlpReport = (AnalyticsNLPReport)reportInput;
+					preferences.setnWords(nlpReport.getSizePositiveValue());
+					preferences.setMinWordLength(2);
+					numberOfWordsSlider.setDisable(true);
+					minimumWordLengthSlider.setDisable(true);
+					break;
+				default:
+					break;
+			}
 			prefsService.persist(preferences);
 		}
 		colorsListView.setItems(colorsNameList);
@@ -584,14 +616,14 @@ public class WordCloudChartGraphicPreferencesControl extends TweetExtractorFXCon
 	/**
 	 * @return the reportInput
 	 */
-	public TrendsReport getReportInput() {
+	public AnalyticsCategoryReport getReportInput() {
 		return reportInput;
 	}
 
 	/**
 	 * @param reportInput the reportInput to set
 	 */
-	public void setReportInput(TrendsReport reportInput) {
+	public void setReportInput(AnalyticsCategoryReport reportInput) {
 		this.reportInput = reportInput;
 	}
 

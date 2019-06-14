@@ -4,12 +4,10 @@
 package es.uam.eps.tweetextractorfx.task;
 
 import java.io.File;
-import java.io.IOException;
-
+import org.jboss.com.sun.corba.se.impl.io.TypeMismatchException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import es.uam.eps.tweetextractor.analytics.graphics.constructor.TweetExtractorChartConstructor;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Constants.AnalyticsReportImageTypes;
@@ -54,8 +52,18 @@ public class GenerateWordCloudChartTask extends TwitterExtractorFXTask<Integer> 
 	protected Integer call() throws Exception {
 		TweetExtractorChartConstructor constructor = new TweetExtractorChartConstructor(report, chart, AnalyticsReportImageTypes.WCC, config);
 		try {
-			constructor.constructWordCloudChartFromTrendingWordsReport(pixelBoundaryFile);
-		} catch (IOException e) {
+			switch(report.getReportType()) {
+			case TVT:
+			case TVNE:
+				constructor.constructWordCloudChartFromNLPReport(pixelBoundaryFile);
+				break;
+			case TRWR:
+				constructor.constructWordCloudChartFromTrendingWordsReport(pixelBoundaryFile);
+				break;
+			default:
+				throw new TypeMismatchException("Report is not compatible with this type of chart");
+			}
+		} catch (Exception e) {
 			logger.warn("An exception has been thrown creating word cloud chart : "+e.getMessage());
 			return Constants.ERROR;
 		}

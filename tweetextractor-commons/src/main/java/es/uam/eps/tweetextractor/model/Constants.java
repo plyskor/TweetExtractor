@@ -180,10 +180,10 @@ public final class Constants {
 	/*Analytics Report <-> Graphic Chart (Compatibility)*/
 	public static final ImmutableList<AnalyticsReportTypes> TIME_SERIES_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR,AnalyticsReportTypes.TTNHR);
 	public static final ImmutableList<AnalyticsReportTypes> XY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR);
-	public static final ImmutableList<AnalyticsReportTypes> CATEGORY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR,AnalyticsReportTypes.TTNHR,AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR);
-	public static final ImmutableList<AnalyticsReportTypes> PIE_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR);
-	public static final ImmutableList<AnalyticsReportTypes> PIE_3D_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR);
-	public static final ImmutableList<AnalyticsReportTypes> WORD_CLOUD_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TRWR);
+	public static final ImmutableList<AnalyticsReportTypes> CATEGORY_BAR_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TVR,AnalyticsReportTypes.TTNHR,AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR,AnalyticsReportTypes.TVT,AnalyticsReportTypes.TVNE);
+	public static final ImmutableList<AnalyticsReportTypes> PIE_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR,AnalyticsReportTypes.TVT,AnalyticsReportTypes.TVNE);
+	public static final ImmutableList<AnalyticsReportTypes> PIE_3D_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TRHR,AnalyticsReportTypes.TRUR,AnalyticsReportTypes.TRUMR,AnalyticsReportTypes.TRWR,AnalyticsReportTypes.TVT,AnalyticsReportTypes.TVNE);
+	public static final ImmutableList<AnalyticsReportTypes> WORD_CLOUD_CHART_COMPATIBLE_REPORTS= ImmutableList.of(AnalyticsReportTypes.TRWR,AnalyticsReportTypes.TVT,AnalyticsReportTypes.TVNE);
 
 	public static final ImmutableMap<AnalyticsReportImageTypes, ImmutableList<AnalyticsReportTypes>> REPORT_CHART_TYPES_COMPATIBILITY =new ImmutableMap.Builder<AnalyticsReportImageTypes, ImmutableList<AnalyticsReportTypes>>()
 			.put(AnalyticsReportImageTypes.TSC,TIME_SERIES_CHART_COMPATIBLE_REPORTS)
@@ -338,7 +338,7 @@ public final class Constants {
 		       .build();
 	public static final ImmutableMap<AnalyticsReportImageTypes,String > CHART_TYPES_GUI =
 		       new ImmutableMap.Builder<AnalyticsReportImageTypes, String>()
-		       .put(AnalyticsReportImageTypes.BARC,"3D Categoory Bar Chart" )
+		       .put(AnalyticsReportImageTypes.BARC,"3D Category Bar Chart" )
 		       .put(AnalyticsReportImageTypes.BXYC,"XY Bar Chart")
 		       .put(AnalyticsReportImageTypes.PCH,"Pie Chart")
 		       .put(AnalyticsReportImageTypes.P3DCH,"3D Pie Chart")
@@ -353,6 +353,8 @@ public final class Constants {
 		       .put(AnalyticsReportTypes.TRUMR,"Trending User Mentions Report")
 		       .put(AnalyticsReportTypes.TRUR,"Trending Users Report")
 		       .put(AnalyticsReportTypes.TRWR,"Trending Words Report")
+		       .put(AnalyticsReportTypes.TVT,"Tweet Volume by Topics Report")
+		       .put(AnalyticsReportTypes.TVNE,"Tweet Volume by Named Entities Report")
 		       .build();
 	/*
 	*Types of task available

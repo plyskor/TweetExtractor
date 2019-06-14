@@ -151,6 +151,8 @@ public class CategoryBarChartGraphicPreferencesControl extends SpecificGraphicCh
 		case TRHR:
 		case TRUR:
 		case TRUMR:
+		case TVT:
+		case TVNE:
 			prefsService.saveOrUpdate(preferences);
 			this.mainApplication.showSpecificGraphicChartConfiguration("view/analytics/reports/graphics/config/DatasetConfiguration.fxml", DatasetConfigurationControl.class, this.getChartTypeInput(), this.getReportInput(), preferences,this.getChart());
 			break;
