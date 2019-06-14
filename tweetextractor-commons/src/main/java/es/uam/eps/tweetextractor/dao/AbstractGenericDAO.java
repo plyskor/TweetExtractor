@@ -125,6 +125,9 @@ public abstract class AbstractGenericDAO<V extends Serializable, K extends Seria
 	public void initialize(Object lazyObject) {
 		Hibernate.initialize(lazyObject);
 	}
-
+	@Override
+	public void flush() {
+		currentSession().flush();
+	}
 
 }

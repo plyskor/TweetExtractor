@@ -4,12 +4,8 @@
 package es.uam.eps.tweetextractor.service;
 
 import java.util.List;
-
-import org.postgresql.util.LruCache.CreateAction;
-
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTweetVolumeNLPReportResponse;
-import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTweetVolumeByNERTopicsReportSei;
 import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTweetVolumeByNamedEntitiesReportSei;
 
 /**

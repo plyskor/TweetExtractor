@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -25,7 +24,6 @@ import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNamedEntity;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorTopic;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsTweetVolumeByNERTopicsReport;
-import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNLPReportRegisterWrapper;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNLPReportRegister;
 import es.uam.eps.tweetextractorserver.model.servertask.AnalyticsServerTask;
 
@@ -79,17 +77,19 @@ public class ServerTaskTweetVolumeByNERTopicsReport extends AnalyticsServerTask 
 			return;
 		}
 		for (TweetExtractorNamedEntity ne : report.getPreferences().getNamedEntities()) {
-			AnalyticsReportCategory category = report.getCategoryByName(ne.getName());
-			AnalyticsTweetVolumeByNLPReportRegisterWrapper register = new AnalyticsTweetVolumeByNLPReportRegisterWrapper();
-			register.setCategory(category);
-			category.getResult().add(register);
-			category.setReport(report);
 			for (TweetExtractorTopic topic : ne.getTopics()) {
+				if("Ignored words".equals(topic.getName())){
+					continue;
+				}
+				AnalyticsReportCategory category = report.getCategoryByName(topic.getName());
+				if(category==null) {
+					category = new AnalyticsReportCategory(topic.getName());
+				}
+				category.setReport(report);
 				AnalyticsTweetVolumeByNLPReportRegister topicRegister = new AnalyticsTweetVolumeByNLPReportRegister();
-				topicRegister.setTopicLabel(topic.getName());
-				topicRegister.setRegister(register);
+				topicRegister.setCategory(category);
+				category.getResult().add(topicRegister);
 				Set<Integer> markedTweets = new HashSet<>();
-				register.getVolumeList().add(topicRegister);
 				for (TweetExtractorNERToken token : topic.getLinkedTokens()) {
 					for (String term : token.getTerms()) {
 						markedTweets.addAll(tServ.getTweetIDsContainingTermInExtractions(term, extractionIDList));
@@ -98,8 +98,8 @@ public class ServerTaskTweetVolumeByNERTopicsReport extends AnalyticsServerTask 
 					}
 				}
 				topicRegister.setValue(markedTweets.size());
+				regServ.saveOrUpdate(topicRegister);
 			}
-			regServ.saveOrUpdate(register);
 		}
 		report.setLastUpdatedDate(new Date());
 		arServ.update(report);

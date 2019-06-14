@@ -94,7 +94,7 @@ public abstract class GenericService<V extends Serializable, K extends Serializa
     }
  
 	@Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED,readOnly = true)
 	public boolean existsAny(K id) {
 		return genericDao.existsAny(id);
 	}
@@ -115,4 +115,11 @@ public abstract class GenericService<V extends Serializable, K extends Serializa
     public void deleteAll() {
         genericDao.deleteAll();
     }
+
+	@Override
+    @Transactional(propagation = Propagation.REQUIRED)
+	public void flush() {
+		genericDao.flush();
+	}
+    
 }

@@ -28,6 +28,7 @@ import es.uam.eps.tweetextractor.model.User;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERConfiguration;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERConfigurationID;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNamedEntity;
+import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorTopic;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsTweetVolumeByNERTopicsReport;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTweetVolumeNLPReportResponse;
@@ -130,10 +131,12 @@ public class CreateServerTaskTweetVolumeByNERTopicsReportImpl
 			return reply;
 		}
 		for(TweetExtractorNamedEntity ne : config.getNamedEntities()) {
-			AnalyticsReportCategory category = new AnalyticsReportCategory(ne.getName());
-			category.setReport(report);
-			report.getCategories().add(category);
-			arServ.saveOrUpdate(report);
+			for (TweetExtractorTopic topic : ne.getTopics()) {
+				AnalyticsReportCategory category = new AnalyticsReportCategory(topic.getName());
+				category.setReport(report);
+				report.getCategories().add(category);
+				arServ.saveOrUpdate(report);
+			}
 		}
 		server.addTaskToServer(task);
 		ServerTaskResponse res = task.call();

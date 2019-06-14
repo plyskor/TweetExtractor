@@ -33,5 +33,6 @@ public class CredentialsDAO  extends AbstractGenericDAO<Credentials,Integer> imp
 	    	return new ArrayList<>();
 	    	}
 	    return ret;
-	}	
+	}
+
 }

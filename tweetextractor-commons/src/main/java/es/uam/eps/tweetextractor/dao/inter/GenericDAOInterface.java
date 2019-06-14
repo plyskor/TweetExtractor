@@ -22,9 +22,10 @@ public interface GenericDAOInterface <V extends Serializable,K extends Serializa
     public boolean existsAny(K id);
     public void merge(V entity);
     public List<V> getAll() ;
-	void refresh(V entity);
-	void deleteAll();
-	void persistList(List<V> entityList);
-	void deleteList(List<V> entityList);
-	void initialize(Object lazyObject);
+	public void refresh(V entity);
+	public void deleteAll();
+	public void persistList(List<V> entityList);
+	public void deleteList(List<V> entityList);
+	public void initialize(Object lazyObject);
+	public void flush();
 }

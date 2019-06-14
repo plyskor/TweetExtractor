@@ -49,7 +49,6 @@ import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingWordsReport
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.TimelineReportRegister;
-import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNLPReportRegisterWrapper;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNLPReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
@@ -102,7 +101,7 @@ public class TweetExtractorSpringConfig {
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 		factoryBean.setDataSource(getDataSource());
 		Properties props = new Properties();
-		props.put("hibernate.show_sql", "false");
+		props.put("hibernate.show_sql", "true");
 		props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		props.put("connection.provider_class", "org.hibernate.connection.C3P0ConnectionProvider");
 		props.put("transaction.auto_close_session", "true");
@@ -125,8 +124,8 @@ public class TweetExtractorSpringConfig {
 				AvailableTwitterLanguage.class,CustomStopWordsList.class,StopWord.class,CustomStopWordsListID.class,
 				TrendingWordsReportRegister.class,WorldCloudChartConfiguration.class,TweetExtractorNamedEntity.class,
 				TweetExtractorTopic.class,TweetExtractorNERConfiguration.class,TweetExtractorNERToken.class,TweetExtractorNERTokenSet.class,
-				TweetExtractorNERTokenSetID.class,AnalyticsTweetVolumeByNLPReportRegisterWrapper.class,AnalyticsTweetVolumeByNERTopicsReport.class,
-				ServerTaskTweetVolumeByNERTopicsReport.class,AnalyticsTweetVolumeByNLPReportRegister.class,AnalyticsTweetVolumeByNamedEntitiesReport.class,
+				TweetExtractorNERTokenSetID.class,AnalyticsTweetVolumeByNLPReportRegister.class,AnalyticsTweetVolumeByNERTopicsReport.class,
+				ServerTaskTweetVolumeByNERTopicsReport.class,AnalyticsTweetVolumeByNamedEntitiesReport.class,
 				ServerTaskTweetVolumeByNamedEntitiesReport.class);
 		return factoryBean;
 	}

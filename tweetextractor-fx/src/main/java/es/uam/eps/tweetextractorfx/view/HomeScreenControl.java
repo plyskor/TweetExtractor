@@ -17,7 +17,6 @@ import es.uam.eps.tweetextractor.model.service.CreateServerTaskTopNHashtagsRepor
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTrendsReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTweetVolumeNLPReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskUpdateExtractionIndefResponse;
-import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTweetVolumeByNamedEntitiesReportSei;
 import es.uam.eps.tweetextractor.service.CreateServerTaskTimelineTopNHashtagsReport;
 import es.uam.eps.tweetextractor.service.CreateServerTaskTimelineVolumeReport;
 import es.uam.eps.tweetextractor.service.CreateServerTaskTweetVolumeByNERTopicsReport;
@@ -216,9 +215,10 @@ public class HomeScreenControl extends TweetExtractorFXController {
 				break;
 			case (Constants.NER_TOPICS_VOLUME_SERVER_TASK_TYPE):
 				onCreateNERTopicsVolumeServerTaskType();
+				break;
 			case (Constants.NAMED_ENTITIES_VOLUME_SERVER_TASK_TYPE):
 				onCreateNamedEntitiesVolumeServerTaskType();
-			break;
+				break;
 			default:
 				break;
 			}

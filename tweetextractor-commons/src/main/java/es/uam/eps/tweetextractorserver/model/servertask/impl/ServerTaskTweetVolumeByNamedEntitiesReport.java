@@ -8,16 +8,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-
 import es.uam.eps.tweetextractor.model.Constants.TaskTypes;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERToken;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNamedEntity;
@@ -25,7 +22,6 @@ import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorTopic;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsTweetVolumeByNamedEntitiesReport;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNLPReportRegister;
-import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNLPReportRegisterWrapper;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.Tweet;
 import es.uam.eps.tweetextractor.model.User;
@@ -92,16 +88,18 @@ public class ServerTaskTweetVolumeByNamedEntitiesReport extends AnalyticsServerT
 			return;
 		}
 		for (TweetExtractorNamedEntity ne : report.getPreferences().getNamedEntities()) {
+			if("NIL Category".equals(ne.getName())) {
+				continue;
+			}
+			Set<Integer> markedTweets = new HashSet<>();
 			AnalyticsReportCategory category = report.getCategoryByName(ne.getName());
-			AnalyticsTweetVolumeByNLPReportRegisterWrapper register = new AnalyticsTweetVolumeByNLPReportRegisterWrapper();
+			if(category==null) {
+				category = new AnalyticsReportCategory(ne.getName());
+			}
+			AnalyticsTweetVolumeByNLPReportRegister register = new AnalyticsTweetVolumeByNLPReportRegister();
 			register.setCategory(category);
 			category.getResult().add(register);
 			category.setReport(report);
-			AnalyticsTweetVolumeByNLPReportRegister neRegister = new AnalyticsTweetVolumeByNLPReportRegister();
-			neRegister.setTopicLabel(ne.getName());
-			neRegister.setRegister(register);
-			register.getVolumeList().add(neRegister);
-			Set<Integer> markedTweets = new HashSet<>();
 			for (TweetExtractorTopic topic : ne.getTopics()) {
 				for (TweetExtractorNERToken token : topic.getLinkedTokens()) {
 					for (String term : token.getTerms()) {
@@ -109,9 +107,9 @@ public class ServerTaskTweetVolumeByNamedEntitiesReport extends AnalyticsServerT
 						if (true)
 							break;
 					}
-				}
+				}	
 			}
-			neRegister.setValue(markedTweets.size());
+			register.setValue(markedTweets.size());
 			regServ.saveOrUpdate(register);
 		}
 		report.setLastUpdatedDate(new Date());
