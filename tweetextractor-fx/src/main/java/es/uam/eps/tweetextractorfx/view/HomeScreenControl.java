@@ -15,12 +15,13 @@ import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTimelineVolumeReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTopNHashtagsReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskTrendsReportResponse;
-import es.uam.eps.tweetextractor.model.service.CreateServerTaskTweetVolumeByNamedEntityReportResponse;
+import es.uam.eps.tweetextractor.model.service.CreateServerTaskTweetVolumeNLPReportResponse;
 import es.uam.eps.tweetextractor.model.service.CreateServerTaskUpdateExtractionIndefResponse;
-import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTweetVolumeByNamedEntityReportSei;
+import es.uam.eps.tweetextractor.model.service.sei.CreateServerTaskTweetVolumeByNamedEntitiesReportSei;
 import es.uam.eps.tweetextractor.service.CreateServerTaskTimelineTopNHashtagsReport;
 import es.uam.eps.tweetextractor.service.CreateServerTaskTimelineVolumeReport;
-import es.uam.eps.tweetextractor.service.CreateServerTaskTweetVolumeByNamedEntityReport;
+import es.uam.eps.tweetextractor.service.CreateServerTaskTweetVolumeByNERTopicsReport;
+import es.uam.eps.tweetextractor.service.CreateServerTaskTweetVolumeByNamedEntitiesReport;
 import es.uam.eps.tweetextractor.service.CreateServerTaskUpdateExtractionIndef;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
@@ -213,6 +214,8 @@ public class HomeScreenControl extends TweetExtractorFXController {
 			case (Constants.TRENDS_TIMELINE_REPORT_SERVER_TASK_TYPE):
 				onCreateTrendsReport();
 				break;
+			case (Constants.NER_TOPICS_VOLUME_SERVER_TASK_TYPE):
+				onCreateNERTopicsVolumeServerTaskType();
 			case (Constants.NAMED_ENTITIES_VOLUME_SERVER_TASK_TYPE):
 				onCreateNamedEntitiesVolumeServerTaskType();
 			break;
@@ -220,6 +223,28 @@ public class HomeScreenControl extends TweetExtractorFXController {
 				break;
 			}
 
+		}
+	}
+
+	private void onCreateNERTopicsVolumeServerTaskType() {
+		SelectExtractionFilterDialogResponse extractionFilterReply = showSelectExtractionFilterDialog();
+		if (extractionFilterReply==null||extractionFilterReply.getIntValue() == Constants.ERROR) {
+			return;
+		}
+		List<Integer> extractionIdList = new ArrayList<>();
+		for (Extraction e : extractionFilterReply.getFilter() ) {
+			extractionIdList.add(e.getIdDB());
+		}
+		SelectNERPreferencesDialogControlResponse nerPreferencesChoice = showSelectNERPreferencesDialog();
+		if (nerPreferencesChoice==null||nerPreferencesChoice.getIntValue() == Constants.ERROR) {
+			return;
+		}
+		CreateServerTaskTweetVolumeByNERTopicsReport service = new CreateServerTaskTweetVolumeByNERTopicsReport(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		CreateServerTaskTweetVolumeNLPReportResponse reply = service.createServerTaskTweetVolumeByNERTopicsReport(this.getMainApplication().getCurrentUser().getIdDB(), extractionIdList, nerPreferencesChoice.getPreferences().getIdentifier().getLanguage().getIdentifier(), nerPreferencesChoice.getPreferences().getIdentifier().getName());
+		if (reply.isError()) {
+			ErrorDialog.showErrorCreateServerTask(reply.getMessage());
+		} else {
+			ErrorDialog.showSuccessCreateServerTask(reply.getId());
 		}
 	}
 
@@ -236,8 +261,8 @@ public class HomeScreenControl extends TweetExtractorFXController {
 		if (nerPreferencesChoice==null||nerPreferencesChoice.getIntValue() == Constants.ERROR) {
 			return;
 		}
-		CreateServerTaskTweetVolumeByNamedEntityReport service = new CreateServerTaskTweetVolumeByNamedEntityReport(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
-		CreateServerTaskTweetVolumeByNamedEntityReportResponse reply = service.createServerTaskTweetVolumeByNamedEntityReport(this.getMainApplication().getCurrentUser().getIdDB(), extractionIdList, nerPreferencesChoice.getPreferences().getIdentifier().getLanguage().getIdentifier(), nerPreferencesChoice.getPreferences().getIdentifier().getName());
+		CreateServerTaskTweetVolumeByNamedEntitiesReport service = new CreateServerTaskTweetVolumeByNamedEntitiesReport(TweetExtractorFXPreferences.getStringPreference(Constants.PREFERENCE_SERVER_ADDRESS));
+		CreateServerTaskTweetVolumeNLPReportResponse reply = service.createServerTaskTweetVolumeByNamedEntitiesReport(this.getMainApplication().getCurrentUser().getIdDB(), extractionIdList, nerPreferencesChoice.getPreferences().getIdentifier().getLanguage().getIdentifier(), nerPreferencesChoice.getPreferences().getIdentifier().getName());
 		if (reply.isError()) {
 			ErrorDialog.showErrorCreateServerTask(reply.getMessage());
 		} else {

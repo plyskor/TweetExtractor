@@ -38,6 +38,7 @@ import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsReportCategory;
+import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsTweetVolumeByNERTopicsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.AnalyticsTweetVolumeByNamedEntitiesReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineTopNHashtagsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.impl.TimelineVolumeReport;
@@ -48,7 +49,8 @@ import es.uam.eps.tweetextractor.model.analytics.report.impl.TrendingWordsReport
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportCategoryRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.AnalyticsReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.TimelineReportRegister;
-import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNamedEntitiesReportRegister;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNLPReportRegisterWrapper;
+import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsTweetVolumeByNLPReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TimelineReportVolumeRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingReportRegister;
 import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingWordsReportRegister;
@@ -73,7 +75,8 @@ import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTimelineVolumeReport;
 import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTopNHashtagsReport;
 import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTrendsReport;
-import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTweetVolumeByNamedEntityReport;
+import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTweetVolumeByNERTopicsReport;
+import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskTweetVolumeByNamedEntitiesReport;
 import es.uam.eps.tweetextractorserver.model.servertask.impl.ServerTaskUpdateExtractionIndef;
 
 @Configuration
@@ -122,8 +125,9 @@ public class TweetExtractorSpringConfig {
 				AvailableTwitterLanguage.class,CustomStopWordsList.class,StopWord.class,CustomStopWordsListID.class,
 				TrendingWordsReportRegister.class,WorldCloudChartConfiguration.class,TweetExtractorNamedEntity.class,
 				TweetExtractorTopic.class,TweetExtractorNERConfiguration.class,TweetExtractorNERToken.class,TweetExtractorNERTokenSet.class,
-				TweetExtractorNERTokenSetID.class,AnalyticsTweetVolumeByNamedEntitiesReportRegister.class,AnalyticsTweetVolumeByNamedEntitiesReport.class,
-				ServerTaskTweetVolumeByNamedEntityReport.class);
+				TweetExtractorNERTokenSetID.class,AnalyticsTweetVolumeByNLPReportRegisterWrapper.class,AnalyticsTweetVolumeByNERTopicsReport.class,
+				ServerTaskTweetVolumeByNERTopicsReport.class,AnalyticsTweetVolumeByNLPReportRegister.class,AnalyticsTweetVolumeByNamedEntitiesReport.class,
+				ServerTaskTweetVolumeByNamedEntitiesReport.class);
 		return factoryBean;
 	}
 

@@ -71,8 +71,10 @@ public final class Constants {
 		TTNHR(Values.TYPE_TASK_TIMELINE_TOP_N_HASHTAGS_REPORT),
 		@XmlEnumValue("TTTR")
 		TTTR(Values.TYPE_TASK_TRENDS_REPORT),
-		@XmlEnumValue("TVNE")
-		TVNE(Values.TYPE_TASK_VOLUME_BY_NAMED_ENTITY),
+		@XmlEnumValue("TTVNE")
+		TTVNE(Values.TYPE_TASK_TWEET_VOLUME_BY_NAMED_ENTITY),
+		@XmlEnumValue("TTVT")
+		TTVT(Values.TYPE_TASK_TWEET_VOLUME_BY_NER_TOPICS),
 		@XmlEnumValue("SCHT")
 		SCHT(Values.TYPE_SCHEDULED_TASK);
 		private TaskTypes(String type) {
@@ -87,8 +89,8 @@ public final class Constants {
 			public static final String TYPE_SCHEDULED_TASK="SCHT";
 			public static final String TYPE_TASK_TIMELINE_TOP_N_HASHTAGS_REPORT="TTNHR";
 			public static final String TYPE_TASK_TRENDS_REPORT="TTTR";
-			public static final String TYPE_TASK_VOLUME_BY_NAMED_ENTITY="TVNE";
-
+			public static final String TYPE_TASK_TWEET_VOLUME_BY_NAMED_ENTITY="TTVNE";
+			public static final String TYPE_TASK_TWEET_VOLUME_BY_NER_TOPICS="TTVT";
 		}
 	}
 	@XmlType(name = "analyticsReportType")
@@ -108,6 +110,8 @@ public final class Constants {
 		TRUMR(Values.TYPE_TRENDING_USERS_MENTION_REPORT),
 		@XmlEnumValue("TVNE")
 		TVNE(Values.TYPE_TWEET_VOLUME_BY_NAMED_ENTITIES),
+		@XmlEnumValue("TVT")
+		TVT(Values.TYPE_TWEET_VOLUME_BY_NER_TOPICS),
 		@XmlEnumValue("TRWR")
 		TRWR(Values.TYPE_TRENDING_WORDS_REPORT);
 		private AnalyticsReportTypes(String type) {
@@ -123,6 +127,7 @@ public final class Constants {
 			public static final String TYPE_TRENDING_USERS_MENTION_REPORT = "TRUMR";
 			public static final String TYPE_TRENDING_WORDS_REPORT = "TRWR";
 			public static final String TYPE_TWEET_VOLUME_BY_NAMED_ENTITIES = "TVNE";
+			public static final String TYPE_TWEET_VOLUME_BY_NER_TOPICS = "TVT";
 
 		}
 	}
@@ -241,7 +246,8 @@ public final class Constants {
 	public static final String CREATE_TRENDS_REPORT_SERVER_TASK_ENDPOINT="createServerTaskTrendsReport";
 	public static final String CREATE_TIMELINE_TOP_N_HASHTAGS_REPORT_SERVER_TASK_ENDPOINT="createServerTaskTimelineTopNHashtagsReportImpl";
 	public static final String DELETE_SERVER_TASK_ENDPOINT="deleteServerTask";
-	public static final String CREATE_SERVER_TASK_TWEET_VOLUME_BY_NAMED_ENTITY_REPORT="createServerTaskTweetVolumeByNamedEntityReport";
+	public static final String CREATE_SERVER_TASK_TWEET_VOLUME_BY_NAMED_ENTITY_REPORT="createServerTaskTweetVolumeByNamedEntitiesReport";
+	public static final String CREATE_SERVER_TASK_TWEET_VOLUME_BY_NER_TOPICS_REPORT="createServerTaskTweetVolumeByNERTopicsReport";
 	public static final String LAUNCH_SERVER_TASK_ENDPOINT="launchServerTask";
 	public static final String GET_SERVER_STATUS_ENDPOINT="getServerStatus";
 	public static final String GET_USER_SERVER_TASKS_ENDPOINT="getUserServerTasks";
@@ -356,7 +362,8 @@ public final class Constants {
 	public static final String UPDATE_EXTRACTION_INDEF_SERVER_TASK_TYPE = "Update an extraction indefinitely";
 	public static final String TIMELINE_REPORT_SERVER_TASK_TYPE = "Create a timeline report based on different criteria.";
 	public static final String TRENDS_TIMELINE_REPORT_SERVER_TASK_TYPE = "Create a report based on the trendings in your extractions.";
-	public static final String NAMED_ENTITIES_VOLUME_SERVER_TASK_TYPE = "Create a report based on the tweet volume for predefined topics";
+	public static final String NER_TOPICS_VOLUME_SERVER_TASK_TYPE = "Create a report based on the tweet volume for predefined NER topics";
+	public static final String NAMED_ENTITIES_VOLUME_SERVER_TASK_TYPE = "Create a report based on the tweet volume for predefined named entities";
 
 
 	/*

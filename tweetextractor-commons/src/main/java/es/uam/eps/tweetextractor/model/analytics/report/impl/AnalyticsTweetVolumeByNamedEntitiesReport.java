@@ -24,14 +24,14 @@ import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERConfigurat
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsCategoryReport;
 
 /**
- * @author jgarciadelsaz
+ * @author joseantoniogarciadelsaz
  *
  */
 @Controller
 @Entity
 @DiscriminatorValue(value = AnalyticsReportTypes.Values.TYPE_TWEET_VOLUME_BY_NAMED_ENTITIES)
-@XmlRootElement(name = "timelineTopNHashtagsReport")
-public class AnalyticsTweetVolumeByNamedEntitiesReport extends AnalyticsCategoryReport{
+@XmlRootElement(name = "analyticsTweetVolumeByNamedEntitiesReport")
+public class AnalyticsTweetVolumeByNamedEntitiesReport extends AnalyticsCategoryReport {
 	@Transient
 	@XmlTransient
 	private static final long serialVersionUID = -6150550673392561105L;
@@ -70,5 +70,4 @@ public class AnalyticsTweetVolumeByNamedEntitiesReport extends AnalyticsCategory
 	public void setPreferences(TweetExtractorNERConfiguration preferences) {
 		this.preferences = preferences;
 	}
-
 }
