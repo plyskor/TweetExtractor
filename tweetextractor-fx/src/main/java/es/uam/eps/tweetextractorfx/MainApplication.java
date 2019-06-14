@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ImageIcon;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -39,6 +42,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -59,11 +63,20 @@ public class MainApplication extends Application {
 	public MainApplication() {
 		initAvailableFilters();
 	}
-
+	public void initializeIcons() {
+		primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/icon.png")));
+		String osName = System.getProperty("os.name").toLowerCase();
+		boolean isMacOs = osName.startsWith("mac os x");
+		if (isMacOs) 
+		{
+			com.apple.eawt.Application.getApplication().setDockIconImage(new ImageIcon(this.getClass().getResource("/icon.png")).getImage());
+		}
+	}
 	@Override
 	public void start(Stage primaryStage) {
 		logger.info("Starting TweetExtractorFX...");
 		this.primaryStage = primaryStage;
+		initializeIcons();
 		this.primaryStage.setTitle("TweetExtractorFX");
 		initRootLayout();
 		TweetExtractorFXPreferences.initializePreferences();

@@ -3,7 +3,6 @@
 package es.uam.eps.tweetextractorfx;
 
 
-
 /**
  * @author Jose Antonio García del Saz
  *

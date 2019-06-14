@@ -299,5 +299,12 @@
 			<artifactId>tornadofx-controls</artifactId>
 			<version>1.0.6</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.apple/AppleJavaExtensions -->
+		<dependency>
+			<groupId>com.apple</groupId>
+			<artifactId>AppleJavaExtensions</artifactId>
+			<version>1.4</version>
+		</dependency>
+
 	</dependencies>
 </project>
