@@ -1,26 +1,27 @@
 \babel@toc {spanish}{}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Consul en Espa\IeC {\~n}a y el mundo}}{3}{figure.caption.15}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces CONSUL en Espa\IeC {\~n}a y el mundo}}{3}{figure.caption.15}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{3}{figure.caption.15}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{3}{figure.caption.15}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Matriz de compatibilidad reporte-gr\IeC {\'a}fico}}{6}{figure.caption.23}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Matriz de compatibilidad reporte-gr\IeC {\'a}fico}}{7}{figure.caption.23}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Dise\IeC {\~n}o del entorno}}{10}{figure.caption.31}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Diagrama UML Principal}}{13}{figure.caption.36}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Ciclo de vida de una tarea as\IeC {\'\i }ncrona}}{14}{figure.caption.39}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Diagrama UML Tareas As\IeC {\'\i }ncronas}}{32}{figure.caption.46}
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Diagrama UML Reportes An\IeC {\'a}lisis}}{33}{figure.caption.47}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Ciclo de vida de una tarea as\IeC {\'\i }ncrona}}{25}{figure.caption.32}
-\contentsline {figure}{\numberline {A.2}{\ignorespaces Diagrama UML Principal}}{26}{figure.caption.33}
-\contentsline {figure}{\numberline {A.3}{\ignorespaces Diagrama UML Reportes An\IeC {\'a}lisis}}{27}{figure.caption.34}
-\contentsline {figure}{\numberline {A.4}{\ignorespaces Diagrama UML Tareas As\IeC {\'\i }ncronas}}{28}{figure.caption.35}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces Pantalla inicial}}{29}{figure.caption.36}
-\contentsline {figure}{\numberline {B.2}{\ignorespaces Registro e inicio de sesi\IeC {\'o}n}}{29}{figure.caption.37}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{29}{figure.caption.37}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{29}{figure.caption.37}
-\contentsline {figure}{\numberline {B.3}{\ignorespaces Pantalla de bienvenida}}{30}{figure.caption.38}
-\contentsline {figure}{\numberline {B.4}{\ignorespaces Constructor de consultas}}{30}{figure.caption.39}
-\contentsline {figure}{\numberline {B.5}{\ignorespaces Edici\IeC {\'o}n de credenciales}}{31}{figure.caption.40}
-\contentsline {figure}{\numberline {B.6}{\ignorespaces Tarea en segundo plano}}{31}{figure.caption.41}
+\contentsline {figure}{\numberline {B.1}{\ignorespaces Pantalla inicial}}{35}{figure.caption.48}
+\contentsline {figure}{\numberline {B.2}{\ignorespaces Registro e inicio de sesi\IeC {\'o}n}}{35}{figure.caption.49}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{35}{figure.caption.49}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{35}{figure.caption.49}
+\contentsline {figure}{\numberline {B.3}{\ignorespaces Pantalla de bienvenida}}{36}{figure.caption.50}
+\contentsline {figure}{\numberline {B.4}{\ignorespaces Constructor de consultas}}{36}{figure.caption.51}
+\contentsline {figure}{\numberline {B.5}{\ignorespaces Edici\IeC {\'o}n de credenciales}}{37}{figure.caption.52}
+\contentsline {figure}{\numberline {B.6}{\ignorespaces Tarea en segundo plano}}{37}{figure.caption.53}

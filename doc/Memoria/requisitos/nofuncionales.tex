@@ -1,9 +1,17 @@
-\begin{functional}
+\begin{nonfunctional}
+\paragraph{Entorno}
+\item El sistema es distribuido, siendo sus módulos aislables y orientables.
+\item Las conexiones con la base de datos no se realizan en texto plano. Debe cifrarse punto a punto mediante SSL/TLS.
+\item Los diferentes módulos generan ficheros de log para el mejor trazado de las actividades.
+\item Los logs históricos se comprimen para optimizar el uso de almacenamiento. 
+\item El sistema debe proporcionar mensajes de error que sean informativos y orientados a usuario final.
+\item Las tareas largas (acceso a datos, análisis, generación de reportes...) no bloquean la GUI completamente: se ejecutan en otro hilo mientras se muestra una ventana modal que informa de las acciones que ocurren en paralelo.
 \paragraph{Autentificación}
  \item Las contraseñas de los usuarios no se pueden guardar en texto plano en la base de datos.
  \paragraph{Extracciones}
  \item Una extracción no puede ser alimentada desde dos lugares distintos al mismo tiempo, ni siquiera desde la misma máquina.
+ \item Se tendrán en cuenta las restricciones para las credenciales gratuitas que tiene la API de Twitter. 
  \paragraph{Tareas asíncronas}
  \item Una tarea no puede ejecutarse varias veces en paralelo, sólo se concibe una ejecución a la vez por tarea.
  \item Ningún intercambio de datos entre la GUI y el servidor se puede hacer en texto plano. Siempre se debe usar el cifrado punto a punto sobre SSL/TLS.
-\end{functional}
+\end{nonfunctional}

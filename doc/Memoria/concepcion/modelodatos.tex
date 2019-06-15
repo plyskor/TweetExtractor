@@ -1,0 +1,82 @@
+\paragraph{Extracciones y filtros}
+Esta es una parte muy importante de la construcción del modelo de datos. Comenzaremos creando la clase Extracción, que pertenecerá al usuario que la creó y contendrá una lista de tweets extraídos desde Twitter.
+Siguiendo los requisitos funcionales, un usuario debe poder configurar qué condiciones deben cumplir los tweets que desea extraer. En este sentido tenemos que tomar como referencia la API de Twitter. 
+
+Con ella, podemos ejecutar consultas utilizando operadores, de los cuales algunos se enumeran en la documentación de la siguiente manera:
+\begin{table}[Operadores de Twitter API]{TB:OPERADORESAPI}{En esta tabla se muestran alfunos operadores que soportan las consultas a la API de Twitter.}
+\begin{tabular}{|p{3.5cm}|p{11.5cm}|}
+\hline
+\textbf{Operador} & \textbf{Encuentra Tweets...} \\
+\hline \hline
+viendo ahora & que contienen ambos términos ``viendo'' y ``ahora''. Este es el operador principal.\\
+``estado civil'' & que contienen la frase exacta ``estado civil''\\
+amor OR odio & que contienen la palabra ``amor'' o bien la palabra ``odio'' (o ambas).\\
+cerveza -raíz & que contienen la palabra ``cerveza'', pero no contienen la palabra ``raíz''\\
+\#haiku & que contienen el hashtag \#haiku \\
+from:interior & enviados desde la cuenta de Twitter ``interior"\\
+list:NASA/astronauts-in-space-now & enviado desde una cuenta de twitter en la lista ``astronauts-in-space-now'' de NASA\\
+to:NASA & enviados en respuesta a la cuenta de Twitter ``NASA''\\
+@NASA & mencionando a la cuenta de Twitter ``NASA''\\
+política -filter:safe & que contienen ``política'' pero no están marcados como potencialmente sensibles \\
+año -filter:retweets & que contienen ``año'' pero no son retweets.\\
+madrid filter:images & que contienen ``madrid'' y tienen una imagen adjunta.\\
+batería url:amazon & que contienen la palabra ``batería'' y una URL con la palabra ``amazon'' en cualquier lugar de ella.\\
+as since:2015-12-21 & que contienen ``as'' y fueron enviados desde el 21 de diciembre de 2015.\\
+onu until:2015-12-21 & que contienen ``onu'' y fueron enviados hasta el 21 de diciembre de 2015.\\
+película :) & que contienen ``película'' y tienen una actitud positiva.\\
+vuelo :( & que contienen ``vuelo'' y tienen una actitud negativa.\\
+tráfico ? & que contienen ``tráfico'' y hacen una pregunta. \\
+\hline
+\end{tabular}
+\end{table}
+
+Para modelar estos operadores se ha creado la clase Filtro. Una extracción contiene una lista de filtros (que serán configurables por el usuario desde la GUI), y cada uno de estos filtros se podrá traducir en una cadena de caracteres que se corresponderá con el texto de su operador análogo.
+Por tanto, al realizar la extracción podremos encadenar la lista de operadores extraída desde la lista de filtros y construír la consulta. 
+Tras un análisis de los operadores distinguimos dos grandes tipos de filtros:
+\begin{itemize}
+\item \textbf{Filtros lógicos:} Se corresponden con los operadores lógicos ``OR'' y ``NOT'' (el operador ``AND'' ya equivale a concatenar dos operadores). Son filtros que actúan como operadores entre filtros (``OR'' es un operador que actúa sobre dos filtros y ``NOT'' sobre un filtro).
+\item\textbf{Filtros no lógicos:} Son el resto de filtros que no actúan como operadores sobre otros filtros sino que actúan (metafóricamente) como constantes. Una extracción debe contener al menos uno de estos filtros para poder lanzar una consulta. 
+\end{itemize}
+\paragraph{Usuarios y credenciales}
+Para cumplir con los requisitos funcionales de autentificación, crearemos clases Java que representen a los distintos usuarios que se pueden registrar y autentificar en nuestro sistema. Cada usuario estará identificado por un nombre único y una contraseña que usará para acceder a la GUI.
+\paragraph{Tweets y Geolocalizaciones}
+Para modelar un tweet hemos creado la clase Java Tweet. Esta clase contendrá como atributos los datos y metadatos que nos parece interesante guardar para cada tweet extraído (nos hemos basado en la clase Status de la librería Twitter4J, que también encapsula los tweets):
+\begin{itemize}
+	\item Fecha de creación
+	\item Recuento de veces marcado como favorito
+	\item Recuento de veces retweeteado
+	\item Lista de hashtags contenidos
+	\item ID de Twitter: es un número entero que identifica inequívocamente un Tweet.
+	\item Cuenta a la que responde el Tweet (si procede)
+	\item Tweet original al que responde el tweet (si procede).
+	\item Idioma del tweet (si se reconoce).
+	\item Origen del tweet (iOS, Android, Twitter Web,etc.)
+	\item Cuerpo del tweet (texto)
+	\item Cuenta desde la que se envía el tweet
+	\item Lista de menciones a otras cuentas
+	\item Marcador de tweets potencialmente sensibles
+	\item Geolocalización desde la cual se envió el tweet (si está disponible). Se encapsula en una clase que contiene la latitud y la longitud como atributos.
+	\item Añadiremos un identificador numérico para nuestra base de datos aparte del que nos proporciona Twitter (por que nosotros podemos guardar el mismo tweet dos veces en dos extracciones diferentes)
+\end{itemize}
+
+\begin{figure}[Diagrama UML Principal]{FIG:MAINUML}{Diagrama UML de las clases principales del modelo de datos. Contiene las clases Usuario, Extracción, Tweet, Filtro, Credenciales, Geolocalización y Filtro}
+\image{12cm}{}{mainModelUML}
+\end{figure}
+\paragraph{Credenciales de la API de Twitter}
+Para modelar unos credenciales de la API de Twitter hemos creado la clase Credenciales, la cual contendrá las cuatro cadenas de caracteres o ``tokens'' que nos autentifican en el servicio, así como el nombre público de la cuenta. 
+\paragraph{Tareas asíncronas del servidor}
+Para modelar las tareas asíncronas y sus diferentes tipos se creará la clase TareaServidor y todas las clases que heredarán de ella.
+Según su funcionalidad,se modelarán dos grandes tipos de tareas:
+\begin{itemize}
+	\item \textbf{Tareas de extracción:} Tareas que realizarán alguna acción concreta sobre una extracción, por ejemplo alimentar una extracción indefinidamente (ver RF-8).
+	\item \textbf{Tareas de análisis:} Se encargarán de generar y/o actualizar reportes analíticos sobre los tweets ya extraídos.
+\end{itemize}
+El diagrama UML completo conteniendo los tipos de tareas está disponible en el anexo (ver \ref{FIG:SERVERTASKUML}) \\
+Las tareas tendrán un ciclo de vida muy concreto que se modelará mediante unos estados en los que puede estar la tarea dependiendo de su tipo, de las acciones manuales de los usuarios y de los eventos que puedan ocurrir durante sus ejecuciones.
+Este ciclo de vida se muestra en el siguiente diagrama:
+
+\begin{figure}[Ciclo de vida de una tarea asíncrona]{FIG:SERVERTASKLIFECYCLE}{Ciclo de vida de una tarea asíncrona en el servidor. Las líneas continuas marcan acciones manuales (del usuario). Las líneas discontinuas con color marcan acciones automáticas (del servidor)}
+	\image{}{}{SeverTaskLifecycleDiagram}
+\end{figure}
+Una tarea tendrá el estado ``Nueva'' cuando sea creada y podrá ser eliminada en cualquier estado. Los estados rodeados por línea discontinua son específicos de algún tipo de tarea (el estado ``Programada'' sólo sera alcanzable para las tareas programables).
+\paragraph{Reportes Analíticos y Registros}

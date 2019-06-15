@@ -3,7 +3,6 @@
  */
 package es.uam.eps.tweetextractor.analytics.nlp;
 
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -44,92 +43,18 @@ public class TweetExtractorNaturalTextProcessor {
 	private AnnotationConfigApplicationContext springContext;
 	private Logger logger = LoggerFactory.getLogger(TweetExtractorNaturalTextProcessor.class);
 	private TweetServiceInterface tServ;
+
 	/**
 	 * 
 	 */
 	public TweetExtractorNaturalTextProcessor(AnnotationConfigApplicationContext springContext) {
 		super();
 		this.springContext = springContext;
-		tServ=this.springContext.getBean(TweetServiceInterface.class);
+		tServ = this.springContext.getBean(TweetServiceInterface.class);
 	}
 
-
-/*
-	public void ner() {
-		String spanishSerializedClassifier = "edu/stanford/nlp/models/ner/spanish.kbp.ancora.distsim.s512.crf.ser.gz";
-
-		AbstractSequenceClassifier<CoreLabel> classifier = null;
-		try {
-			classifier = CRFClassifier.getClassifier(spanishSerializedClassifier);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		StringBuilder sBuild = new StringBuilder();
-		List<Tweet> tweets = tServ.findAll();
-		for (Tweet t : tweets) {
-			sBuild.append(t.getText());
-		}
-		List<List<CoreLabel>> res = classifier.classify(sBuild.toString());
-		BufferedWriter writer = null;
-		try {
-			writer = new BufferedWriter(new FileWriter("out.log"));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-		for (List<CoreLabel> coreLabels : res) {
-			System.out.println(coreLabels);
-
-			for (CoreLabel word : coreLabels) {
-				try {
-					writer.write(word.word() + '/' + word.get(CoreAnnotations.AnswerAnnotation.class) + ' ');
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		try {
-			writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void ner2() {
-		Properties props = new Properties();
-		props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
-
-		props.setProperty("tokenize.language", "es");
-		props.setProperty("pos.model", "edu/stanford/nlp/models/pos-tagger/spanish/spanish-distsim.tagger");
-		props.setProperty("ner.model", "edu/stanford/nlp/models/ner/spanish.ancora.distsim.s512.crf.ser.gz");
-
-		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-		List<Tweet> tweets = tServ.findAll();
-		List<String> tests = new ArrayList<>();
-		for (Tweet t : tweets) {
-			tests.add(t.getText());
-		}
-		for (String s : tests) {
-
-			Annotation document = new Annotation(s);
-			pipeline.annotate(document);
-
-			List<CoreMap> sentences = document.get(SentencesAnnotation.class);
-
-			for (CoreMap sentence : sentences) {
-				for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
-					String word = token.get(TextAnnotation.class);
-					String ne = token.get(NamedEntityTagAnnotation.class);
-					logger.info("Palabra: " + word + " tag:" + ne);
-				}
-			}
-		}
-
-	}
-*/
 	public List<TrendingWordsReportRegister> createWordFrequencyReport(TrendingWordsReport report) throws Exception {
-		List<TrendingWordsReportRegister> toReturn= new ArrayList<>();
+		List<TrendingWordsReportRegister> toReturn = new ArrayList<>();
 		AttributeFactory factory = AttributeFactory.DEFAULT_ATTRIBUTE_FACTORY;
 		StringBuilder sBuild = new StringBuilder();
 		/* Choose as input every tweet in the desired language */
@@ -142,24 +67,24 @@ public class TweetExtractorNaturalTextProcessor {
 			}
 			tServ.detachList(e.getTweetList());
 		}
-		
+
 		String input = sBuild.toString();
-		try(TokenStream tokenStream =new StandardTokenizer(factory)){
-		// hack to keep dashed words (e.g. "non-specific" rather than "non" and
-		// "specific")
-		input = input.replaceAll("-+", "-0");
-		// replace any punctuation char but apostrophes and dashes by a space
-		input = input.replaceAll("[\\p{Punct}&&[^'-]]+", " ");
-		// replace most common english contractions
-		input = input.replaceAll("(?:'(?:[tdsm]|[vr]e|ll))+\\b", "");
-		((Tokenizer) tokenStream).setReader(new StringReader(input));
-		// convert any char to ASCII
-		CharArraySet stopWordsSet = new CharArraySet(0,true);
-		for (StopWord stopWord : report.getStopWordsList().getList()) {
-			stopWordsSet.add(stopWord.getStopWord());
-		}
-		List<Keyword> keywords = new LinkedList<>();
-		CharTermAttribute token = tokenStream.getAttribute(CharTermAttribute.class);
+		try (TokenStream tokenStream = new StandardTokenizer(factory)) {
+			// hack to keep dashed words (e.g. "non-specific" rather than "non" and
+			// "specific")
+			input = input.replaceAll("-+", "-0");
+			// replace any punctuation char but apostrophes and dashes by a space
+			input = input.replaceAll("[\\p{Punct}&&[^'-]]+", " ");
+			// replace most common english contractions
+			input = input.replaceAll("(?:'(?:[tdsm]|[vr]e|ll))+\\b", "");
+			((Tokenizer) tokenStream).setReader(new StringReader(input));
+			// convert any char to ASCII
+			CharArraySet stopWordsSet = new CharArraySet(0, true);
+			for (StopWord stopWord : report.getStopWordsList().getList()) {
+				stopWordsSet.add(stopWord.getStopWord());
+			}
+			List<Keyword> keywords = new LinkedList<>();
+			CharTermAttribute token = tokenStream.getAttribute(CharTermAttribute.class);
 			tokenStream.reset();
 			while (tokenStream.incrementToken()) {
 				String term = token.toString();
@@ -175,16 +100,16 @@ public class TweetExtractorNaturalTextProcessor {
 			}
 			// reverse sort by frequency
 			Collections.sort(keywords);
-			int nWords=0;
+			int nWords = 0;
 			for (Keyword word : keywords) {
-				boolean discardWord=false;
-				for(String term: word.getTerms()) {
+				boolean discardWord = false;
+				for (String term : word.getTerms()) {
 					if (stopWordsSet.contains(term)) {
-						discardWord=true;
+						discardWord = true;
 						break;
 					}
 				}
-				if(!discardWord) {
+				if (!discardWord) {
 					nWords++;
 					TrendingWordsReportRegister newRegister = new TrendingWordsReportRegister();
 					newRegister.setFrequency(word.getFrequency());
@@ -192,22 +117,22 @@ public class TweetExtractorNaturalTextProcessor {
 					newRegister.getTerms().addAll(word.getTerms());
 					toReturn.add(newRegister);
 				}
-				if(nWords==report.getN()) {
+				if (nWords == report.getN()) {
 					break;
 				}
 			}
 		} catch (Exception e) {
-			logger.warn("An exception has been thrown analyzing word frequencies: "+e.getMessage());
-			throw(e);
+			logger.warn("An exception has been thrown analyzing word frequencies: " + e.getMessage());
+			throw (e);
 		}
 		return toReturn;
 	}
 
-	public List<TweetExtractorNERToken> tokenize(TweetExtractorNERTokenSet tokenSet) throws Exception{
-		List<TweetExtractorNERToken> toReturn= new ArrayList<>();
+	public List<TweetExtractorNERToken> tokenize(TweetExtractorNERTokenSet tokenSet) throws Exception {
+		List<TweetExtractorNERToken> toReturn = new ArrayList<>();
 		AttributeFactory factory = AttributeFactory.DEFAULT_ATTRIBUTE_FACTORY;
 		StringBuilder sBuild = new StringBuilder();
-		int nTweets=0;
+		int nTweets = 0;
 		/* Choose as input every tweet in the desired language */
 		for (Extraction e : tokenSet.getExtractions()) {
 			e.setTweetList(tServ.findByExtraction(e));
@@ -219,24 +144,24 @@ public class TweetExtractorNaturalTextProcessor {
 			}
 			tServ.detachList(e.getTweetList());
 		}
-		
+
 		String input = sBuild.toString();
-		try(TokenStream tokenStream =new StandardTokenizer(factory)){
-		// hack to keep dashed words (e.g. "non-specific" rather than "non" and
-		// "specific")
-		input = input.replaceAll("-+", "-0");
-		// replace any punctuation char but apostrophes and dashes by a space
-		input = input.replaceAll("[\\p{Punct}&&[^'-]]+", " ");
-		// replace most common english contractions
-		input = input.replaceAll("(?:'(?:[tdsm]|[vr]e|ll))+\\b", "");
-		((Tokenizer) tokenStream).setReader(new StringReader(input));
-		// convert any char to ASCII
-		CharArraySet stopWordsSet = new CharArraySet(0,true);
-		for (StopWord stopWord : tokenSet.getStopWordsList().getList()) {
-			stopWordsSet.add(stopWord.getStopWord());
-		}
-		List<Keyword> keywords = new LinkedList<>();
-		CharTermAttribute token = tokenStream.getAttribute(CharTermAttribute.class);
+		try (TokenStream tokenStream = new StandardTokenizer(factory)) {
+			// hack to keep dashed words (e.g. "non-specific" rather than "non" and
+			// "specific")
+			input = input.replaceAll("-+", "-0");
+			// replace any punctuation char but apostrophes and dashes by a space
+			input = input.replaceAll("[\\p{Punct}&&[^'-]]+", " ");
+			// replace most common english contractions
+			input = input.replaceAll("(?:'(?:[tdsm]|[vr]e|ll))+\\b", "");
+			((Tokenizer) tokenStream).setReader(new StringReader(input));
+			// convert any char to ASCII
+			CharArraySet stopWordsSet = new CharArraySet(0, true);
+			for (StopWord stopWord : tokenSet.getStopWordsList().getList()) {
+				stopWordsSet.add(stopWord.getStopWord());
+			}
+			List<Keyword> keywords = new LinkedList<>();
+			CharTermAttribute token = tokenStream.getAttribute(CharTermAttribute.class);
 			tokenStream.reset();
 			while (tokenStream.incrementToken()) {
 				String term = token.toString();
@@ -253,30 +178,31 @@ public class TweetExtractorNaturalTextProcessor {
 			// reverse sort by frequency
 			Collections.sort(keywords);
 			for (Keyword word : keywords) {
-				boolean discardWord=false;
-				for(String term: word.getTerms()) {
+				boolean discardWord = false;
+				for (String term : word.getTerms()) {
 					if (stopWordsSet.contains(term)) {
-						discardWord=true;
+						discardWord = true;
 						break;
 					}
 				}
-				if(!discardWord) {
+				if (!discardWord) {
 					TweetExtractorNERToken newToken = new TweetExtractorNERToken();
 					newToken.setFrequency(word.getFrequency());
 					newToken.setRoot(word.getStem());
-					for (String term :word.getTerms()) {
-						newToken.getTerms().add(term.toLowerCase(Locale.forLanguageTag(tokenSet.getIdentifier().getLanguage().getShortName())));
+					for (String term : word.getTerms()) {
+						newToken.getTerms().add(term.toLowerCase(
+								Locale.forLanguageTag(tokenSet.getIdentifier().getLanguage().getShortName())));
 					}
 					newToken.setSet(tokenSet);
 					toReturn.add(newToken);
 				}
-				if(word.getFrequency()<Constants.MIN_FREQUNCY_TOKENIZER_RATIO*nTweets) {
+				if (word.getFrequency() < Constants.MIN_FREQUNCY_TOKENIZER_RATIO * nTweets) {
 					break;
 				}
 			}
 		} catch (Exception e) {
-			logger.warn("An exception has been thrown analyzing word frequencies: "+e.getMessage());
-			throw(e);
+			logger.warn("An exception has been thrown analyzing word frequencies: " + e.getMessage());
+			throw (e);
 		}
 		return toReturn;
 	}

@@ -57,25 +57,6 @@
 			<artifactId>tweetextractor-commons</artifactId>
 			<version>1.0.1.0</version>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>edu.stanford.nlp</groupId>
-			<artifactId>stanford-corenlp</artifactId>
-			<version>3.9.2</version>
-		</dependency>
-		<dependency>
-			<groupId>edu.stanford.nlp</groupId>
-			<artifactId>stanford-corenlp</artifactId>
-			<version>3.9.2</version>
-			<classifier>models-spanish</classifier>
-		</dependency>
-		<dependency>
-			<groupId>edu.stanford.nlp</groupId>
-			<artifactId>stanford-corenlp</artifactId>
-			<version>3.9.2</version>
-			<classifier>models</classifier>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>org.apache.opennlp</groupId>
 			<artifactId>opennlp-tools</artifactId>

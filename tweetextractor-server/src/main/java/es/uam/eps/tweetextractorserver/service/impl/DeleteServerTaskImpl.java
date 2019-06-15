@@ -18,6 +18,7 @@ import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.service.DeleteServerTaskResponse;
 import es.uam.eps.tweetextractor.model.service.sei.DeleteServerTaskSei;
 import es.uam.eps.tweetextractorserver.TweetExtractorServer;
+import es.uam.eps.tweetextractorserver.model.servertask.ScheduledServerTask;
 import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
 
 /**
@@ -59,6 +60,11 @@ public class DeleteServerTaskImpl implements DeleteServerTaskSei{
 	    }
 	    if(task.getStatus()==Constants.ST_RUNNING) {
 	    	server.interruptTask(task);
+	    }
+	    if(task.getStatus()==Constants.ST_SCHEDULED) {
+	    	if(((ScheduledServerTask) task).getFuture()!=null) {
+	    		((ScheduledServerTask) task).getFuture().cancel(true);
+	    	}
 	    }
 	    server.deleteTaskFromServer(task);
 	    stServ.deleteById(task.getId());
