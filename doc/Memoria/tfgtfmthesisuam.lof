@@ -10,18 +10,22 @@
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Dise\IeC {\~n}o del entorno}}{10}{figure.caption.31}
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Diagrama UML Principal}}{13}{figure.caption.36}
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Ciclo de vida de una tarea as\IeC {\'\i }ncrona}}{14}{figure.caption.39}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Funcionamiento general de JFreeChart}}{15}{figure.caption.42}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Diagrama UML Preferencias Gr\IeC {\'a}ficos}}{16}{figure.caption.43}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Diagrama UML An\IeC {\'a}lisis Sem\IeC {\'a}ntico}}{18}{figure.caption.45}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Diagrama UML Tareas As\IeC {\'\i }ncronas}}{32}{figure.caption.46}
-\contentsline {figure}{\numberline {A.2}{\ignorespaces Diagrama UML Reportes An\IeC {\'a}lisis}}{33}{figure.caption.47}
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Diagrama UML Tareas As\IeC {\'\i }ncronas}}{34}{figure.caption.51}
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Diagrama UML Reportes An\IeC {\'a}lisis}}{35}{figure.caption.52}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces Pantalla inicial}}{35}{figure.caption.48}
-\contentsline {figure}{\numberline {B.2}{\ignorespaces Registro e inicio de sesi\IeC {\'o}n}}{35}{figure.caption.49}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{35}{figure.caption.49}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{35}{figure.caption.49}
-\contentsline {figure}{\numberline {B.3}{\ignorespaces Pantalla de bienvenida}}{36}{figure.caption.50}
-\contentsline {figure}{\numberline {B.4}{\ignorespaces Constructor de consultas}}{36}{figure.caption.51}
-\contentsline {figure}{\numberline {B.5}{\ignorespaces Edici\IeC {\'o}n de credenciales}}{37}{figure.caption.52}
-\contentsline {figure}{\numberline {B.6}{\ignorespaces Tarea en segundo plano}}{37}{figure.caption.53}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {C.1}{\ignorespaces Pantalla inicial}}{39}{figure.caption.54}
+\contentsline {figure}{\numberline {C.2}{\ignorespaces Registro e inicio de sesi\IeC {\'o}n}}{39}{figure.caption.55}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{39}{figure.caption.55}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{39}{figure.caption.55}
+\contentsline {figure}{\numberline {C.3}{\ignorespaces Pantalla de bienvenida}}{40}{figure.caption.56}
+\contentsline {figure}{\numberline {C.4}{\ignorespaces Constructor de consultas}}{40}{figure.caption.57}
+\contentsline {figure}{\numberline {C.5}{\ignorespaces Edici\IeC {\'o}n de credenciales}}{41}{figure.caption.58}
+\contentsline {figure}{\numberline {C.6}{\ignorespaces Tarea en segundo plano}}{41}{figure.caption.59}

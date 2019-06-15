@@ -3,7 +3,7 @@ Esta es una parte muy importante de la construcción del modelo de datos. Comenz
 Siguiendo los requisitos funcionales, un usuario debe poder configurar qué condiciones deben cumplir los tweets que desea extraer. En este sentido tenemos que tomar como referencia la API de Twitter. 
 
 Con ella, podemos ejecutar consultas utilizando operadores, de los cuales algunos se enumeran en la documentación de la siguiente manera:
-\begin{table}[Operadores de Twitter API]{TB:OPERADORESAPI}{En esta tabla se muestran alfunos operadores que soportan las consultas a la API de Twitter.}
+\begin{table}[Operadores de Twitter API]{TB:OPERADORESAPI}{En esta tabla se muestran algunos operadores que soportan las consultas a la API de Twitter.}
 \begin{tabular}{|p{3.5cm}|p{11.5cm}|}
 \hline
 \textbf{Operador} & \textbf{Encuentra Tweets...} \\
@@ -80,3 +80,32 @@ Este ciclo de vida se muestra en el siguiente diagrama:
 \end{figure}
 Una tarea tendrá el estado ``Nueva'' cuando sea creada y podrá ser eliminada en cualquier estado. Los estados rodeados por línea discontinua son específicos de algún tipo de tarea (el estado ``Programada'' sólo sera alcanzable para las tareas programables).
 \paragraph{Reportes Analíticos y Registros}
+Siguiendo los requisitos funcionales, una vez extraídos y guardados los tweets se podrán crear, modificar y eliminar diferentes tipos de reportes que contendrán los resultados de los análisis que realicemos sobre los datos.\\
+Para modelar todos los tipos de reportes se creará la clase ReporteAnalítico y todas las clases que heredarán de ella.
+Cada distinto tipo de reporte tendrá unos registros que contendrán los resultados, siendo estos registros también de tipos diversos dependiendo del tipo de reporte al que pertenezcan.\\
+El diagrama UML que representa las clases e interfaces más relevantes que modelan estos reportes y registros se encuentra en los apéndices (ver \ref{FIG:ANALYTICSREPORTSUML})
+\paragraph{Gráficos}
+Para la elaboración de gráficos se usará la librería externa  \href{http://www.jfree.org/jfreechart/}{JFreeChart}. Esta librería nos permitirá, en nuestro entorno Java, configurar y generar gráficos sencillos que mostrarán los resultados de los reportes analíticos que hayamos generado. Soporta distintos tipos de gráficas (barras, línea, circular,etc).\\
+Para generar un gráfico, esta librería nos ofrece un constructor que requiere un conjunto de datos o ``Dataset'' (clases incluidas en la librería que encapsularán los valores de los registros) y una configuración para el gráfico (leyendas, fuentes, tipos de linea, colores, etc.) Este funcionamiento se muestra en este diagrama:
+
+\begin{figure}[Funcionamiento general de JFreeChart]{FIG:JFREECHARTDIAGRAM}{Diagrama que muestra el proceso de generación de un gráfico con la librería \href{http://www.jfree.org/jfreechart/}{JFreeChart}}
+	\image{}{}{JFreeChartDiagram}
+\end{figure}
+
+Para modelar los gráficos que se vayan generando se creará la clase GráficoReporteAnalítico (guardaremos las gráficas en base de datos). También crearemos clases para encapsular las configuraciones posibles de cada tipo de gráfico (estas clases heredarán de la clase TweetExtractorPreferenciasGráfico). \\
+A continuación aparece el diagrama UML completo que muestra toda esta sección del modelo de datos:
+
+\begin{figure}[Diagrama UML Preferencias Gráficos]{FIG:UMLGRAFICOS}{Diagrama UML que muestra el modelo de datos que representan los gráficos de los reportes y las configuraciones para generarlos.}
+	\image{}{}{AnalyticsReportImageUML}
+\end{figure}
+
+\paragraph{Análisis semántico de los Tweets}
+Por último, y de acuerdo con el último apartado de los requisitos funcionales, se añadirán al modelo los objetos que se usarán para el análisis semántico de los tweets. \\
+Si hablamos de semántica, lo primero que debemos tener en cuenta es el idioma del texto que vamos a analizar. \\La API de Twitter ya nos indica de forma nativa en qué idioma está escrito cada tweet. En el anexo puede encontrarse una referencia de los idiomas que la API es capaz de identificar (ver \ref{TB:IDIOMASAPI}). Para modelar los idiomas se creará un referencial inmutable de idiomas encapsulados en la clase IdiomaTwitterDisponible.\\
+Dado un idioma, se podrán crear distintas listas de palabras ignorables que no se tendrán en cuenta para el cálculo de frecuencias.
+Dado un idioma y un conjunto de extracciones, un usuario debe poder partir los tweets extraídos en términos y almacenarlos para su posterior clasificación, y para ello construiremos una clase ConjuntoTokensPersonal.\\
+Dado un idioma un usuario también podrá crear diferentes configuraciones para la clasificación de los términos. Estas configuraciones se modelarán como un conjunto de categorías y subcategorías.
+Los términos obtenidos se podrán clasificar en estas categorías, y esta clasificación se almacenará también en base de datos para tenerla en cuenta en los posteriores análisis. 
+\begin{figure}[Diagrama UML Análisis Semántico]{FIG:UMLANALISISSEMANTICO}{Diagrama UML que muestra el modelo de datos utilizado para modelar los objetos relacionados con el análisis semánticos de los datos.}
+	\image{}{}{NaturalLanguageProcessingUML}
+\end{figure}
