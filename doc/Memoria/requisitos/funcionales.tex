@@ -1,0 +1,65 @@
+
+
+
+\begin{functional}
+
+\paragraph{Autentificación}
+        \item El acceso al sistema está restringido para usuarios registrados.
+        \begin{functional}
+                \item El registro es libre, pudiendo hacerse desde el propio sistema.
+                \item Las credenciales se componen de un nombre de usuario (único) y contraseña
+        \end{functional}
+        \item Las contraseñas tendrán entre 6-16 caracteres y contendrá al menos una mayúscula, una minúscula y un número.
+        \item Un usuario que ha iniciado sesión puede cambiar su contraseña desde la GUI para los accesos posteriores.
+        \item Un usuario que ha iniciado sesión puede eliminar su cuenta, eliminando también todos los datos que hubiere almacenado en la base de datos (extracciones, reportes, gráficos, etc.).
+
+\paragraph{Extracciones}
+
+	\item Un usuario puede crear extracciones desde la GUI que serán de su propiedad.
+	\item El perímetro de una extracción se delimita (durante la creación) a través de filtros, necesarios para la creación de la extracción (cada extracción contiene al menos un filtro).
+	\item  Un usuario puede alimentar una extracción en primer plano (desde la GUI) o en segundo plano (con una tarea asíncrona del servidor).
+	\item Una extracción podrá alimentarse de forma indefinida en segundo plano.
+	\item Los tweets extraídos contenidos en una extracción pertenecen a ésta: si se elimina la extracción se eliminan los tweets.
+	\item Los tweets de las extracciones son consultables en crudo desde la GUI. También pueden eliminarse de forma individual desde la GUI.
+	\item Los tweets de una extracción se pueden exportar en un fichero XML para su integración externa.
+	\item Una misma extracción no podrá contener dos veces el mismo tweet.
+	
+\paragraph{Credenciales de la API de Twitter}
+
+\item Un usuario puede añadir, modificar y eliminar credenciales para la API de Twitter en su cuenta.
+\item El usuario debe tener al menos unos credenciales añadidos para poder comenzar a crear extracciones, tareas y reportes analíticos.
+
+\paragraph{Tareas asíncronas}
+
+\item Un módulo servidor web existirá para gestionar la ejecución de tareas asíncronas en segundo plano.
+\item La conexión entre la GUI y el servidor es configurable desde la GUI, y esta configuración se guarda en el registro del sistema operativo. 
+\item La GUI se comunicará con el módulo servidor a través de servicios web (SOAP sobre SSL/TLS).
+\item Las tareas asíncronas tienen un ciclo de vida específico que depende del tipo de tarea. (Ver diagrama \ref{FIG:SERVERTASKLIFECYCLE})
+\item Con el arranque del servidor, las tareas existentes son cargadas desde la base de datos.
+\item Existen tipos de tareas que se ejecutan de forma indefinida si nunca son detenidas
+\item El usuario puede crear, eliminar, preparar, lanzar y parar tareas asíncronas desde la GUI.
+\item Una tarea puede ser programada para ejecutarse en un momento dado del futuro.
+\item Tras un reinicio del servidor, las tareas programadas aún sin caducar deben ser reprogramadas automáticamente, las tareas que se estaban ejecutando deberán volver a ejecutarse automáticamente y las tareas que hayan caducado pasarán a dicho estado.
+\item La ejecución de una tarea programada puede ser cancelada pasando dicha tarea al estado "preparada".
+
+\paragraph{Análisis}
+
+\item Un usuario puede crear, modificar y eliminar diversos tipos de reportes analíticos sobre los datos extraídos.
+\item Los contenidos (registros) de un reporte pueden ser actualizados para no quedar obsoletos con el tiempo.
+\item Un reporte puede ser actualizado en segundo plano con una tarea asíncrona de servidor.
+\item Los datos de un reporte se pueden consultar en crudo en la GUI y exportarse en un archivo .csv para su integración externa.
+\item Se guardarán en base de datos tanto el instante en que se creó el reporte como el instante en el que se actualizó por última vez.
+
+\paragraph{Gráficos}
+\item Desde la GUI, un usuario puede crear, configurar, modificar y eliminar distintos tipos de gráficos que muestran los datos de los reportes disponibles.
+\item Existe una matriz de compatibilidad entre los tipos de reportes y los tipos de gráficos que son compatibles entre sí:
+\begin{figure}[Matriz de compatibilidad reporte-gráfico]{FIG:COMPMATRIXREPORTCHRART}{Matriz de compatibilidad entre los tipos de reporte analítico y los tipos de gráficos.}
+	\image{5cm}{}{CompatibilityMatrixReportChart}
+\end{figure}
+\item Cada tipo de gráfico tiene unas configuraciones específicas (tipos de línea, colores, tamaño y estilo de fuentes, etc.) que serán parametrizables desde la GUI durante la creación del gráfico. 
+\item Las configuraciones de cada tipo de gráfico se guardan en base de datos para ser reutilizadas posteriormente.
+\item Los gráficos pueden tanto verse desde la GUI como exportarse a un archivo JPEG.
+
+
+
+\end{functional}

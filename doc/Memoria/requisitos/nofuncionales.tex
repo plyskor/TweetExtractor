@@ -1,0 +1,9 @@
+\begin{functional}
+\paragraph{Autentificación}
+ \item Las contraseñas de los usuarios no se pueden guardar en texto plano en la base de datos.
+ \paragraph{Extracciones}
+ \item Una extracción no puede ser alimentada desde dos lugares distintos al mismo tiempo, ni siquiera desde la misma máquina.
+ \paragraph{Tareas asíncronas}
+ \item Una tarea no puede ejecutarse varias veces en paralelo, sólo se concibe una ejecución a la vez por tarea.
+ \item Ningún intercambio de datos entre la GUI y el servidor se puede hacer en texto plano. Siempre se debe usar el cifrado punto a punto sobre SSL/TLS.
+\end{functional}
