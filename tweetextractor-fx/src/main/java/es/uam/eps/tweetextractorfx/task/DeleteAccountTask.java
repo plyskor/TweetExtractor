@@ -14,7 +14,7 @@ import es.uam.eps.tweetextractor.model.User;
  * @author Jose Antonio García del Saz
  *
  */
-public class DeleteAccountTask extends TwitterExtractorFXTask<Integer>{
+public class DeleteAccountTask extends TweetExtractorFXTask<Integer>{
 	private User user;
 	private Logger logger = LoggerFactory.getLogger(DeleteAccountTask.class);
 	/**

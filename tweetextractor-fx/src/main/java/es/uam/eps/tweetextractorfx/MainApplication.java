@@ -82,8 +82,6 @@ public class MainApplication extends Application {
 		TweetExtractorFXPreferences.initializePreferences();
 		springContext = new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
 	}
-	
-	/* Initialize the RootLayout */
 	public void initRootLayout() {
 		try {
 			// Load root layout from fxml file.
@@ -102,7 +100,47 @@ public class MainApplication extends Application {
 			logger.error(e.getMessage());
 		}
 	}
-
+	public void showScreenInCenterOfRootLayout(String fxmlPath) {
+		try {	
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource(fxmlPath));
+			Node rootNode = loader.load();
+			// Set query constructor into the center of root layout.
+			rootLayout.setCenter(rootNode);
+			// Give the controller access to the main app.
+			TweetExtractorFXController controller = loader.getController();
+			controller.setMainApplication(this);
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	public TweetExtractorFXDialogResponse showDialogLoadFXML(String fxmlPath, Class<?> clazz) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource(fxmlPath));
+			AnchorPane page = loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(this.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			// Set the dialogStage to the controller.
+			TweetExtractorFXDialogController controller = loader.getController();
+			Method meth = clazz.getMethod("setDialogStage", Stage.class);
+			meth.invoke(controller, dialogStage);
+			meth = clazz.getMethod("setMainApplication", MainApplication.class);
+			meth.invoke(controller, this);
+			// Show the dialog and wait until the user closes it, then add filter
+			dialogStage.showAndWait();
+			return controller.getResponse();
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			return null;
+		}
+	}
 	public void showExtractionDetails(Extraction extraction, boolean executeQuery) {
 		try {
 			// Load query constructor
@@ -125,7 +163,7 @@ public class MainApplication extends Application {
 			logger.error(e.getMessage());
 		}
 	}
-
+	
 	public Stage showLoadingDialog(String title) {
 		try {
 
@@ -148,22 +186,6 @@ public class MainApplication extends Application {
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 			return null;
-		}
-	}
-
-	public void showScreenInCenterOfRootLayout(String fxmlPath) {
-		try {	
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource(fxmlPath));
-			Node rootNode = loader.load();
-			// Set query constructor into the center of root layout.
-			rootLayout.setCenter(rootNode);
-			// Give the controller access to the main app.
-			TweetExtractorFXController controller = loader.getController();
-			controller.setMainApplication(this);
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 	public void showReportRawDataInCenterOfRootLayout(String fxmlPath,Class<?> clazz,AnalyticsReport report) {
@@ -414,30 +436,5 @@ public class MainApplication extends Application {
 			logger.error(e.getMessage());
 		}
 	}
-	public TweetExtractorFXDialogResponse showDialogLoadFXML(String fxmlPath, Class<?> clazz) {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource(fxmlPath));
-			AnchorPane page = loader.load();
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(this.getPrimaryStage());
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-			// Set the dialogStage to the controller.
-			TweetExtractorFXDialogController controller = loader.getController();
-			Method meth = clazz.getMethod("setDialogStage", Stage.class);
-			meth.invoke(controller, dialogStage);
-			meth = clazz.getMethod("setMainApplication", MainApplication.class);
-			meth.invoke(controller, this);
-			// Show the dialog and wait until the user closes it, then add filter
-			dialogStage.showAndWait();
-			return controller.getResponse();
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
+	
 }

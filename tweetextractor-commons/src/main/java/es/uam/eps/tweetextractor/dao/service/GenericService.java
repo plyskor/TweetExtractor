@@ -92,13 +92,11 @@ public abstract class GenericService<V extends Serializable, K extends Serializa
     public void update(V entity) {
         genericDao.update(entity);
     }
- 
 	@Override
     @Transactional(propagation = Propagation.REQUIRED,readOnly = true)
 	public boolean existsAny(K id) {
 		return genericDao.existsAny(id);
 	}
-
 	@Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void delete(V entity) {
@@ -115,11 +113,9 @@ public abstract class GenericService<V extends Serializable, K extends Serializa
     public void deleteAll() {
         genericDao.deleteAll();
     }
-
 	@Override
     @Transactional(propagation = Propagation.REQUIRED)
 	public void flush() {
 		genericDao.flush();
 	}
-    
 }

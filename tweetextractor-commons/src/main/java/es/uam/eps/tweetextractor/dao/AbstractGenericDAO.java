@@ -27,13 +27,7 @@ public abstract class AbstractGenericDAO<V extends Serializable, K extends Seria
     private SessionFactory sessionFactory;
      
     protected Class<V> daoType;
-     
-    /**
-    * By defining this class as abstract, we prevent Spring from creating 
-    * instance of this class If not defined as abstract, 
-    * getClass().getGenericSuperClass() would return Object. There would be 
-    * exception because Object class does not hava constructor with parameters.
-    */
+ 
 	public AbstractGenericDAO() {
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
@@ -43,7 +37,10 @@ public abstract class AbstractGenericDAO<V extends Serializable, K extends Seria
     protected Session currentSession() {
         return sessionFactory.getCurrentSession();
     }
-     
+    @Override
+    public void saveOrUpdate(V entity) {
+        currentSession().saveOrUpdate(entity);
+    } 
     @Override
     public void persist(V entity) {
         currentSession().save(entity);
@@ -53,11 +50,6 @@ public abstract class AbstractGenericDAO<V extends Serializable, K extends Seria
     	V entity = find(id);
     	return (entity==null) ? false : true;
     }
-    @Override
-    public void saveOrUpdate(V entity) {
-        currentSession().saveOrUpdate(entity);
-    }
-     
     @Override
     public void update(V entity) {
         currentSession().saveOrUpdate(entity);

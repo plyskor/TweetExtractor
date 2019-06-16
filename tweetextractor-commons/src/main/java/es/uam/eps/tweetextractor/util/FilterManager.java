@@ -34,7 +34,7 @@ public class FilterManager {
 		}
 		
 	}
-	public static String getQueryFromFilters(List<Filter>filterList) {
+	public static String getQueryFromFilters(List<Filter> filterList) {
 		if(filterList==null) {
 			return null;
 		}else {

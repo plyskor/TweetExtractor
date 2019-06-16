@@ -25,7 +25,7 @@ import es.uam.eps.tweetextractor.model.Tweet;
 import es.uam.eps.tweetextractor.model.task.status.UpdateStatus;
 import es.uam.eps.tweetextractorfx.task.ExportExtractionTask;
 import es.uam.eps.tweetextractorfx.task.LoadTweetsTask;
-import es.uam.eps.tweetextractorfx.task.TwitterExtractorFXTask;
+import es.uam.eps.tweetextractorfx.task.TweetExtractorFXTask;
 import es.uam.eps.tweetextractorfx.task.UpdateExtractionTask;
 import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
 import es.uam.eps.tweetextractorfx.view.TweetExtractorFXController;
@@ -231,7 +231,7 @@ public class ExtractionDetailsControl extends TweetExtractorFXController {
 		}
 		twitterextractor = new TwitterExtractor(this.getMainApplication().getCurrentUser().getCredentialList().get(0),
 				mainApplication.getSpringContext());
-		TwitterExtractorFXTask<UpdateStatus> updateTask = new UpdateExtractionTask(mainApplication.getSpringContext(),twitterextractor, extraction);
+		TweetExtractorFXTask<UpdateStatus> updateTask = new UpdateExtractionTask(mainApplication.getSpringContext(),twitterextractor, extraction);
 		updateTask.setOnSucceeded(e -> {
 			UpdateStatus result = updateTask.getValue();
 			if (result == null)

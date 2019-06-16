@@ -198,13 +198,13 @@ public class ServerTwitterExtractor {
             ret.setStatusList(resultList);
             return ret;
         } catch (TwitterException te) {
-            //*CONNECTION ISSUE
+            //Network Issue
             if(te.getStatusCode()==-1&&te.getErrorCode()==-1) {
             	ret.setStatus(Constants.CONNECTION_UPDATE_ERROR);
             	ret.setErrorMessage(te.getErrorMessage());
             	ret.setError(true);
             }else 
-            //*RATELIMIT
+            //Exceeded Rate Limit
             if(te.getStatusCode()==429&&te.getErrorCode()==88) {
             	ret.setStatus(Constants.RATE_LIMIT_UPDATE_ERROR);
             	ret.setError(true);

@@ -18,7 +18,7 @@ import es.uam.eps.tweetextractor.model.task.status.LoginStatus;
  * @author Jose Antonio García del Saz
  *
  */
-public class LogInTask extends TwitterExtractorFXTask<LoginStatus>{
+public class LogInTask extends TweetExtractorFXTask<LoginStatus>{
 	String username;
 	String password;
 	private Logger logger = LoggerFactory.getLogger(LogInTask.class);

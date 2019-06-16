@@ -18,7 +18,7 @@ import es.uam.eps.tweetextractor.model.task.status.RegisterStatus;
  * @author Jose Antonio García del Saz
  *
  */
-public class RegisterAccountTask extends TwitterExtractorFXTask<RegisterStatus>{
+public class RegisterAccountTask extends TweetExtractorFXTask<RegisterStatus>{
 	private String username;
 	private String password1;
 	private String password2;

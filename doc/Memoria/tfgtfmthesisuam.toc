@@ -25,21 +25,33 @@
 \contentsline {paragraph}{Entornos}{9}{section*.30}
 \contentsline {section}{\numberline {4.1}Modelo de datos}{11}{section.4.1}
 \contentsline {paragraph}{Extracciones y filtros}{11}{section*.32}
-\contentsline {paragraph}{Usuarios y credenciales}{12}{section*.34}
+\contentsline {paragraph}{Usuarios y credenciales (locales)}{12}{section*.34}
 \contentsline {paragraph}{Tweets y Geolocalizaciones}{12}{section*.35}
 \contentsline {paragraph}{Credenciales de la API de Twitter}{14}{section*.37}
 \contentsline {paragraph}{Tareas as\IeC {\'\i }ncronas del servidor}{14}{section*.38}
 \contentsline {paragraph}{Reportes Anal\IeC {\'\i }ticos y Registros}{15}{section*.40}
 \contentsline {paragraph}{Gr\IeC {\'a}ficos}{15}{section*.41}
 \contentsline {paragraph}{An\IeC {\'a}lisis sem\IeC {\'a}ntico de los Tweets}{17}{section*.44}
+\contentsline {paragraph}{Base de datos}{17}{section*.45}
 \contentsline {chapter}{\numberline {5}Desarrollo y mantenimiento}{19}{chapter.5}
-\contentsline {section}{\numberline {5.1}Mantenimiento}{19}{section.5.1}
-\contentsline {chapter}{\numberline {6}Resultados y ejemplos}{21}{chapter.6}
-\contentsline {chapter}{\numberline {7}Conclusiones y trabajo futuro}{23}{chapter.7}
-\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{25}{chapter*.46}
-\contentsline {chapter}{Definiciones}{27}{section*.47}
-\contentsline {chapter}{Acr\IeC {\'o}nimos}{29}{section*.49}
-\contentsline {part}{Ap\IeC {\'e}ndices}{31}{part.1}
-\contentsline {chapter}{\numberline {A}Diagramas}{33}{appendix.Alph1}
-\contentsline {chapter}{\numberline {B}Tablas}{37}{appendix.Alph2}
-\contentsline {chapter}{\numberline {C}Im\IeC {\'a}genes de la interfaz gr\IeC {\'a}fica}{39}{appendix.Alph3}
+\contentsline {paragraph}{Contextos: Hibernate + SpringFramework}{20}{section*.47}
+\contentsline {paragraph}{GUI. JavaFX: Vista y controlador}{22}{section*.49}
+\contentsline {paragraph}{Servidor: Tareas as\IeC {\'\i }ncronas y servicios web SOAP}{24}{section*.52}
+\contentsline {paragraph}{Encapsulado XML}{24}{section*.54}
+\contentsline {paragraph}{Filtros y consultas a la API de Twitter}{25}{section*.55}
+\contentsline {paragraph}{Reportes anal\IeC {\'\i }ticos.}{26}{section*.57}
+\contentsline {paragraph}{Gr\IeC {\'a}ficos : Word Cloud}{26}{section*.58}
+\contentsline {paragraph}{Clase Constants}{27}{section*.59}
+\contentsline {paragraph}{Encriptado de contrase\IeC {\~n}as en la base de datos}{27}{section*.60}
+\contentsline {section}{\numberline {5.1}Mantenimiento}{27}{section.5.1}
+\contentsline {paragraph}{SonarQube}{27}{section*.61}
+\contentsline {chapter}{\numberline {6}Resultados y ejemplos}{29}{chapter.6}
+\contentsline {chapter}{\numberline {7}Conclusiones y trabajo futuro}{31}{chapter.7}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{33}{chapter*.62}
+\contentsline {chapter}{Definiciones}{35}{section*.63}
+\contentsline {chapter}{Acr\IeC {\'o}nimos}{37}{section*.65}
+\contentsline {part}{Ap\IeC {\'e}ndices}{39}{part.1}
+\contentsline {chapter}{\numberline {A}Diagramas}{41}{appendix.Alph1}
+\contentsline {chapter}{\numberline {B}Tablas}{45}{appendix.Alph2}
+\contentsline {chapter}{\numberline {C}C\IeC {\'o}digos}{47}{appendix.Alph3}
+\contentsline {chapter}{\numberline {D}Im\IeC {\'a}genes de la interfaz gr\IeC {\'a}fica}{63}{appendix.Alph4}

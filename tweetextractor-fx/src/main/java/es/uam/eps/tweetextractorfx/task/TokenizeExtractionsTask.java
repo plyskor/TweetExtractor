@@ -22,7 +22,7 @@ import es.uam.eps.tweetextractor.model.task.status.TokenizeStatus;
  * @author jose
  *
  */
-public class TokenizeExtractionsTask extends TwitterExtractorFXTask<TokenizeStatus> {
+public class TokenizeExtractionsTask extends TweetExtractorFXTask<TokenizeStatus> {
 	private TweetExtractorNERTokenSetServiceInterface tsServ;
 	private TweetExtractorNERTokenServiceInterface tokenService;
 	private ExtractionServiceInterface eServ;

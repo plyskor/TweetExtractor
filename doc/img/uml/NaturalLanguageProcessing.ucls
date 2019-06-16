@@ -16,7 +16,7 @@
     project="tweetextractor-commons" 
     file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/nlp/CustomStopWordsList.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="385" width="366" x="1570" y="878"/>    
+    <position height="385" width="366" x="1650" y="378"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -27,7 +27,7 @@
     project="tweetextractor-commons" 
     file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/nlp/CustomStopWordsListID.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1215" y="1041"/>    
+    <position height="-1" width="-1" x="1429" y="1153"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -49,7 +49,7 @@
     project="tweetextractor-commons" 
     file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/nlp/TweetExtractorTopic.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="441" width="404" x="420" y="-323"/>    
+    <position height="441" width="404" x="126" y="-357"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -60,7 +60,7 @@
     project="tweetextractor-commons" 
     file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/nlp/TweetExtractorNERTokenSetID.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="381" width="312" x="1083" y="308"/>    
+    <position height="381" width="312" x="1075" y="258"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -71,7 +71,7 @@
     project="tweetextractor-commons" 
     file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/nlp/StopWord.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="321" width="353" x="1268" y="1409"/>    
+    <position height="321" width="353" x="1694" y="1399"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -82,7 +82,7 @@
     project="tweetextractor-commons" 
     file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/nlp/TweetExtractorNERConfigurationID.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="764" y="1472"/>    
+    <position height="-1" width="-1" x="348" y="1566"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -93,7 +93,7 @@
     project="tweetextractor-commons" 
     file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/nlp/TweetExtractorNERToken.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="449" width="379" x="1116" y="-330"/>    
+    <position height="449" width="379" x="894" y="-376"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -104,7 +104,7 @@
     project="tweetextractor-commons" 
     file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/nlp/TweetExtractorNERTokenSet.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="471" width="380" x="1594" y="189"/>    
+    <position height="471" width="380" x="1626" y="-387"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -115,7 +115,7 @@
     project="tweetextractor-commons" 
     file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/reference/AvailableTwitterLanguage.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="329" width="278" x="681" y="343"/>    
+    <position height="531" width="390" x="711" y="763"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

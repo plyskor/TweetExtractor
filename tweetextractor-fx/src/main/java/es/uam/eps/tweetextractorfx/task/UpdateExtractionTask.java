@@ -16,7 +16,7 @@ import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
  * @author Jose Antonio García del Saz
  *
  */
-public class UpdateExtractionTask extends TwitterExtractorFXTask<UpdateStatus>{
+public class UpdateExtractionTask extends TweetExtractorFXTask<UpdateStatus>{
 	private TwitterExtractor twitter;
 	private Extraction extraction;
 	private Logger logger = LoggerFactory.getLogger(UpdateExtractionTask.class);

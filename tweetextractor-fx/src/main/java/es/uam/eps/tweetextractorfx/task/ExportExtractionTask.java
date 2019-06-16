@@ -16,7 +16,7 @@ import es.uam.eps.tweetextractorfx.util.XMLManager;
  * @author Jose Antonio García del Saz
  *
  */
-public class ExportExtractionTask extends TwitterExtractorFXTask<Integer>{
+public class ExportExtractionTask extends TweetExtractorFXTask<Integer>{
 	private Extraction extraction;
 	private File file;
 	private String message=null;

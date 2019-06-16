@@ -1,8 +1,10 @@
 \paragraph{Extracciones y filtros}
 Esta es una parte muy importante de la construcción del modelo de datos. Comenzaremos creando la clase Extracción, que pertenecerá al usuario que la creó y contendrá una lista de tweets extraídos desde Twitter.
+
 Siguiendo los requisitos funcionales, un usuario debe poder configurar qué condiciones deben cumplir los tweets que desea extraer. En este sentido tenemos que tomar como referencia la API de Twitter. 
 
 Con ella, podemos ejecutar consultas utilizando operadores, de los cuales algunos se enumeran en la documentación de la siguiente manera:
+
 \begin{table}[Operadores de Twitter API]{TB:OPERADORESAPI}{En esta tabla se muestran algunos operadores que soportan las consultas a la API de Twitter.}
 \begin{tabular}{|p{3.5cm}|p{11.5cm}|}
 \hline
@@ -33,14 +35,17 @@ tráfico ? & que contienen ``tráfico'' y hacen una pregunta. \\
 Para modelar estos operadores se ha creado la clase Filtro. Una extracción contiene una lista de filtros (que serán configurables por el usuario desde la GUI), y cada uno de estos filtros se podrá traducir en una cadena de caracteres que se corresponderá con el texto de su operador análogo.
 Por tanto, al realizar la extracción podremos encadenar la lista de operadores extraída desde la lista de filtros y construír la consulta. 
 Tras un análisis de los operadores distinguimos dos grandes tipos de filtros:
+
 \begin{itemize}
 \item \textbf{Filtros lógicos:} Se corresponden con los operadores lógicos ``OR'' y ``NOT'' (el operador ``AND'' ya equivale a concatenar dos operadores). Son filtros que actúan como operadores entre filtros (``OR'' es un operador que actúa sobre dos filtros y ``NOT'' sobre un filtro).
 \item\textbf{Filtros no lógicos:} Son el resto de filtros que no actúan como operadores sobre otros filtros sino que actúan (metafóricamente) como constantes. Una extracción debe contener al menos uno de estos filtros para poder lanzar una consulta. 
 \end{itemize}
-\paragraph{Usuarios y credenciales}
+
+\paragraph{Usuarios y credenciales (locales)}
 Para cumplir con los requisitos funcionales de autentificación, crearemos clases Java que representen a los distintos usuarios que se pueden registrar y autentificar en nuestro sistema. Cada usuario estará identificado por un nombre único y una contraseña que usará para acceder a la GUI.
 \paragraph{Tweets y Geolocalizaciones}
 Para modelar un tweet hemos creado la clase Java Tweet. Esta clase contendrá como atributos los datos y metadatos que nos parece interesante guardar para cada tweet extraído (nos hemos basado en la clase Status de la librería Twitter4J, que también encapsula los tweets):
+
 \begin{itemize}
 	\item Fecha de creación
 	\item Recuento de veces marcado como favorito
@@ -55,23 +60,28 @@ Para modelar un tweet hemos creado la clase Java Tweet. Esta clase contendrá co
 	\item Cuenta desde la que se envía el tweet
 	\item Lista de menciones a otras cuentas
 	\item Marcador de tweets potencialmente sensibles
-	\item Geolocalización desde la cual se envió el tweet (si está disponible). Se encapsula en una clase que contiene la latitud y la longitud como atributos.
+	\item Geolocalización desde la cual se envió el tweet (si está disponible).
 	\item Añadiremos un identificador numérico para nuestra base de datos aparte del que nos proporciona Twitter (por que nosotros podemos guardar el mismo tweet dos veces en dos extracciones diferentes)
 \end{itemize}
 
 \begin{figure}[Diagrama UML Principal]{FIG:MAINUML}{Diagrama UML de las clases principales del modelo de datos. Contiene las clases Usuario, Extracción, Tweet, Filtro, Credenciales, Geolocalización y Filtro}
 \image{12cm}{}{mainModelUML}
 \end{figure}
+
 \paragraph{Credenciales de la API de Twitter}
 Para modelar unos credenciales de la API de Twitter hemos creado la clase Credenciales, la cual contendrá las cuatro cadenas de caracteres o ``tokens'' que nos autentifican en el servicio, así como el nombre público de la cuenta. 
+
 \paragraph{Tareas asíncronas del servidor}
 Para modelar las tareas asíncronas y sus diferentes tipos se creará la clase TareaServidor y todas las clases que heredarán de ella.
 Según su funcionalidad,se modelarán dos grandes tipos de tareas:
+
 \begin{itemize}
 	\item \textbf{Tareas de extracción:} Tareas que realizarán alguna acción concreta sobre una extracción, por ejemplo alimentar una extracción indefinidamente (ver RF-8).
 	\item \textbf{Tareas de análisis:} Se encargarán de generar y/o actualizar reportes analíticos sobre los tweets ya extraídos.
 \end{itemize}
-El diagrama UML completo conteniendo los tipos de tareas está disponible en el anexo (ver \ref{FIG:SERVERTASKUML}) \\
+
+El diagrama UML completo conteniendo los tipos de tareas está disponible en el anexo (ver \ref{FIG:SERVERTASKUML}) 
+
 Las tareas tendrán un ciclo de vida muy concreto que se modelará mediante unos estados en los que puede estar la tarea dependiendo de su tipo, de las acciones manuales de los usuarios y de los eventos que puedan ocurrir durante sus ejecuciones.
 Este ciclo de vida se muestra en el siguiente diagrama:
 
@@ -80,32 +90,51 @@ Este ciclo de vida se muestra en el siguiente diagrama:
 \end{figure}
 Una tarea tendrá el estado ``Nueva'' cuando sea creada y podrá ser eliminada en cualquier estado. Los estados rodeados por línea discontinua son específicos de algún tipo de tarea (el estado ``Programada'' sólo sera alcanzable para las tareas programables).
 \paragraph{Reportes Analíticos y Registros}
-Siguiendo los requisitos funcionales, una vez extraídos y guardados los tweets se podrán crear, modificar y eliminar diferentes tipos de reportes que contendrán los resultados de los análisis que realicemos sobre los datos.\\
+Siguiendo los requisitos funcionales, una vez extraídos y guardados los tweets se podrán crear, modificar y eliminar diferentes tipos de reportes que contendrán los resultados de los análisis que realicemos sobre los datos.
+
 Para modelar todos los tipos de reportes se creará la clase ReporteAnalítico y todas las clases que heredarán de ella.
-Cada distinto tipo de reporte tendrá unos registros que contendrán los resultados, siendo estos registros también de tipos diversos dependiendo del tipo de reporte al que pertenezcan.\\
+Cada distinto tipo de reporte tendrá unos registros que contendrán los resultados, siendo estos registros también de tipos diversos dependiendo del tipo de reporte al que pertenezcan.
+
 El diagrama UML que representa las clases e interfaces más relevantes que modelan estos reportes y registros se encuentra en los apéndices (ver \ref{FIG:ANALYTICSREPORTSUML})
 \paragraph{Gráficos}
-Para la elaboración de gráficos se usará la librería externa  \href{http://www.jfree.org/jfreechart/}{JFreeChart}. Esta librería nos permitirá, en nuestro entorno Java, configurar y generar gráficos sencillos que mostrarán los resultados de los reportes analíticos que hayamos generado. Soporta distintos tipos de gráficas (barras, línea, circular,etc).\\
+Para la elaboración de gráficos se usará la librería externa  \href{http://www.jfree.org/jfreechart/}{JFreeChart}. Esta librería nos permitirá, en nuestro entorno Java, configurar y generar gráficos sencillos que mostrarán los resultados de los reportes analíticos que hayamos generado. Soporta distintos tipos de gráficas (barras, línea, circular,etc).
+
 Para generar un gráfico, esta librería nos ofrece un constructor que requiere un conjunto de datos o ``Dataset'' (clases incluidas en la librería que encapsularán los valores de los registros) y una configuración para el gráfico (leyendas, fuentes, tipos de linea, colores, etc.) Este funcionamiento se muestra en este diagrama:
 
 \begin{figure}[Funcionamiento general de JFreeChart]{FIG:JFREECHARTDIAGRAM}{Diagrama que muestra el proceso de generación de un gráfico con la librería \href{http://www.jfree.org/jfreechart/}{JFreeChart}}
 	\image{}{}{JFreeChartDiagram}
 \end{figure}
 
-Para modelar los gráficos que se vayan generando se creará la clase GráficoReporteAnalítico (guardaremos las gráficas en base de datos). También crearemos clases para encapsular las configuraciones posibles de cada tipo de gráfico (estas clases heredarán de la clase TweetExtractorPreferenciasGráfico). \\
-A continuación aparece el diagrama UML completo que muestra toda esta sección del modelo de datos:
+Para modelar los gráficos que se vayan generando se creará la clase GráficoReporteAnalítico (guardaremos las gráficas en base de datos). También crearemos clases para encapsular las configuraciones posibles de cada tipo de gráfico (estas clases heredarán de la clase TweetExtractorPreferenciasGráfico). 
+
+A continuación aparece el diagrama UML completo que muestra esta parte del modelo:
 
 \begin{figure}[Diagrama UML Preferencias Gráficos]{FIG:UMLGRAFICOS}{Diagrama UML que muestra el modelo de datos que representan los gráficos de los reportes y las configuraciones para generarlos.}
 	\image{}{}{AnalyticsReportImageUML}
 \end{figure}
 
 \paragraph{Análisis semántico de los Tweets}
-Por último, y de acuerdo con el último apartado de los requisitos funcionales, se añadirán al modelo los objetos que se usarán para el análisis semántico de los tweets. \\
-Si hablamos de semántica, lo primero que debemos tener en cuenta es el idioma del texto que vamos a analizar. \\La API de Twitter ya nos indica de forma nativa en qué idioma está escrito cada tweet. En el anexo puede encontrarse una referencia de los idiomas que la API es capaz de identificar (ver \ref{TB:IDIOMASAPI}). Para modelar los idiomas se creará un referencial inmutable de idiomas encapsulados en la clase IdiomaTwitterDisponible.\\
+Por último, y de acuerdo con el último apartado de los requisitos funcionales, se añadirán al modelo los objetos que se usarán para el análisis semántico de los tweets. 
+
+Si hablamos de semántica, lo primero que debemos tener en cuenta es el idioma del texto que vamos a analizar. 
+
+La API de Twitter ya nos indica de forma nativa en qué idioma está escrito cada tweet. En el anexo puede encontrarse una referencia de los idiomas que la API es capaz de identificar (ver \ref{TB:IDIOMASAPI}). Para modelar los idiomas se creará un referencial inmutable de idiomas encapsulados en la clase IdiomaTwitterDisponible.
+
 Dado un idioma, se podrán crear distintas listas de palabras ignorables que no se tendrán en cuenta para el cálculo de frecuencias.
-Dado un idioma y un conjunto de extracciones, un usuario debe poder partir los tweets extraídos en términos y almacenarlos para su posterior clasificación, y para ello construiremos una clase ConjuntoTokensPersonal.\\
+Dado un idioma y un conjunto de extracciones, un usuario debe poder partir los tweets extraídos en términos y almacenarlos para su posterior clasificación, y para ello construiremos una clase ConjuntoTokensPersonal.
+
 Dado un idioma un usuario también podrá crear diferentes configuraciones para la clasificación de los términos. Estas configuraciones se modelarán como un conjunto de categorías y subcategorías.
-Los términos obtenidos se podrán clasificar en estas categorías, y esta clasificación se almacenará también en base de datos para tenerla en cuenta en los posteriores análisis. 
+Los términos obtenidos se podrán clasificar en estas categorías, y esta clasificación se almacenará también en base de datos para tenerla en cuenta en los posteriores análisis.
+
+En la figura (ver \ref{FIG:UMLANALISISSEMANTICO}) se puede apreciar el diagrama UML completo que contiene las clases que se usarán para modelar estos objetos, así como sus relaciones entre ellas.
+
+\paragraph{Base de datos}
+Gracias a nuestra decisión de utilizar Hibernate para gestionar el mapeo objeto-relacional de nuestro sistema, no tendremos que preocuparnos por la creación y configuración de las tablas de la base de datos.
+
+Una vez diseñado como está nuestro modelo, solo tendremos que añadir anotaciones en las clases durante el desarrollo para que Hibernate reconozca todas nuestras clases, sus atributos, sus interrelaciones ,etc. 
+
+Ayudándose de estas anotaciones, Hibernate se encargará de generar el esquema, las tablas, etc. Sólo tenemos que facilitarle al framework las credenciales para acceder a la base de datos.
+
 \begin{figure}[Diagrama UML Análisis Semántico]{FIG:UMLANALISISSEMANTICO}{Diagrama UML que muestra el modelo de datos utilizado para modelar los objetos relacionados con el análisis semánticos de los datos.}
 	\image{}{}{NaturalLanguageProcessingUML}
 \end{figure}

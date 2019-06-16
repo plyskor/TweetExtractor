@@ -74,10 +74,6 @@ public abstract class AnalyticsReport implements Serializable{
 	         joinColumns = { @JoinColumn(name = "report_identifier") }, 
 	         inverseJoinColumns = { @JoinColumn(name = "extraction_identifier") })
 	private List<Extraction> extractions = new ArrayList<>();
-
-	/**
-	 * 
-	 */
 	public AnalyticsReport() {
 		super();
 		this.creationDate= new Date();

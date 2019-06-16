@@ -12,20 +12,25 @@
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Ciclo de vida de una tarea as\IeC {\'\i }ncrona}}{14}{figure.caption.39}
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Funcionamiento general de JFreeChart}}{15}{figure.caption.42}
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Diagrama UML Preferencias Gr\IeC {\'a}ficos}}{16}{figure.caption.43}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Diagrama UML An\IeC {\'a}lisis Sem\IeC {\'a}ntico}}{18}{figure.caption.45}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Diagrama UML An\IeC {\'a}lisis Sem\IeC {\'a}ntico}}{18}{figure.caption.46}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Diagrama de funcionamiento Spring + Hibernate + JPA}}{20}{figure.caption.48}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Estructura de una aplicaci\IeC {\'o}n JavaFX}}{22}{figure.caption.50}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Diagrama de funcionamiento de JavaFX Task}}{23}{figure.caption.51}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Diagrama conexi\IeC {\'o}n SOAP+HTTPS}}{24}{figure.caption.53}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Diagrama UML Tareas As\IeC {\'\i }ncronas}}{42}{figure.caption.67}
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Diagrama UML Reportes An\IeC {\'a}lisis}}{43}{figure.caption.68}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Diagrama UML Tareas As\IeC {\'\i }ncronas}}{34}{figure.caption.51}
-\contentsline {figure}{\numberline {A.2}{\ignorespaces Diagrama UML Reportes An\IeC {\'a}lisis}}{35}{figure.caption.52}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {C.1}{\ignorespaces Pantalla inicial}}{39}{figure.caption.54}
-\contentsline {figure}{\numberline {C.2}{\ignorespaces Registro e inicio de sesi\IeC {\'o}n}}{39}{figure.caption.55}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{39}{figure.caption.55}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{39}{figure.caption.55}
-\contentsline {figure}{\numberline {C.3}{\ignorespaces Pantalla de bienvenida}}{40}{figure.caption.56}
-\contentsline {figure}{\numberline {C.4}{\ignorespaces Constructor de consultas}}{40}{figure.caption.57}
-\contentsline {figure}{\numberline {C.5}{\ignorespaces Edici\IeC {\'o}n de credenciales}}{41}{figure.caption.58}
-\contentsline {figure}{\numberline {C.6}{\ignorespaces Tarea en segundo plano}}{41}{figure.caption.59}
+\contentsline {figure}{\numberline {D.1}{\ignorespaces Pantalla inicial}}{63}{figure.caption.71}
+\contentsline {figure}{\numberline {D.2}{\ignorespaces Registro e inicio de sesi\IeC {\'o}n}}{63}{figure.caption.72}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{63}{figure.caption.72}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{63}{figure.caption.72}
+\contentsline {figure}{\numberline {D.3}{\ignorespaces Pantalla de bienvenida}}{64}{figure.caption.73}
+\contentsline {figure}{\numberline {D.4}{\ignorespaces Constructor de consultas}}{64}{figure.caption.74}
+\contentsline {figure}{\numberline {D.5}{\ignorespaces Edici\IeC {\'o}n de credenciales}}{65}{figure.caption.75}
+\contentsline {figure}{\numberline {D.6}{\ignorespaces Tarea en segundo plano}}{65}{figure.caption.76}

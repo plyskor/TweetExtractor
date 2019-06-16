@@ -63,9 +63,6 @@ import es.uam.eps.tweetextractor.util.DateAdapter;
 @Controller
 @Table(name = "perm_extraction")
 public class Extraction implements Serializable {
-	/**
-	 * 
-	 */
 	@XmlTransient
 	@Transient
 	transient UserServiceInterface service;
@@ -97,6 +94,9 @@ public class Extraction implements Serializable {
 	@Column(name = "extracting")
 	private boolean extracting;
 	public Extraction() {
+		create();
+	}
+	public void create() {
 		creationDate = new Date();
 		lastModificationDate = new Date();
 		tweetList = new ArrayList<>();
@@ -104,7 +104,6 @@ public class Extraction implements Serializable {
 		id = UUID.randomUUID().toString();
 		extracting=false;
 	}
-
 	/**
 	 * @return the idDB
 	 */

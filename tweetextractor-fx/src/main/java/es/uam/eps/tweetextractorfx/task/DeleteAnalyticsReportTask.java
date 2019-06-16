@@ -19,7 +19,7 @@ import es.uam.eps.tweetextractorserver.model.servertask.ServerTask;
  * @author jgarciadelsaz
  *
  */
-public class DeleteAnalyticsReportTask extends TwitterExtractorFXTask<Integer> {
+public class DeleteAnalyticsReportTask extends TweetExtractorFXTask<Integer> {
 	
 	private AnalyticsReportServiceInterface arServ;
 	private ServerTaskServiceInterface stServ;

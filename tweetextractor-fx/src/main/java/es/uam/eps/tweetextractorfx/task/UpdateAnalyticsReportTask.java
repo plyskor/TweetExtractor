@@ -34,7 +34,7 @@ import es.uam.eps.tweetextractor.model.analytics.report.register.impl.TrendingWo
  * @author jgarciadelsaz
  *
  */
-public class UpdateAnalyticsReportTask extends TwitterExtractorFXTask<String> {
+public class UpdateAnalyticsReportTask extends TweetExtractorFXTask<String> {
 
 	private AnalyticsCategoryReport report;
 

@@ -12,7 +12,7 @@ import es.uam.eps.tweetextractor.model.Extraction;
  * @author Jose Antonio García del Saz
  *
  */
-public class CreateExtractionTask extends TwitterExtractorFXTask<Integer>{
+public class CreateExtractionTask extends TweetExtractorFXTask<Integer>{
 	private Extraction extraction;
 	private Logger logger = LoggerFactory.getLogger(CreateExtractionTask.class);
 	/**

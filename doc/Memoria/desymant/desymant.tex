@@ -1,0 +1,155 @@
+Vamos a desarrollar nuestra aplicación en el IDE \href{https://www.eclipse.org/}{Eclipse}. Como herramienta de gestión y construcción de proyectos usaremos \href{https://maven.apache.org/}{Maven}, que nos permitirá de forma fácil añadir, actualizar y eliminar dependencias en nuestras aplicaciones, así como compilar todos los módulos y construir los ejecutables.\\
+
+Todo el código estará disponible en este \href{https://github.com/plyskor/TweetExtractor}{repositorio} de GitHub, desde el que se pueden ver las distintas versiones de la aplicación y la evolución del código a lo largo del tiempo.\\
+A continuación se describen los distintos módulos que contiene nuestro sistema:
+
+\begin{itemize}
+	\item \textbf{tweetextractor-commons:} Es el módulo que contiene todas las librerías que son compartidas por el resto de módulos, es decir, las clases que son comunes. Al compilarlo obtendremos un contenedor .jar que será incluído como librería en los módulos que lo requieran.Contiene:
+	\begin{itemize}
+		\item La configuración de conexion a la base de datos, así como todas las interfaces que necesitamos para interactuar con ella (DAO's y servicios).
+		\item La configuración del contexto aplicativo a través de SpringFramework.
+		\item Las interfaces de los servicios web SOAP.
+		\item La mayor parte del modelo de datos, así como la configuración para el mapeo objeto-relacional.
+	\end{itemize}
+	\item \textbf{tweetextractor-fx:} Es el módulo que contendrá y generará la interfaz gráfica del usuario TweetExtractorFX. Al compilarlo generará un ejecutable .jar desde el cual se podrá acceder a la GUI. Contiene:
+	 \begin{itemize}
+	 	\item La vista de nuestra GUI. Se compone de ficheros .fxml que contienen las diferentes pantallas y diálogos que componen la interfaz gráfica.
+	 	\item El controlador de nuestra GUI. Cada elemento de la vista está conectado a su elemento controlador. Son clases Java que se encargarán de mediar entre la vista y el modelo.
+	 	\item JavaFX nos proporciona unas tareas (bastante similares a los Threads de Java) para realizar acciones más largas (como por ejemplo, recuperar 15000 palabras de la base de datos) en segundo plano sin bloquear la aplicación durante su ejecución. Hemos implementado muchas de las acciones duraderas a través de estas tareas.
+	 	\item La interfaz que conecta la GUI con la API de Twitter. Se usará para alimentar extracciones desde la GUI.
+	 	\item La interfaz que gestiona las preferencias de nuestra aplicación que se guardan en el registro del sistema operativo (como la conexión con el módulo servidor).
+	 \end{itemize}
+ 	 \item \textbf{tweetextractor-server:}Es el módulo que contendrá y generará el servidor web de nuestro sistema: TweetExtractorServer. Al compilarlo, generará un contenedor web Java .war que podrá desplegarse sobre un servidor de aplicaciones. Contiene:
+ 	 \begin{itemize}
+ 	 	\item El servidor. Este se encarga de la gestión de las tareas asíncronas del usuario (las carga, ejecuta, detiene, crea, elimina,...). Tiene en cuenta y lleva a cabo las peticiones de los distintos clientes que acceden a él.
+ 	 	\item La implementación de los servicios web SOAP. Son las clases donde se especifican las acciones que se ejecutan en el servidor cuando algún cliente envía una petición desde la interfaz.
+ 	 	\item La interfaz que conecta el servidor con la API de Twitter. Se usará para alimentar extracciones desde el servidor.
+ 	 \end{itemize}
+\end{itemize}
+
+\paragraph{Contextos: Hibernate + SpringFramework}
+Nuestro sistema utilizará contextos Spring en los que guardaremos objetos (o ``beans'', como se les conoce en el universo Spring) que son accesibles desde cualquier parte del sistema y que son construídos, modificados y liberados según las necesidades de forma automática. 
+
+Los beans que nos interesa declarar en nuestro caso son nuestros servicios que nos otorgan los distintos métodos para encapsular el acceso a base de datos. 
+
+Gracias a Spring, cuando vamos a usar un servicio este es automáticamente construido y entregado desde el contexto(están todos marcados con la anotación @Service). Entonces Spring inyecta (gracias a la anotación @Autowired) en nuestro servicio el objeto de acceso a datos (DAO) correspondiente al tipo de servicio y este ya está listo para ser utilizado. Este funcionamiento puede observarse en el diagrama que se muestra a continuación:
+
+\begin{figure}[Diagrama de funcionamiento Spring + Hibernate + JPA]{FIG:UMLGRAFICOS}{Diagrama que muestra las distintas capas del funcionamiento de nuestros accesos a la base de datos. Se distinguen los servicios (nivel entidad), los objetos de acceso a datos (nivel DAO), y los objetos relacionales en sí (las tablas de la base de datos).}
+	\image{}{}{HibernateSpring}
+\end{figure}
+
+Todos los métodos de nuestros servicios serán transaccionales ayudándonos de la anotación @Transactional. El código completo del DAO y Servicio genéricos se encuentran en el anexo (ver \cref{COD:FULLGENERICSERVICE1}). A continuación se muestra un fragmento de código perteneciente al servicio genérico que ilustra estos últimos comentarios:\newpage
+
+\JavaCode[COD:GENERICSERVICE]{Clase GenericService}{Ejemplo de declaración, atributos y anotaciones de nuestro servicio genérico (al que extienden el resto de servicios específicos)}{java/GenericService.java}{20}{38}{20} 
+
+Una vez está lista la interfaz Objeto <->  BDD, ahora sólo falta añadir anotaciones a las clases del modelo de datos para que Hibernate automáticamente cree y modifique las tablas de forma automática (ver \cref{COD:EXTRACTIONANOTATIONS}.5). 
+
+Hibernate junto con JPA nos proporciona también una excelente compatibilidad entre el polimorfismo Java y el mapeo objeto-relacional asociado a esta.
+Se nos ofrecen múltiples opciones: crear una tabla para cada tipo de clase que extiende a la clase abstracta (de este modo hibernate sabe directamente qué tipo de objeto debe construir para mapear una fila de dicha tabla), crear una misma tabla para todos los tipos (de este modo Hibernate usará un campo al que llamaremos discriminante que le indicará saber con qué clase se corresponde cada fila de la tabla conjunta), etc. 
+
+Un ejemplo de implementación de la herencia en tabla única es el de los reportes analíticos (todos se guardan en la tabla perm\_analytics\_report). Para distinguir de qué tipo es cada uno se usa un discriminante que contiene una cadena de caracteres que identifica a cada tipo en su clase correspondiente. Un fragmento del código está disponible en el anexo (ver \cref{COD:ANALYTICSREPORTHIERARCHY}.6,7).
+
+Por otro lado, un ejemplo de herencia implementado en una tabla para cada clase son los registros de estos reportes analíticos (ver \cref{COD:REPORTREGISTERHIERARCHY}.8). \newpage
+
+\paragraph{GUI. JavaFX: Vista y controlador}
+Como habíamos indicado, la GUI ha sido construída con la librería \href{https://openjfx.io/}{JavaFX}. Esta librería funciona con el diseño Modelo-Vista-Controlador. Nos permite diseñar cada pantalla o diálogo de la vista en un fichero XML (.fxml) de una forma muy similar a la que diseñaríamos una página web HTML (distintos tipos de objetos predefinidos con distintos atributos para controlarlos).
+Una vez lista la vista, la conectamos a un controlador java a través del cual gestionaremos la vista en contacto con el modelo (con ayuda de los servicios).
+
+En el siguiente diagrama que nos proporciona Oracle en la documentación se puede ver de forma muy generalizada la estructura de una aplicación JavaFX:
+
+
+\begin{figure}[Estructura de una aplicación JavaFX]{FIG:JAVAFXSTRUCTURE}{Diagrama que muestra de forma muy generalizada la estructura de una aplicación \href{https://openjfx.io/}{JavaFX}}
+	\image{6cm}{}{JavaFXHierarchy}
+\end{figure}
+
+En TweetExtractorFX, la clase MainApplication creará el escenario (Stage) primario e incluirá en él una escena (Scene) que está controlada por nuestra clase RootLayoutControl. El RootLayout contiene la barra de menús de la aplicación en la parte superior, así como una escena central que irá cambiando dependiendo del elemento de la vista que mostremos en cada momento. Este funcionamiento se ve claramente en el código de los apéndices (ver \cref{COD:INITIALIZEGUI}.9).
+
+Unos elementos especiales de la vista son los diálogos, todos sus controladores extienden a nuestra clase TweetExtractorFXDialogController, y se muestran en modo ventana modal, es decir, mientras el diálogo se muestra sólo se puede interactuar con él, bloqueándose el resto de la aplicación. Además, por necesidad de algunos tipos de diálogos en los que se requiere al usuario una entrada de datos, sus controladores pueden devolver una respuesta a la aplicación principal al cerrarse el diálogo. En la aplicación principal hay un método que se encarga de mostrar estos diálogos y recoger sus respuestas (ver \cref{COD:LOADDIALOGFXML}.10). \newpage
+
+Uno de los principales problemas del desarrollo de la interfaz gráfica de usuario es que si se tiene un flujo de aplicación en un solo hijo de ejecución, cuando se realice una acción no instantánea (accesos largos a base de datos, conexiones a servidores en remoto...) el hilo quedará ocupado (puesto que está realizando dicha acción) y la interfaz gráfica queda completamente bloqueada (desatendida por el hilo).
+
+Para lidiar con este problema JavaFX nos ofrece una reinterpretación de los \href{https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html}{Thread} de Java hecha en exclusiva para esta librería.
+Cuando necesitamos ejecutar una tarea no instantánea lo que haremos en el hilo principal será crear el tipo de tarea concreto que queremos realizar (nuestras tareas extienden todas a nuestra clase abstracta TweetExtractorFXTask).
+
+Una vez creada, le pasaremos los parámetros necesarios (si es que los necesita), crearemos un hilo paralelo en el que arrancamos la tarea y mostramos un diálogo de carga mientras esperamos que el hilo acabe y nos de una respuesta (a diferencia de los Treads de Java, las tareas de JavaFX devuelven un objeto de la clase que queramos). Este funcionamiento se puede ver en este diagrama:
+
+\begin{figure}[Diagrama de funcionamiento de JavaFX Task]{FIG:JAVAFXTASK}{Diagrama que muestra el flujo de ejecución cuando se utiliza un hilo paralelo para la ejecución de tareas largas (como el acceso a la base de datos) sin bloquear la GUI completamente.}
+	\image{}{}{JavaFXTask}
+\end{figure}
+
+En los apéndices se puede encontrar el código de nuestra clase abstracta que encapsula las tareas concurrentes (ver \cref{COD:CUSTOMFXTASK}.11), un ejemplo de tarea concurrente desarrollada que se encarga de conectarse a la base de datos para recuperar los tweets de una extracción (ver \cref{COD:LOADTWEETSTASK}.12), y el código que lanza y espera a esta tarea desde la GUI (ver \cref{COD:LOADTWEETSGUI}.13).\newpage
+
+\paragraph{Servidor: Tareas asíncronas y servicios web SOAP}
+La aplicación TweetExtractorServer se compone de una clase principal (homónima) que crea y carga el contexto del servidor al arrancarlo, gestionarlo mientras esté funcionando y destruírlo al apagar el servidor. Nace dada la necesidad de que algunas tareas deban poder ser ejecutadas en segundo plano aún estando cerrada la GUI (RF-15).
+
+Todas las tareas asíncronas son cargadas por el servidor al arranque, y éste las mantiene almacenadas en una lista Java. El servidor tiene métodos por los cuales se pueden realizar distintas acciones con las tareas (añadir, eliminar, lanzar, detener...).
+
+Para acceder a estos métodos exclusivos del servidor, un usuario debe conectarse al servidor desde la GUI por medio de los servicios web SOAP. Para la implementación de estos servicios hemos optado por \href{https://docs.oracle.com/javaee/6/tutorial/doc/bnayl.html}{JAX-WS}, montando el protocolo SOAP directamente sobre HTTPS, como se puede ver en este diagrama:
+
+ \begin{figure}[Diagrama conexión SOAP+HTTPS]{FIG:SOAPOVERHTTPS}{Diagrama que pone en contraste la conexión SOAP tradicional (con los descriptores WSDL y el descubrimiento de métodos) con la conexión directa sobre el protocolo HTTP.}
+ 	\image{8cm}{}{SOAPoverHTTP}
+ \end{figure}
+
+Una tabla de referencia con todos los servicios web implementados, incluyendo una breve descripción de sus funcionalidades y un enlace a sus descriptores WSDL (a los que se accede por HTTPS obviamente) está disponible en los apéndices de esta memoria (ver \ref{TB:SOAPWSREFERENCE}).
+
+\paragraph{Encapsulado XML}
+Tanto para la transmisión de objetos a través de los servicios web como para la exportación de datos a ficheros de formato XML, es necesario disponer de un mapeo Objeto <-> XML. Para este fin se utiliza \href{https://docs.oracle.com/javase/7/docs/api/javax/xml/bind/package-summary.html}{XML Bind}, que nos proporciona unas anotaciones sobre las clases para automatizar el proceso (ver \cref{COD:EXTRACTIONANOTATIONS}.5).\newpage
+
+\paragraph{Filtros y consultas a la API de Twitter}
+Para la codificación de los filtros presentados en la sección anterior (ver \ref{SEC:MODELODATOS}), se crea la clase abstracta Filter de la que heredan todos los tipos de filtro que existen. Esta clase contiene el prototipo del método toQuery() que deberá implementar cada tipo de filtro. Los tipos de filtro implementados se enumeran a continuación:
+
+\begin{table} [Referencia de Filtros Disponibles]{TB:FILTERREFERENCE}{En esta tabla se muestran los distintos tipos de filtro implementados, así como su traducción a los operadores de la API de Twitter}
+	\begin{tabular}{|p{3.2cm}|p{8cm}|p{4 cm}|}
+		\hline
+		\textbf{Clase} & \textbf{Comentario} &\textbf{Operador API}   \\
+		FilterContains & Contiene una lista de palabras que queremos que contengan los tweets & palabra1 ... palabraN  \\
+		FilterContainsExact & Contiene una expresión literal que queremos que contengan los tweets & ``expresión''\\
+		FilterFrom & Contiene el nombre de una cuenta de Twitter & from:cuenta\\
+		FilterHashtag & Contiene una lista de hashtags que queremos que contengan los tweets & \#hashtag1 ... \#hashtagN\\
+		FilterList & Contiene una cuenta y el nombre de una lista en la que queremos que estén los tweets & list:cuenta/lista \\
+		FilterMention & Contiene el nombre de una cuenta que queremos que se mencione en los tweets & @cuenta\\
+		FilterOr & Contiene dos filtros y actúa de disyunción lógica entre ellos & filtro1 OR filtro2 \\
+		FilterNot & Contiene un filtro y actúa de negación lógica sobre él & -filtro\\
+		FilterSince & Contiene una fecha desde la que queramos que se enviasen los tweets & since:"YYYY-MM-DD"\\
+		FilterUntil & Contiene una fecha hasta la que queramos que se enviasen los tweets & until:"YYYY-MM-DD"\\
+		FilterTo & Contiene el nombre de una cuenta de Twitter hacia la que queremos que vaya dirigido el tweet & to:cuenta\\
+		\hline \hline
+		\hline
+	\end{tabular}
+\end{table}
+
+
+Una vez añadidos los filtros a una extracción desde la GUI (con el controlador QueryConstructorControl) se pueden traducir estos filtros a una consulta de la API de Twitter a través de un método de la clase estática FilterManager (ver \cref{COD:QUERYFROMFILTERS}.14).
+
+Con la consulta ya lista, utilizamos nuestra interfaz que se apoya en la librería \href{http://twitter4j.org/en/}{Twitter4J} para lanzar la consulta a Twitter y tratar la respuesta. Se gestionan también las distintas excepciones que pueden ocurrir (error de red, tasa temporal permitida por la API superada, error desconocido...) Parte del código que se utiliza para realizar estas consultas puede leerse en los apéndices (ver \cref{COD:TWITTERAPICONNECTION}.15).
+
+\paragraph{Reportes analíticos.}
+Tras modelar los distintos tipos de reportes y los diferentes tipos de registros que cada de ellos contiene, hay que diseñar la manera de analizar dichos resultados. 
+
+En la mayoría de las ocasiones se ha optado por realizar la consulta directamente a la base de datos a través del servicio TweetService, que contiene métodos para el análisis de los tweets como extractGlobalTimelineVolumeReport(User u), el cual nos devolvería un reporte del volumen de tweets por día que ha extraído un usuario. Para ello se utiliza la siguiente consulta SQL directamente en la base de datos:
+
+\SQLCode[COD:TIMELINEVOLUMEREPORT]{Consulta para analizar el volumen de tweets diario}{Consulta que se realiza para obtener como resultado el volumen de tweets que ha extraído un usuario cada día del año. Recibe el parámetro :user, que es el identificador del usuario que realiza la consulta.}{sql/timelineReport.sql}{1}{12}{1}
+
+\paragraph{Gráficos : Word Cloud}
+Para cumplir el requisito RF-37, se ha importado la librería externa \href{https://github.com/kennycason/kumo}{Kumo}. Tiene un funcionamiento similar al que describimos de la librería \href{http://www.jfree.org/jfreechart/}{JFreeChart} (ver \ref{FIG:JFREECHARTDIAGRAM}). 
+
+En este caso los registros de los reportes de frecuencia de palabras se encapsulan en una clase llamada FrequencyAnalyzer (proporcionada por la librería), en la que vamos introduciendo cada término y su frecuencia. Después, configuramos el gráfico con los atributos de nuestra clase WorldCloudChartConfiguration que encapsulará la parametrización de WordClouds. 
+
+Una vez con ambos elementos, podemos proceder a generar el gráfico y guardarlo en la base de datos. Como ejemplo se ha incluído en los apéndices el método que genera un WordCloud a partir de un reporte de frecuencia de términos (ver \cref{COD:WORDCLOUDCONSTRUCTOR}.16).
+
+Se da soporte a tres tipos de Word Cloud: circular, rectangular y bordear por píxeles (se le pasa una imagen con fondo transparente y generará un WordCloud con la forma de dicha imagen).\newpage
+
+\paragraph{Clase Constants}
+En la clase Constants se definen todos los datos inmutables que se utilizarán como referencia en nuestro sistema. Como es obvio, esta clase pertenece al módulo tweetextractor-commons ya que la consultan todos los módulos.
+
+Contiene una serie de objetos Java inmutables (mayoritariamente con los atributos ``final'' y ``static'') tales como enumeraciones (por ejemplo, los discriminantes para el polimorfismo Hibernate, que se explicarán en el siguiente apartado), mapeos entre números y cadenas de caracteres (por ejemplo, los estados de una tarea son números en la base de datos, mientras que nosotros vemos los estados como palabras en la GUI), la matriz de compatibilidad entre tipos de reportes y tipos de gráficos, etc.
+
+\paragraph{Encriptado de contraseñas en la base de datos}
+Para cumplir el requisito RNF-7 (ver \ref{SEC:REQNOFUNCIONALES}), vamos a utilizar la herramienta \href{https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCrypt.html}{BCrypt} que viene incluída con el conjunto de herramientas de seguridad de SpringFramework. 
+
+Ayudándonos de las funciones hash (unidireccionales o de un solo sentido) que nos proporciona, podemos encriptar la contraseña de un usuario en el momento que se registra. De este modo, la contraseña se envía ya cifrada a la base de datos desde la GUI (y se cifra dos veces, debido a la conexión SSL/TLS para acceder a la base de datos). 
+
+Cuando el usuario quiere iniciar sesión, la contraseña que proporciona al sistema es rehasheada para comprobarla con el hash que ya teníamos guardado en base de datos, de este modo la contraseña nunca sale de ningún módulo del sistema sin cifrar.
+
+El algoritmo criptográfico que usa \href{https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCrypt.html}{BCrypt} es \href{https://en.wikipedia.org/wiki/Blowfish_(cipher)}{Blowfish}. 
+

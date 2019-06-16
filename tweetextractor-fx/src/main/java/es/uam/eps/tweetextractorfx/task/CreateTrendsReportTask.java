@@ -17,7 +17,7 @@ import es.uam.eps.tweetextractorfx.util.TweetExtractorFXPreferences;
  * @author jose
  *
  */
-public class CreateTrendsReportTask extends TwitterExtractorFXTask<CreateServerTaskTrendsReportResponse> {
+public class CreateTrendsReportTask extends TweetExtractorFXTask<CreateServerTaskTrendsReportResponse> {
 	private int userId;
 	private AnalyticsReportTypes reportType;
 	private int limit;

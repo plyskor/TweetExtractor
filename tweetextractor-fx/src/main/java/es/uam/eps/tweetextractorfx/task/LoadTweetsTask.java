@@ -15,8 +15,9 @@ import es.uam.eps.tweetextractor.model.Tweet;
  * @author Jose Antonio García del Saz
  *
  */
-public class LoadTweetsTask extends TwitterExtractorFXTask<Integer>{
+public class LoadTweetsTask extends TweetExtractorFXTask<Integer>{
 	private Extraction extraction;
+	private TweetServiceInterface tweetService;
 	/**
 	 * @param springContext the spring context to set
 	 * @param extraction the extraction to set
@@ -24,17 +25,17 @@ public class LoadTweetsTask extends TwitterExtractorFXTask<Integer>{
 	public LoadTweetsTask(AnnotationConfigApplicationContext springContext, Extraction extraction) {
 		super(springContext);
 		this.extraction = extraction;
+		 tweetService= springContext.getBean(TweetServiceInterface.class);
 	}
 
 	@Override
 	protected Integer call() throws Exception {
 		if(extraction==null)return 0;
-		TweetServiceInterface tweetService= springContext.getBean(TweetServiceInterface.class);
 		List<Tweet>ret =tweetService.findByExtraction(this.getExtraction());
 		if (ret==null)return 0;
 		this.getExtraction().setTweetList(ret);
 		Logger logger = LoggerFactory.getLogger(this.getClass());
-		logger.info("Loaded "+ret.size() +"tweets from database");
+		logger.info("Loaded "+ret.size() +"tweets from database.");
 		return ret.size();
 	}
 

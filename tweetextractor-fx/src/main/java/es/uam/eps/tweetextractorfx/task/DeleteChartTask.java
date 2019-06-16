@@ -15,7 +15,7 @@ import es.uam.eps.tweetextractor.model.analytics.graphics.AnalyticsReportImage;
  * @author jose
  *
  */
-public class DeleteChartTask extends TwitterExtractorFXTask<Integer> {
+public class DeleteChartTask extends TweetExtractorFXTask<Integer> {
 	private AnalyticsReportImage chart;
 	private Logger logger = LoggerFactory.getLogger(DeleteChartTask.class);
 

@@ -19,7 +19,7 @@ import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsRepresentableRe
  * @author jose
  *
  */
-public class GenerateWordCloudChartTask extends TwitterExtractorFXTask<Integer> {
+public class GenerateWordCloudChartTask extends TweetExtractorFXTask<Integer> {
 	private AnalyticsRepresentableReport report;
 	private AnalyticsReportImage chart;
 	private AnalyticsReportImageTypes chartType;

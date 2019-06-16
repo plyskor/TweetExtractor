@@ -1,0 +1,32 @@
+\JavaCode[COD:FULLGENERICSERVICE1]{Clase GenericService completa (I)}{Ejemplo de declaración, atributos, métodos y anotaciones de nuestro servicio genérico (al que extienden el resto de servicios específicos)}{java/GenericService.java}{20}{69}{1}
+
+\JavaCode[COD:FULLGENERICSERVICE2]{Clase GenericService completa (II)}{Ejemplo de declaración, atributos, métodos y anotaciones de nuestro servicio genérico (al que extienden el resto de servicios específicos)}{java/GenericService.java}{70}{121}{51}
+
+\JavaCode[COD:FULLABSTRACTDAO1]{Clase AbtractGenericDAO completa (I)}{Implementación del objeto de acceso a datos (DAO) genérico (del cual heredan todos los DAO específico)}{java/AbstractGenericDAO.java}{22}{72}{1}
+
+\JavaCode[COD:FULLABSTRACTDAO2]{Clase AbtractGenericDAO completa (II)}{Implementación del objeto de acceso a datos (DAO) genérico (del cual heredan todos los DAO específico)}{java/AbstractGenericDAO.java}{73}{131}{52}
+
+
+\JavaCode[COD:EXTRACTIONANOTATIONS]{Anotaciones en la clase Extraction}{Se muestran todas las anotaciones de Hibernate que le ayudarán a traducir entre objetos y filas de la tabla perm\_extraction. También se muestran las anotaciones \href{https://docs.oracle.com/javase/7/docs/api/javax/xml/bind/package-summary.html}{XML Bind} para la traducción XML <-> Objeto}{java/Extraction.java}{50}{98}{50}
+
+\JavaCode[COD:ANALYTICSREPORTHIERARCHY]{Anotaciones de polimorfismo en la clase abstracta AnalyticsReport}{Se muestran todas las anotaciones de Hibernate que ayudarán tanto a la integración con el polimorfismo Java como aquellas que ayudarán a la traducción entre objetos y filas.}{java/AnalyticsReport.java}{47}{80}{47}
+
+\JavaCode[COD:TRENDSREPORTHIERARCHY]{Anotaciones de polimorfismo en la clase TrendingWordsReport}{Se muestran todas las anotaciones de Hibernate que ayudarán tanto a la integración con el polimorfismo Java como aquellas que ayudarán a la traducción entre objetos y filas.}{java/TrendingWordsReport.java}{22}{41}{22}
+
+\JavaCode[COD:REPORTREGISTERHIERARCHY]{Anotaciones de polimorfismo en la clase AnalyticsReportRegister}{Se muestran todas las anotaciones de Hibernate que ayudarán tanto a la integración con el polimorfismo Java como aquellas que ayudarán a la traducción entre objetos y filas.}{java/AnalyticsReportRegister.java}{23}{47}{23}
+
+\JavaCode[COD:INITIALIZEGUI]{Inicialización de la GUI}{Su muestran los métodos de la clase MainApplication que se encargan de inicializar el Stage principal y añadirle el RootLayout como Scene. Se muestra además el método que cargará cualquier pantalla de la vista en el centro del RootLayout (será fácilmente el método más usado en toda la aplicación).}{java/MainApplication.java}{75}{117}{75}
+
+\JavaCode[COD:LOADDIALOGFXML]{Carga de un diálogo modal}{Se muestra el método de la clase MainApplication que recibe la ruta de un diálogo fxml y la clase que se corresponde con su controlador para mostrarlo en pantalla. Devuelve una respuesta que será distinta (incluso vacía en algunos casos) según el tipo de diálogo que se quiera mostrar. }{java/MainApplication.java}{118}{143}{118}
+
+\JavaCode[COD:CUSTOMFXTASK]{Clase TweetExtractorFXTask}{Esta clase abstracta encapsula las tareas que se ejecutan en segundo plano para no bloquear la GUI. Todos los tipos de tareas extenderán a esta clase.}{java/TweetExtractorFXTask.java}{14}{31}{1}
+
+\JavaCode[COD:LOADTWEETSTASK]{Tarea concurrente que carga los tweets de una extracción}{Se muestra la clase que representa la tarea que utiliza el servicio de Tweets para conectarse a la base de datos y cargar todos los tweets de una extracción. }{java/LoadTweetsTask.java}{18}{47}{1}
+
+\JavaCode[COD:LOADTWEETSGUI]{Lanzamos una tarea concurrente desde la GUI}{Se muestra el proceso por el cual se llama a la tarea LoadTweetsTask desde la GUI, se lanza el diálogo de carga y se espera el éxito o el fracaso de la tarea para actuar en consecuencia. Obsérvese el uso de funciones lambda de Java. }{java/ExtractionDetailsControl.java}{279}{298}{279}
+
+\JavaCode[COD:QUERYFROMFILTERS]{Método de traducción Filtros <-> Consulta}{Método de la clase estática FilterManager que construye un consulta de la API de Twitter a partir de una lista de filtros.}{java/FilterManager.java}{37}{47}{37}
+
+\JavaCode[COD:TWITTERAPICONNECTION]{Método de consulta a la API de Twitter}{Método que realiza la consulta preparada a la API de Twitter y gestiona el resultado, así como las posibles excepciones que se puedan dar (error de red, exceso de la tasa temporal permitida por la API, etc.)}{java/ServerTwitterExtractor.java}{184}{225}{184}
+
+\JavaCode[COD:WORDCLOUDCONSTRUCTOR]{Generando un Word Cloud con \href{https://github.com/kennycason/kumo}{Kumo}}{Creando WordCloud  con una configuración y un reporte de frecuencia de palabras.}{java/TweetExtractorChartConstructor.java}{175}{224}{225}

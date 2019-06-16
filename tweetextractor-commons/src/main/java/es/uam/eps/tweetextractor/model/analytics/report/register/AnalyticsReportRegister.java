@@ -29,10 +29,6 @@ public abstract class AnalyticsReportRegister implements Serializable{
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "identifier")
 	private int identifier;
-	
-	/**
-	 * 
-	 */
 	public AnalyticsReportRegister() {
 		super();
 	}
@@ -48,6 +44,4 @@ public abstract class AnalyticsReportRegister implements Serializable{
 	public void setIdentifier(int identifier) {
 		this.identifier = identifier;
 	}
-
-
 }
