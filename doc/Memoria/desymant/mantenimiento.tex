@@ -1,1 +1,14 @@
+\paragraph{Control de versiones. Compilación}
+Como se mencionó al principio de este capítulo, tanto el código que compone nuestro sistema como esta memoria se encuentran publicadas en \href{https://github.com/plyskor/TweetExtractor}{GitHub}. 
+
+En dicho repositorio pueden encontrarse los evolutivos y las correcciones de defectos que se iban descubriendo durante las pruebas para las ejecuciones de los casos de uso.
+ 
+ Una vez clonado el código, la compilación y generación de binarios es muy sencilla: sólo necesitamos una máquina donde estén instalados tanto el JDK de Java (v1.8+) como la herramienta Maven. Basta con lanzar el comando ``mvn clean install'' desde el directorio raíz para que se realize todo el proceso de compilado y empaquetado.
+ 
 \paragraph{SonarQube}
+Dado la cantidad de código que comenzaba a juntarse durante el desarrollo, se optó por utilizar una herramienta de inspección continua de código como \href{https://www.sonarqube.org/}{SonarQube}. 
+
+Se ha desarrollado una tarea programada cada noche que descarga de GitHub la útima versión del código, la compila y envía los binarios a SonarQube. Tras un análisis exhaustivo, SonarQube es capaz de ofrecer reportes con medidas como las que se muestran en los apéndices (ver \ref{FIG:SONARMEASURES}).
+
+Para mejorar la calidad del sistema, SonarQube va detectando fallas de seguridad, bugs, duplicaciones de código, errores potenciales, etc. y además nos va proponiendo cómo solucionarlos.
+

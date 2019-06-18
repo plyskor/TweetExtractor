@@ -153,3 +153,21 @@ Cuando el usuario quiere iniciar sesión, la contraseña que proporciona al sist
 
 El algoritmo criptográfico que usa \href{https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCrypt.html}{BCrypt} es \href{https://en.wikipedia.org/wiki/Blowfish_(cipher)}{Blowfish}. 
 
+\paragraph{Limitaciones de la API de Twitter.}
+
+Como ya se ha mencionado, la API de Twitter tiene ciertas tasas de limitación a la hora de dejarnos extraer datos. Para cada credenciales de la API que tengamos (se obtienen creando una cuenta de desarrollador que requiere validación por número de teléfono) se nos permite un número máximo de peticiones y de tweets extraídos cada 15 minutos.
+
+Para lidiar con este problema se ha pensado en que un único usuario del sistema pueda tener guardados varios credenciales en un lista. Diseñaremos un algoritmo que decidirá qué credenciales hay que usar en cada momento para usar unos mientras se bloquean otros.
+
+Pensemos en nuestra lista como una lista circular, que funcionará de manera parecida al tambor de un revólver donde las balas son los credenciales (si el credencial está desbloqueado podemos lanzar la bala y si está bloqueado no habrá bala, sólo un número que nos indica el tiempo que tardarán esos credenciales a volver a aparecer en ese sitio). 
+
+Añadiremos a esta lista dos punteros, uno que nos indicará qué credenciales estamos usando en este momento y otro qu nos indica cuál fue la última extracción que vimos sin bloquear. Esta lista se ilustra aquí debajo:
+
+ \begin{figure}[Lista circular de credenciales]{FIG:APICREDENTIALSLIST}{Diagrama que muestra la lista circular de credenciales y los dos punteros. Los credenciales en verde estarían desbloqueados y los credenciales en rojo estarían bloqueados (sabiendo el tiempo de bbloqueo que le queda a cada uno)}.
+	\image{7cm}{}{credentialsCircularList}
+\end{figure}
+
+Comenzaremos extrayendo con los primeros credenciales. Si se bloquean, los marcamos como los últimos que vimos desbloqueados (con el puntero) y giramos la rueda (moviendo el puntero de credenciales actuales una posición). Si en algún momento tras girar la rueda se encuentran los dos punteros en la misma posición, significa que todos los credenciales están bloqueados, y lo que hacemos en este caso es esperar a los que antes se desbloqueen para volver a empezar el proceso con ellos. La decisión de esperar es para no hacer peticiones en vano si sabemos que todos los credenciales están bloqueados.
+
+Gracias a este algoritmo, si conseguimos obtener un número n de credenciales para la API, habremos dividido por n las limitaciones que nos impone dicha API. 
+
