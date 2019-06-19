@@ -69,3 +69,15 @@ Tras esto el gráfico es generado, guardado en base de datos y ya se puede consu
 Un tipo muy especial de gráfico es el Word Cloud cuya generación habíamos implementado. El Word Cloud, como el resto de gráficos, tiene una configuración específica (ver \ref{FIG:WCCHARTCONFIG}). Como ya se explicó, se pueden crear tres tipos de Word Cloud en nuestro sistema (ver \ref{FIG:WCTYPES})
 
 \paragraph{Análisis semántico. Reportes}
+Vamos a hablar de este tipo especial de reportes analíticos. Lo primero que hemos hecho es crear una configuración personalizada para el análisis semántico llamada ``Decide Madrid''. Hemos creado una serie de categorías (NamedEntities) y subcategorías (Topics) con las que nuestro sistema intentará clasificar los tweets. La hemos creado para el idioma español, pero puede crearse para cualquiera de los idiomas disponibles (\ref{TB:IDIOMASAPI}). La relación de categorías y subcategorías utilizadas puede verse en el apéndice (ver \ref{TB:NAMEDENTITIESTOPICS}).
+
+Una vez añadida y guardada en base de datos esta configuración, que además es editable desde la GUI (ver \ref{FIG:EDITNERCONFIGURATION}), podemos utilizar el conjunto de términos resultante del análisis de frecuencias para clasificar estos términos de acuerdo a las categorías y subcategorías. De esta manera, nuestra sistema habrá aprendido a clasificar los tweets en los que aparezcan esos términos. Para llevar a cabo esta clasificación se utiliza una de las pantallas que hemos desarrollado (ver \ref{FIG:CLASSIFYNERTOKENS}).
+
+Una vez elegidas las categorías y clasificados los términos, podemos pedirle al sistema que vaya al banco de datos para clasificar nuestros tweets (notar que si un tweet existe dos veces en extracciones distintas, sólo se computa una vez). Hemos creado una tarea asíncrona del servidor especial para este tipo de análisis, la hemos ejecutado y hemos esperado que finalice. Los resultados de los análisis se pueden obtener tanto para las categorías (\ref{TB:REPORTBYNAMEDENTITIES}) como para las subcategorías (\ref{TB:REPORTBYTOPICS1}, \ref{TB:REPORTBYTOPICS2}). 
+
+Con estos reportes también se pueden obtener distintos tipos de gráficas (\ref{FIG:COMPMATRIXREPORTCHRART}). Vamos a mostrar una de ellas para el reporte por categorías:
+
+ \begin{figure}[Gráfico de barras 3D que muestra los tweets por cateoría]{FIG:TWEETSBYNAMEDENTITIESCHART}{En este gráfico de barras 3D se muestra el número de tweets que contiene cada categoría.}
+	\image{}{}{gui/TweetsByNamedEntities}
+\end{figure}
+

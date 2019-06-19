@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.ImageIcon;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -59,7 +57,6 @@ public class MainApplication extends Application {
 	private RootLayoutControl rootLayoutController;
 	private AnnotationConfigApplicationContext springContext;
 	private Logger logger = LoggerFactory.getLogger(MainApplication.class);
-
 	public MainApplication() {
 		initAvailableFilters();
 	}
@@ -82,6 +79,7 @@ public class MainApplication extends Application {
 		TweetExtractorFXPreferences.initializePreferences();
 		springContext = new AnnotationConfigApplicationContext(TweetExtractorSpringConfig.class);
 	}
+
 	public void initRootLayout() {
 		try {
 			// Load root layout from fxml file.
