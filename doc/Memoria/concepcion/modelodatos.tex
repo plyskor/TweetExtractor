@@ -121,7 +121,7 @@ Dado un idioma y un conjunto de extracciones, un usuario debe poder partir los t
 Dado un idioma un usuario también podrá crear diferentes configuraciones para la clasificación de los términos. Estas configuraciones se modelarán como un conjunto de categorías y subcategorías.
 Los términos obtenidos se podrán clasificar en estas categorías, y esta clasificación se almacenará también en base de datos para tenerla en cuenta en los posteriores análisis.
 
-En la figura (ver \ref{FIG:UMLANALISISSEMANTICO}) se puede apreciar el diagrama UML completo que contiene las clases que se usarán para modelar estos objetos, así como sus relaciones entre ellas.
+En esta figura (ver \ref{FIG:UMLANALISISSEMANTICO}) se puede apreciar el diagrama UML completo que contiene las clases que se usarán para modelar estos objetos, así como sus relaciones entre ellas.
 
 \paragraph{Base de datos}
 Gracias a nuestra decisión de utilizar Hibernate para gestionar el mapeo objeto-relacional de nuestro sistema, no tendremos que preocuparnos por la creación y configuración de las tablas de la base de datos.
@@ -130,6 +130,3 @@ Una vez diseñado como está nuestro modelo, solo tendremos que añadir anotacio
 
 Ayudándose de estas anotaciones, Hibernate se encargará de generar el esquema, las tablas, etc. Sólo tenemos que facilitarle al framework las credenciales para acceder a la base de datos.
 
-\begin{figure}[Diagrama UML Análisis Semántico]{FIG:UMLANALISISSEMANTICO}{Diagrama UML que muestra el modelo de datos utilizado para modelar los objetos relacionados con el análisis semánticos de los datos.}
-	\image{}{}{NaturalLanguageProcessing}
-\end{figure}

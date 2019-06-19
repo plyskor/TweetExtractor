@@ -6,7 +6,7 @@ En dicho repositorio pueden encontrarse los evolutivos y las correcciones de def
  Una vez clonado el código, la compilación y generación de binarios es muy sencilla: sólo necesitamos una máquina donde estén instalados tanto el JDK de Java (v1.8+) como la herramienta Maven. Basta con lanzar el comando ``mvn clean install'' desde el directorio raíz para que se realize todo el proceso de compilado y empaquetado.
  
 \paragraph{SonarQube}
-Dado la cantidad de código que comenzaba a juntarse durante el desarrollo, se optó por utilizar una herramienta de inspección continua de código como \href{https://www.sonarqube.org/}{SonarQube}. 
+Dado la cantidad de código que comenzaba a acumularse durante el desarrollo, se optó por utilizar una herramienta de inspección continua de código como \href{https://www.sonarqube.org/}{SonarQube}. 
 
 Se ha desarrollado una tarea programada cada noche que descarga de GitHub la útima versión del código, la compila y envía los binarios a SonarQube. Tras un análisis exhaustivo, SonarQube nos ofrece distintos reportes sobre nuestro código. Aquí un ejemplo tras analizar nuestro proyecto:
 
