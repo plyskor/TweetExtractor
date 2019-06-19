@@ -1,9 +1,18 @@
 \begin{thebibliography}{1}
 
-\bibitem{Yusuke Yamamoto:2007}
-{\sc Yusuke Yamamoto},{\em Twitter4J - A Java library for the Twitter API}
-\newblock \href{http://twitter4j.org}{Visitar}.
+\bibitem{Bosnjak2012}
 
+{\sc Bosnjak, M., Oliveira, E., Martins, J., Mendes Rodrigues, E., \& Sarmento, L}, {\em Twitterecho: a distributed focused crawler to support open research with twitter data}, In Proceedings of the 21st International Conference on World Wide Web (pp. 1233-1240).
+\newblock \href{http://paginas.fe.up.pt/~niadr/PUBLICATIONS/2012/WWW12\_twitterecho.pdf}{Visitar}.
 
+\bibitem{Criado2013}
+
+{\sc Wang, X., Tokarchuk, L., Cuadrado, F., \& Poslad, S.}, {\em Government innovation through social media.}
+\newblock \href{http://www.eecs.qmul.ac.uk/~laurissa/Laurissas_Pages/Publications_files/047_0194.pdf}{Visitar}.
+
+\bibitem{Noordhuis2010}
+
+{\sc Noordhuis, P., Heijkoop, M., \& Lazovik, A.}, {\em Twitterecho: a distributed focused crawler to support open research with twitter data}, Mining twitter in the cloud: A case study. In 2010 IEEE 3rd International Conference on Cloud Computing (pp. 107-114). IEEE.
+\newblock \href{https://www.researchgate.net/profile/Alexander_Lazovik/publication/221400046_Mining_Twitter_in_the_Cloud_A_Case_Study/links/004635142df70c8361000000/Mining-Twitter-in-the-Cloud-A-Case-Study.pdf}{Visitar}.
 
 \end{thebibliography}

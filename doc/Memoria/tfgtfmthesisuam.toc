@@ -2,67 +2,67 @@
 \contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Motivaci\IeC {\'o}n del proyecto}{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}Objetivos y enfoque}{2}{section.1.2}
-\contentsline {paragraph}{Lista de objetivos principales}{2}{section*.14}
-\contentsline {chapter}{\numberline {2}Participaci\IeC {\'o}n ciudadana, teconolog\IeC {\'\i }a y redes sociales}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Estado del Arte}{3}{section.2.1}
-\contentsline {paragraph}{Extracci\IeC {\'o}n y an\IeC {\'a}lisis de datos en redes sociales}{3}{section*.15}
-\contentsline {paragraph}{Redes sociales: Gobernanza Electr\IeC {\'o}nica y participaci\IeC {\'o}n ciudadana}{4}{section*.16}
-\contentsline {section}{\numberline {2.2}Tecnolog\IeC {\'\i }as utilizadas}{5}{section.2.2}
-\contentsline {chapter}{\numberline {3}An\IeC {\'a}lisis de requisitos}{7}{chapter.3}
-\contentsline {section}{\numberline {3.1}Requisitos funcionales}{7}{section.3.1}
-\contentsline {paragraph}{Autentificaci\IeC {\'o}n}{7}{section*.19}
-\contentsline {paragraph}{Extracciones}{7}{section*.20}
-\contentsline {paragraph}{Credenciales de la API de Twitter}{8}{section*.21}
-\contentsline {paragraph}{Tareas as\IeC {\'\i }ncronas}{8}{section*.22}
-\contentsline {paragraph}{An\IeC {\'a}lisis}{8}{section*.23}
-\contentsline {paragraph}{Gr\IeC {\'a}ficos}{8}{section*.24}
-\contentsline {paragraph}{Procesamiento del lenguaje natural (NLP)}{9}{section*.26}
-\contentsline {section}{\numberline {3.2}Requisitos no funcionales}{9}{section.3.2}
-\contentsline {paragraph}{Entorno}{9}{section*.27}
-\contentsline {paragraph}{Autentificaci\IeC {\'o}n}{10}{section*.28}
-\contentsline {paragraph}{Extracciones}{10}{section*.29}
-\contentsline {paragraph}{Tareas as\IeC {\'\i }ncronas}{10}{section*.30}
-\contentsline {chapter}{\numberline {4}Concepci\IeC {\'o}n y dise\IeC {\~n}o}{11}{chapter.4}
-\contentsline {paragraph}{Aplicaciones ejecutables}{11}{section*.31}
-\contentsline {paragraph}{Entornos}{11}{section*.32}
-\contentsline {section}{\numberline {4.1}Modelo de datos}{13}{section.4.1}
-\contentsline {paragraph}{Extracciones y filtros}{13}{section*.34}
-\contentsline {paragraph}{Usuarios y credenciales (locales)}{14}{section*.36}
-\contentsline {paragraph}{Tweets y Geolocalizaciones}{14}{section*.37}
-\contentsline {paragraph}{Credenciales de la API de Twitter}{16}{section*.39}
-\contentsline {paragraph}{Tareas as\IeC {\'\i }ncronas del servidor}{16}{section*.40}
-\contentsline {paragraph}{Reportes Anal\IeC {\'\i }ticos y Registros}{17}{section*.42}
-\contentsline {paragraph}{Gr\IeC {\'a}ficos}{17}{section*.43}
-\contentsline {paragraph}{An\IeC {\'a}lisis sem\IeC {\'a}ntico de los Tweets}{19}{section*.46}
-\contentsline {paragraph}{Base de datos}{19}{section*.47}
-\contentsline {chapter}{\numberline {5}Desarrollo y mantenimiento}{21}{chapter.5}
-\contentsline {paragraph}{Contextos: Hibernate + SpringFramework}{22}{section*.49}
-\contentsline {paragraph}{GUI. JavaFX: Vista y controlador}{24}{section*.51}
-\contentsline {paragraph}{Servidor: Tareas as\IeC {\'\i }ncronas y servicios web SOAP}{26}{section*.54}
-\contentsline {paragraph}{Encapsulado XML}{26}{section*.56}
-\contentsline {paragraph}{Filtros y consultas a la API de Twitter}{27}{section*.57}
-\contentsline {paragraph}{Reportes anal\IeC {\'\i }ticos.}{28}{section*.59}
-\contentsline {paragraph}{Gr\IeC {\'a}ficos : Word Cloud}{28}{section*.60}
-\contentsline {paragraph}{Clase Constants}{29}{section*.61}
-\contentsline {paragraph}{Encriptado de contrase\IeC {\~n}as en la base de datos}{29}{section*.62}
-\contentsline {paragraph}{Limitaciones de la API de Twitter.}{29}{section*.63}
-\contentsline {section}{\numberline {5.1}Mantenimiento}{30}{section.5.1}
-\contentsline {paragraph}{Control de versiones. Compilaci\IeC {\'o}n}{30}{section*.65}
-\contentsline {paragraph}{SonarQube}{31}{section*.66}
-\contentsline {chapter}{\numberline {6}Resultados y ejemplos}{33}{chapter.6}
-\contentsline {paragraph}{Autentificaci\IeC {\'o}n}{33}{section*.70}
-\contentsline {paragraph}{Credenciales de la API y acotaci\IeC {\'o}n de las extracciones}{34}{section*.72}
-\contentsline {paragraph}{Servidor y tareas as\IeC {\'\i }ncronas}{35}{section*.74}
-\contentsline {paragraph}{Resultados de la extracci\IeC {\'o}n}{36}{section*.77}
-\contentsline {paragraph}{Primeros reportes anal\IeC {\'\i }ticos.}{36}{section*.78}
-\contentsline {paragraph}{Coniguraci\IeC {\'o}n y generaci\IeC {\'o}n de gr\IeC {\'a}ficos. Word Cloud}{37}{section*.80}
-\contentsline {paragraph}{An\IeC {\'a}lisis sem\IeC {\'a}ntico. Reportes}{38}{section*.81}
-\contentsline {chapter}{\numberline {7}Conclusiones y trabajo futuro}{39}{chapter.7}
-\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{41}{chapter*.83}
-\contentsline {chapter}{Definiciones}{43}{section*.84}
-\contentsline {chapter}{Acr\IeC {\'o}nimos}{45}{section*.86}
-\contentsline {part}{Ap\IeC {\'e}ndices}{47}{part.1}
-\contentsline {chapter}{\numberline {A}Diagramas}{49}{appendix.Alph1}
-\contentsline {chapter}{\numberline {B}Tablas}{53}{appendix.Alph2}
-\contentsline {chapter}{\numberline {C}C\IeC {\'o}digos}{63}{appendix.Alph3}
-\contentsline {chapter}{\numberline {D}Im\IeC {\'a}genes de la interfaz gr\IeC {\'a}fica}{79}{appendix.Alph4}
+\contentsline {paragraph}{Lista de objetivos principales}{2}{section*.12}
+\contentsline {chapter}{\numberline {2}Participaci\IeC {\'o}n ciudadana, teconolog\IeC {\'\i }a y redes sociales}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Estado del Arte}{5}{section.2.1}
+\contentsline {paragraph}{Extracci\IeC {\'o}n y an\IeC {\'a}lisis de datos en redes sociales}{5}{section*.13}
+\contentsline {paragraph}{Redes sociales: Gobernanza Electr\IeC {\'o}nica y participaci\IeC {\'o}n ciudadana}{6}{section*.14}
+\contentsline {section}{\numberline {2.2}Tecnolog\IeC {\'\i }as utilizadas}{7}{section.2.2}
+\contentsline {chapter}{\numberline {3}An\IeC {\'a}lisis de requisitos}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}Requisitos funcionales}{9}{section.3.1}
+\contentsline {paragraph}{Autentificaci\IeC {\'o}n}{9}{section*.17}
+\contentsline {paragraph}{Extracciones}{9}{section*.18}
+\contentsline {paragraph}{Credenciales de la API de Twitter}{10}{section*.19}
+\contentsline {paragraph}{Tareas as\IeC {\'\i }ncronas}{10}{section*.20}
+\contentsline {paragraph}{An\IeC {\'a}lisis}{10}{section*.21}
+\contentsline {paragraph}{Gr\IeC {\'a}ficos}{10}{section*.22}
+\contentsline {paragraph}{Procesamiento del lenguaje natural (NLP)}{11}{section*.24}
+\contentsline {section}{\numberline {3.2}Requisitos no funcionales}{11}{section.3.2}
+\contentsline {paragraph}{Entorno}{11}{section*.25}
+\contentsline {paragraph}{Autentificaci\IeC {\'o}n}{12}{section*.26}
+\contentsline {paragraph}{Extracciones}{12}{section*.27}
+\contentsline {paragraph}{Tareas as\IeC {\'\i }ncronas}{12}{section*.28}
+\contentsline {chapter}{\numberline {4}Concepci\IeC {\'o}n y dise\IeC {\~n}o}{13}{chapter.4}
+\contentsline {paragraph}{Aplicaciones ejecutables}{13}{section*.29}
+\contentsline {paragraph}{Entornos}{13}{section*.30}
+\contentsline {section}{\numberline {4.1}Modelo de datos}{15}{section.4.1}
+\contentsline {paragraph}{Extracciones y filtros}{15}{section*.32}
+\contentsline {paragraph}{Usuarios y credenciales (locales)}{16}{section*.34}
+\contentsline {paragraph}{Tweets y Geolocalizaciones}{16}{section*.35}
+\contentsline {paragraph}{Credenciales de la API de Twitter}{18}{section*.37}
+\contentsline {paragraph}{Tareas as\IeC {\'\i }ncronas del servidor}{18}{section*.38}
+\contentsline {paragraph}{Reportes Anal\IeC {\'\i }ticos y Registros}{19}{section*.40}
+\contentsline {paragraph}{Gr\IeC {\'a}ficos}{19}{section*.41}
+\contentsline {paragraph}{An\IeC {\'a}lisis sem\IeC {\'a}ntico de los Tweets}{21}{section*.44}
+\contentsline {paragraph}{Base de datos}{21}{section*.45}
+\contentsline {chapter}{\numberline {5}Desarrollo y mantenimiento}{23}{chapter.5}
+\contentsline {paragraph}{Contextos: Hibernate + SpringFramework}{24}{section*.47}
+\contentsline {paragraph}{GUI. JavaFX: Vista y controlador}{26}{section*.49}
+\contentsline {paragraph}{Servidor: Tareas as\IeC {\'\i }ncronas y servicios web SOAP}{28}{section*.52}
+\contentsline {paragraph}{Encapsulado XML}{28}{section*.54}
+\contentsline {paragraph}{Filtros y consultas a la API de Twitter}{29}{section*.55}
+\contentsline {paragraph}{Reportes anal\IeC {\'\i }ticos.}{30}{section*.57}
+\contentsline {paragraph}{Gr\IeC {\'a}ficos : Word Cloud}{30}{section*.58}
+\contentsline {paragraph}{Clase Constants}{31}{section*.59}
+\contentsline {paragraph}{Encriptado de contrase\IeC {\~n}as en la base de datos}{31}{section*.60}
+\contentsline {paragraph}{Limitaciones de la API de Twitter.}{31}{section*.61}
+\contentsline {section}{\numberline {5.1}Mantenimiento}{32}{section.5.1}
+\contentsline {paragraph}{Control de versiones. Compilaci\IeC {\'o}n}{32}{section*.63}
+\contentsline {paragraph}{SonarQube}{33}{section*.64}
+\contentsline {chapter}{\numberline {6}Resultados y ejemplos}{35}{chapter.6}
+\contentsline {paragraph}{Autentificaci\IeC {\'o}n}{35}{section*.68}
+\contentsline {paragraph}{Credenciales de la API y acotaci\IeC {\'o}n de las extracciones}{36}{section*.70}
+\contentsline {paragraph}{Servidor y tareas as\IeC {\'\i }ncronas}{37}{section*.72}
+\contentsline {paragraph}{Resultados de la extracci\IeC {\'o}n}{38}{section*.75}
+\contentsline {paragraph}{Primeros reportes anal\IeC {\'\i }ticos.}{38}{section*.76}
+\contentsline {paragraph}{Coniguraci\IeC {\'o}n y generaci\IeC {\'o}n de gr\IeC {\'a}ficos. Word Cloud}{39}{section*.78}
+\contentsline {paragraph}{An\IeC {\'a}lisis sem\IeC {\'a}ntico. Reportes}{40}{section*.79}
+\contentsline {chapter}{\numberline {7}Conclusiones y trabajo futuro}{41}{chapter.7}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{43}{chapter*.81}
+\contentsline {chapter}{Definiciones}{45}{section*.82}
+\contentsline {chapter}{Acr\IeC {\'o}nimos}{47}{section*.84}
+\contentsline {part}{Ap\IeC {\'e}ndices}{49}{part.1}
+\contentsline {chapter}{\numberline {A}Diagramas}{51}{appendix.Alph1}
+\contentsline {chapter}{\numberline {B}Tablas}{55}{appendix.Alph2}
+\contentsline {chapter}{\numberline {C}C\IeC {\'o}digos}{65}{appendix.Alph3}
+\contentsline {chapter}{\numberline {D}Im\IeC {\'a}genes y capturas de la interfaz gr\IeC {\'a}fica}{81}{appendix.Alph4}

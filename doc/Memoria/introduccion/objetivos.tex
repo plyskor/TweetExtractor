@@ -1,18 +1,27 @@
 \paragraph{Lista de objetivos principales}
+En este apartado se exponen los objetivos principales que esperan alcanzarse al término del proyecto. 
 \begin{itemize}
-        \item Desarrollo de herramienta para extraer datos acotables desde Twitter
+        \item Desarrollo de herramienta altamente adaptable para extraer datos acotables desde Twitter
         \begin{itemize}
                 \item Se usará el lenguaje de programación Java y la API REST de Twitter.
-                \item Se dotará al sistema de una interfaz gráfica sencilla desde la cual configurar fácilmente los datos a extraer, para después llevar a cabo las extracciones y poder visualizar los datos.
+                \item Se dotará al sistema de una interfaz gráfica sencilla desde la cual configurar fácilmente los datos a extraer. 
+                \item Debe ser altamente configurable para que el sistema pueda ser usado en cualquier contexto.
+                \item Los datos extraídos tienen que ser almacenados y consultables. También deben de poder ser exportables para su integración externa.
         \end{itemize}
        	\item Tratamiento de los datos
        	\begin{itemize}
        		\item Se analizarán los datos extraídos para obtener reportes del volumen de datos, la naturaleza de los datos (analizando hashtags, usuarios, menciones, etc.), la semántica del texto, etc.
-       		\item Se obtendrán representaciones de los reportes obtenidos por medio de gráficos y tablas.
+       		\item Los tipos de análisis (así como sus tipos de reportes asociados) deben poder extenderse fácilmente. El sistema debe abstraerse lo suficiente para poder escalar en funcionalidades fácilmente.
+       		\item Se obtendrán representaciones de los reportes obtenidos por medio de gráficos y tablas. 
+       		\item En el caso de uso concreto que vamos a evaluar, nos interesarán las tendencias en los mensajes, la inferencia de los intereses de los ciudadanos claseificando sus interacciones en temas y categorías.
+       		\item Los resultados de los análisis deben también almacenarse y ser exportables.
        	\end{itemize}
-       \item Extracción de conclusiones
+       \item Extracción de conclusiones en nuestro caso de uso
        \begin{itemize}
-       	\item Una vez terminado el tratamiento de los datos, se intentarán extraer conclusiones a partir de los resultados.
+       	\item Determinar si la participación de los ciudadanos es homogénea y continua en el tiempo o si por el contrario se deja influenciar por los eventos arbitrarios.
+       	\item Determinar los temas que se mencionan en los tweets que se incluyan en el contexto que hemos acotado. Podría ser interesante que se pueda determinar esta clasificación por temas en distintas áreas geográficas.
+       	\item Determinar la tasa de relevancia de los datos extraídos (cantidad de datos irrelevantes descargados) y en caso de que sea baja determinar cómo solventar este problema.
+       	\item Tras la utilización en el primer contexto, analizar las primeras evoluciones que nos gustaría que tuviera el sistema en el futuro.
        	\item Se analizarán los potenciales resultados que tendría nuestra herramienta en otros escenarios o casos de uso.
        \end{itemize}
 \end{itemize}
