@@ -1,0 +1,71 @@
+Durante este capítulo se mostrarán los resultados a los que se han llegado una vez desarrollado el sistema. Se utilizarán las dos aplicaciones para llevar a cabo la acotación, la extracción y guardado de datos, el análisis y la visualización de los reportes gráficos. 
+
+\paragraph{Autentificación}
+Lo primero que nos encontramos al abrir TweetExtractorFX (la interfaz gráfica de usuario), es la pantalla de bienvenida (ver \ref{FIG:WELCOMESCREEN}). Desde ella sólo podemos registrar un nuevo usuario para el sistema o iniciar sesión con uno ya existente. Hemos registrado unos cuantos nuevos usuarios y hemos iniciado sesión con uno de ellos que será el que usemos.
+
+\begin{figure}[Registro e inicio de sesión]{FIG:LOGINREGISTER}{Diálogos de autentificación en la aplicación y registros de los usuarios guardados en base de datos (obsérvese el encriptado de contraseñas).}
+	\subfigure[SBFIG:LOGINSCREEN]{Inicio de Sesión}{\image{6cm}{}{gui/loginScreen}} \quad
+	\subfigure[SBFIG:REGISTERSCREEN]{Registro}{\image{6cm}{}{gui/registerScreen}}
+	\subfigure[SBFIG:ENCRYPTEDPASSWORDS]{Registros en BDD}{\image{}{}{gui/encryptedPasswords}}
+\end{figure}
+
+\paragraph{Credenciales de la API y acotación de las extracciones}
+Una vez iniciada la sesión estaríamos en el menú principal (ver \ref{FIG:HOMESCREEN}). Lo primero que hay que hacer es añadir unos nuevos credenciales para la API de Twittter (ver \ref{FIG:EDITCREDENTIALS}). Para nuestro caso de uso concreto vamos a usar dos credenciales de la API de Twitter en total.
+
+Una vez hecho esto hemos decidido junto al tutor los datos que queríamos extraer. Tras un poco de debate, decidimos utilizar los tweets que mencionasen a cualquier cuenta de una lista de stackholders acordados (ver \ref{TB:STACKHOLDERS}: está compuesta por las cuentas de Twitter de las juntas de distrito de la ciudad de Madrid, así como las cuentas de los principales partidos políticos del consistorio municipal y las cuentas @DecideMadrid, @Madrid y @LineaMadrid), conteniendo la palabras clave "iniciativa", "firmas", "solicitud" o "petición". Como tenemos 32 cuentas a tracear y vamos a incluír una en cada extracción, al final tendremos un total de 32 extracciones creadas en nuestra base de datos.
+
+Para ello se construye un FilterOR que contiene otros cuatro filtros (cuatro FilterContains, uno por palabra clave) y se concatena con un FilterMention que contiene la cuenta del stackholder deseado. El constructor de consultas quedaría como se muestra a continuación:
+
+\begin{figure}[Constructor de consultas]{FIG:QUERYCONSTRUCTOR}{Pantalla para configurar el perímetro de cada extracción. A la izquerda los filtros disponibles, a la derecha los añadidos.}
+	\image{}{}{gui/queryConstructor}
+\end{figure}
+
+Una vez creada cada extracción, se realiza una primera conexión a Twitter para alimentarlas desde la GUI y acto seguido se muestra la pantalla donde se pueden editar una extracción manualmente: añadir nuevos tweets, eliminar los tweets irrelevantes, ver informaciones generales sobre cada tweet, exportar la extracción a un fichero XML para su integración externa, etc. Esta pantalla se muestra en el apéndice (ver \ref{FIG:SHOWEXTRACTIONDETAILS}). Antes de cargar esta pantalla nos dirigimos a base de datos para cargar los tweets y durante este proceso la aplicación no se bloquea (cumpliendo con el requisito RNF-6). Una prueba de esto se muestra también en el apéndice (ver \ref{FIG:LOADINGDIALOG}).
+
+ \paragraph{Servidor y tareas asíncronas}
+ Una vez creadas las extracciones, ahora queremos decirle a nuestro módulo servidor que cree unas tareas que vayan alimentando nuestras extracciones en el tiempo (la API pública sólo descarga tweets de los últimos 7 días, así que es buena idea extraer de forma continua en el tiempo, o al menos una vez cada 7 días.)
+ 
+ Una vez preparado el entorno del servidor y estando este arrancado completamente, vamos a configurar la conexión desde la GUI:
+ 
+ \begin{figure}[Conexión con TweetExtractorServer]{FIG:SERVERCONNECTION}{Pantalla donde se parametriza la conexión con el servidor (se proporciona host, puerto y nombre de instancia de Tomcat). Si pulsamos ``test'', un diálogo se muestra para probar la conexión.}
+ 	\image{}{}{gui/serverConnection}
+ \end{figure}
+
+Una vez estamos conectados podemos crear tareas. Uno de los tipos de tareas que hemos desarrollado se ejecuta de forma indefinida (hasta que el usuario la interrumpa u ocurra algún error inesperado) para alimentar una extracción dada de forma continua. Hemos creado desde la GUI 32 tareas para actualizar cada una de nuestras extracciones de forma indefinida (esto resultará en 32 hilos que se ejecutarán en el servidor alimentando las extracciones).
+
+Una vez todas las tareas han sido creadas, desde la pantalla de gestión de tareas asíncronas podemos pasarlas todas al estado ``Preparada'' y pulsar el botón ``Ejecutar''. Los hilos comienzan a escribir en el log del servidor de forma inmediata para que podamos seguir todo el proceso y trazar los eventuales errores. 
+
+Cuando una extracción está siendo alimentada por algún proceso se bloquea, impidiendo así que otro proceso intente alimentarla en paralelo y se produzcan problemas de calidad de datos como tweets repetidos. Por ejemplo, si intentamos actualizar una extracción desde la GUI mientras una tarea asíncrona la alimenta desde el servidor veremos este diálogo (ver \ref{FIG:CONCURRENTEXTRACTIONDIALOG}).
+
+ Las tareas del servidor se controlan desde esta pantalla:
+ 
+ \begin{figure}[Menú de gestion de tareas asíncronas del servidor]{FIG:MANAGESERVERTASKS}{Pantalla de la GUI donde se pueden consultar y controlar las distintas tareas asíncronas que existen en el servidor. Desde los botones de la derecha se invocan la mayoría de los servicios web del sistema.}
+	\image{}{}{gui/manageServerTasks}
+\end{figure}
+
+\paragraph{Resultados de la extracción}
+El servidor ha estado alimentando las extracciones desde el 10 de Diciembre de 2018 hasta el 19 de Junio de 2019. En este tiempo se han obtenido un total de 5735 tweets (de los cuales 4672 son distintos, esto se debe como habíamos explicado a que un tweet puede formar parte del perímetro de varias extracciones al mismo tiempo).
+
+\paragraph{Primeros reportes analíticos.}
+Una vez extraídos los datos, procedemos a ejecutar los primeros reportes analíticos más sencillos. Cada uno de los tipos de reporte se corresponde con una clase Java, con lo que el sistema es bastante escalable: si de repente nos interesa analizar algún aspecto basta con desarrollar un nuevo tipo de reporte.
+
+ Vamos a generar un reporte sobre el volumen de tweets extraídos a lo largo del tiempo y también reportes sobre tendencias (en concreto, sobre usuarios, hashtags, menciones y palabras de moda). Para cada tipo de reporte también hemos diseñado un tipo de tarea asíncrona del servidor, de tal modo que podremos dejar al servidor haciendo los análisis sin depender de la GUI (y podríamos también programar estos análisis). Todos los reportes generados se pueden gestionar desde este menú (ver \ref{FIG:MYANALYTICSREPORTS}).
+ 
+ Una vez ejecutadas las tareas, podemos ver como han aparecido los registros de los análisis en la base de datos:
+ 
+  \begin{figure}[Registros de los reportes analíticos en base de datos]{FIG:ANALYTICSREPORTRECORDSBDD}{Se muestran los diferentes registros conteniendo los resultados en crudo de los reportes analíticos guardados en la base de datos.}
+	\subfigure[SBFIG:RECORDS1]{Palabras más frecuentes}{\image{5cm}{}{gui/TWreportRecords}} \quad
+	\subfigure[SBFIG:RECORDS2]{Tweets/día}{\image{5cm}{}{gui/TVRrecords}} \quad
+	\subfigure[SBFIG:RECORDS3]{Tendencias}{\image{5cm}{}{gui/trendsReportRecords}} \quad
+ \end{figure}
+ 
+\paragraph{Coniguración y generación de gráficos. Word Cloud}
+Con las todas las tareas asíncronas en el estado ``Finalizada'' y, por tanto, con todos los reportes preparados podemos proceder a configurar y después generar gráficas con los resultados. Las gráficas se gestionan desde esta pantalla (ver \ref{FIG:MYGRAPHICCHARTS}). 
+
+Al crear un gráfico, primero se nos pregunta qué tipo de gráfico deseamos generar (ver \ref{FIG:CHARTTYPES}), después seleccionaremos un registro de entre aquellos que sean compatibles con el tipo de gráfico que acabamos de seleccionar. A continuación, configuramos el gráfico que vamos a generar (cada tipo de gráfico tiene su configuración). Las pantallas de configuración se muestran en los anexos (ver \ref{FIG:GENERICCHARTCONFIG},\ref{FIG:SPECIFICCHARTCONFIG}). Una vez configurado el gráfico nos queda decidir como se va a dibujar cada categoría (tipo de trazo, grosor, color...). Esta configuración se realiza desde esta pantalla (ver \ref{FIG:PLOTSTROKECONFIURATION}).
+
+Tras esto el gráfico es generado, guardado en base de datos y ya se puede consultar y/o exportar. Ejemplos de gráficos generados por nuestra aplicación son estos (ver \ref{FIG:GENERATEDCHARTS}). Para un sólo reporte podemos efectuar varios tipos de gráficos distintos siempre que haya compatibilidad (ver \ref{FIG:SAMEREPORTCHARTS}).
+
+Un tipo muy especial de gráfico es el Word Cloud cuya generación habíamos implementado. El Word Cloud, como el resto de gráficos, tiene una configuración específica (ver \ref{FIG:WCCHARTCONFIG}). Como ya se explicó, se pueden crear tres tipos de Word Cloud en nuestro sistema (ver \ref{FIG:WCTYPES})
+
+\paragraph{Análisis semántico. Reportes}

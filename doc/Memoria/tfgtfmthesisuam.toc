@@ -50,12 +50,19 @@
 \contentsline {paragraph}{Control de versiones. Compilaci\IeC {\'o}n}{30}{section*.65}
 \contentsline {paragraph}{SonarQube}{31}{section*.66}
 \contentsline {chapter}{\numberline {6}Resultados y ejemplos}{33}{chapter.6}
-\contentsline {chapter}{\numberline {7}Conclusiones y trabajo futuro}{35}{chapter.7}
-\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{37}{chapter*.67}
-\contentsline {chapter}{Definiciones}{39}{section*.68}
-\contentsline {chapter}{Acr\IeC {\'o}nimos}{41}{section*.70}
-\contentsline {part}{Ap\IeC {\'e}ndices}{43}{part.1}
-\contentsline {chapter}{\numberline {A}Diagramas}{45}{appendix.Alph1}
-\contentsline {chapter}{\numberline {B}Tablas}{49}{appendix.Alph2}
-\contentsline {chapter}{\numberline {C}C\IeC {\'o}digos}{51}{appendix.Alph3}
-\contentsline {chapter}{\numberline {D}Im\IeC {\'a}genes de la interfaz gr\IeC {\'a}fica}{67}{appendix.Alph4}
+\contentsline {paragraph}{Autentificaci\IeC {\'o}n}{33}{section*.70}
+\contentsline {paragraph}{Credenciales de la API y acotaci\IeC {\'o}n de las extracciones}{34}{section*.72}
+\contentsline {paragraph}{Servidor y tareas as\IeC {\'\i }ncronas}{35}{section*.74}
+\contentsline {paragraph}{Resultados de la extracci\IeC {\'o}n}{36}{section*.77}
+\contentsline {paragraph}{Primeros reportes anal\IeC {\'\i }ticos.}{36}{section*.78}
+\contentsline {paragraph}{Coniguraci\IeC {\'o}n y generaci\IeC {\'o}n de gr\IeC {\'a}ficos. Word Cloud}{37}{section*.80}
+\contentsline {paragraph}{An\IeC {\'a}lisis sem\IeC {\'a}ntico. Reportes}{38}{section*.81}
+\contentsline {chapter}{\numberline {7}Conclusiones y trabajo futuro}{39}{chapter.7}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{41}{chapter*.82}
+\contentsline {chapter}{Definiciones}{43}{section*.83}
+\contentsline {chapter}{Acr\IeC {\'o}nimos}{45}{section*.85}
+\contentsline {part}{Ap\IeC {\'e}ndices}{47}{part.1}
+\contentsline {chapter}{\numberline {A}Diagramas}{49}{appendix.Alph1}
+\contentsline {chapter}{\numberline {B}Tablas}{53}{appendix.Alph2}
+\contentsline {chapter}{\numberline {C}C\IeC {\'o}digos}{57}{appendix.Alph3}
+\contentsline {chapter}{\numberline {D}Im\IeC {\'a}genes de la interfaz gr\IeC {\'a}fica}{73}{appendix.Alph4}

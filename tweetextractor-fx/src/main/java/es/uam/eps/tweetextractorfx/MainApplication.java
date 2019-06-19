@@ -154,8 +154,10 @@ public class MainApplication extends Application {
 			if (executeQuery) {
 				controller.executeQuery();
 				controller.getTweetObservableList().addAll(controller.getExtraction().getTweetList());
+				controller.refreshExtractionLabels();
 			} else {
 				controller.refreshTweetObservableList();
+				controller.refreshExtractionLabels();
 			}
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(queryDetails);

@@ -34,6 +34,7 @@ import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERTokenSet;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNERTokenSetID;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorNamedEntity;
 import es.uam.eps.tweetextractor.model.analytics.nlp.TweetExtractorTopic;
+import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsNLPReport;
 import es.uam.eps.tweetextractor.model.analytics.report.AnalyticsReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TimelineReport;
 import es.uam.eps.tweetextractor.model.analytics.report.TrendsReport;
@@ -126,7 +127,7 @@ public class TweetExtractorSpringConfig {
 				TweetExtractorTopic.class,TweetExtractorNERConfiguration.class,TweetExtractorNERToken.class,TweetExtractorNERTokenSet.class,
 				TweetExtractorNERTokenSetID.class,AnalyticsTweetVolumeByNLPReportRegister.class,AnalyticsTweetVolumeByNERTopicsReport.class,
 				ServerTaskTweetVolumeByNERTopicsReport.class,AnalyticsTweetVolumeByNamedEntitiesReport.class,
-				ServerTaskTweetVolumeByNamedEntitiesReport.class);
+				ServerTaskTweetVolumeByNamedEntitiesReport.class,AnalyticsNLPReport.class);
 		return factoryBean;
 	}
 

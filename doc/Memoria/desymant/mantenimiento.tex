@@ -8,7 +8,23 @@ En dicho repositorio pueden encontrarse los evolutivos y las correcciones de def
 \paragraph{SonarQube}
 Dado la cantidad de código que comenzaba a juntarse durante el desarrollo, se optó por utilizar una herramienta de inspección continua de código como \href{https://www.sonarqube.org/}{SonarQube}. 
 
-Se ha desarrollado una tarea programada cada noche que descarga de GitHub la útima versión del código, la compila y envía los binarios a SonarQube. Tras un análisis exhaustivo, SonarQube es capaz de ofrecer reportes con medidas como las que se muestran en los apéndices (ver \ref{FIG:SONARMEASURES}).
+Se ha desarrollado una tarea programada cada noche que descarga de GitHub la útima versión del código, la compila y envía los binarios a SonarQube. Tras un análisis exhaustivo, SonarQube nos ofrece distintos reportes sobre nuestro código. Aquí un ejemplo tras analizar nuestro proyecto:
 
-Para mejorar la calidad del sistema, SonarQube va detectando fallas de seguridad, bugs, duplicaciones de código, errores potenciales, etc. y además nos va proponiendo cómo solucionarlos.
+\begin{figure}[Reporte general SonarQube]{FIG:SONARGENERAL}{Resumen del análisis de TweetExtractor. Se muestra el número de bugs, las vulnerabilidades, la hediondez del código, la cobertura de tests automáticos y el código duplicado. También se muestra el conteo de líneas de código (25.000 entre Java y XML)}
+	\image{}{}{sonar/generalReport}
+\end{figure}
 
+Un conjunto mas específico y desglosado de las medidas se puede encontrar en esta imagen de los apéndices (ver \ref{FIG:SONARMEASURES}). 
+
+Pero además de detectar los errores, SonarQube es capaz de encontrar el problema concreto en cada fichero de código fuente y ofrecer de una manera muy didáctica sugerencias para solucionarlo y mejorar la robustez del sistema:
+
+\begin{figure}[Sugerencia mantenimiento SonarQube]{FIG:SONARCODEALERT}{Advertencia sobre vulnerabilidad. Se nos recomienda devolver una lista vacía (en lugar de un ``null'') en caso de no encontrar resultados en este método del DAO.}
+	\image{}{}{sonar/sonarBuggedCode}
+		\image{}{}{sonar/sonarAlert}
+\end{figure}
+\newpage
+Sobre cada uno de los apartados que hemos visto en \ref{FIG:SONARMEASURES}, los resultados específicos pueden mostrarse de formas muy diversas, como esta gráfica sobre la seguridad del sistema clase a clase:
+
+\begin{figure}[Reporte sobre seguridad de SonarQube]{FIG:SONARSECURITY}{Gráfica que muestra la seguridad del código clase a clase. Incluye una estimación del tiempo necesario para solucionar los eventuales problemas.}
+	\image{}{}{sonar/sonarSecurityReport}
+\end{figure}

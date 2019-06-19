@@ -60,6 +60,14 @@ public class ExtractionDetailsControl extends TweetExtractorFXController {
 	private Label idLabel;
 	@FXML
 	private Label langLabel;
+	@FXML
+	private Label extractionIDLabel;
+	@FXML
+	private Label nTweetsLabel;
+	@FXML
+	private Label extCreatedOnLabel;
+	@FXML
+	private Label extLastUpdatedLabel;
 	private Alert alertExport;
 	private Tweet selectedQueryResult;
 	private Extraction extraction;
@@ -242,6 +250,7 @@ public class ExtractionDetailsControl extends TweetExtractorFXController {
 					ExtractionServiceInterface extractionService = mainApplication.getSpringContext()
 							.getBean(ExtractionServiceInterface.class);
 					extractionService.update(this.getExtraction());
+					refreshExtractionLabels();
 				} catch (Exception ex) {
 					if (loadingDialog != null)
 						loadingDialog.close();
@@ -275,7 +284,20 @@ public class ExtractionDetailsControl extends TweetExtractorFXController {
 	public Extraction getExtraction() {
 		return extraction;
 	}
-
+	public void refreshExtractionLabels() {
+		if (extraction!=null) {
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			extractionIDLabel.setText(""+extraction.getIdDB());
+			nTweetsLabel.setText(""+extraction.getTweetList().size());
+			extCreatedOnLabel.setText(df.format(extraction.getCreationDate()));
+			extLastUpdatedLabel.setText(df.format(extraction.getLastModificationDate()));
+		}else {
+			extractionIDLabel.setText("");
+			nTweetsLabel.setText("");
+			extCreatedOnLabel.setText("");
+			extLastUpdatedLabel.setText("");
+		}
+	}
 	public void refreshTweetObservableList() {
 		if (extraction != null && extraction.getFilterList() != null) {
 			LoadTweetsTask loadTask = new LoadTweetsTask(mainApplication.getSpringContext(), extraction);

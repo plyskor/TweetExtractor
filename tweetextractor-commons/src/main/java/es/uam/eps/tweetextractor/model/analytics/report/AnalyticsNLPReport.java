@@ -5,6 +5,7 @@ package es.uam.eps.tweetextractor.model.analytics.report;
 
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
@@ -23,6 +24,7 @@ import es.uam.eps.tweetextractor.model.analytics.report.register.impl.AnalyticsT
  * @author joseantoniogarciadelsaz
  *
  */
+@Entity
 public abstract class AnalyticsNLPReport extends AnalyticsCategoryReport{
 	@XmlTransient
 	@Transient

@@ -4,22 +4,73 @@
 	\subfigure[SBFIG:SONARMEASURES3]{Mantenibilidad y cobertura de tests}{\image{4.2cm}{}{sonar/sonarMeassures3}}
 \end{figure}
 
-\begin{figure}[Pantalla inicial]{FIG:HOMESCREEN}{Pantalla principal de bienvenida al abrir la aplicación}
+\begin{figure}[Pantalla inicial]{FIG:WELCOMESCREEN}{Pantalla principal de bienvenida al abrir la aplicación}
 	\image{10cm}{}{gui/homeScreen}
 \end{figure}
-\begin{figure}[Registro e inicio de sesión]{FIG:LOGINREGISTER}{Diálogos de autentificación en la aplicación.}
-	\subfigure[SBFIG:LOGINSCREEN]{Inicio de Sesión}{\image{6cm}{}{gui/loginScreen}} \quad
-	\subfigure[SBFIG:REGISTERSCREEN]{Registro}{\image{6cm}{}{gui/registerScreen}}
-\end{figure}
-\begin{figure}[Pantalla de bienvenida]{FIG:WELCOMESCREEN}{Pantalla de inicio}
+\begin{figure}[Pantalla de bienvenida]{FIG:HOMESCREEN}{Pantalla de inicio (Menú principal)}
 	\image{10cm}{}{gui/welcomeScreen}
 \end{figure}
-\begin{figure}[Constructor de consultas]{FIG:QUERYCONSTRUCTOR}{Pantalla para configurar el perímetro de cada extracción. A la izquerda los filtros disponibles, a la derecha los añadidos.}
-	\image{10cm}{}{gui/queryConstructor}
-\end{figure}
+
 \begin{figure}[Edición de credenciales]{FIG:EDITCREDENTIALS}{Configurando los credenciales de la API de Twitter (los credenciales mostrados en la foto no son reales)}
 	\image{10cm}{}{gui/editCredentials}
 \end{figure}
+
+\begin{figure}[Editor de extracciones]{FIG:SHOWEXTRACTIONDETAILS}{Pantalla de visualización edición y exportación de extracciones.}
+	\image{}{}{gui/showExtractionDetails}
+\end{figure}
+
+
 \begin{figure}[Tarea en segundo plano]{FIG:LOADINGDIALOG}{Las tareas costosas no bloquean la aplicación. Un nuevo hilo nos muestra un diálogo informativo sobre lo que se está haciendo.}
 	\image{10cm}{}{gui/backgroundDBTask}
+\end{figure}
+
+
+\begin{figure}[Aviso sobre extracción ya en curso]{FIG:CONCURRENTEXTRACTIONDIALOG}{Diálogo que nos informa de que una extracción ya está siendo alimentada por otro proceso.}
+	\image{8cm}{}{gui/concurrentExtractionDialog}
+\end{figure}
+
+
+\begin{figure}[Menú GUI de gestion de reportes analíticos]{FIG:MYANALYTICSREPORTS}{Menú desde el que se gestionan los reportes analíticos.}
+	\image{}{}{gui/myAnalyticsReports}
+\end{figure}
+
+\begin{figure}[Menú GUI de gestion de las gráficas]{FIG:MYGRAPHICCHARTS}{Menú desde el que se gestionan los gráficos generados a partir de los reportes analíticos.}
+	\image{}{}{gui/myGraphicCharts}
+\end{figure}
+
+\begin{figure}[Menú de selección de tipo de gráfico]{FIG:CHARTTYPES}{Menú que muestra los tipos de gráficos que se pueden generar a partir de los reportes.}
+	\image{}{}{gui/availableChartTypes}
+\end{figure}
+
+\begin{figure}[Configuración de un gráfico (general)]{FIG:GENERICCHARTCONFIG}{Menú genérico de configuración de gráficos}
+	\image{}{}{gui/chartConfig}
+\end{figure}
+
+\begin{figure}[Configuración de un gráfico (específico)]{FIG:SPECIFICCHARTCONFIG}{Menús de configuraciones específicas para distintos tipos de gráficos}
+		\subfigure[SBFIG:XYCHARTCONFIG]{Gráfico XY}{\image{}{}{gui/XYChartConfig}} \quad
+	\subfigure[SBFIG:SONARMEASURES1]{Gráfico de barras 3D}{\image{}{}{gui/categoryBarChartConfig}} \quad
+\end{figure}
+
+\begin{figure}[Configuración de trazos del gráfico por categoría]{FIG:PLOTSTROKECONFIURATION}{Menú donde se configura cómo se pintará cada categoría en el gráfico.}
+	\image{}{}{gui/PlotStrokeConfig}
+\end{figure}
+
+\begin{figure}[Mismo reporte, distintos gráficos]{FIG:SAMEREPORTCHARTS}{Diferentes reportes gráficos generados sobre el mismo reporte que muestra la intercompatibilidad.}
+\subfigure[SBFIG:TIMESERIESCHART]{Línea del tiempo (tweets/día)}{\image{15cm}{}{gui/TimeSeriesChart}} \quad
+\subfigure[SBFIG:XYBARCHART]{Barras XY (tweets/día)}{\image{15cm}{}{gui/XYBarChart}} 
+\end{figure}
+
+\begin{figure}[Diferentes gráficos generados ]{FIG:GENERATEDCHARTS}{Se muestran distintos tipos de gráficos para distintos reportes de tendencia.}
+	\subfigure[SBFIG:3DBARCHART]{Barras 3D (Tendencias en hashtags)}{\image{15cm}{}{gui/3DBarChart}} \quad
+	\subfigure[SBFIG:3DPIECHART]{Tarta 3D (tendencias en menciones)}{\image{15cm}{}{gui/3DPieChart}} 
+\end{figure}
+
+\begin{figure}[Configuración de un Word Cloud]{FIG:WCCHARTCONFIG}{Menú desde el cual se configuran los Word Clouds}
+	\image{}{}{gui/WCChartConfig}
+\end{figure}
+
+\begin{figure}[Diferentes tipos de World Cloud]{FIG:WCTYPES}{Se muestran distintos tipos de Word Cloud que se pueden generar en el sistema.}
+	\subfigure[SBFIG:RECTANGULARWC]{Rectangular}{\image{7.5cm}{}{gui/RectangularWC}} \quad
+	\subfigure[SBFIG:CIRCULARWC]{Circular}{\image{7.5cm}{}{gui/CircularWC}}\quad
+	\subfigure[SBFIG:PIXELBOUNDARYWC]{Borde de píxeles (logo de Twitter)}{\image{}{}{gui/pixelBoundaryWC}} 
 \end{figure}
