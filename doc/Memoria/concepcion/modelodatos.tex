@@ -88,7 +88,8 @@ Este ciclo de vida se muestra en el siguiente diagrama:
 \begin{figure}[Ciclo de vida de una tarea asíncrona]{FIG:SERVERTASKLIFECYCLE}{Ciclo de vida de una tarea asíncrona en el servidor. Las líneas continuas marcan acciones manuales (del usuario). Las líneas discontinuas con color marcan acciones automáticas (del servidor)}
 	\image{}{}{SeverTaskLifecycleDiagram}
 \end{figure}
-Una tarea tendrá el estado ``Nueva'' cuando sea creada y podrá ser eliminada en cualquier estado. Los estados rodeados por línea discontinua son específicos de algún tipo de tarea (el estado ``Programada'' sólo sera alcanzable para las tareas programables).
+Una tarea tendrá el estado ``Nueva'' recién creada y podrá ser eliminada en cualquier estado. Los estados con línea discontinua son específicos de algún tipo de tarea en concreto.
+
 \paragraph{Reportes Analíticos y Registros}
 Siguiendo los requisitos funcionales, una vez extraídos y guardados los tweets se podrán crear, modificar y eliminar diferentes tipos de reportes que contendrán los resultados de los análisis que realicemos sobre los datos.
 

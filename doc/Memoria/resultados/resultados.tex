@@ -49,7 +49,7 @@ El servidor ha estado alimentando las extracciones desde el 10 de Diciembre de 2
 \paragraph{Primeros reportes analíticos.}
 Una vez extraídos los datos, procedemos a ejecutar los primeros reportes analíticos más sencillos. Cada uno de los tipos de reporte se corresponde con una clase Java, con lo que el sistema es bastante escalable: si de repente nos interesa analizar algún aspecto basta con desarrollar un nuevo tipo de reporte.
 
- Vamos a generar un reporte sobre el volumen de tweets extraídos a lo largo del tiempo y también reportes sobre tendencias (en concreto, sobre usuarios, hashtags, menciones y palabras de moda). Para cada tipo de reporte también hemos diseñado un tipo de tarea asíncrona del servidor, de tal modo que podremos dejar al servidor haciendo los análisis sin depender de la GUI (y podríamos también programar estos análisis). Todos los reportes generados se pueden gestionar desde este menú (ver \ref{FIG:MYANALYTICSREPORTS}).
+ Vamos a generar un reporte sobre el volumen de tweets extraídos a lo largo del tiempo y también reportes de tendencias (en concreto: usuarios, hashtags, menciones y palabras de moda). Para cada tipo de reporte también hemos diseñado un tipo de tarea asíncrona del servidor, de tal modo que podremos dejar al servidor haciendo los análisis sin depender de la GUI (y podríamos también programar estos análisis). Todos los reportes generados se pueden gestionar desde este menú (ver \ref{FIG:MYANALYTICSREPORTS}).
  
  Una vez ejecutadas las tareas, podemos ver como han aparecido los registros de los análisis en la base de datos:
  
@@ -65,14 +65,30 @@ Con las todas las tareas asíncronas en el estado ``Finalizada'' y, por tanto, c
 Al crear un gráfico, primero se nos pregunta qué tipo de gráfico deseamos generar (ver \ref{FIG:CHARTTYPES}), después seleccionaremos un registro de entre aquellos que sean compatibles con el tipo de gráfico que acabamos de seleccionar. A continuación, configuramos el gráfico que vamos a generar (cada tipo de gráfico tiene su configuración). Las pantallas de configuración se muestran en los anexos (ver \ref{FIG:GENERICCHARTCONFIG},\ref{FIG:SPECIFICCHARTCONFIG}). Una vez configurado el gráfico nos queda decidir como se va a dibujar cada categoría (tipo de trazo, grosor, color...). Esta configuración se realiza desde esta pantalla (ver \ref{FIG:PLOTSTROKECONFIURATION}).
 
 Tras esto el gráfico es generado, guardado en base de datos y ya se puede consultar y/o exportar. Ejemplos de gráficos generados por nuestra aplicación son estos (ver \ref{FIG:GENERATEDCHARTS}). Para un sólo reporte podemos efectuar varios tipos de gráficos distintos siempre que haya compatibilidad (ver \ref{FIG:SAMEREPORTCHARTS}).
+\newpage
+Un tipo muy especial de gráfico es el Word Cloud cuya generación habíamos implementado. El Word Cloud, como el resto de gráficos, tiene una configuración específica que se puede realizar desde esta pantalla de la GUI:
 
-Un tipo muy especial de gráfico es el Word Cloud cuya generación habíamos implementado. El Word Cloud, como el resto de gráficos, tiene una configuración específica (ver \ref{FIG:WCCHARTCONFIG}). Como ya se explicó, se pueden crear tres tipos de Word Cloud en nuestro sistema (ver \ref{FIG:WCTYPES})
+\begin{figure}[Configuración de un Word Cloud]{FIG:WCCHARTCONFIG}{Menú desde el cual se configuran los Word Clouds. En el se pueden configurar la separación entre palabras, la fuente máxima, la fuente mínima, el número máximo de palabras, la longitud mínima de la palabra, los colores del gráfico y la forma}
+	\image{}{}{gui/WCChartConfig}
+\end{figure}
+\newpage
+Como ya se explicó, se pueden crear tres tipos de Word Cloud en nuestro sistema según la forma. A continuación se muestran tres ejemplos que hemos generado:
+
+\begin{figure}[Diferentes tipos de World Cloud]{FIG:WCTYPES}{Se muestran distintos tipos de Word Cloud que se pueden generar en el sistema.}
+	\subfigure[SBFIG:RECTANGULARWC]{Rectangular}{\image{6cm}{}{gui/RectangularWC}} \quad
+	\subfigure[SBFIG:CIRCULARWC]{Circular}{\image{6cm}{}{gui/CircularWC}}\quad
+	\subfigure[SBFIG:PIXELBOUNDARYWC]{Borde de píxeles (logo de Twitter)}{\image{12cm}{}{gui/pixelBoundaryWC}} 
+\end{figure}
 
 \paragraph{Análisis semántico. Reportes}
-Vamos a hablar de este tipo especial de reportes analíticos. Lo primero que hemos hecho es crear una configuración personalizada para el análisis semántico llamada ``Decide Madrid''. Hemos creado una serie de categorías (NamedEntities) y subcategorías (Topics) con las que nuestro sistema intentará clasificar los tweets. La hemos creado para el idioma español, pero puede crearse para cualquiera de los idiomas disponibles (\ref{TB:IDIOMASAPI}). La relación de categorías y subcategorías utilizadas puede verse en el apéndice (ver \ref{TB:NAMEDENTITIESTOPICS}).
-
+Vamos a hablar de este tipo especial de reportes analíticos. Lo primero que hemos hecho es crear una configuración personalizada para el análisis semántico llamada ``Decide Madrid''. Hemos creado una serie de categorías (NamedEntities) y subcategorías (Topics) \cite{Cantador2017} con las que nuestro sistema intentará clasificar los tweets. La hemos creado para el idioma español, pero puede crearse para cualquiera de los idiomas disponibles (\ref{TB:IDIOMASAPI}). La relación de categorías y subcategorías utilizadas puede verse en el apéndice (ver \ref{TB:NAMEDENTITIESTOPICS}).
+\newpage
 Una vez añadida y guardada en base de datos esta configuración, que además es editable desde la GUI (ver \ref{FIG:EDITNERCONFIGURATION}), podemos utilizar el conjunto de términos resultante del análisis de frecuencias para clasificar estos términos de acuerdo a las categorías y subcategorías. De esta manera, nuestra sistema habrá aprendido a clasificar los tweets en los que aparezcan esos términos. Para llevar a cabo esta clasificación se utiliza una de las pantallas que hemos desarrollado (ver \ref{FIG:CLASSIFYNERTOKENS}).
 
+\begin{figure}[Clasificando términos desde la GUI para entrenar el sistema.]{FIG:CLASSIFYNERTOKENS}{Menú de la GUI desde el cual se pueden clasificar los términos que aparecen en los tweets en las categorías que hemos configurado manualmente. Se muestra a la izquierda el lexema y los términos que lo incluyen, y a la derecha la lista de categorías para elegir. Si se ignora un término, será desde entonces irrelevante para nuestro sistema.}
+	\image{}{}{gui/classifyNERTokens}
+\end{figure}
+\newpage
 Una vez elegidas las categorías y clasificados los términos, podemos pedirle al sistema que vaya al banco de datos para clasificar nuestros tweets (notar que si un tweet existe dos veces en extracciones distintas, sólo se computa una vez). Hemos creado una tarea asíncrona del servidor especial para este tipo de análisis, la hemos ejecutado y hemos esperado que finalice. Los resultados de los análisis se pueden obtener tanto para las categorías (\ref{TB:REPORTBYNAMEDENTITIES}) como para las subcategorías (\ref{TB:REPORTBYTOPICS1}, \ref{TB:REPORTBYTOPICS2}). 
 
 Con estos reportes también se pueden obtener distintos tipos de gráficas (\ref{FIG:COMPMATRIXREPORTCHRART}). Vamos a mostrar una de ellas para el reporte por categorías:
