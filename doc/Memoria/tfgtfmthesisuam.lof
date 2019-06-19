@@ -11,65 +11,66 @@
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Diagrama UML Principal}}{17}{figure.caption.36}
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Ciclo de vida de una tarea as\IeC {\'\i }ncrona}}{18}{figure.caption.39}
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Funcionamiento general de JFreeChart}}{19}{figure.caption.42}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Diagrama UML Preferencias Gr\IeC {\'a}ficos}}{20}{figure.caption.43}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Diagrama UML An\IeC {\'a}lisis Sem\IeC {\'a}ntico}}{22}{figure.caption.46}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Diagrama UML An\IeC {\'a}lisis Sem\IeC {\'a}ntico}}{21}{figure.caption.45}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Diagrama de funcionamiento Spring + Hibernate + JPA}}{24}{figure.caption.48}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Estructura de una aplicaci\IeC {\'o}n JavaFX}}{26}{figure.caption.50}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Diagrama de funcionamiento de JavaFX Task}}{27}{figure.caption.51}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Diagrama conexi\IeC {\'o}n SOAP+HTTPS}}{28}{figure.caption.53}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Lista circular de credenciales}}{32}{figure.caption.62}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Reporte general SonarQube}}{33}{figure.caption.65}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Sugerencia mantenimiento SonarQube}}{33}{figure.caption.66}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Reporte sobre seguridad de SonarQube}}{34}{figure.caption.67}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Diagrama de funcionamiento Spring + Hibernate + JPA}}{24}{figure.caption.47}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Estructura de una aplicaci\IeC {\'o}n JavaFX}}{26}{figure.caption.49}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Diagrama de funcionamiento de JavaFX Task}}{27}{figure.caption.50}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Diagrama conexi\IeC {\'o}n SOAP+HTTPS}}{28}{figure.caption.52}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Lista circular de credenciales}}{32}{figure.caption.61}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Reporte general SonarQube}}{33}{figure.caption.64}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Sugerencia mantenimiento SonarQube}}{33}{figure.caption.65}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Reporte sobre seguridad de SonarQube}}{34}{figure.caption.66}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Registro e inicio de sesi\IeC {\'o}n}}{35}{figure.caption.69}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{35}{figure.caption.69}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{35}{figure.caption.69}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces lof}}{35}{figure.caption.69}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Constructor de consultas}}{36}{figure.caption.71}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Conexi\IeC {\'o}n con TweetExtractorServer}}{37}{figure.caption.73}
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Men\IeC {\'u} de gestion de tareas as\IeC {\'\i }ncronas del servidor}}{38}{figure.caption.74}
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Registros de los reportes anal\IeC {\'\i }ticos en base de datos}}{39}{figure.caption.77}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{39}{figure.caption.77}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{39}{figure.caption.77}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces lof}}{39}{figure.caption.77}
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Gr\IeC {\'a}fico de barras 3D que muestra los tweets por cateor\IeC {\'\i }a}}{40}{figure.caption.80}
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Diagrama UML Tareas As\IeC {\'\i }ncronas}}{52}{figure.caption.86}
-\contentsline {figure}{\numberline {A.2}{\ignorespaces Diagrama UML Reportes An\IeC {\'a}lisis}}{53}{figure.caption.87}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Registro e inicio de sesi\IeC {\'o}n}}{35}{figure.caption.68}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{35}{figure.caption.68}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{35}{figure.caption.68}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces lof}}{35}{figure.caption.68}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Constructor de consultas}}{36}{figure.caption.70}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Conexi\IeC {\'o}n con TweetExtractorServer}}{37}{figure.caption.72}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Men\IeC {\'u} de gestion de tareas as\IeC {\'\i }ncronas del servidor}}{38}{figure.caption.73}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Registros de los reportes anal\IeC {\'\i }ticos en base de datos}}{39}{figure.caption.76}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{39}{figure.caption.76}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{39}{figure.caption.76}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces lof}}{39}{figure.caption.76}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Gr\IeC {\'a}fico de barras 3D que muestra los tweets por cateor\IeC {\'\i }a}}{40}{figure.caption.79}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Diagrama UML Tareas As\IeC {\'\i }ncronas}}{52}{figure.caption.85}
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Diagrama UML Reportes gr\IeC {\'a}ficos}}{53}{figure.caption.86}
+\contentsline {figure}{\numberline {A.3}{\ignorespaces Diagrama UML Preferencias Gr\IeC {\'a}ficos}}{54}{figure.caption.87}
+\contentsline {figure}{\numberline {A.4}{\ignorespaces Diagrama UML Reportes An\IeC {\'a}lisis}}{55}{figure.caption.88}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {D.1}{\ignorespaces Medidas con SonarQube}}{81}{figure.caption.97}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{81}{figure.caption.97}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{81}{figure.caption.97}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces lof}}{81}{figure.caption.97}
-\contentsline {figure}{\numberline {D.2}{\ignorespaces Pantalla inicial}}{82}{figure.caption.98}
-\contentsline {figure}{\numberline {D.3}{\ignorespaces Pantalla de bienvenida}}{82}{figure.caption.99}
-\contentsline {figure}{\numberline {D.4}{\ignorespaces Edici\IeC {\'o}n de credenciales}}{83}{figure.caption.100}
-\contentsline {figure}{\numberline {D.5}{\ignorespaces Editor de extracciones}}{83}{figure.caption.101}
-\contentsline {figure}{\numberline {D.6}{\ignorespaces Tarea en segundo plano}}{84}{figure.caption.102}
-\contentsline {figure}{\numberline {D.7}{\ignorespaces Aviso sobre extracci\IeC {\'o}n ya en curso}}{84}{figure.caption.103}
-\contentsline {figure}{\numberline {D.8}{\ignorespaces Men\IeC {\'u} GUI de gestion de reportes anal\IeC {\'\i }ticos}}{85}{figure.caption.104}
-\contentsline {figure}{\numberline {D.9}{\ignorespaces Men\IeC {\'u} GUI de gestion de las gr\IeC {\'a}ficas}}{86}{figure.caption.105}
-\contentsline {figure}{\numberline {D.10}{\ignorespaces Men\IeC {\'u} de selecci\IeC {\'o}n de tipo de gr\IeC {\'a}fico}}{87}{figure.caption.106}
-\contentsline {figure}{\numberline {D.11}{\ignorespaces Configuraci\IeC {\'o}n de un gr\IeC {\'a}fico (general)}}{88}{figure.caption.107}
-\contentsline {figure}{\numberline {D.12}{\ignorespaces Configuraci\IeC {\'o}n de un gr\IeC {\'a}fico (espec\IeC {\'\i }fico)}}{89}{figure.caption.108}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{89}{figure.caption.108}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{89}{figure.caption.108}
-\contentsline {figure}{\numberline {D.13}{\ignorespaces Configuraci\IeC {\'o}n de trazos del gr\IeC {\'a}fico por categor\IeC {\'\i }a}}{90}{figure.caption.109}
-\contentsline {figure}{\numberline {D.14}{\ignorespaces Mismo reporte, distintos gr\IeC {\'a}ficos}}{91}{figure.caption.110}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{91}{figure.caption.110}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{91}{figure.caption.110}
-\contentsline {figure}{\numberline {D.15}{\ignorespaces Diferentes gr\IeC {\'a}ficos generados }}{92}{figure.caption.111}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{92}{figure.caption.111}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{92}{figure.caption.111}
-\contentsline {figure}{\numberline {D.16}{\ignorespaces Configuraci\IeC {\'o}n de un Word Cloud}}{93}{figure.caption.112}
-\contentsline {figure}{\numberline {D.17}{\ignorespaces Diferentes tipos de World Cloud}}{94}{figure.caption.113}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{94}{figure.caption.113}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{94}{figure.caption.113}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces lof}}{94}{figure.caption.113}
-\contentsline {figure}{\numberline {D.18}{\ignorespaces Editando una configuraci\IeC {\'o}n para el an\IeC {\'a}lisis sem\IeC {\'a}ntico}}{95}{figure.caption.114}
-\contentsline {figure}{\numberline {D.19}{\ignorespaces Clasificando t\IeC {\'e}rminos desde la GUI para entrenar el sistema.}}{96}{figure.caption.115}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {D.1}{\ignorespaces Medidas con SonarQube}}{83}{figure.caption.98}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{83}{figure.caption.98}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{83}{figure.caption.98}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces lof}}{83}{figure.caption.98}
+\contentsline {figure}{\numberline {D.2}{\ignorespaces Pantalla inicial}}{84}{figure.caption.99}
+\contentsline {figure}{\numberline {D.3}{\ignorespaces Pantalla de bienvenida}}{84}{figure.caption.100}
+\contentsline {figure}{\numberline {D.4}{\ignorespaces Edici\IeC {\'o}n de credenciales}}{85}{figure.caption.101}
+\contentsline {figure}{\numberline {D.5}{\ignorespaces Editor de extracciones}}{85}{figure.caption.102}
+\contentsline {figure}{\numberline {D.6}{\ignorespaces Tarea en segundo plano}}{86}{figure.caption.103}
+\contentsline {figure}{\numberline {D.7}{\ignorespaces Aviso sobre extracci\IeC {\'o}n ya en curso}}{86}{figure.caption.104}
+\contentsline {figure}{\numberline {D.8}{\ignorespaces Men\IeC {\'u} GUI de gestion de reportes anal\IeC {\'\i }ticos}}{87}{figure.caption.105}
+\contentsline {figure}{\numberline {D.9}{\ignorespaces Men\IeC {\'u} GUI de gestion de las gr\IeC {\'a}ficas}}{88}{figure.caption.106}
+\contentsline {figure}{\numberline {D.10}{\ignorespaces Men\IeC {\'u} de selecci\IeC {\'o}n de tipo de gr\IeC {\'a}fico}}{89}{figure.caption.107}
+\contentsline {figure}{\numberline {D.11}{\ignorespaces Configuraci\IeC {\'o}n de un gr\IeC {\'a}fico (general)}}{90}{figure.caption.108}
+\contentsline {figure}{\numberline {D.12}{\ignorespaces Configuraci\IeC {\'o}n de un gr\IeC {\'a}fico (espec\IeC {\'\i }fico)}}{91}{figure.caption.109}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{91}{figure.caption.109}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{91}{figure.caption.109}
+\contentsline {figure}{\numberline {D.13}{\ignorespaces Configuraci\IeC {\'o}n de trazos del gr\IeC {\'a}fico por categor\IeC {\'\i }a}}{92}{figure.caption.110}
+\contentsline {figure}{\numberline {D.14}{\ignorespaces Mismo reporte, distintos gr\IeC {\'a}ficos}}{93}{figure.caption.111}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{93}{figure.caption.111}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{93}{figure.caption.111}
+\contentsline {figure}{\numberline {D.15}{\ignorespaces Diferentes gr\IeC {\'a}ficos generados }}{94}{figure.caption.112}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{94}{figure.caption.112}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{94}{figure.caption.112}
+\contentsline {figure}{\numberline {D.16}{\ignorespaces Configuraci\IeC {\'o}n de un Word Cloud}}{95}{figure.caption.113}
+\contentsline {figure}{\numberline {D.17}{\ignorespaces Diferentes tipos de World Cloud}}{96}{figure.caption.114}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces lof}}{96}{figure.caption.114}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces lof}}{96}{figure.caption.114}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces lof}}{96}{figure.caption.114}
+\contentsline {figure}{\numberline {D.18}{\ignorespaces Editando una configuraci\IeC {\'o}n para el an\IeC {\'a}lisis sem\IeC {\'a}ntico}}{97}{figure.caption.115}
+\contentsline {figure}{\numberline {D.19}{\ignorespaces Clasificando t\IeC {\'e}rminos desde la GUI para entrenar el sistema.}}{98}{figure.caption.116}

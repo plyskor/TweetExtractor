@@ -33,36 +33,36 @@
 \contentsline {paragraph}{Tareas as\IeC {\'\i }ncronas del servidor}{18}{section*.38}
 \contentsline {paragraph}{Reportes Anal\IeC {\'\i }ticos y Registros}{19}{section*.40}
 \contentsline {paragraph}{Gr\IeC {\'a}ficos}{19}{section*.41}
-\contentsline {paragraph}{An\IeC {\'a}lisis sem\IeC {\'a}ntico de los Tweets}{21}{section*.44}
-\contentsline {paragraph}{Base de datos}{21}{section*.45}
+\contentsline {paragraph}{An\IeC {\'a}lisis sem\IeC {\'a}ntico de los Tweets}{20}{section*.43}
+\contentsline {paragraph}{Base de datos}{20}{section*.44}
 \contentsline {chapter}{\numberline {5}Desarrollo y mantenimiento}{23}{chapter.5}
-\contentsline {paragraph}{Contextos: Hibernate + SpringFramework}{24}{section*.47}
-\contentsline {paragraph}{GUI. JavaFX: Vista y controlador}{26}{section*.49}
-\contentsline {paragraph}{Servidor: Tareas as\IeC {\'\i }ncronas y servicios web SOAP}{28}{section*.52}
-\contentsline {paragraph}{Encapsulado XML}{28}{section*.54}
-\contentsline {paragraph}{Filtros y consultas a la API de Twitter}{29}{section*.55}
-\contentsline {paragraph}{Reportes anal\IeC {\'\i }ticos.}{30}{section*.57}
-\contentsline {paragraph}{Gr\IeC {\'a}ficos : Word Cloud}{30}{section*.58}
-\contentsline {paragraph}{Clase Constants}{31}{section*.59}
-\contentsline {paragraph}{Encriptado de contrase\IeC {\~n}as en la base de datos}{31}{section*.60}
-\contentsline {paragraph}{Limitaciones de la API de Twitter.}{31}{section*.61}
+\contentsline {paragraph}{Contextos: Hibernate + SpringFramework}{24}{section*.46}
+\contentsline {paragraph}{GUI. JavaFX: Vista y controlador}{26}{section*.48}
+\contentsline {paragraph}{Servidor: Tareas as\IeC {\'\i }ncronas y servicios web SOAP}{28}{section*.51}
+\contentsline {paragraph}{Encapsulado XML}{28}{section*.53}
+\contentsline {paragraph}{Filtros y consultas a la API de Twitter}{29}{section*.54}
+\contentsline {paragraph}{Reportes anal\IeC {\'\i }ticos.}{30}{section*.56}
+\contentsline {paragraph}{Gr\IeC {\'a}ficos : Word Cloud}{30}{section*.57}
+\contentsline {paragraph}{Clase Constants}{31}{section*.58}
+\contentsline {paragraph}{Encriptado de contrase\IeC {\~n}as en la base de datos}{31}{section*.59}
+\contentsline {paragraph}{Limitaciones de la API de Twitter.}{31}{section*.60}
 \contentsline {section}{\numberline {5.1}Mantenimiento}{32}{section.5.1}
-\contentsline {paragraph}{Control de versiones. Compilaci\IeC {\'o}n}{32}{section*.63}
-\contentsline {paragraph}{SonarQube}{33}{section*.64}
+\contentsline {paragraph}{Control de versiones. Compilaci\IeC {\'o}n}{32}{section*.62}
+\contentsline {paragraph}{SonarQube}{33}{section*.63}
 \contentsline {chapter}{\numberline {6}Resultados y ejemplos}{35}{chapter.6}
-\contentsline {paragraph}{Autentificaci\IeC {\'o}n}{35}{section*.68}
-\contentsline {paragraph}{Credenciales de la API y acotaci\IeC {\'o}n de las extracciones}{36}{section*.70}
-\contentsline {paragraph}{Servidor y tareas as\IeC {\'\i }ncronas}{37}{section*.72}
-\contentsline {paragraph}{Resultados de la extracci\IeC {\'o}n}{38}{section*.75}
-\contentsline {paragraph}{Primeros reportes anal\IeC {\'\i }ticos.}{38}{section*.76}
-\contentsline {paragraph}{Coniguraci\IeC {\'o}n y generaci\IeC {\'o}n de gr\IeC {\'a}ficos. Word Cloud}{39}{section*.78}
-\contentsline {paragraph}{An\IeC {\'a}lisis sem\IeC {\'a}ntico. Reportes}{40}{section*.79}
+\contentsline {paragraph}{Autentificaci\IeC {\'o}n}{35}{section*.67}
+\contentsline {paragraph}{Credenciales de la API y acotaci\IeC {\'o}n de las extracciones}{36}{section*.69}
+\contentsline {paragraph}{Servidor y tareas as\IeC {\'\i }ncronas}{37}{section*.71}
+\contentsline {paragraph}{Resultados de la extracci\IeC {\'o}n}{38}{section*.74}
+\contentsline {paragraph}{Primeros reportes anal\IeC {\'\i }ticos.}{38}{section*.75}
+\contentsline {paragraph}{Coniguraci\IeC {\'o}n y generaci\IeC {\'o}n de gr\IeC {\'a}ficos. Word Cloud}{39}{section*.77}
+\contentsline {paragraph}{An\IeC {\'a}lisis sem\IeC {\'a}ntico. Reportes}{40}{section*.78}
 \contentsline {chapter}{\numberline {7}Conclusiones y trabajo futuro}{41}{chapter.7}
-\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{43}{chapter*.81}
-\contentsline {chapter}{Definiciones}{45}{section*.82}
-\contentsline {chapter}{Acr\IeC {\'o}nimos}{47}{section*.84}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{43}{chapter*.80}
+\contentsline {chapter}{Definiciones}{45}{section*.81}
+\contentsline {chapter}{Acr\IeC {\'o}nimos}{47}{section*.83}
 \contentsline {part}{Ap\IeC {\'e}ndices}{49}{part.1}
 \contentsline {chapter}{\numberline {A}Diagramas}{51}{appendix.Alph1}
-\contentsline {chapter}{\numberline {B}Tablas}{55}{appendix.Alph2}
-\contentsline {chapter}{\numberline {C}C\IeC {\'o}digos}{65}{appendix.Alph3}
-\contentsline {chapter}{\numberline {D}Im\IeC {\'a}genes y capturas de la interfaz gr\IeC {\'a}fica}{81}{appendix.Alph4}
+\contentsline {chapter}{\numberline {B}Tablas}{57}{appendix.Alph2}
+\contentsline {chapter}{\numberline {C}C\IeC {\'o}digos}{67}{appendix.Alph3}
+\contentsline {chapter}{\numberline {D}Im\IeC {\'a}genes y capturas de la interfaz gr\IeC {\'a}fica}{83}{appendix.Alph4}

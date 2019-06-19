@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.3" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="es.uam.eps.tweetextractor.model.analytics.graphics.XYBarChartGraphicPreferences" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/graphics/XYBarChartGraphicPreferences.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="443" width="537" x="10" y="2465"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="es.uam.eps.tweetextractor.model.analytics.graphics.PieChartConfiguration" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/graphics/PieChartConfiguration.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="509" x="-112" y="1781"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="es.uam.eps.tweetextractor.model.analytics.graphics.XYChartGraphicPreferences" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/graphics/XYChartGraphicPreferences.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="659" width="591" x="516" y="1713"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" 
+    name="es.uam.eps.tweetextractor.model.analytics.graphics.TweetExtractorChartGraphicPreferences" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/graphics/TweetExtractorChartGraphicPreferences.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1691" width="613" x="502" y="-20"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" 
+    name="es.uam.eps.tweetextractor.model.analytics.graphics.CategoryBarChartGraphicPreferences" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/graphics/CategoryBarChartGraphicPreferences.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="515" width="589" x="836" y="2461"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="es.uam.eps.tweetextractor.model.analytics.graphics.WorldCloudChartConfiguration" 
+    project="tweetextractor-commons" 
+    file="/tweetextractor-commons/src/main/java/es/uam/eps/tweetextractor/model/analytics/graphics/WorldCloudChartConfiguration.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="683" width="525" x="1284" y="1719"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="7">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="8">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="9">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="10">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

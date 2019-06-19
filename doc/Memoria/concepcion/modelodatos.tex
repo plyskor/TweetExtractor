@@ -105,13 +105,8 @@ Para generar un gráfico, esta librería nos ofrece un constructor que requiere 
 	\image{}{}{JFreeChartDiagram}
 \end{figure}
 
-Para modelar los gráficos que se vayan generando se creará la clase GráficoReporteAnalítico (guardaremos las gráficas en base de datos). También crearemos clases para encapsular las configuraciones posibles de cada tipo de gráfico (estas clases heredarán de la clase TweetExtractorPreferenciasGráfico). 
+Para modelar los gráficos que se vayan generando se creará la clase GráficoReporteAnalítico (guardaremos las gráficas en base de datos). También crearemos clases para encapsular las configuraciones posibles de cada tipo de gráfico (estas clases heredarán de la clase TweetExtractorPreferenciasGráfico). En los apéndices podemos encontrar el diagrama UML completo que muestra esta parte del modelo (ver \ref{FIG:UMLGRAFICOS},\ref{FIG:UMLCONFGRAFICOS}).
 
-A continuación aparece el diagrama UML completo que muestra esta parte del modelo:
-
-\begin{figure}[Diagrama UML Preferencias Gráficos]{FIG:UMLGRAFICOS}{Diagrama UML que muestra el modelo de datos que representan los gráficos de los reportes y las configuraciones para generarlos.}
-	\image{}{}{AnalyticsReportImageUML}
-\end{figure}
 
 \paragraph{Análisis semántico de los Tweets}
 Por último, y de acuerdo con el último apartado de los requisitos funcionales, se añadirán al modelo los objetos que se usarán para el análisis semántico de los tweets. 
@@ -136,5 +131,5 @@ Una vez diseñado como está nuestro modelo, solo tendremos que añadir anotacio
 Ayudándose de estas anotaciones, Hibernate se encargará de generar el esquema, las tablas, etc. Sólo tenemos que facilitarle al framework las credenciales para acceder a la base de datos.
 
 \begin{figure}[Diagrama UML Análisis Semántico]{FIG:UMLANALISISSEMANTICO}{Diagrama UML que muestra el modelo de datos utilizado para modelar los objetos relacionados con el análisis semánticos de los datos.}
-	\image{}{}{NaturalLanguageProcessingUML}
+	\image{}{}{NaturalLanguageProcessing}
 \end{figure}
