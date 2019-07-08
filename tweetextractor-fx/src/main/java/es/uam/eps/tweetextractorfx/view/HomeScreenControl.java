@@ -97,7 +97,7 @@ public class HomeScreenControl extends TweetExtractorFXController {
 	public void handleCreateExtraction() {
 		if (!this.getMainApplication().getCurrentUser().hasAnyCredentials()) {
 			ErrorDialog.showErrorNoCredentials();
-
+			return;
 		}
 		this.getMainApplication().showScreenInCenterOfRootLayout("view/extraction/QueryConstructor.fxml");
 	}
