@@ -262,6 +262,7 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 		});
 		createTask.setOnFailed(e->{
     		if(loadingDialog!=null)loadingDialog.close();
+    		createTask.getException().printStackTrace();
 		});
 		Thread thread = new Thread(createTask);
         thread.setName(createTask.getClass().getCanonicalName());
@@ -356,7 +357,9 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			if (controller.getFilter() != null&&controller.getFilter().getKeywordsList()!=null&&!controller.getFilter().getKeywordsList().isEmpty()) {
-				addedFiltersList.add(new FilterContains(controller.getFilter()));
+				Filter toAdd = new FilterContains(controller.getFilter());
+				toAdd.setExtraction(extraction);
+				addedFiltersList.add(toAdd);
 			}
 			
 		} catch (IOException e) {
@@ -384,7 +387,9 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			if (controller.getFilter() != null&&controller.getFilter().getKeywordsList()!=null&&!controller.getFilter().getKeywordsList().isEmpty()) {
-				addedFiltersList.add(new FilterContainsExact(controller.getFilter()));
+				Filter toAdd = new FilterContainsExact(controller.getFilter());
+				toAdd.setExtraction(extraction);
+				addedFiltersList.add(toAdd);
 			}
 			
 		} catch (IOException e) {
@@ -411,7 +416,9 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			if (controller.getFilter() != null&&controller.getFilter().getDate()!=null) {
-				addedFiltersList.add(new FilterSince(controller.getFilter()));
+				Filter toAdd = new FilterSince(controller.getFilter());
+				toAdd.setExtraction(extraction);
+				addedFiltersList.add(toAdd);
 			}
 			
 		} catch (IOException e) {
@@ -438,7 +445,9 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			if (controller.getFilter() != null&&controller.getFilter().getDate()!=null) {
-				addedFiltersList.add(new FilterUntil(controller.getFilter()));
+				Filter toAdd = new FilterUntil(controller.getFilter());
+				toAdd.setExtraction(extraction);
+				addedFiltersList.add(toAdd);
 			}
 			
 		} catch (IOException e) {
@@ -468,7 +477,9 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			if (controller.getFilter() != null&&controller.getFilter().getMentionList()!=null&&!controller.getFilter().getMentionList().isEmpty()) {
-				addedFiltersList.add(new FilterMention(controller.getFilter()));
+				Filter toAdd = new FilterMention(controller.getFilter());
+				toAdd.setExtraction(extraction);
+				addedFiltersList.add(toAdd);
 			}
 			
 		} catch (IOException e) {
@@ -495,7 +506,9 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			if (controller.getFilter() != null&&controller.getFilter().getNickName()!=null&&!controller.getFilter().getNickName().isEmpty()) {
-				addedFiltersList.add(new FilterFrom(controller.getFilter()));
+				Filter toAdd = new FilterFrom(controller.getFilter());
+				toAdd.setExtraction(extraction);
+				addedFiltersList.add(toAdd);
 			}
 			
 		} catch (IOException e) {
@@ -522,7 +535,9 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			if (controller.getFilter() != null&&controller.getFilter().getNickName()!=null&&!controller.getFilter().getNickName().isEmpty()) {
-				addedFiltersList.add(new FilterTo(controller.getFilter()));
+				Filter toAdd = new FilterTo(controller.getFilter());
+				toAdd.setExtraction(extraction);
+				addedFiltersList.add(toAdd);
 			}
 			
 		} catch (IOException e) {
@@ -549,7 +564,9 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			if (controller.getFilter() != null&&controller.getFilter().getHashtagList()!=null&&!controller.getFilter().getHashtagList().isEmpty()) {
-				addedFiltersList.add(new FilterHashtag(controller.getFilter()));
+				Filter toAdd = new FilterHashtag(controller.getFilter());
+				toAdd.setExtraction(extraction);
+				addedFiltersList.add(toAdd);
 			}
 			
 		} catch (IOException e) {
@@ -576,7 +593,9 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			if (controller.getFilter() != null&&controller.getFilter().getUrl()!=null&&!controller.getFilter().getUrl().isEmpty()) {
-				addedFiltersList.add(new FilterUrl(controller.getFilter()));
+				Filter toAdd = new FilterUrl(controller.getFilter());
+				toAdd.setExtraction(extraction);
+				addedFiltersList.add(toAdd);
 			}
 			
 		} catch (IOException e) {
@@ -602,7 +621,9 @@ public class QueryConstructorControl extends TweetExtractorFXController{
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			if (controller.getFilter() != null&& controller.getFilter().getAccount() !=null && !controller.getFilter().getAccount().isEmpty()&&controller.getFilter().getListName()!=null&&!controller.getFilter().getListName().isEmpty()) {
-				addedFiltersList.add(new FilterList(controller.getFilter()));
+				Filter toAdd = new FilterList(controller.getFilter());
+				toAdd.setExtraction(extraction);
+				addedFiltersList.add(toAdd);
 			}
 			
 		} catch (IOException e) {

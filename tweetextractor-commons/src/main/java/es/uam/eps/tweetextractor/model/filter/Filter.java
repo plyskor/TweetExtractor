@@ -3,6 +3,8 @@
  */
 package es.uam.eps.tweetextractor.model.filter;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -15,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
@@ -23,6 +26,7 @@ import es.uam.eps.tweetextractor.model.Constants.FilterTypes;
 import es.uam.eps.tweetextractor.model.Extraction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+@NamedQuery(name="findFiltersByExtraction", query="SELECT f FROM Filter f WHERE f.extraction=:extraction")
 
 /**
  * @author Jose Antonio García del Saz
@@ -32,7 +36,10 @@ import javafx.beans.property.StringProperty;
 @Table(name="perm_filter")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "filter_type",length=6, discriminatorType = DiscriminatorType.STRING)
-public abstract class Filter {
+public abstract class Filter implements Serializable{
+	@XmlTransient
+	@Transient
+	private static final long serialVersionUID = 553818279831327556L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "identifier")

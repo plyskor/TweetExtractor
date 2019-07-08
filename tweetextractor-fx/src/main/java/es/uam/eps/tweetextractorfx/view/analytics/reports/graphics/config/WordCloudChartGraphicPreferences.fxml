@@ -110,7 +110,7 @@
                                                    <children>
                                                       <StackPane layoutX="152.25" layoutY="20.0" prefHeight="57.0" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <Slider fx:id="minimumFontSizeSlider" blockIncrement="1.0" majorTickUnit="5.0" max="80.0" min="8.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
+                                                            <Slider fx:id="minimumFontSizeSlider" blockIncrement="1.0" majorTickUnit="5.0" max="80.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
                                                          </children>
                                                       </StackPane>
                                                    </children>

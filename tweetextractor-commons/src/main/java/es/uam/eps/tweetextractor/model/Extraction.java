@@ -83,7 +83,7 @@ public class Extraction implements Serializable {
 	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="extraction")
 	private List<Tweet> tweetList;
-	@OneToMany(fetch=FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="extraction")
+	@OneToMany(fetch=FetchType.EAGER,cascade = {CascadeType.ALL},mappedBy="extraction")
 	@XmlTransient
 	private List<Filter> filterList;
 	@Transient

@@ -29,7 +29,11 @@ public class CreateExtractionTask extends TweetExtractorFXTask<Integer>{
 	protected Integer call() throws Exception {
 		if(this.extraction==null)return -1;
 		ExtractionServiceInterface extractionService = springContext.getBean(ExtractionServiceInterface.class);
-		extractionService.persist(extraction);
+		try {
+			extractionService.persist(extraction);
+		}catch(Exception e) {
+			throw(e);
+		}
 		logger.info("Extraction with id:"+ extraction.getIdDB()+ " has been succesfully created in database.");
 		return 0;
 	}

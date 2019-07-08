@@ -8,6 +8,8 @@ import java.io.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import es.uam.eps.tweetextractor.dao.service.inter.TweetServiceInterface;
 import es.uam.eps.tweetextractor.model.Constants;
 import es.uam.eps.tweetextractor.model.Extraction;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
@@ -21,6 +23,7 @@ public class ExportExtractionTask extends TweetExtractorFXTask<Integer>{
 	private File file;
 	private String message=null;
 	private Logger logger = LoggerFactory.getLogger(ExportExtractionTask.class);
+	private TweetServiceInterface tServ;
 	/**
 	 * @param springContext the spring context to set
 	 * @param extraction the extraction to set
@@ -30,6 +33,7 @@ public class ExportExtractionTask extends TweetExtractorFXTask<Integer>{
 		super(springContext);
 		this.extraction = extraction;
 		this.file = file;
+		tServ=this.springContext.getBean(TweetServiceInterface.class);
 	}
 
 
@@ -37,6 +41,7 @@ public class ExportExtractionTask extends TweetExtractorFXTask<Integer>{
 	protected Integer call() throws Exception {
 		if (file!=null&&extraction!=null) {
 			logger.info("Exporting extraction "+extraction.getIdDB()+" to file "+file.getCanonicalPath()+" ...");
+			this.extraction.setTweetList(tServ.findByExtraction(extraction));
 			try {
 				XMLManager.saveTweetListToFile(extraction, file);
 			} catch (Exception e) {
