@@ -27,7 +27,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="twitter:site" content="@EclipseFdn"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Eclipse downloads - Select a mirror | The Eclipse Foundation"/>
-<meta name="twitter:url" content="https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe"/>
+<meta name="twitter:url" content="https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe"/>
 <meta name="twitter:description" content="The Eclipse Foundation - home to a global community, the Eclipse IDE, Jakarta EE and over 350 open source projects, including runtimes, tools and frameworks."/>
 <meta name="twitter:image" content="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-400x400.png"/>
 <style>.featured-story-block-content:before {background-image:url(//www.eclipse.org/home/images/background_ece219.jpg);}</style><link href="/downloads/assets/public/stylesheets/mirror.min.css" media="screen" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Libre+Franklin:400,700,300,600,100" rel="stylesheet" type="text/css"/>
@@ -107,10 +107,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="row">
     <div class="col-md-24">
       <div class="mirror-well text-center">
-        <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1260" class="btn btn-warning margin-bottom-15 btn-lg"><i class="fa fa-download"></i> Download</a>
+        <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1190" class="btn btn-warning margin-bottom-15 btn-lg"><i class="fa fa-download"></i> Download</a>
         
-        <p><strong>Download from:</strong>  Denmark - dotsrc.org (http)</p>
-        <p><strong>File:</strong> <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1260" class="orange">eclipse-inst-win64.exe</a> <a  class="btn btn-ajax-checksum btn-xs btn-default" data-checksum-file="/oomph/epp/2019-09/R/eclipse-inst-win64.exe" data-checksum-type="sha512" data-toggle="tab" role="tab" aria-controls="settings" href="#btn-ajax-checksum-sha512">SHA-512</a></p>
+        <p><strong>Download from:</strong>  Germany - University of Erlangen-Nuremberg (http)</p>
+        <p><strong>File:</strong> <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1190" class="orange">eclipse-inst-win32.exe</a> <a  class="btn btn-ajax-checksum btn-xs btn-default" data-checksum-file="/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe" data-checksum-type="sha512" data-toggle="tab" role="tab" aria-controls="settings" href="#btn-ajax-checksum-sha512">SHA-512</a></p>
                   <div class="tab-content">
           <div id="btn-ajax-checksum-sha512" class="tab-pane fade" role="tabpanel">
             <div class="well well-sha512">
@@ -128,75 +128,75 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="mirror-continent mirror-section-1">
         <h3>Europe</h3>
         <ul class="list-unstyled">
-          <li class="margin-bottom-10">Germany - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1045" target="">RWTH Aachen University</a></li>
-<li class="margin-bottom-10">Croatia (Hrvatska) - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1188" target="">University of Rijeka</a></li>
-<li class="margin-bottom-10">Netherlands - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1186" target="">SNT, University of Twente</a></li>
-<li class="margin-bottom-10">Germany - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1190" target="">University of Erlangen-Nuremberg</a></li>
-<li class="margin-bottom-10">Sweden - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1156" target="">Academic Computer Club, Umea University</a></li>
-<li class="margin-bottom-10">France - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1208" target="">CNRS IBCP</a></li>
-<li class="margin-bottom-10">Germany - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=17" target="">University of Applied Sciences Esslingen</a></li>
-<li class="margin-bottom-10">Turkey - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1163" target="">Linux Kullanicilari Dernegi</a></li>
-<li class="margin-bottom-10">Italy - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1039" target="">GARR</a></li>
-<li class="margin-bottom-10">Czech Republic - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1099" target="">UPC Ceska republika, a.s.</a></li>
-<li class="margin-bottom-10">United Kingdom - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=96" target="">UK Mirror Service</a></li>
-<li class="margin-bottom-10">Russian Federation - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1029" target="">Tomsk State Pedagogical University</a></li>
-<li class="margin-bottom-10">Netherlands - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1285" target="">LiteServer</a></li>
-<li class="margin-bottom-10">Czech Republic - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1196" target="">CZ.NIC</a></li>
+          <li class="margin-bottom-10">France - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1208" target="">CNRS IBCP</a></li>
+<li class="margin-bottom-10">Sweden - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1156" target="">Academic Computer Club, Umea University</a></li>
+<li class="margin-bottom-10">Denmark - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1260" target="">dotsrc.org</a></li>
+<li class="margin-bottom-10">Germany - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1045" target="">RWTH Aachen University</a></li>
+<li class="margin-bottom-10">Netherlands - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1186" target="">SNT, University of Twente</a></li>
+<li class="margin-bottom-10">Germany - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=17" target="">University of Applied Sciences Esslingen</a></li>
+<li class="margin-bottom-10">Croatia (Hrvatska) - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1188" target="">University of Rijeka</a></li>
+<li class="margin-bottom-10">Italy - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1039" target="">GARR</a></li>
+<li class="margin-bottom-10">Turkey - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1163" target="">Linux Kullanicilari Dernegi</a></li>
+<li class="margin-bottom-10">Czech Republic - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1099" target="">UPC Ceska republika, a.s.</a></li>
+<li class="margin-bottom-10">Russian Federation - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1029" target="">Tomsk State Pedagogical University</a></li>
+<li class="margin-bottom-10">United Kingdom - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=96" target="">UK Mirror Service</a></li>
+<li class="margin-bottom-10">Netherlands - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1285" target="">LiteServer</a></li>
+<li class="margin-bottom-10">Czech Republic - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1196" target="">CZ.NIC</a></li>
        </ul>
       </div>
                 <div class="mirror-continent mirror-section-2">
         <h3>North America</h3>
         <ul class="list-unstyled">
-          <li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=454" target="">Columbia University</a></li>
-<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=272" target="">OSU Open Source Lab</a></li>
-<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=518" target="">XMission Internet</a></li>
-<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1264" target="">Syringa Networks</a></li>
-<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=504" target="">Virginia Tech</a></li>
-<li class="margin-bottom-10">Canada - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1135" target="">Rafal Rzeczkowski</a></li>
-<li class="margin-bottom-10">Canada - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=492" target="">University of Waterloo Computer Science Club</a></li>
-<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1281" target="">University of Maryland</a></li>
-<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1249" target="">Princeton University Mathematics</a></li>
-<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=187" target="">ibiblio</a></li>
-<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=346" target="">Indiana University</a></li>
-<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=337" target="">Georgia Tech Software Library</a></li>
-<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1270" target="">Yocto Project</a></li>
+          <li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=454" target="">Columbia University</a></li>
+<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=272" target="">OSU Open Source Lab</a></li>
+<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1264" target="">Syringa Networks</a></li>
+<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=518" target="">XMission Internet</a></li>
+<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=504" target="">Virginia Tech</a></li>
+<li class="margin-bottom-10">Canada - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=492" target="">University of Waterloo Computer Science Club</a></li>
+<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1281" target="">University of Maryland</a></li>
+<li class="margin-bottom-10">Canada - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1135" target="">Rafal Rzeczkowski</a></li>
+<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1249" target="">Princeton University Mathematics</a></li>
+<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=187" target="">ibiblio</a></li>
+<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=346" target="">Indiana University</a></li>
+<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=337" target="">Georgia Tech Software Library</a></li>
+<li class="margin-bottom-10">United States - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1270" target="">Yocto Project</a></li>
        </ul>
       </div>
                 <div class="mirror-continent mirror-section-3">
         <h3>Asia</h3>
         <ul class="list-unstyled">
-          <li class="margin-bottom-10">Japan - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=105" target="">Japan Advanced Institute of Science and Technology</a></li>
-<li class="margin-bottom-10">China - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1142" target="">Dalian Neusoft University of Information (大连东软信息学院)</a></li>
-<li class="margin-bottom-10">Japan - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1248" target="">Yamagata University</a></li>
-<li class="margin-bottom-10">Philippines - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1222" target="">RISE</a></li>
-<li class="margin-bottom-10">Korea, Republic Of - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1211" target="">Daum Kakao Corp.</a></li>
-<li class="margin-bottom-10">Korea, Republic Of - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1273" target="">Kakao Corp.</a></li>
-<li class="margin-bottom-10">India - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1282" target="">Esto Internet</a></li>
-<li class="margin-bottom-10">Korea, Republic Of - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1272" target="">Harukasan</a></li>
-<li class="margin-bottom-10">China - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1275" target="">TUNA</a></li>
-<li class="margin-bottom-10">China - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1093" target="">University of Science and Technology of China</a></li>
-<li class="margin-bottom-10">Cyprus - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1255" target="">University of Cyprus, Library</a></li>
+          <li class="margin-bottom-10">Japan - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=105" target="">Japan Advanced Institute of Science and Technology</a></li>
+<li class="margin-bottom-10">Japan - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1248" target="">Yamagata University</a></li>
+<li class="margin-bottom-10">China - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1142" target="">Dalian Neusoft University of Information (大连东软信息学院)</a></li>
+<li class="margin-bottom-10">Philippines - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1222" target="">RISE</a></li>
+<li class="margin-bottom-10">Korea, Republic Of - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1211" target="">Daum Kakao Corp.</a></li>
+<li class="margin-bottom-10">Korea, Republic Of - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1273" target="">Kakao Corp.</a></li>
+<li class="margin-bottom-10">India - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1282" target="">Esto Internet</a></li>
+<li class="margin-bottom-10">Korea, Republic Of - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1272" target="">Harukasan</a></li>
+<li class="margin-bottom-10">China - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1275" target="">TUNA</a></li>
+<li class="margin-bottom-10">China - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1093" target="">University of Science and Technology of China</a></li>
+<li class="margin-bottom-10">Cyprus - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1255" target="">University of Cyprus, Library</a></li>
        </ul>
       </div>
                 <div class="mirror-continent mirror-section-4">
         <h3>Africa</h3>
         <ul class="list-unstyled">
-          <li class="margin-bottom-10">South Africa - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1068" target="">University of the Free State</a></li>
+          <li class="margin-bottom-10">South Africa - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1068" target="">University of the Free State</a></li>
        </ul>
       </div>
                 <div class="mirror-continent mirror-section-5">
         <h3>Australia/Oceania</h3>
         <ul class="list-unstyled">
-          <li class="margin-bottom-10">Australia - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1221" target="">iiNet Limited</a></li>
-<li class="margin-bottom-10">New Caledonia - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1210" target="">LAGOON</a></li>
-<li class="margin-bottom-10">Australia - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1051" target="">Australian Academic Research Network</a></li>
+          <li class="margin-bottom-10">Australia - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1221" target="">iiNet Limited</a></li>
+<li class="margin-bottom-10">New Caledonia - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1210" target="">LAGOON</a></li>
+<li class="margin-bottom-10">Australia - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1051" target="">Australian Academic Research Network</a></li>
        </ul>
       </div>
                 <div class="mirror-continent mirror-section-6">
         <h3>South America</h3>
         <ul class="list-unstyled">
-          <li class="margin-bottom-10">Brazil - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=576" target="">C3SL - Federal University of Parana</a></li>
-<li class="margin-bottom-10">Uruguay - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1278" target="">Facultad de Derecho - UdelaR</a></li>
+          <li class="margin-bottom-10">Brazil - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=576" target="">C3SL - Federal University of Parana</a></li>
+<li class="margin-bottom-10">Uruguay - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1278" target="">Facultad de Derecho - UdelaR</a></li>
        </ul>
       </div>
         <a class="btn btn-sm btn-primary" id="show_all_mirrors" href="#show_all_mirrors">Show all</a>
@@ -204,7 +204,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="choose-mirror">
     <h3>Main Download Site</h3>
     <ul class="list-unstyled">
-      <li>Canada - <a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&mirror_id=1">Main eclipse.org downloads area</a></li>
+      <li>Canada - <a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&mirror_id=1">Main eclipse.org downloads area</a></li>
     </ul>
   </div>
             </div>
@@ -214,90 +214,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
   <div class="row">
     <div class="download-faster col-md-24">
-                      <h2 class="mirror-members-h2"><strong>OR</strong> Get It Faster from our Members</h2>
-      <div class="row">
-                <div class="col-sm-8 text-center">
-        <div class="mirror-well">
-          <p><a href="http://eclipse.org/go/DISTRO_IBM@INSTALLER-WIN64">
-            <img class="mirror-logo" src="distros/images/ibm-cloud-logo.jpg"/>
-          </a></p>
-          <h3 class="mirror-members-h3">
-            <a href="http://eclipse.org/go/DISTRO_IBM@INSTALLER-WIN64">IBM</a>
-          </h3>
-          <p>Blazingly fast downloads hosted by IBM Cloud.</p>
-
-          <p><a href="http://eclipse.org/go/DISTRO_IBM@INSTALLER-WIN64" class="btn btn-warning btn-xs">Get it</a></p>
-
-        </div>
-      </div>
-                <div class="col-sm-8 text-center">
-        <div class="mirror-well">
-          <p><a href="http://eclipse.org/go/DISTROS_OBEO@INSTALLER-WIN64">
-            <img class="mirror-logo" src="distros/images/obeo.png"/>
-          </a></p>
-          <h3 class="mirror-members-h3">
-            <a href="http://eclipse.org/go/DISTROS_OBEO@INSTALLER-WIN64">Obeo</a>
-          </h3>
-          <p>Fast downloads hosted<br />by Eclipse experts.</p>
-
-          <p><a href="http://eclipse.org/go/DISTROS_OBEO@INSTALLER-WIN64" class="btn btn-warning btn-xs">Get it</a></p>
-
-        </div>
-      </div>
-                <div class="col-sm-8 text-center">
-        <div class="mirror-well">
-          <p><a href="http://eclipse.org/go/BLUAGE_DISTRO@INSTALLER-WIN64">
-            <img class="mirror-logo" src="distros/images/ba_legacy_110x80_opt.jpg"/>
-          </a></p>
-          <h3 class="mirror-members-h3">
-            <a href="http://eclipse.org/go/BLUAGE_DISTRO@INSTALLER-WIN64">BLU AGE</a>
-          </h3>
-          <p>Free and fast direct Eclipse downloads. Get more BLU AG...</p>
-
-          <p><a href="http://eclipse.org/go/BLUAGE_DISTRO@INSTALLER-WIN64" class="btn btn-warning btn-xs">Get it</a></p>
-
-        </div>
-      </div>
-                <div class="col-sm-8 text-center">
-        <div class="mirror-well">
-          <p><a href="http://eclipse.org/go/DISTRO_GENUITEC_INDIGO@INSTALLER-WIN64">
-            <img class="mirror-logo" src="distros/images/genuitec.png"/>
-          </a></p>
-          <h3 class="mirror-members-h3">
-            <a href="http://eclipse.org/go/DISTRO_GENUITEC_INDIGO@INSTALLER-WIN64">Genuitec</a>
-          </h3>
-          <p>Native installers for all OS platforms, lightning fast ...</p>
-
-          <p><a href="http://eclipse.org/go/DISTRO_GENUITEC_INDIGO@INSTALLER-WIN64" class="btn btn-warning btn-xs">Get it</a></p>
-
-        </div>
-      </div>
-                <div class="col-sm-8 text-center">
-        <div class="mirror-well">
-          <p><a href="http://eclipse.org/go/DISTRO_YATTA@INSTALLER-WIN64">
-            <img class="mirror-logo" src="distros/images/yatta_64_64.png"/>
-          </a></p>
-          <h3 class="mirror-members-h3">
-            <a href="http://eclipse.org/go/DISTRO_YATTA@INSTALLER-WIN64">Yatta Solutions GmbH</a>
-          </h3>
-          <p>Take the shortcut to Eclipse now! Save and share your E...</p>
-
-          <p><a href="http://eclipse.org/go/DISTRO_YATTA@INSTALLER-WIN64" class="btn btn-warning btn-xs">Get it</a></p>
-
-        </div>
-      </div>
-        </div>
-            </div>
+                </div>
   </div>
 </div>
 <div id="rightcolumn" class="col-sm-6">
   <div class="padding-top-10 padding-bottom-30">
-    <div class="eclipsefnd-ad ad-strategic ad-strategic-default"><a href="/go/IBM_JAZZ?impression_id=8778454ddd7f60e9eab157b5efef639334c0f086f96615c2ebbe69d1c" rel="nofollow" style="background-image: url('/membership/promo/images/ibm200x200-ibm_cloud.jpg')">IBM</a></div>  </div>
+    <div class="eclipsefnd-ad ad-strategic ad-strategic-default"><a href="/go/PROMO_SAP?impression_id=5efb8f725be6f1ae773a7bfcda1e4bdf76a9ddbd2fdf" rel="nofollow" style="background-image: url('/membership/promo/images/sap200x200.jpg')">SAP</a></div>  </div>
   <div class="sideitem">
     <h6>Other options for this file</h6>
     <ul>
-      <li><a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe">All mirrors</a> (<a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&format=xml">xml</a>)</li>
-      <li><a href="download.php?file=/oomph/epp/2019-09/R/eclipse-inst-win64.exe&r=1">Direct link to file</a> (download starts immediately from best mirror)</li>
+      <li><a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe">All mirrors</a> (<a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&format=xml">xml</a>)</li>
+      <li><a href="download.php?file=/oomph/epp/2018-09/Ra/eclipse-inst-win32.exe&r=1">Direct link to file</a> (download starts immediately from best mirror)</li>
     </ul>
   </div>
   <div class="sideitem">
